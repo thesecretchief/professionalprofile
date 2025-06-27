@@ -1,155 +1,152 @@
-<!DOCTYPE html>
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
 
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-  <meta charset="UTF-8">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Lee Foropoulos - Human Design Profile</title>
-
-  <script src="https://cdn.tailwindcss.com"></script>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lee Foropoulos - Human Design Profile</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .gradient-text {
+      background: linear-gradient(90deg, #4b5bd1, #8e44ad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .chart-container {
+      max-width: 600px;
+      margin: 0 auto;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+  </style>
 </head>
-
-<body class="bg-gray-50">
-
-  <!-- Header -->
-
-  <header class="bg-indigo-900 text-white py-8">
-
-    <div class="max-w-7xl mx-auto px-4 text-center">
-
-      <h1 className="text-4xl font-bold">Lee Steven Foropoulos</h1>
-
-      <p class="text-xl mt-2">Discover Your Path with Human Design</p>
-
-      <p class="mt-4">Unlock your unique blueprint for success and fulfillment</p>
-
-    </div>
-
-  </header>
-
-  
-
-  <!-- Human Design Profile Section -->
-
-  <section class="py-12 bg-gray-100">
-
-    <div class="max-w-7xl mx-auto px-4">
-
-      <h2 class="text-3xl font-semibold text-center mb-8">My Human Design Profile</h2>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-        <div class="bg-white p-6 rounded-lg shadow-md">
-
-          <h3 class="text-xl font-semibold mb-4">Core Attributes</h3>
-
-          <ul class="text-gray-700 space-y-2">
-
-            <li><strong>Type:</strong> Manifesting Generator</li>
-
-            <li><strong>Strategy:</strong> To Respond</li>
-
-            <li><strong>Inner Authority:</strong> Emotional - Solar Plexus</li>
-
-            <li><strong>Definition:</strong> Split Definition</li>
-
-            <li><strong>Profile:</strong> 6/2 (Role Model/Hermit)</li>
-
-          </ul>
-
-        </div>
-
-        <div class="bg-white p-6 rounded-lg shadow-md">
-
-          <h3 class="text-xl font-semibold mb-4">Life Purpose</h3>
-
-          <ul class="text-gray-700 space-y-2">
-
-            <li><strong>Incarnation Cross:</strong> Left Angle Cross of Industry (29/30 | 20/34)</li>
-
-            <li><strong>Signature:</strong> Satisfaction</li>
-
-            <li><strong>Not-Self Theme:</strong> Frustration</li>
-
-          </ul>
-
-        </div>
-
-        <div class="bg-white p-6 rounded-lg shadow-md">
-
-          <h3 class="text-xl font-semibold mb-4">Unique Traits</h3>
-
-          <ul class="text-gray-700 space-y-2">
-
-            <li><strong>Digestion:</strong> Open</li>
-
-            <li><strong>Design Sense:</strong> Outer Vision</li>
-
-            <li><strong>Motivation:</strong> Fear</li>
-
-            <li><strong>Perspective:</strong> Power</li>
-
-            <li><strong>Environment:</strong> Mountains</li>
-
-          </ul>
-
-        </div>
-
-        <div class="bg-white p-6 rounded-lg shadow-md">
-
-          <h3 class="text-xl font-semibold mb-4">Gates & Channels</h3>
-
-          <p class="text-gray-700"><strong>Gates:</strong> 4, 6, 15, 20, 26, 29, 30, 32, 34, 35, 39, 40, 43, 47, 49, 57, 58, 59, 64</p>
-
-          <p class="text-gray-700 mt-2"><strong>Channels:</strong> 64-47 (Abstract Thinking), 57-20 (Intuition to Expression), 20-34 (Charisma), 57-34 (Power through Intuition), 59-6 (Intimacy and Bonding)</p>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-  
-
-  <!-- Call to Action Section -->
-
-  <section class="py-12 bg-indigo-700 text-white text-center">
-
-    <div class="max-w-7xl mx-auto px-4">
-
-      <h2 class="text-3xl font-semibold mb-4">Ready to Discover Your Human Design?</h2>
-
-      <p class="text-lg mb-6">As a Manifesting Generator with a 6/2 Profile, I bring intuitive clarity, emotional depth, and a commitment to transformative growth. Let me guide you through your unique Human Design chart to unlock your potential.</p>
-
-      <a href="mailto:contact@leeforopoulos.com" class="inline-block bg-white text-indigo-700 font-semibold py-3 px-6 rounded-lg hover:bg-gray-200 transition">Contact Me Today</a>
-
-    </div>
-
-  </section>
-
-  
-
-  <!-- Footer -->
-
-  <footer class="bg-gray-800 text-white py-6">
-
-    <div class="max-w-7xl mx-auto px-4 text-center">
-
-      <p>© 2025 Lee Steven Foropoulos. All rights reserved.</p>
-
-      <p class="mt-2">Connect: <a href="mailto:contact@leeforopoulos.com" class="underline">contact@leeforopoulos.com</a></p>
-
-    </div>
-
-  </footer>
-
+<body class="bg-gradient-to-br from-gray-100 to-white font-sans">
+  <!-- Header -->
+  <header class="bg-indigo-900 text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <h1 class="text-5xl font-extrabold gradient-text">Lee Steven Foropoulos</h1>
+      <p class="text-2xl mt-4">Unveiling My Human Design Blueprint</p>
+      <p class="mt-6 text-lg max-w-3xl mx-auto">Leverage my unique strengths as a Manifesting Generator to empower your team. Explore my profile to understand how my intuitive leadership and strategic vision can drive success in your organization.</p>
+    </div>
+  </header>
+
+  <!-- Introduction Section -->
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <h2 class="text-4xl font-semibold text-gray-800 mb-6">What is Human Design?</h2>
+      <p class="text-lg text-gray-600 leading-relaxed max-w-4xl mx-auto">
+        Human Design is a sophisticated system that integrates principles from astrology, the I Ching, Kabbalah, the Hindu-Brahmin chakra system, and quantum mechanics to create a personalized energetic blueprint. It reveals an individual's innate strengths, decision-making strategies, and life purpose, offering a framework to align personal and professional endeavors with natural tendencies. Developed by Ra Uru Hu in 1987, this system provides insights into how one interacts with the world, processes information, and thrives in specific environments. For professionals, understanding Human Design can enhance self-awareness, improve team dynamics, and optimize leadership styles—making it a valuable tool in job interviews and career development.
+      </p>
+      <p class="mt-6 text-lg text-gray-600">
+        Discover your own Human Design chart by visiting <a href="https://www.mybodygraph.com/" target="_blank" class="text-indigo-600 hover:underline font-medium">mybodygraph.com</a>. Simply enter your birth date, time, and location to unlock your unique profile!
+      </p>
+    </div>
+  </section>
+
+  <!-- Human Design Profile Section -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-4xl font-semibold text-center text-gray-800 mb-10">My Human Design Chart</h2>
+      <div class="flex flex-col md:flex-row items-center justify-center gap-10">
+        <!-- Chart Image -->
+        <div class="chart-container">
+          <img src="https://imgur.com/a/LYWYySf" alt="Lee Foropoulos Human Design Chart" class="w-full rounded-lg" onerror="this.src='https://imgur.com/a/LYWYySf';">
+        </div>
+        <!-- Profile Details -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 md:mt-0">
+          <div class="bg-white p-6 rounded-lg shadow-lg">
+            <h3 class="text-2xl font-semibold text-indigo-700 mb-4">Core Attributes</h3>
+            <ul class="text-gray-700 space-y-3">
+              <li><strong>Type:</strong> Manifesting Generator – A dynamic, multi-talented energy type designed to respond to opportunities with sustained effort and adaptability.</li>
+              <li><strong>Strategy:</strong> To Respond – I thrive by waiting for external cues before acting, ensuring alignment with my natural flow.</li>
+              <li><strong>Inner Authority:</strong> Emotional - Solar Plexus – Decisions are best made after allowing emotional clarity to emerge over time.</li>
+              <li><strong>Definition:</strong> Split Definition – My energy centers are divided, fostering collaboration and a drive to connect with others.</li>
+              <li><strong>Profile:</strong> 6/2 (Role Model/Hermit) – A life path of evolving wisdom, balancing public leadership with private reflection.</li>
+            </ul>
+          </div>
+          <div class="bg-white p-6 rounded-lg shadow-lg">
+            <h3 class="text-2xl font-semibold text-indigo-700 mb-4">Life Purpose & Dynamics</h3>
+            <ul class="text-gray-700 space-y-3">
+              <li><strong>Incarnation Cross:</strong> Left Angle Cross of Industry (29/30 | 20/34) – My purpose centers on commitment and impactful work for collective progress.</li>
+              <li><strong>Signature:</strong> Satisfaction – Alignment with my design brings a deep sense of fulfillment.</li>
+              <li><strong>Not-Self Theme:</strong> Frustration – Misalignment occurs when I initiate without responding or rush decisions.</li>
+            </ul>
+          </div>
+          <div class="bg-white p-6 rounded-lg shadow-lg">
+            <h3 class="text-2xl font-semibold text-indigo-700 mb-4">Unique Traits</h3>
+            <ul class="text-gray-700 space-y-3">
+              <li><strong>Digestion:</strong> Open – Flexible processing of information and experiences, requiring consistency for optimal energy.</li>
+              <li><strong>Design Sense:</strong> Outer Vision – A keen ability to observe external patterns, enhancing strategic insight.</li>
+              <li><strong>Motivation:</strong> Fear – Driven to mitigate risks, fostering thorough preparation and security-focused actions.</li>
+              <li><strong>Perspective:</strong> Power – I view the world through a lens of influence and leadership, shaping outcomes effectively.</li>
+              <li><strong>Environment:</strong> Mountains – I thrive in elevated, quiet spaces that offer perspective and solitude.</li>
+            </ul>
+          </div>
+          <div class="bg-white p-6 rounded-lg shadow-lg">
+            <h3 class="text-2xl font-semibold text-indigo-700 mb-4">Gates & Channels</h3>
+            <p class="text-gray-700"><strong>Gates:</strong> 4, 6, 15, 20, 26, 29, 30, 32, 34, 35, 39, 40, 43, 47, 49, 57, 58, 59, 64 – A rich array of traits including problem-solving, emotional depth, intuition, and transformative action.</p>
+            <p class="text-gray-700 mt-2"><strong>Channels:</strong> 64-47 (Abstract Thinking), 57-20 (Intuition to Expression), 20-34 (Charisma), 57-34 (Power through Intuition), 59-6 (Intimacy and Bonding) – Highlighting strengths in insight, communication, and relationship-building.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action Section -->
+  <section class="py-16 bg-indigo-900 text-white text-center">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-4xl font-semibold mb-6">Leverage My Human Design in Your Team</h2>
+      <p class="text-lg mb-8 max-w-2xl mx-auto">
+        As a Manifesting Generator with a 6/2 Profile, I bring intuitive clarity, emotional intelligence, and a proven ability to lead with impact. My Human Design equips me to enhance team dynamics, align with organizational goals, and drive transformative growth. Let’s discuss how I can contribute to your success.
+      </p>
+      <a href="https://www.upwork.com/freelancers/thesecretchief?mp_source=share" class="inline-block bg-white text-indigo-700 font-semibold py-4 px-8 rounded-full hover:bg-gray-200 transition duration-300">Contact Me for an Interview</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-8 text-center">
+    <div class="max-w-7xl mx-auto px-4">
+      <p>© 2025 Lee Steven Foropoulos. All rights reserved.</p>
+      <p class="mt-2"><a href="https://www.upwork.com/agencies/1699047706469380096/" class="underline hover:text-indigo-300">Greek-Fire Corporation</a></p>
+      <p class="mt-2">Get your own Human Design: <a href="https://www.mybodygraph.com/" target="_blank" class="underline hover:text-indigo-300">mybodygraph.com</a></p>
+    </div>
+  </footer>
 </body>
-
 </html>
