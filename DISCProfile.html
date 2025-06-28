@@ -1,0 +1,155 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lee Foropoulos - DISC Personality Profile</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .gradient-text {
+      background: linear-gradient(90deg, #4b5bd1, #8e44ad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .chart-container {
+      max-width: 600px;
+      margin: 0 auto;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-gray-100 to-white font-sans">
+  <!-- Header -->
+  <header class="bg-indigo-900 text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <h1 class="text-5xl font-extrabold gradient-text">Lee Steven Foropoulos</h1>
+      <p class="text-2xl mt-4">Unveiling My DISC Personality Profile</p>
+      <p class="mt-6 text-lg max-w-3xl mx-auto">Explore my DISC profile to understand how my leadership style, adaptability, and teamwork skills can enhance your organization’s success.</p>
+    </div>
+  </header>
+
+  <!-- Introduction Section -->
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <h2 class="text-4xl font-semibold text-gray-800 mb-6">What is the DISC Assessment?</h2>
+      <p class="mt-6 text-lg text-gray-600">
+        The DISC assessment is a behavioral analysis tool developed by William Moulton Marston, categorizing individuals into four primary personality traits: Dominance, Influence, Steadiness, and Conscientiousness. It provides insights into how I interact with others, approach tasks, and handle challenges, offering a framework to align my professional strengths with organizational needs. Widely used by employers, DISC enhances team dynamics and leadership effectiveness, making it a valuable tool for career development.
+      </p>
+      <p class="mt-6 text-lg text-gray-600">
+        Take your own DISC assessment to discover your personality profile at <a href="https://www.123test.com/disc-personality-test/#its123-testAnchor" target="_blank" class="text-indigo-600 hover:underline font-medium">123test.com</a>. Complete the free test to unlock your unique insights!
+      </p>
+    </div>
+  </section>
+
+  <!-- DISC Profile Section -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-4xl font-semibold text-center text-gray-800 mb-10">My DISC Profile</h2>
+      <div class="flex flex-col md:flex-row items-center justify-center gap-10">
+        <!-- Profile Details -->
+        <div class="grid grid-cols-1 md:grid-cols-1 gap-6 mt-6 md:mt-0">
+          <!-- Chart Image -->
+          <div class="chart-container">
+            <img src="DISC_Chart.png" alt="Lee Foropoulos DISC Chart" class="w-full rounded-lg" style="width: 200%; transform-origin: top left;" onerror="this.src='https://via.placeholder.com/600x600.png?text=Chart+Not+Loaded';" />
+          </div>
+          <!-- Profile Details -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 md:mt-0">
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+              <h3 class="text-2xl font-semibold text-indigo-700 mb-4">DISC Overview</h3>
+              <p class="text-gray-700">Based on my DISC assessment, I scored a 4.7 out of 10, suggesting a balanced profile with a slight lean toward certain traits. The DISC model evaluates four dimensions—Dominance, Influence, Steadiness, and Conscientiousness—each reflecting how I approach challenges, interact with others, maintain pace, and handle tasks. My score indicates a versatile personality, adaptable across various professional contexts, with notable strengths in leadership, collaboration, and reliability.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+              <h3 class="text-2xl font-semibold text-indigo-700 mb-4">Trait Breakdown</h3>
+              <div class="mb-4">
+                <h4 class="text-xl font-semibold text-indigo-600">Dominance (D): Assertive Leadership</h4>
+                <p class="text-gray-700">My score suggests a moderate Dominance trait, where I exhibit <strong>assertive leadership qualities</strong> by taking charge in challenging situations. I am decisive and confident, driving projects forward with a focus on results, which is evident in my ability to lead teams and manage high-pressure tasks effectively.</p>
+              </div>
+              <div class="mb-4">
+                <h4 class="text-xl font-semibold text-indigo-600">Influence (I): Collaborative Communication</h4>
+                <p class="text-gray-700">With a balanced Influence score, I bring <strong>collaborative leadership qualities</strong> through my ability to inspire and motivate others. I communicate effectively, fostering teamwork and building strong relationships, which enhances group morale and productivity.</p>
+              </div>
+              <div class="mb-4">
+                <h4 class="text-xl font-semibold text-indigo-600">Steadiness (S): Consistent Support</h4>
+                <p class="text-gray-700">My Steadiness trait reflects a <strong>supportive leadership quality</strong>, showing patience and reliability. I provide a stable presence, ensuring team cohesion and supporting long-term goals with a calm, dependable approach.</p>
+              </div>
+              <div>
+                <h4 class="text-xl font-semibold text-indigo-600">Conscientiousness (C): Detail-Oriented Guidance</h4>
+                <p class="text-gray-700">A moderate Conscientiousness score highlights my <strong>guiding leadership quality</strong> through attention to detail and accuracy. I ensure tasks are completed thoroughly, offering structured oversight that aligns with organizational standards.</p>
+              </div>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+              <h3 class="text-2xl font-semibold text-indigo-700 mb-4">Recommended Job Roles</h3>
+              <ul class="text-gray-700 space-y-3">
+                <li><strong>Project Manager</strong> – My leadership and organizational skills align with managing complex projects and teams.</li>
+                <li><strong>Operations Manager</strong> – My adaptability and detail orientation suit overseeing efficient workflows.</li>
+                <li><strong>Team Leader</strong> – My collaborative and supportive nature enhances team performance and morale.</li>
+                <li><strong>Business Consultant</strong> – My strategic insight and influence support advising organizations on growth.</li>
+                <li><strong>Training Coordinator</strong> – My patience and guidance skills are ideal for mentoring and development.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action Section -->
+  <section class="py-16 bg-indigo-900 text-white text-center">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-4xl font-semibold mb-6">Leverage My DISC Profile in Your Team</h2>
+      <p class="text-lg mb-8 max-w-2xl mx-auto">
+        My DISC profile, with its balanced leadership qualities, equips me to enhance team dynamics, drive results, and foster collaboration. Let’s discuss how I can contribute to your organization’s success.
+      </p>
+      <a href="https://www.upwork.com/freelancers/thesecretchief?mp_source=share" class="inline-block bg-white text-indigo-700 font-semibold py-4 px-8 rounded-full hover:bg-gray-200 transition duration-300">Contact Me for an Interview</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-8 text-center">
+    <div class="max-w-7xl mx-auto px-4">
+        <p class="mt-2">Get your own DISC assessment: <a href="https://www.123test.com/disc-personality-test/#its123-testAnchor" target="_blank" class="underline hover:text-indigo-300">123test.com</a></p>
+        <p>© 2025 Lee Steven Foropoulos. All rights reserved.</p>
+        <p class="mt-2"><a href="https://www.upwork.com/agencies/1699047706469380096/" class="underline hover:text-indigo-300">Greek-Fire Corporation</a></p>
+    </div>
+  </footer>
+</body>
+</html>
