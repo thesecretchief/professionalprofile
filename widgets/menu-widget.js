@@ -40,5 +40,12 @@ function createMenuWidget() {
  */
 export function injectMenuWidget() {
     const widget = createMenuWidget();
-    document.body.insertBefore(widget, document.body.firstChild);
+    // Find the div with id="menu-widget"
+    const targetDiv = document.getElementById('menu-widget');
+    if (targetDiv) {
+        targetDiv.replaceWith(widget);
+    } else {
+        // fallback: append to body
+        document.body.prepend(widget);
+    }
 }
