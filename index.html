@@ -42,7 +42,7 @@
   import { injectMenuWidget } from './widgets/menu-widget.js';
   injectMenuWidget();
 </script>
-        <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -52,6 +52,7 @@
   <style>
     .gradient-text {
       background: linear-gradient(90deg, #4b5bd1, #8e44ad);
+      background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -66,6 +67,42 @@
       margin: 0 8px;
     }
   </style>
+  <script type="text/javascript">
+    var gk_isXlsx = false;
+    var gk_xlsxFileLookup = {};
+    var gk_fileData = {};
+    function filledCell(cell) {
+      return cell !== '' && cell != null;
+    }
+    function loadFileData(filename) {
+      if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+        try {
+          var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+          var firstSheetName = workbook.SheetNames[0];
+          var worksheet = workbook.Sheets[firstSheetName];
+          var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+          var filteredData = jsonData.filter(row => row.some(filledCell));
+          var headerRowIndex = filteredData.findIndex((row, index) =>
+            row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+          );
+          if (headerRowIndex === -1 || headerRowIndex > 25) {
+            headerRowIndex = 0;
+          }
+          var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex));
+          csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+          return csv;
+        } catch (e) {
+          console.error(e);
+          return "";
+        }
+      }
+      return gk_fileData[filename] || "";
+    }
+  </script>
+  <script type="module">
+    import { injectMenuWidget } from './widgets/menu-widget.js';
+    injectMenuWidget();
+  </script>
 </head>
 <body class="bg-gradient-to-br from-gray-100 to-white font-sans">
   <!-- Header -->
@@ -74,14 +111,14 @@
       <img src="headshot.png" alt="Lee Foropoulos Headshot" class="w-32 h-38 rounded-full mx-auto mb-4" onerror="this.src='https://via.placeholder.com/128x128.png?text=Headshot+Not+Loaded';">
       <h1 class="text-5xl font-extrabold gradient-text">Lee Steven Foropoulos</h1>
       <p class="text-2xl mt-4">Welcome to My Personal Landing Page</p>
-      <p class="mt-6 text-lg max-w-3xl mx-auto">Embark on a journey with me—a dynamic professional and passionate enthusiast whose love for leadership, fitness, and innovation promises an exciting collaboration. Dive into my world to discover how my diverse skills and vibrant personality can elevate your endeavors.</p>
+      <p class="mt-6 text-lg max-w-3xl mx-auto">
+        Embark on a journey with me—a dynamic professional and passionate enthusiast whose love for leadership, fitness, and innovation promises an exciting collaboration. Dive into my world to discover how my diverse skills and vibrant personality can elevate your endeavors.
+      </p>
     </div>
   </header>
 
+  <div id="menu-widget"></div>
 
-  
-  <div id="menu-widget">  </div>
-  
   <!-- Introduction Section -->
   <section class="py-16 bg-white">
     <div class="max-w-7xl mx-auto px-4 text-center">
@@ -109,34 +146,34 @@
         <p>
           From 2023 forward, my trajectory has pivoted toward business development and fractional leadership. At Lookatmedia™, as US New Business Development Lead, I cultivated client pipelines and fostered pivotal alliances, shaping strategic trajectories and cultural cohesion in nascent markets. Today, as Vice President of Sales and Marketing at Axios Services LLC, I spearhead endeavors in revenue amplification, brand elevation, and interdisciplinary synergy, leveraging a rich tapestry of experience to yield tangible triumphs. Across my career—encompassing domains like the Department of Defense, medical, government, insurance, utilities, aerospace, and shipbuilding—I have collaborated with private organizations, government agencies, nonprofits, and publicly traded companies to refine and elevate workflows. My enduring focus on advancing document management, retention protocols, data governance, and compliance has consistently converted operational hurdles into enduring efficiencies, fostering success in diverse industries.
         </p>
-       
-          <ul>
-            <title>Career Highlights</title>
-<li>
-  Led operations at SouthData across seven departments and over 70 employees, achieving 60%+ profit margins through custom automation systems, real-time production dashboards, and zonal OCR validation that elevated data accuracy to 100%.
-</li>
-<li>
-  As CTO at SixLeaf, managed global teams to scale SaaS platforms for 150,000+ concurrent users, architected CI/CD pipelines with Azure DevOps, and ensured SSAE16-grade compliance while reducing user churn by 60%.
-</li>
-<li>
-  Engineered real-time plant monitoring applications in oil and gas, OCR-based indexing tools for medical and government sectors, and automated workflows that optimized productivity and reduced costs across industries.
-</li>
-<li>
-  Oversaw data migrations, database performance tuning, and architecture design as a DBA, with expertise in MS SQL Server, Access, and flat file systems.
-</li>
-<li>
-  Grew Mobicon Foundation's annual event from $7,000 to $52,000 in revenue, securing nonprofit status and facilitating significant community donations.
-</li>
-<li>
-  Participated in elite programs like Dan Martell’s SaaS Academy, gaining insights into high-performance masterminds, and applied certified personal training and nutrition principles to instill discipline in professional projects.
-  </li>
-</ul>
- <p>
-  With a proven track record in full-stack development (VB.NET, Visual Basic, SQL, Excel Automation), advanced DBA capabilities (MS SQL Server, ADO.NET, Access, Flat File Systems), and CI/CD & DevOps (Azure, Git, Pipelines, QA Workflows), I excel in SaaS infrastructure, subscription management, data migration, and AI workflow integration (ChatGPT, Copilot, Jasper). My leadership extends to program and project management (Agile, Waterfall, Cross-Functional Teams), compliance systems (CMMC, NIST, HIPAA, SSAE16), budget oversight for teams up to 35+ members, SOP development, and strategic planning.
- </p>
- <p>
-Spanning industries such as SaaS, government contracting, medical tech, personal development, fitness, nutrition, AI/ML workflows, and oil & gas, I bring executive-level insight to every engagement. I do not merely write code or manage timelines—I build systems, lead teams, and solve problems end-to-end. If you seek a developer with strategic vision, a DBA attuned to business contexts, or a program manager who executes with speed, integrity, and precision, I am prepared to deliver exceptional results.
- </p>
+        <hr class="my-6 border-t-2 border-gray-300">
+        <h3 class="text-2xl font-semibold text-indigo-700 mb-4">My Career Highlights</h3>
+        <ul>
+          <li>
+            Led operations at SouthData across seven departments and over 70 employees, achieving 60%+ profit margins through custom automation systems, real-time production dashboards, and zonal OCR validation that elevated data accuracy to 100%.
+          </li>
+          <li>
+            As CTO at SixLeaf, managed global teams to scale SaaS platforms for 150,000+ concurrent users, architected CI/CD pipelines with Azure DevOps, and ensured SSAE16-grade compliance while reducing user churn by 60%.
+          </li>
+          <li>
+            Engineered real-time plant monitoring applications in oil and gas, OCR-based indexing tools for medical and government sectors, and automated workflows that optimized productivity and reduced costs across industries.
+          </li>
+          <li>
+            Oversaw data migrations, database performance tuning, and architecture design as a DBA, with expertise in MS SQL Server, Access, and flat file systems.
+          </li>
+          <li>
+            Grew Mobicon Foundation's annual event from $7,000 to $52,000 in revenue, securing nonprofit status and facilitating significant community donations.
+          </li>
+          <li>
+            Participated in elite programs like Dan Martell’s SaaS Academy, gaining insights into high-performance masterminds, and applied certified personal training and nutrition principles to instill discipline in professional projects.
+          </li>
+        </ul>
+        <p>
+          With a proven track record in full-stack development (VB.NET, Visual Basic, SQL, Excel Automation), advanced DBA capabilities (MS SQL Server, ADO.NET, Access, Flat File Systems), and CI/CD & DevOps (Azure, Git, Pipelines, QA Workflows), I excel in SaaS infrastructure, subscription management, data migration, and AI workflow integration (ChatGPT, Copilot, Jasper). My leadership extends to program and project management (Agile, Waterfall, Cross-Functional Teams), compliance systems (CMMC, NIST, HIPAA, SSAE16), budget oversight for teams up to 35+ members, SOP development, and strategic planning.
+        </p>
+        <p>
+          Spanning industries such as SaaS, government contracting, medical tech, personal development, fitness, nutrition, AI/ML workflows, and oil & gas, I bring executive-level insight to every engagement. I do not merely write code or manage timelines—I build systems, lead teams, and solve problems end-to-end. If you seek a developer with strategic vision, a DBA attuned to business contexts, or a program manager who executes with speed, integrity, and precision, I am prepared to deliver exceptional results.
+        </p>
         <hr class="my-6 border-t-2 border-gray-300">
         <h3 class="text-2xl font-semibold text-indigo-700 mb-4">My Personal Passions</h3>
         <p class="mb-4">
@@ -164,9 +201,10 @@ Spanning industries such as SaaS, government contracting, medical tech, personal
   <footer class="bg-gray-800 text-white py-8 text-center">
     <div class="max-w-7xl mx-auto px-4">
       <p class="mt-2">© 2025 Lee Steven Foropoulos. All rights reserved.</p>
-      <p class="mt-2"><a href="https://www.upwork.com/agencies/1699047706469380096/" class="underline hover:text-indigo-300">Greek-Fire Corporation</a></p>
+      <p class="mt-2">
+        <a href="https://www.upwork.com/agencies/1699047706469380096/" class="underline hover:text-indigo-300">Greek-Fire Corporation</a>
+      </p>
     </div>
   </footer>
-
 </body>
 </html>
