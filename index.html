@@ -232,12 +232,38 @@
         </a>
 
         <!-- Desktop Menu -->
-        <div class="hidden md:flex items-center space-x-8">
-          <a href="#about" class="nav-link text-gray-300 hover:text-gold-400" data-section="about">About</a>
-          <a href="#services" class="nav-link text-gray-300 hover:text-gold-400" data-section="services">Services</a>
-          <a href="#journey" class="nav-link text-gray-300 hover:text-gold-400" data-section="journey">Journey</a>
-          <a href="#profiles" class="nav-link text-gray-300 hover:text-gold-400" data-section="profiles">Profiles</a>
-          <a href="blog/index.html" class="nav-link text-gray-300 hover:text-gold-400">Blog</a>
+        <div class="hidden md:flex items-center space-x-6">
+          <a href="#about" class="nav-link text-gray-300 hover:text-gold-400 transition" data-section="about">About</a>
+          <a href="#services" class="nav-link text-gray-300 hover:text-gold-400 transition" data-section="services">Services</a>
+          <a href="#journey" class="nav-link text-gray-300 hover:text-gold-400 transition" data-section="journey">Journey</a>
+
+          <!-- Ventures Dropdown -->
+          <div class="relative group">
+            <button class="nav-link text-gray-300 hover:text-gold-400 transition flex items-center gap-1">
+              Ventures
+              <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            <div class="absolute top-full left-0 mt-2 w-56 bg-navy-800 rounded-xl shadow-xl border border-white/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <a href="greek-fire-services.html" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-gold-400 hover:bg-white/5 rounded-t-xl transition">
+                <span class="text-xl">🔥</span>
+                <div>
+                  <p class="font-semibold">Greek-Fire Services</p>
+                  <p class="text-xs text-gray-500">Business Consulting & AI</p>
+                </div>
+              </a>
+              <a href="gothabits.html" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-gold-400 hover:bg-white/5 rounded-b-xl transition">
+                <span class="text-xl">💪</span>
+                <div>
+                  <p class="font-semibold">gotHABITS</p>
+                  <p class="text-xs text-gray-500">Fitness & Nutrition Coaching</p>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <a href="blog/index.html" class="nav-link text-gray-300 hover:text-gold-400 transition">Blog</a>
 
           <!-- Dark Mode Toggle -->
           <button id="dark-mode-toggle" class="dark-mode-toggle text-gray-300 hover:text-gold-400 p-2 rounded-lg hover:bg-white/10 transition" aria-label="Toggle dark mode">
@@ -282,7 +308,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
           </svg>
         </button>
-        <div class="mt-12 flex flex-col space-y-6">
+        <div class="mt-12 flex flex-col space-y-4">
           <a href="#about" class="text-white text-lg hover:text-gold-400 transition flex items-center gap-2">
             <span class="w-1 h-1 bg-gold-400 rounded-full"></span> About
           </a>
@@ -292,9 +318,18 @@
           <a href="#journey" class="text-white text-lg hover:text-gold-400 transition flex items-center gap-2">
             <span class="w-1 h-1 bg-gold-400 rounded-full"></span> Journey
           </a>
-          <a href="#profiles" class="text-white text-lg hover:text-gold-400 transition flex items-center gap-2">
-            <span class="w-1 h-1 bg-gold-400 rounded-full"></span> Profiles
-          </a>
+
+          <!-- Ventures Section -->
+          <div class="pt-2">
+            <p class="text-gray-500 text-sm uppercase tracking-wider mb-3">Ventures</p>
+            <a href="greek-fire-services.html" class="flex items-center gap-3 py-2 text-white hover:text-gold-400 transition">
+              <span class="text-lg">🔥</span> Greek-Fire Services
+            </a>
+            <a href="gothabits.html" class="flex items-center gap-3 py-2 text-white hover:text-gold-400 transition">
+              <span class="text-lg">💪</span> gotHABITS
+            </a>
+          </div>
+
           <a href="blog/index.html" class="text-white text-lg hover:text-gold-400 transition flex items-center gap-2">
             <span class="w-1 h-1 bg-gold-400 rounded-full"></span> Blog
           </a>
@@ -302,7 +337,7 @@
             <span class="w-1 h-1 bg-gold-400 rounded-full"></span> Contact
           </a>
           <hr class="border-white/20">
-          <a href="https://www.upwork.com/freelancers/thesecretchief?viewMode=1" target="_blank" class="bg-gold-500 text-navy-900 font-semibold px-5 py-3 rounded-full text-center transition hover:bg-gold-400 hover:scale-105 transform">Work With Me</a>
+          <a href="greek-fire-services.html" class="bg-gold-500 text-navy-900 font-semibold px-5 py-3 rounded-full text-center transition hover:bg-gold-400 hover:scale-105 transform">Work With Me</a>
         </div>
         <div class="mt-8 flex space-x-4">
           <a href="https://www.linkedin.com/in/thesecretchief" target="_blank" class="text-gray-400 hover:text-gold-400 transition">
@@ -375,11 +410,11 @@
   </section>
 
   <!-- Personal Introduction Section -->
-  <section id="about" class="py-24 bg-white">
+  <section id="about" class="py-24 bg-white dark:bg-navy-900">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12">
         <p class="text-gold-600 font-semibold mb-2 tracking-wide uppercase text-sm">Allow Me to Introduce Myself</p>
-        <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-6">Hi, I'm Lee Foropoulos.</h2>
+        <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 dark:text-white mb-6">Hi, I'm Lee Foropoulos.</h2>
         <div class="flex flex-wrap gap-2 justify-center mb-8">
           <span class="text-sm bg-navy-900 text-white px-4 py-2 rounded-full">Fractional Executive (CEO/COO/CTO)</span>
           <span class="text-sm bg-navy-900 text-white px-4 py-2 rounded-full">Program Manager</span>
@@ -387,7 +422,7 @@
         </div>
       </div>
 
-      <div class="prose prose-lg text-gray-600 max-w-3xl mx-auto text-center space-y-6">
+      <div class="prose prose-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto text-center space-y-6">
         <p class="text-xl leading-relaxed">
           I'm a results-driven <strong>Fractional Executive, Program Manager, and Technical Leader</strong> with over 20 years of experience across SaaS, compliance, enterprise, and fitness ecosystems.
         </p>
@@ -449,43 +484,43 @@
   </section>
 
   <!-- Story/Journey Cards Section -->
-  <section class="py-24 bg-gray-50">
+  <section class="py-24 bg-gray-50 dark:bg-navy-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="max-w-3xl mx-auto text-center mb-16">
-        <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-6">From Industrial Plants to SaaS Leadership</h2>
-        <p class="text-xl text-gray-600 leading-relaxed">
+        <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 dark:text-white mb-6">From Industrial Plants to SaaS Leadership</h2>
+        <p class="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
           My journey started building pipe inspection systems for Gulf of Mexico oil & gas production. Today, I architect systems that serve hundreds of thousands of users. Along the way, I've learned that the best technology serves people first.
         </p>
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
-        <div class="card-hover bg-gray-50 rounded-2xl p-8 text-center">
+        <div class="card-hover bg-gray-50 dark:bg-navy-900 rounded-2xl p-8 text-center">
           <div class="w-16 h-16 bg-gold-500/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
             <svg class="w-8 h-8 text-gold-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
             </svg>
           </div>
-          <h3 class="text-xl font-bold text-navy-900 mb-3">The Engineer</h3>
+          <h3 class="text-xl font-bold text-navy-900 dark:text-white mb-3">The Engineer</h3>
           <p class="text-gray-600">Built real-time monitoring systems, OCR automation, and enterprise databases from the ground up.</p>
         </div>
 
-        <div class="card-hover bg-gray-50 rounded-2xl p-8 text-center">
+        <div class="card-hover bg-gray-50 dark:bg-navy-900 rounded-2xl p-8 text-center">
           <div class="w-16 h-16 bg-gold-500/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
             <svg class="w-8 h-8 text-gold-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
             </svg>
           </div>
-          <h3 class="text-xl font-bold text-navy-900 mb-3">The Leader</h3>
+          <h3 class="text-xl font-bold text-navy-900 dark:text-white mb-3">The Leader</h3>
           <p class="text-gray-600">Commanded 70+ employees across 7 departments, driving 60%+ profit margins through innovation.</p>
         </div>
 
-        <div class="card-hover bg-gray-50 rounded-2xl p-8 text-center">
+        <div class="card-hover bg-gray-50 dark:bg-navy-900 rounded-2xl p-8 text-center">
           <div class="w-16 h-16 bg-gold-500/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
             <svg class="w-8 h-8 text-gold-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
             </svg>
           </div>
-          <h3 class="text-xl font-bold text-navy-900 mb-3">The Transformer</h3>
+          <h3 class="text-xl font-bold text-navy-900 dark:text-white mb-3">The Transformer</h3>
           <p class="text-gray-600">Scaled SaaS to 150K+ users, reduced churn by 60%, and grew a nonprofit from $7K to $52K.</p>
         </div>
       </div>
@@ -493,24 +528,24 @@
   </section>
 
   <!-- Services Section -->
-  <section id="services" class="py-24 bg-gray-50">
+  <section id="services" class="py-24 bg-gray-50 dark:bg-navy-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
-        <span class="inline-block bg-gold-100 text-gold-700 text-sm font-semibold px-4 py-2 rounded-full mb-4">SERVICES</span>
-        <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">How I Can Help You</h2>
-        <p class="text-xl text-gray-600 max-w-2xl mx-auto">Strategic leadership and hands-on expertise to accelerate your growth</p>
+        <span class="inline-block bg-gold-100 dark:bg-gold-500/20 text-gold-700 dark:text-gold-400 text-sm font-semibold px-4 py-2 rounded-full mb-4">SERVICES</span>
+        <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 dark:text-white mb-4">How I Can Help You</h2>
+        <p class="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Strategic leadership and hands-on expertise to accelerate your growth</p>
       </div>
 
       <!-- Expertise Cards -->
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <div class="card-hover bg-white rounded-2xl p-8 shadow-sm border border-gray-100 group">
+        <div class="card-hover bg-white dark:bg-navy-900 rounded-2xl p-8 shadow-sm border border-gray-100 dark:border-navy-700 group">
           <div class="w-14 h-14 bg-navy-900 group-hover:bg-gold-500 rounded-xl flex items-center justify-center mb-6 transition-colors">
             <svg class="w-7 h-7 text-gold-400 group-hover:text-navy-900 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
             </svg>
           </div>
-          <h3 class="text-xl font-bold text-navy-900 mb-3">Fractional Executive</h3>
-          <p class="text-gray-600 mb-4">CEO, COO, or CTO leadership without the full-time cost. Strategic vision meets operational execution.</p>
+          <h3 class="text-xl font-bold text-navy-900 dark:text-white mb-3">Fractional Executive</h3>
+          <p class="text-gray-600 dark:text-gray-300 mb-4">CEO, COO, or CTO leadership without the full-time cost. Strategic vision meets operational execution.</p>
           <ul class="text-sm text-gray-500 space-y-2">
             <li class="flex items-center"><span class="text-gold-500 mr-2">&#10003;</span> Tech stack decisions</li>
             <li class="flex items-center"><span class="text-gold-500 mr-2">&#10003;</span> Team building</li>
@@ -518,14 +553,14 @@
           </ul>
         </div>
 
-        <div class="card-hover bg-white rounded-2xl p-8 shadow-sm border border-gray-100 group">
+        <div class="card-hover bg-white dark:bg-navy-900 rounded-2xl p-8 shadow-sm border border-gray-100 dark:border-navy-700 group">
           <div class="w-14 h-14 bg-navy-900 group-hover:bg-gold-500 rounded-xl flex items-center justify-center mb-6 transition-colors">
             <svg class="w-7 h-7 text-gold-400 group-hover:text-navy-900 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
             </svg>
           </div>
-          <h3 class="text-xl font-bold text-navy-900 mb-3">Program Management</h3>
-          <p class="text-gray-600 mb-4">Agile and Waterfall expertise to deliver complex projects on time.</p>
+          <h3 class="text-xl font-bold text-navy-900 dark:text-white mb-3">Program Management</h3>
+          <p class="text-gray-600 dark:text-gray-300 mb-4">Agile and Waterfall expertise to deliver complex projects on time.</p>
           <ul class="text-sm text-gray-500 space-y-2">
             <li class="flex items-center"><span class="text-gold-500 mr-2">&#10003;</span> Cross-functional coordination</li>
             <li class="flex items-center"><span class="text-gold-500 mr-2">&#10003;</span> Risk mitigation</li>
@@ -533,14 +568,14 @@
           </ul>
         </div>
 
-        <div class="card-hover bg-white rounded-2xl p-8 shadow-sm border border-gray-100 group">
+        <div class="card-hover bg-white dark:bg-navy-900 rounded-2xl p-8 shadow-sm border border-gray-100 dark:border-navy-700 group">
           <div class="w-14 h-14 bg-navy-900 group-hover:bg-gold-500 rounded-xl flex items-center justify-center mb-6 transition-colors">
             <svg class="w-7 h-7 text-gold-400 group-hover:text-navy-900 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path>
             </svg>
           </div>
-          <h3 class="text-xl font-bold text-navy-900 mb-3">Database Architecture</h3>
-          <p class="text-gray-600 mb-4">Design and optimize databases for performance and scale.</p>
+          <h3 class="text-xl font-bold text-navy-900 dark:text-white mb-3">Database Architecture</h3>
+          <p class="text-gray-600 dark:text-gray-300 mb-4">Design and optimize databases for performance and scale.</p>
           <ul class="text-sm text-gray-500 space-y-2">
             <li class="flex items-center"><span class="text-gold-500 mr-2">&#10003;</span> MS SQL Server expert</li>
             <li class="flex items-center"><span class="text-gold-500 mr-2">&#10003;</span> Data migrations</li>
@@ -548,14 +583,14 @@
           </ul>
         </div>
 
-        <div class="card-hover bg-white rounded-2xl p-8 shadow-sm border border-gray-100 group">
+        <div class="card-hover bg-white dark:bg-navy-900 rounded-2xl p-8 shadow-sm border border-gray-100 dark:border-navy-700 group">
           <div class="w-14 h-14 bg-navy-900 group-hover:bg-gold-500 rounded-xl flex items-center justify-center mb-6 transition-colors">
             <svg class="w-7 h-7 text-gold-400 group-hover:text-navy-900 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
             </svg>
           </div>
-          <h3 class="text-xl font-bold text-navy-900 mb-3">AI Integration</h3>
-          <p class="text-gray-600 mb-4">Leverage AI to automate workflows and enhance productivity.</p>
+          <h3 class="text-xl font-bold text-navy-900 dark:text-white mb-3">AI Integration</h3>
+          <p class="text-gray-600 dark:text-gray-300 mb-4">Leverage AI to automate workflows and enhance productivity.</p>
           <ul class="text-sm text-gray-500 space-y-2">
             <li class="flex items-center"><span class="text-gold-500 mr-2">&#10003;</span> ChatGPT & Copilot</li>
             <li class="flex items-center"><span class="text-gold-500 mr-2">&#10003;</span> Process automation</li>
@@ -596,11 +631,11 @@
   </section>
 
   <!-- Career Timeline Section -->
-  <section id="journey" class="py-24 bg-white">
+  <section id="journey" class="py-24 bg-white dark:bg-navy-900">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
-        <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">My Professional Journey</h2>
-        <p class="text-xl text-gray-600 max-w-2xl mx-auto">Two decades of building, leading, and transforming</p>
+        <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 dark:text-white mb-4">My Professional Journey</h2>
+        <p class="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Two decades of building, leading, and transforming</p>
       </div>
 
       <div class="relative">
@@ -875,12 +910,12 @@
   </section>
 
   <!-- Personal Passions Section -->
-  <section class="py-24 bg-gray-50">
+  <section class="py-24 bg-gray-50 dark:bg-navy-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid lg:grid-cols-2 gap-16 items-center">
         <div>
-          <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-6">Beyond the Code</h2>
-          <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+          <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 dark:text-white mb-6">Beyond the Code</h2>
+          <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
             I believe the best professionals bring their whole selves to work. My passions outside the office fuel creativity, discipline, and fresh perspectives.
           </p>
 
@@ -890,8 +925,8 @@
                 <span class="text-2xl">&#128170;</span>
               </div>
               <div>
-                <h3 class="font-bold text-navy-900 mb-1">gotHABITS - Fitness & Nutrition Coaching</h3>
-                <p class="text-gray-600 mb-2">Owner of gotHABITS. Helping clients build sustainable habits for lasting transformation through personalized training and nutrition programs.</p>
+                <h3 class="font-bold text-navy-900 dark:text-white mb-1">gotHABITS - Fitness & Nutrition Coaching</h3>
+                <p class="text-gray-600 dark:text-gray-300 mb-2">Owner of gotHABITS. Helping clients build sustainable habits for lasting transformation through personalized training and nutrition programs.</p>
                 <div class="flex flex-wrap gap-1">
                   <span class="text-xs bg-amber-100 text-amber-700 px-2 py-1 rounded-full font-medium">NASM-CPT</span>
                   <span class="text-xs bg-amber-100 text-amber-700 px-2 py-1 rounded-full font-medium">Nutrition Coach</span>
@@ -954,19 +989,19 @@
   </section>
 
   <!-- Testimonials Section -->
-  <section class="py-24 bg-white">
+  <section class="py-24 bg-white dark:bg-navy-900">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
-        <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">What People Say</h2>
-        <p class="text-xl text-gray-600 max-w-2xl mx-auto">Building trust through results and relationships</p>
+        <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 dark:text-white mb-4">What People Say</h2>
+        <p class="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Building trust through results and relationships</p>
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
-        <div class="card-hover bg-gray-50 rounded-2xl p-8">
+        <div class="card-hover bg-gray-50 dark:bg-navy-800 rounded-2xl p-8">
           <div class="flex items-center gap-1 mb-4">
             <span class="text-amber-400 text-xl">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
           </div>
-          <p class="text-gray-700 mb-6 leading-relaxed">"Lee's ability to translate complex technical concepts into actionable business strategies is unmatched. He transformed our entire operation."</p>
+          <p class="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">"Lee's ability to translate complex technical concepts into actionable business strategies is unmatched. He transformed our entire operation."</p>
           <div class="flex items-center gap-3">
             <div class="w-10 h-10 bg-navy-900 rounded-full flex items-center justify-center text-white font-bold">C</div>
             <div>
@@ -976,11 +1011,11 @@
           </div>
         </div>
 
-        <div class="card-hover bg-gray-50 rounded-2xl p-8">
+        <div class="card-hover bg-gray-50 dark:bg-navy-800 rounded-2xl p-8">
           <div class="flex items-center gap-1 mb-4">
             <span class="text-amber-400 text-xl">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
           </div>
-          <p class="text-gray-700 mb-6 leading-relaxed">"His leadership during our digital transformation was invaluable. Lee doesn't just manage projects, he drives meaningful change."</p>
+          <p class="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">"His leadership during our digital transformation was invaluable. Lee doesn't just manage projects, he drives meaningful change."</p>
           <div class="flex items-center gap-3">
             <div class="w-10 h-10 bg-navy-900 rounded-full flex items-center justify-center text-white font-bold">E</div>
             <div>
@@ -990,11 +1025,11 @@
           </div>
         </div>
 
-        <div class="card-hover bg-gray-50 rounded-2xl p-8">
+        <div class="card-hover bg-gray-50 dark:bg-navy-800 rounded-2xl p-8">
           <div class="flex items-center gap-1 mb-4">
             <span class="text-amber-400 text-xl">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
           </div>
-          <p class="text-gray-700 mb-6 leading-relaxed">"Working with Lee felt like having a true partner invested in our success. His technical depth and business acumen are rare."</p>
+          <p class="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">"Working with Lee felt like having a true partner invested in our success. His technical depth and business acumen are rare."</p>
           <div class="flex items-center gap-3">
             <div class="w-10 h-10 bg-navy-900 rounded-full flex items-center justify-center text-white font-bold">F</div>
             <div>
@@ -1010,10 +1045,10 @@
   </section>
 
   <!-- CTA Section -->
-  <section id="contact" class="py-24 bg-white">
+  <section id="contact" class="py-24 bg-white dark:bg-navy-900">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-6">Ready to Scale Your Business?</h2>
-      <p class="text-xl text-gray-600 mb-10 leading-relaxed">
+      <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 dark:text-white mb-6">Ready to Scale Your Business?</h2>
+      <p class="text-xl text-gray-600 dark:text-gray-300 mb-10 leading-relaxed">
         Whether you need a Fractional Executive, Program Manager, or technical advisor, I'm here to help you achieve your goals with speed, integrity, and precision.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
