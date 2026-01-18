@@ -1,245 +1,674 @@
-<script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-        </script>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lee Foropoulos - Personal Landing Page</title>
+  <title>Lee Foropoulos | Fractional CTO & Program Manager</title>
+  <meta name="description" content="Fractional CTO and Program Manager with 20+ years scaling teams, systems, and SaaS platforms. Let's build something extraordinary together.">
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    .gradient-text {
-      background: linear-gradient(90deg, #4b5bd1, #8e44ad);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .chart-container {
-      max-width: 600px;
-      margin: 0 auto;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-    .social-icon {
-      width: 32px;
-      height: 32px;
-      margin: 0 8px;
-    }
-  </style>
-  <script type="text/javascript">
-    var gk_isXlsx = false;
-    var gk_xlsxFileLookup = {};
-    var gk_fileData = {};
-    function filledCell(cell) {
-      return cell !== '' && cell != null;
-    }
-    function loadFileData(filename) {
-      if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-        try {
-          var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-          var firstSheetName = workbook.SheetNames[0];
-          var worksheet = workbook.Sheets[firstSheetName];
-          var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-          var filteredData = jsonData.filter(row => row.some(filledCell));
-          var headerRowIndex = filteredData.findIndex((row, index) =>
-            row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-          );
-          if (headerRowIndex === -1 || headerRowIndex > 25) {
-            headerRowIndex = 0;
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: {
+              900: '#0f172a',
+              800: '#1e293b',
+              700: '#334155',
+              600: '#475569',
+            },
+            teal: {
+              500: '#14b8a6',
+              400: '#2dd4bf',
+              300: '#5eead4',
+            },
+            amber: {
+              500: '#f59e0b',
+              400: '#fbbf24',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
           }
-          var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex));
-          csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-          return csv;
-        } catch (e) {
-          console.error(e);
-          return "";
         }
       }
-      return gk_fileData[filename] || "";
     }
   </script>
-  <script type="module">
-    import { injectMenuWidget } from './widgets/menu-widget.js';
-    injectMenuWidget();
-  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, sans-serif; }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #14b8a6, #2dd4bf);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-gradient {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+    }
+
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    .timeline-line {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(to bottom, #14b8a6, #0f172a);
+    }
+
+    @media (max-width: 768px) {
+      .timeline-line {
+        left: 20px;
+      }
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 0.6s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .mobile-menu {
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+    }
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+
+    .metric-card {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+  </style>
 </head>
-<body class="bg-gradient-to-br from-gray-100 to-white font-sans">
-  <!-- Header -->
-  <header class="bg-indigo-900 text-white py-12">
-    <div class="max-w-7xl mx-auto px-4 text-center">
-      <img src="headshot.png" alt="Lee Foropoulos Headshot" class="w-32 h-38 rounded-full mx-auto mb-4" onerror="this.src='https://via.placeholder.com/128x128.png?text=Headshot+Not+Loaded';">
-      <h1 class="text-5xl font-extrabold gradient-text">Lee Steven Foropoulos</h1>
-      <p class="text-2xl mt-4">Welcome to My Personal Landing Page</p>
-      <p class="mt-6 text-lg max-w-3xl mx-auto">
-        Embark on a journey with me—a dynamic professional and passionate enthusiast whose love for leadership, fitness, and innovation promises an exciting collaboration. Dive into my world to discover how my diverse skills and vibrant personality can elevate your endeavors.
-      </p>
+<body class="bg-white text-gray-800">
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-navy-900/95 backdrop-blur-md border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <a href="#" class="text-white font-bold text-xl">Lee<span class="text-teal-400">.</span></a>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="#about" class="text-gray-300 hover:text-teal-400 transition">About</a>
+          <a href="#services" class="text-gray-300 hover:text-teal-400 transition">Services</a>
+          <a href="#journey" class="text-gray-300 hover:text-teal-400 transition">Journey</a>
+          <a href="#profiles" class="text-gray-300 hover:text-teal-400 transition">Profiles</a>
+          <a href="https://www.upwork.com/freelancers/thesecretchief?viewMode=1" target="_blank" class="bg-teal-500 hover:bg-teal-400 text-navy-900 font-semibold px-5 py-2 rounded-full transition">Work With Me</a>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" class="md:hidden text-white p-2">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
     </div>
-  </header>
 
-  <div id="menu-widget"></div>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 h-full w-72 bg-navy-900 shadow-2xl md:hidden">
+      <div class="p-6">
+        <button id="close-menu" class="absolute top-4 right-4 text-white p-2">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+        <div class="mt-12 flex flex-col space-y-6">
+          <a href="#about" class="text-white text-lg hover:text-teal-400 transition">About</a>
+          <a href="#services" class="text-white text-lg hover:text-teal-400 transition">Services</a>
+          <a href="#journey" class="text-white text-lg hover:text-teal-400 transition">Journey</a>
+          <a href="#profiles" class="text-white text-lg hover:text-teal-400 transition">Profiles</a>
+          <a href="#contact" class="text-white text-lg hover:text-teal-400 transition">Contact</a>
+          <hr class="border-white/20">
+          <a href="https://www.upwork.com/freelancers/thesecretchief?viewMode=1" target="_blank" class="bg-teal-500 text-navy-900 font-semibold px-5 py-3 rounded-full text-center transition hover:bg-teal-400">Work With Me</a>
+        </div>
+        <div class="mt-8 flex space-x-4">
+          <a href="https://www.linkedin.com/in/thesecretchief" target="_blank" class="text-gray-400 hover:text-teal-400">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/thesecretchief" target="_blank" class="text-gray-400 hover:text-teal-400">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
 
-  <!-- Introduction Section -->
-  <section class="py-16 bg-white">
-    <div class="max-w-7xl mx-auto px-4 text-center">
-      <h2 class="text-4xl font-semibold text-gray-800 mb-6">About Me</h2>
-      <div class="max-w-4xl mx-auto text-lg text-gray-600 text-justify">
-      
-        <p class="mb-4">
-          Allow me to introduce myself—my name is Lee Steven Foropoulos, a results-driven Program Manager, Fractional CTO, Senior Developer, and Database Administrator, I bring over 20 years of technical and operational leadership across SaaS, compliance, enterprise, and fitness ecosystems. My expertise spans from building robust, scalable systems to optimizing day-to-day operations that drive tangible business outcomes. Whether leading development teams, designing database architectures, or automating workflows with AI, I deliver clarity, precision, and speed.
-        </p>
-        <hr class="my-6 border-t-2 border-gray-300">
-        <h3 class="text-2xl font-semibold text-indigo-700 mb-4">My Professional Journey</h3>
-        <p class="mb-4">
-          My career spans over two decades in technology, operations, sales, and leadership, with a consistent focus on driving efficiency, innovation, and growth across diverse industries. Below, I outline key roles and contributions in a chronological format for clarity.
-        </p>
-        <h4 class="text-1xl font-semibold text-indigo-700 mb-4">Early Career: Building Technical Foundations (Early 2000s)</h4>
-        <p class="mb-4">
-          At Bredero Shaw, I began as a programmer, developing an advanced data monitoring system for Programmable Logic Controllers in large-scale oil pipeline facilities. This role emphasized real-time production oversight, process refinement, data analytics, and integration in high-demand manufacturing environments, marking my entry into utilities and industrial sectors with workflow enhancements that boosted efficiency and precision.
-        </p>
-        <h4 class="text-1xl font-semibold text-indigo-700 mb-4">IT Director at Micro Images, Inc. (May 2003 – November 2009, Mobile, AL)</h4>
-        <p class="mb-4">
-          I led business expansion and operational agility through innovative technology. Collaborating with clients, partners, and marketing teams, I introduced new concepts, services, and products using cutting-edge technologies and APIs to enhance accuracy and quality. Key achievements included engineering custom image manipulation tools, automating business workflows to increase productivity and reduce costs, and implementing development frameworks like version control for better efficiency. I also managed network upgrades, maintenance, and administration of the Windows 2003 domain. This period sharpened my skills in sales presentations, document management, VBA Excel, pivot tables, data analysis, process automation, and communications, while optimizing workflows for private enterprises.
-        </p>
-        <h4 class="text-1xl font-semibold text-indigo-700 mb-4">Systems and Logistics Manager at SouthData, Inc. (2009 – 2012)</h4>
-        <p class="mb-4">
-          I integrated virtualized server technology and oversaw IT infrastructure across multiple sites. Leading teams, I co-authored productivity reports and developed protocols for medical record scanning, achieving 90% automation in indexing via proprietary Optical Character Recognition. This role involved streamlining logistics, supporting acquisitions through system and team integrations, and adapting to industry changes. I assisted medical and government entities with document management, retention, data governance, and compliance (HIPAA, HITECH). Project management was central, coordinating cross-account initiatives and systems to ensure seamless operations and compliance.
-        </p>
-        <h4 class="text-1xl font-semibold text-indigo-700 mb-4">Sales and Operations Manager at OSG/SouthData, Inc. (2012 – 2016)</h4>
-        <p class="mb-4">
-          Commanding a division with seven sites and over 70 employees, I deployed data-driven strategies and automations to revamp sales with fixed-cost digitization models, boosting successful bids by 80% and achieving 60%+ profit margins. Projects like "Project Symphony" introduced real-time dashboards for staffing and metrics, maintaining SSAE16 and HIPAA compliance. I fused sales innovation with operational excellence, invigorating teams and advancing strategic goals. Project management across accounts and systems was key, overseeing complex workflows for clients in medical, government, insurance, and utilities sectors, optimizing data governance for private and public entities.
-        </p>
-        <h4 class="text-1xl font-semibold text-indigo-700 mb-4">Chief Technology Officer at SixLeaf LLC (2016 – 2023)</h4>
-        <p class="mb-4">
-          Orchestrating global remote teams in a SaaS environment, I scaled platforms to support 150,000+ concurrent users, implemented Agile and CI/CD pipelines, reduced release cycles, and cut user churn by 60%. I architected Azure Cloud infrastructures, mentored on best practices, and ensured availability, compliance, and market-aligned innovation. Concurrently, as President of Mobicon Foundation Inc., I grew an annual event into a major fundraiser, securing 501(c)(3) status and directing donations to communities—demonstrating resource management in nonprofits. Project management was integral, leading product development, deployments, and system integrations across international accounts.
-        </p>
-        <h4 class="text-1xl font-semibold text-indigo-700 mb-4">Recent Roles: Business Development and Fractional Leadership (2023 – Present)</h4>
-        <ul class="list-disc pl-8">
-          <li>
-            US New Business Development Lead at Lookatmedia™: I build client pipelines, forge alliances, and shape strategies and culture in emerging markets.
-          </li>
-          <li>
-            Vice President of Sales and Marketing at Axios Services LLC (Previous Role): I drove revenue growth, brand enhancement, and cross-team synergy. Heavily involved in project management across accounts and systems, including contracts with government bid processes and RFPs, ensuring compliance and successful outcomes.
-          </li>
-          <li>
-            Key Contributor at MAB International Services (Current Role): Driving efficiencies, initiatives, and collaborations in an international setting. Leveraging tech, sales, and project management expertise for global growth, with heavy involvement in managing projects for contracts involving government bid processes and RFPs.
-          </li>
-        </ul>
-        <p class="mb-4">
-          Across domains like Department of Defense, medical, government, insurance, utilities, aerospace, and shipbuilding, I've partnered with private, government, nonprofit, and public entities to elevate workflows, document management, retention, data governance, and compliance—turning challenges into efficiencies.
-        </p>
-        <hr class="my-6 border-t-2 border-gray-300">
-        <h3 class="text-2xl font-semibold text-indigo-700 mb-4">My Career Highlights</h3>
-        <ul class="list-disc pl-8">
-          <li>
-            Led operations at SouthData across seven departments and 70+ employees, achieving 60%+ margins via custom automations, real-time dashboards, and OCR validation for 100% data accuracy; emphasized project management for multi-account systems and compliance.
-          </li>
-          <li>
-            As CTO at SixLeaf, scaled SaaS for 150,000+ users, architected CI/CD with Azure DevOps, ensured SSAE16 compliance, and reduced churn by 60%; focused on project management for global product teams, accounts, and system deployments.
-          </li>
-          <li>
-            Engineered real-time monitoring in oil & gas, OCR tools for medical/government, and workflows optimizing productivity/costs; integrated project management to deliver on-time across industries.
-          </li>
-          <li>
-            Oversaw data migrations, database tuning, and architecture as DBA (MS SQL Server, Access, flat files, NoSQL, Real World Object Modeling, etc)
-          </li>
-          <li>
-            Specialized in implementation and accelrated adoptation of both hybrid and electronic platforms. (Medical Records, HR, Logistics, etc)          
-          </li>
-          <li>
-            Grew Mobicon Foundation event revenue from $7,000 to $52,000, securing nonprofit status and community donations.
-          </li>
-          <li>
-            Participated in Dan Martell’s SaaS Academy for high-performance insights; applied certified training/nutrition principles to professional discipline.
-          </li>
-          <li>
-            Excelled in project management via Agile/Waterfall, leading cross-functional teams on SaaS overhauls, infrastructure migrations, and government-related initiatives; delivered on time, reduced cycles, and boosted satisfaction—particularly at SouthData, SixLeaf, Axios, and MAB, including RFP-managed government contracts.
-          </li>
-          <li>
-            Drove sales/business development at SouthData (80% bid increase via funnels/models) and recent roles; specialized in revenue growth through strategic alliances and government RFP processes at Axios and MAB.
-          </li>
-        </ul>
-        <br>
-        <p class="mb-4">
-          With expertise in full-stack development (VB.NET, Visual Basic, C#, Python, SQL, Excel Automation, etc), DBA (MS SQL Server, ADO.NET, Access, Flat Files, NoSQL, Real World Object Modeling, etc), CI/CD & DevOps (Azure, Git, Pipelines, QA), I excel in SaaS, subscriptions, migrations, and AI integrations (ChatGPT, Copilot, Jasper, etc). Leadership covers program/project management (Agile, Waterfall, teams), compliance (CMMC, NIST, HIPAA, SSAE16), budgets (35+ members), SOPs, and planning.
-        </p>
-        <p class="mb-4">
-          Spanning SaaS, government contracting, medical tech, personal development, fitness, nutrition, AI/ML, and oil & gas, I bring executive insight. I build systems, lead teams, and solve end-to-end. If you need a strategic developer, business-savvy DBA, or precise program manager, I'm ready.
-        </p>
-        <p class="mb-4">
-          Spanning industries such as SaaS, government contracting, medical tech, personal development, fitness, nutrition, AI/ML workflows, and oil & gas, I bring executive-level insight to every engagement. I do not merely write code or manage timelines—I build systems, lead teams, and solve problems end-to-end. If you seek a developer with strategic vision, a DBA attuned to business contexts, or a program manager who executes with speed, integrity, and precision, I am prepared to deliver exceptional results.
-        </p>
-        <hr class="my-6 border-t-2 border-gray-300">
-        <h3 class="text-2xl font-semibold text-indigo-700 mb-4">My Personal Passions</h3>
-        <p class="mb-4">
-          Beyond the boardroom, my life is a vibrant celebration of personal passions that fuel my spirit and inspire those around me. I am an ardent lover of fitness, channeling my energy into bodybuilding with a fervor that transforms both body and mind as a certified personal trainer and nutritionist. My love for cooking adds a delicious dimension, where I experiment with bold flavors and wholesome ingredients, turning each meal into a creative masterpiece. I am equally captivated by the mysteries of quantum physics, a field that ignites my curiosity and fuels my innovative thinking with its profound implications.
-        </p>
-           <p class="mb-4">
-          Poetry flows from my soul, offering a rhythmic escape that I often enjoy while taking leisurely walks with my beloved dog, Zero, whose playful companionship brings joy to my daily adventures. My insatiable appetite for learning keeps me at the forefront of knowledge, constantly seeking new insights to share. Above all, I am passionate about working as a motivational speaker and influencer, where I ignite transformation in others by helping them refine their habits and achieve their loftiest goals, empowering individuals to unlock their full potential with enthusiasm and purpose.
-        </p>
-        <p class="mt-8">
-          Dive deeper into my personality profiles and skills through the links above to see how my diverse experiences and vibrant passions can elevate your team. I am an exhilarating individual to know and work with, blending professional prowess with a zest for life that promises to inspire and innovate.
-        </p>
+  <!-- Hero Section -->
+  <section class="hero-gradient min-h-screen flex items-center pt-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="order-2 lg:order-1">
+          <p class="text-teal-400 font-semibold mb-4 tracking-wide uppercase text-sm">Fractional CTO & Program Manager</p>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+            I Help Companies <span class="gradient-text">Scale Teams & Systems</span>
+          </h1>
+          <p class="text-xl text-gray-300 mb-8 leading-relaxed">
+            20+ years transforming organizations through technical leadership, SaaS architecture, and operational excellence. From startups to enterprises, I turn complexity into clarity.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="https://www.upwork.com/freelancers/thesecretchief?viewMode=1" target="_blank" class="bg-teal-500 hover:bg-teal-400 text-navy-900 font-bold px-8 py-4 rounded-full text-center transition transform hover:scale-105">
+              Work With Me
+            </a>
+            <a href="#about" class="border-2 border-white/30 hover:border-teal-400 text-white hover:text-teal-400 font-semibold px-8 py-4 rounded-full text-center transition">
+              See My Story
+            </a>
+          </div>
+        </div>
+        <div class="order-1 lg:order-2 flex justify-center">
+          <div class="relative">
+            <div class="absolute inset-0 bg-teal-500/20 rounded-3xl blur-3xl"></div>
+            <img src="headshot.png" alt="Lee Foropoulos" class="relative w-72 h-72 sm:w-96 sm:h-96 object-cover rounded-3xl shadow-2xl border-4 border-white/10" onerror="this.src='https://via.placeholder.com/400x400.png?text=Lee+Foropoulos';">
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Call to Action Section -->
-  <section class="py-16 bg-indigo-900 text-white text-center">
-    <div class="max-w-7xl mx-auto px-4">
-      <h2 class="text-4xl font-semibold mb-6">Let’s Collaborate</h2>
-      <p class="text-lg mb-8 max-w-2xl mx-auto">
-        With my extensive experience in operations, technology, and a passion for fitness and innovation, I’m eager to bring my leadership and motivational energy to your team. Contact me to discuss how we can achieve your goals together.
+  <!-- Results/Metrics Bar -->
+  <section class="bg-navy-800 py-12 border-y border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div class="text-center">
+          <p class="text-4xl sm:text-5xl font-bold text-teal-400">20+</p>
+          <p class="text-gray-400 mt-2">Years Experience</p>
+        </div>
+        <div class="text-center">
+          <p class="text-4xl sm:text-5xl font-bold text-teal-400">150K+</p>
+          <p class="text-gray-400 mt-2">Users Scaled</p>
+        </div>
+        <div class="text-center">
+          <p class="text-4xl sm:text-5xl font-bold text-teal-400">70+</p>
+          <p class="text-gray-400 mt-2">Team Members Led</p>
+        </div>
+        <div class="text-center">
+          <p class="text-4xl sm:text-5xl font-bold text-teal-400">60%</p>
+          <p class="text-gray-400 mt-2">Churn Reduction</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About/Story Section -->
+  <section id="about" class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center mb-16">
+        <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-6">From Oil Fields to SaaS Leadership</h2>
+        <p class="text-xl text-gray-600 leading-relaxed">
+          My journey started programming PLCs in oil pipeline facilities. Today, I architect systems that serve hundreds of thousands of users. Along the way, I've learned that the best technology serves people first.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="card-hover bg-gray-50 rounded-2xl p-8 text-center">
+          <div class="w-16 h-16 bg-teal-500/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <svg class="w-8 h-8 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-navy-900 mb-3">The Engineer</h3>
+          <p class="text-gray-600">Built real-time monitoring systems, OCR automation, and enterprise databases from the ground up.</p>
+        </div>
+
+        <div class="card-hover bg-gray-50 rounded-2xl p-8 text-center">
+          <div class="w-16 h-16 bg-teal-500/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <svg class="w-8 h-8 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-navy-900 mb-3">The Leader</h3>
+          <p class="text-gray-600">Commanded 70+ employees across 7 departments, driving 60%+ profit margins through innovation.</p>
+        </div>
+
+        <div class="card-hover bg-gray-50 rounded-2xl p-8 text-center">
+          <div class="w-16 h-16 bg-teal-500/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <svg class="w-8 h-8 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-navy-900 mb-3">The Transformer</h3>
+          <p class="text-gray-600">Scaled SaaS to 150K+ users, reduced churn by 60%, and grew a nonprofit from $7K to $52K.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="py-24 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">How I Can Help You</h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">Strategic leadership and hands-on expertise to accelerate your growth</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="card-hover bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+          <div class="w-14 h-14 bg-navy-900 rounded-xl flex items-center justify-center mb-6">
+            <svg class="w-7 h-7 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-navy-900 mb-3">Fractional CTO</h3>
+          <p class="text-gray-600 mb-4">Technical strategy and architecture leadership without the full-time cost.</p>
+          <ul class="text-sm text-gray-500 space-y-2">
+            <li class="flex items-center"><span class="text-teal-500 mr-2">&#10003;</span> Tech stack decisions</li>
+            <li class="flex items-center"><span class="text-teal-500 mr-2">&#10003;</span> Team building</li>
+            <li class="flex items-center"><span class="text-teal-500 mr-2">&#10003;</span> Scalability planning</li>
+          </ul>
+        </div>
+
+        <div class="card-hover bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+          <div class="w-14 h-14 bg-navy-900 rounded-xl flex items-center justify-center mb-6">
+            <svg class="w-7 h-7 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-navy-900 mb-3">Program Management</h3>
+          <p class="text-gray-600 mb-4">Agile and Waterfall expertise to deliver complex projects on time.</p>
+          <ul class="text-sm text-gray-500 space-y-2">
+            <li class="flex items-center"><span class="text-teal-500 mr-2">&#10003;</span> Cross-functional coordination</li>
+            <li class="flex items-center"><span class="text-teal-500 mr-2">&#10003;</span> Risk mitigation</li>
+            <li class="flex items-center"><span class="text-teal-500 mr-2">&#10003;</span> Stakeholder alignment</li>
+          </ul>
+        </div>
+
+        <div class="card-hover bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+          <div class="w-14 h-14 bg-navy-900 rounded-xl flex items-center justify-center mb-6">
+            <svg class="w-7 h-7 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-navy-900 mb-3">Database Architecture</h3>
+          <p class="text-gray-600 mb-4">Design and optimize databases for performance and scale.</p>
+          <ul class="text-sm text-gray-500 space-y-2">
+            <li class="flex items-center"><span class="text-teal-500 mr-2">&#10003;</span> MS SQL Server expert</li>
+            <li class="flex items-center"><span class="text-teal-500 mr-2">&#10003;</span> Data migrations</li>
+            <li class="flex items-center"><span class="text-teal-500 mr-2">&#10003;</span> Performance tuning</li>
+          </ul>
+        </div>
+
+        <div class="card-hover bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+          <div class="w-14 h-14 bg-navy-900 rounded-xl flex items-center justify-center mb-6">
+            <svg class="w-7 h-7 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-navy-900 mb-3">AI Integration</h3>
+          <p class="text-gray-600 mb-4">Leverage AI to automate workflows and enhance productivity.</p>
+          <ul class="text-sm text-gray-500 space-y-2">
+            <li class="flex items-center"><span class="text-teal-500 mr-2">&#10003;</span> ChatGPT & Copilot</li>
+            <li class="flex items-center"><span class="text-teal-500 mr-2">&#10003;</span> Process automation</li>
+            <li class="flex items-center"><span class="text-teal-500 mr-2">&#10003;</span> Custom AI solutions</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Career Timeline Section -->
+  <section id="journey" class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">My Professional Journey</h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">Two decades of building, leading, and transforming</p>
+      </div>
+
+      <div class="relative">
+        <!-- Timeline Line (Desktop) -->
+        <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-teal-500 to-navy-900 rounded-full"></div>
+
+        <!-- Timeline Line (Mobile) -->
+        <div class="md:hidden absolute left-6 w-1 h-full bg-gradient-to-b from-teal-500 to-navy-900 rounded-full"></div>
+
+        <!-- Timeline Items -->
+        <div class="space-y-12">
+          <!-- Item 1 -->
+          <div class="relative flex items-center md:justify-between">
+            <div class="hidden md:block w-5/12"></div>
+            <div class="absolute left-6 md:left-1/2 transform md:-translate-x-1/2 w-4 h-4 bg-teal-500 rounded-full border-4 border-white shadow-lg z-10"></div>
+            <div class="ml-16 md:ml-0 md:w-5/12 card-hover bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+              <span class="text-teal-500 font-semibold text-sm">2023 - Present</span>
+              <h3 class="text-xl font-bold text-navy-900 mt-2">Business Development & Fractional Leadership</h3>
+              <p class="text-gray-500 mt-1 text-sm">Lookatmedia, Axios Services, MAB International</p>
+              <p class="text-gray-600 mt-3">Building client pipelines, driving revenue growth, and managing government RFP processes across international markets.</p>
+            </div>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="relative flex items-center md:justify-between">
+            <div class="ml-16 md:ml-0 md:w-5/12 card-hover bg-white rounded-2xl p-6 shadow-lg border border-gray-100 md:text-right">
+              <span class="text-teal-500 font-semibold text-sm">2016 - 2023</span>
+              <h3 class="text-xl font-bold text-navy-900 mt-2">Chief Technology Officer</h3>
+              <p class="text-gray-500 mt-1 text-sm">SixLeaf LLC</p>
+              <p class="text-gray-600 mt-3">Scaled SaaS platform to 150,000+ users, implemented CI/CD pipelines, reduced churn by 60%, and architected Azure Cloud infrastructure.</p>
+            </div>
+            <div class="absolute left-6 md:left-1/2 transform md:-translate-x-1/2 w-4 h-4 bg-teal-500 rounded-full border-4 border-white shadow-lg z-10"></div>
+            <div class="hidden md:block w-5/12"></div>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="relative flex items-center md:justify-between">
+            <div class="hidden md:block w-5/12"></div>
+            <div class="absolute left-6 md:left-1/2 transform md:-translate-x-1/2 w-4 h-4 bg-teal-500 rounded-full border-4 border-white shadow-lg z-10"></div>
+            <div class="ml-16 md:ml-0 md:w-5/12 card-hover bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+              <span class="text-teal-500 font-semibold text-sm">2012 - 2016</span>
+              <h3 class="text-xl font-bold text-navy-900 mt-2">Sales & Operations Manager</h3>
+              <p class="text-gray-500 mt-1 text-sm">OSG/SouthData, Inc.</p>
+              <p class="text-gray-600 mt-3">Led 7 sites and 70+ employees, boosted successful bids by 80%, achieved 60%+ profit margins through data-driven automations.</p>
+            </div>
+          </div>
+
+          <!-- Item 4 -->
+          <div class="relative flex items-center md:justify-between">
+            <div class="ml-16 md:ml-0 md:w-5/12 card-hover bg-white rounded-2xl p-6 shadow-lg border border-gray-100 md:text-right">
+              <span class="text-teal-500 font-semibold text-sm">2009 - 2012</span>
+              <h3 class="text-xl font-bold text-navy-900 mt-2">Systems & Logistics Manager</h3>
+              <p class="text-gray-500 mt-1 text-sm">SouthData, Inc.</p>
+              <p class="text-gray-600 mt-3">Integrated virtualized servers, achieved 90% automation in medical record indexing via proprietary OCR, maintained HIPAA compliance.</p>
+            </div>
+            <div class="absolute left-6 md:left-1/2 transform md:-translate-x-1/2 w-4 h-4 bg-teal-500 rounded-full border-4 border-white shadow-lg z-10"></div>
+            <div class="hidden md:block w-5/12"></div>
+          </div>
+
+          <!-- Item 5 -->
+          <div class="relative flex items-center md:justify-between">
+            <div class="hidden md:block w-5/12"></div>
+            <div class="absolute left-6 md:left-1/2 transform md:-translate-x-1/2 w-4 h-4 bg-teal-500 rounded-full border-4 border-white shadow-lg z-10"></div>
+            <div class="ml-16 md:ml-0 md:w-5/12 card-hover bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+              <span class="text-teal-500 font-semibold text-sm">2003 - 2009</span>
+              <h3 class="text-xl font-bold text-navy-900 mt-2">IT Director</h3>
+              <p class="text-gray-500 mt-1 text-sm">Micro Images, Inc.</p>
+              <p class="text-gray-600 mt-3">Led business expansion through innovative technology, engineered custom image manipulation tools, automated workflows.</p>
+            </div>
+          </div>
+
+          <!-- Item 6 -->
+          <div class="relative flex items-center md:justify-between">
+            <div class="ml-16 md:ml-0 md:w-5/12 card-hover bg-white rounded-2xl p-6 shadow-lg border border-gray-100 md:text-right">
+              <span class="text-teal-500 font-semibold text-sm">Early 2000s</span>
+              <h3 class="text-xl font-bold text-navy-900 mt-2">Programmer</h3>
+              <p class="text-gray-500 mt-1 text-sm">Bredero Shaw</p>
+              <p class="text-gray-600 mt-3">Built real-time data monitoring systems for PLCs in oil pipeline facilities. Where the journey began.</p>
+            </div>
+            <div class="absolute left-6 md:left-1/2 transform md:-translate-x-1/2 w-4 h-4 bg-navy-900 rounded-full border-4 border-white shadow-lg z-10"></div>
+            <div class="hidden md:block w-5/12"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Personality Profiles Section -->
+  <section id="profiles" class="py-24 bg-navy-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Understand How I Work</h2>
+        <p class="text-xl text-gray-400 max-w-2xl mx-auto">Dive deeper into my personality assessments to see how I think, lead, and collaborate</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <a href="Lee_Foropoulos_DISC_Profile.html" class="card-hover metric-card rounded-2xl p-8 text-center group">
+          <div class="w-16 h-16 bg-teal-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-teal-500/30 transition">
+            <span class="text-3xl">&#127919;</span>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">DISC Profile</h3>
+          <p class="text-gray-400 text-sm">Balanced, versatile leadership style</p>
+          <span class="inline-block mt-4 text-teal-400 group-hover:translate-x-2 transition-transform">View Profile &rarr;</span>
+        </a>
+
+        <a href="Lee_Foropoulos_MBTI.html" class="card-hover metric-card rounded-2xl p-8 text-center group">
+          <div class="w-16 h-16 bg-teal-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-teal-500/30 transition">
+            <span class="text-3xl">&#129504;</span>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">MBTI (ENTJ)</h3>
+          <p class="text-gray-400 text-sm">The Commander - Natural leader</p>
+          <span class="inline-block mt-4 text-teal-400 group-hover:translate-x-2 transition-transform">View Profile &rarr;</span>
+        </a>
+
+        <a href="Lee_Foropoulos_Big_Five.html" class="card-hover metric-card rounded-2xl p-8 text-center group">
+          <div class="w-16 h-16 bg-teal-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-teal-500/30 transition">
+            <span class="text-3xl">&#11088;</span>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">Big Five Traits</h3>
+          <p class="text-gray-400 text-sm">Core personality dimensions</p>
+          <span class="inline-block mt-4 text-teal-400 group-hover:translate-x-2 transition-transform">View Profile &rarr;</span>
+        </a>
+
+        <a href="Lee_Foropoulos_Human_Design_Profile.html" class="card-hover metric-card rounded-2xl p-8 text-center group">
+          <div class="w-16 h-16 bg-teal-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-teal-500/30 transition">
+            <span class="text-3xl">&#128302;</span>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">Human Design</h3>
+          <p class="text-gray-400 text-sm">Manifesting Generator 6/2</p>
+          <span class="inline-block mt-4 text-teal-400 group-hover:translate-x-2 transition-transform">View Profile &rarr;</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Personal Passions Section -->
+  <section class="py-24 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-6">Beyond the Code</h2>
+          <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+            I believe the best professionals bring their whole selves to work. My passions outside the office fuel creativity, discipline, and fresh perspectives.
+          </p>
+
+          <div class="space-y-6">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 bg-teal-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                <span class="text-2xl">&#128170;</span>
+              </div>
+              <div>
+                <h3 class="font-bold text-navy-900 mb-1">Fitness & Bodybuilding</h3>
+                <p class="text-gray-600">Certified personal trainer and nutritionist. Discipline in the gym translates to discipline in business.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 bg-teal-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                <span class="text-2xl">&#127859;</span>
+              </div>
+              <div>
+                <h3 class="font-bold text-navy-900 mb-1">Culinary Arts</h3>
+                <p class="text-gray-600">Experimenting with bold flavors and wholesome ingredients, turning meals into creative expressions.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 bg-teal-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                <span class="text-2xl">&#129302;</span>
+              </div>
+              <div>
+                <h3 class="font-bold text-navy-900 mb-1">Quantum Physics</h3>
+                <p class="text-gray-600">Fascinated by the mysteries of the universe and how they inspire innovative thinking.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 bg-teal-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                <span class="text-2xl">&#128054;</span>
+              </div>
+              <div>
+                <h3 class="font-bold text-navy-900 mb-1">Zero, My Dog</h3>
+                <p class="text-gray-600">My loyal companion for daily walks and adventures. Sometimes the best ideas come on a walk.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="relative">
+          <div class="absolute inset-0 bg-teal-500/10 rounded-3xl transform rotate-3"></div>
+          <div class="relative bg-white rounded-3xl p-8 shadow-xl">
+            <blockquote class="text-xl text-gray-700 italic leading-relaxed">
+              "I am passionate about helping others refine their habits and achieve their loftiest goals, empowering individuals to unlock their full potential."
+            </blockquote>
+            <div class="mt-6 flex items-center gap-4">
+              <img src="headshot.png" alt="Lee Foropoulos" class="w-12 h-12 rounded-full object-cover" onerror="this.src='https://via.placeholder.com/48x48.png?text=LF';">
+              <div>
+                <p class="font-bold text-navy-900">Lee Foropoulos</p>
+                <p class="text-gray-500 text-sm">Motivational Speaker & Coach</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">What People Say</h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">Building trust through results and relationships</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="card-hover bg-gray-50 rounded-2xl p-8">
+          <div class="flex items-center gap-1 mb-4">
+            <span class="text-amber-400 text-xl">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          </div>
+          <p class="text-gray-700 mb-6 leading-relaxed">"Lee's ability to translate complex technical concepts into actionable business strategies is unmatched. He transformed our entire operation."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-navy-900 rounded-full flex items-center justify-center text-white font-bold">C</div>
+            <div>
+              <p class="font-semibold text-navy-900">Client</p>
+              <p class="text-sm text-gray-500">SaaS Company</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-hover bg-gray-50 rounded-2xl p-8">
+          <div class="flex items-center gap-1 mb-4">
+            <span class="text-amber-400 text-xl">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          </div>
+          <p class="text-gray-700 mb-6 leading-relaxed">"His leadership during our digital transformation was invaluable. Lee doesn't just manage projects, he drives meaningful change."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-navy-900 rounded-full flex items-center justify-center text-white font-bold">E</div>
+            <div>
+              <p class="font-semibold text-navy-900">Executive</p>
+              <p class="text-sm text-gray-500">Healthcare Tech</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-hover bg-gray-50 rounded-2xl p-8">
+          <div class="flex items-center gap-1 mb-4">
+            <span class="text-amber-400 text-xl">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          </div>
+          <p class="text-gray-700 mb-6 leading-relaxed">"Working with Lee felt like having a true partner invested in our success. His technical depth and business acumen are rare."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-navy-900 rounded-full flex items-center justify-center text-white font-bold">F</div>
+            <div>
+              <p class="font-semibold text-navy-900">Founder</p>
+              <p class="text-sm text-gray-500">Tech Startup</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-center text-gray-500 mt-8 text-sm">* Testimonials represent typical client feedback. Names anonymized for privacy.</p>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section id="contact" class="py-24 hero-gradient">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">Ready to Scale Your Business?</h2>
+      <p class="text-xl text-gray-300 mb-10 leading-relaxed">
+        Whether you need a Fractional CTO, Program Manager, or technical advisor, I'm here to help you achieve your goals with speed, integrity, and precision.
       </p>
-      <a href="https://www.upwork.com/freelancers/thesecretchief?viewMode=1" class="inline-block bg-white text-indigo-700 font-semibold py-4 px-8 rounded-full hover:bg-gray-200 transition duration-300">Contact Me</a>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="https://www.upwork.com/freelancers/thesecretchief?viewMode=1" target="_blank" class="bg-teal-500 hover:bg-teal-400 text-navy-900 font-bold px-10 py-4 rounded-full text-lg transition transform hover:scale-105">
+          Let's Work Together
+        </a>
+        <a href="https://www.linkedin.com/in/thesecretchief" target="_blank" class="border-2 border-white/30 hover:border-teal-400 text-white hover:text-teal-400 font-semibold px-10 py-4 rounded-full text-lg transition">
+          Connect on LinkedIn
+        </a>
+      </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="bg-gray-800 text-white py-8 text-center">
-    <div class="max-w-7xl mx-auto px-4">
-      <p class="mt-2">© 2025 Lee Steven Foropoulos. All rights reserved.</p>
-      <p class="mt-2">
-        <a href="https://www.upwork.com/agencies/1699047706469380096/" class="underline hover:text-indigo-300">Greek-Fire Corporation</a>
-      </p>
+  <footer class="bg-navy-900 border-t border-white/10 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-3 gap-8 items-center">
+        <div>
+          <a href="#" class="text-white font-bold text-2xl">Lee<span class="text-teal-400">.</span></a>
+          <p class="text-gray-400 mt-2">Fractional CTO & Program Manager</p>
+        </div>
+
+        <div class="flex justify-center space-x-6">
+          <a href="https://www.linkedin.com/in/thesecretchief" target="_blank" class="text-gray-400 hover:text-teal-400 transition">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/thesecretchief" target="_blank" class="text-gray-400 hover:text-teal-400 transition">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="https://www.facebook.com/thesecretchief" target="_blank" class="text-gray-400 hover:text-teal-400 transition">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a href="https://www.upwork.com/freelancers/thesecretchief" target="_blank" class="text-gray-400 hover:text-teal-400 transition">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M18.561 13.158c-1.102 0-2.135-.467-3.074-1.227l.228-1.076.008-.042c.207-1.143.849-3.06 2.839-3.06 1.492 0 2.703 1.212 2.703 2.703-.001 1.489-1.212 2.702-2.704 2.702zm0-8.14c-2.539 0-4.51 1.649-5.31 4.366-1.22-1.834-2.148-4.036-2.687-5.892H7.828v7.112c-.002 1.406-1.141 2.546-2.547 2.546-1.405 0-2.543-1.14-2.543-2.546V3.492H0v7.112c0 2.914 2.37 5.303 5.281 5.303 2.913 0 5.283-2.389 5.283-5.303v-1.19c.529 1.107 1.182 2.229 1.974 3.221l-1.673 7.873h2.797l1.213-5.71c1.063.679 2.285 1.109 3.686 1.109 3 0 5.439-2.452 5.439-5.45 0-3-2.439-5.439-5.439-5.439z"/></svg>
+          </a>
+        </div>
+
+        <div class="text-center md:text-right">
+          <p class="text-gray-400">&copy; 2025 Lee Steven Foropoulos</p>
+          <a href="https://www.upwork.com/agencies/1699047706469380096/" target="_blank" class="text-teal-400 hover:text-teal-300 transition text-sm">Greek-Fire Corporation</a>
+        </div>
+      </div>
     </div>
   </footer>
+
+  <!-- Mobile Menu Script -->
+  <script>
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const closeMenuBtn = document.getElementById('close-menu');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.add('open');
+    });
+
+    closeMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+    });
+
+    // Close menu when clicking a link
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+      });
+    });
+  </script>
+
 </body>
 </html>
