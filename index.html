@@ -36,7 +36,16 @@
           },
           fontFamily: {
             sans: ['Inter', 'system-ui', 'sans-serif'],
-          }
+          },
+          animation: {
+            shimmer: 'shimmer 3s ease-in-out infinite',
+          },
+          keyframes: {
+            shimmer: {
+              '0%, 100%': { backgroundPosition: '200% 0' },
+              '50%': { backgroundPosition: '-200% 0' },
+            },
+          },
         }
       }
     }
@@ -415,7 +424,9 @@
       <div class="text-center mb-12">
         <p class="text-gold-600 font-semibold mb-2 tracking-wide uppercase text-sm">Allow Me to Introduce Myself</p>
         <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 dark:text-white mb-2">Hi, I'm Lee Foropoulos.</h2>
-        <p class="text-xl text-gold-500 italic font-light mb-6">@thesecretchief</p>
+        <p class="text-lg tracking-widest uppercase font-semibold mb-6">
+          <span class="bg-gradient-to-r from-gold-400 via-yellow-200 to-gold-400 bg-clip-text text-transparent animate-shimmer bg-[length:200%_100%]">thesecretchief</span>
+        </p>
         <div class="flex flex-wrap gap-2 justify-center mb-8">
           <span class="text-sm bg-navy-900 text-white px-4 py-2 rounded-full">Fractional Executive</span>
           <span class="text-sm bg-navy-900 text-white px-4 py-2 rounded-full">Program Manager</span>
