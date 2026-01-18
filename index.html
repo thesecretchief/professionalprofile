@@ -43,7 +43,16 @@
   </script>
   <!-- Dark mode initialization (prevents flash) -->
   <script>
-    if (localStorage.getItem('darkMode') === 'true' || (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    function getCookie(name) {
+      const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+      return match ? match[2] : null;
+    }
+    function setCookie(name, value, days) {
+      const expires = new Date(Date.now() + days * 864e5).toUTCString();
+      document.cookie = name + '=' + value + '; expires=' + expires + '; path=/; SameSite=Lax';
+    }
+    const darkPref = getCookie('darkMode');
+    if (darkPref === 'true' || (!darkPref && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
       document.documentElement.classList.add('dark');
     }
   </script>
@@ -1096,7 +1105,7 @@
     function toggleDarkMode() {
       document.documentElement.classList.toggle('dark');
       const isDark = document.documentElement.classList.contains('dark');
-      localStorage.setItem('darkMode', isDark);
+      setCookie('darkMode', isDark, 365);
     }
 
     darkModeToggle.addEventListener('click', toggleDarkMode);
