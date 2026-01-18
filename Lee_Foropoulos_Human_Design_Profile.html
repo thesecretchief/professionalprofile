@@ -12,7 +12,7 @@
         extend: {
           colors: {
             navy: { 900: '#0f172a', 800: '#1e293b', 700: '#334155', 600: '#475569' },
-            teal: { 500: '#14b8a6', 400: '#2dd4bf', 300: '#5eead4' },
+            gold: { 700: '#b45309', 600: '#d97706', 500: '#f59e0b', 400: '#fbbf24', 300: '#fcd34d', 200: '#fde68a', 100: '#fef3c7', 50: '#fffbeb' },
             amber: { 500: '#f59e0b', 400: '#fbbf24' }
           },
           fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
@@ -26,7 +26,7 @@
   <style>
     html { scroll-behavior: smooth; }
     body { font-family: 'Inter', system-ui, sans-serif; }
-    .gradient-text { background: linear-gradient(135deg, #14b8a6, #2dd4bf); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    .gradient-text { background: linear-gradient(135deg, #f59e0b, #fbbf24); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
     .hero-gradient { background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%); }
     .card-hover { transition: all 0.3s ease; }
     .card-hover:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.1); }
@@ -40,14 +40,14 @@
   <nav class="fixed top-0 left-0 right-0 z-50 bg-navy-900/95 backdrop-blur-md border-b border-white/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center h-16">
-        <a href="index.html" class="text-white font-bold text-xl tracking-tight">Foropoulos<span class="text-teal-400">Now</span><span class="text-gray-400 text-sm">.com</span></a>
+        <a href="index.html" class="text-white font-bold text-xl tracking-tight">Foropoulos<span class="text-gold-400">Now</span><span class="text-gray-400 text-sm">.com</span></a>
         <div class="hidden md:flex items-center space-x-8">
-          <a href="index.html" class="text-gray-300 hover:text-teal-400 transition">Home</a>
-          <a href="Lee_Foropoulos_DISC_Profile.html" class="text-gray-300 hover:text-teal-400 transition">DISC</a>
-          <a href="Lee_Foropoulos_MBTI.html" class="text-gray-300 hover:text-teal-400 transition">MBTI</a>
-          <a href="Lee_Foropoulos_Big_Five.html" class="text-gray-300 hover:text-teal-400 transition">Big Five</a>
-          <a href="Lee_Foropoulos_Human_Design_Profile.html" class="text-teal-400 font-semibold">Human Design</a>
-          <a href="https://www.upwork.com/freelancers/thesecretchief?viewMode=1" target="_blank" class="bg-teal-500 hover:bg-teal-400 text-navy-900 font-semibold px-5 py-2 rounded-full transition">Work With Me</a>
+          <a href="index.html" class="text-gray-300 hover:text-gold-400 transition">Home</a>
+          <a href="Lee_Foropoulos_DISC_Profile.html" class="text-gray-300 hover:text-gold-400 transition">DISC</a>
+          <a href="Lee_Foropoulos_MBTI.html" class="text-gray-300 hover:text-gold-400 transition">MBTI</a>
+          <a href="Lee_Foropoulos_Big_Five.html" class="text-gray-300 hover:text-gold-400 transition">Big Five</a>
+          <a href="Lee_Foropoulos_Human_Design_Profile.html" class="text-gold-400 font-semibold">Human Design</a>
+          <a href="https://www.upwork.com/freelancers/thesecretchief?viewMode=1" target="_blank" class="bg-gold-500 hover:bg-gold-400 text-navy-900 font-semibold px-5 py-2 rounded-full transition">Work With Me</a>
         </div>
         <button id="mobile-menu-btn" class="md:hidden text-white p-2">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
@@ -60,13 +60,13 @@
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
         </button>
         <div class="mt-12 flex flex-col space-y-6">
-          <a href="index.html" class="text-white text-lg hover:text-teal-400 transition">Home</a>
-          <a href="Lee_Foropoulos_DISC_Profile.html" class="text-white text-lg hover:text-teal-400 transition">DISC</a>
-          <a href="Lee_Foropoulos_MBTI.html" class="text-white text-lg hover:text-teal-400 transition">MBTI</a>
-          <a href="Lee_Foropoulos_Big_Five.html" class="text-white text-lg hover:text-teal-400 transition">Big Five</a>
-          <a href="Lee_Foropoulos_Human_Design_Profile.html" class="text-teal-400 text-lg font-semibold">Human Design</a>
+          <a href="index.html" class="text-white text-lg hover:text-gold-400 transition">Home</a>
+          <a href="Lee_Foropoulos_DISC_Profile.html" class="text-white text-lg hover:text-gold-400 transition">DISC</a>
+          <a href="Lee_Foropoulos_MBTI.html" class="text-white text-lg hover:text-gold-400 transition">MBTI</a>
+          <a href="Lee_Foropoulos_Big_Five.html" class="text-white text-lg hover:text-gold-400 transition">Big Five</a>
+          <a href="Lee_Foropoulos_Human_Design_Profile.html" class="text-gold-400 text-lg font-semibold">Human Design</a>
           <hr class="border-white/20">
-          <a href="https://www.upwork.com/freelancers/thesecretchief?viewMode=1" target="_blank" class="bg-teal-500 text-navy-900 font-semibold px-5 py-3 rounded-full text-center transition hover:bg-teal-400">Work With Me</a>
+          <a href="https://www.upwork.com/freelancers/thesecretchief?viewMode=1" target="_blank" class="bg-gold-500 text-navy-900 font-semibold px-5 py-3 rounded-full text-center transition hover:bg-gold-400">Work With Me</a>
         </div>
       </div>
     </div>
@@ -76,9 +76,9 @@
   <section class="hero-gradient pt-24 pb-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center">
-        <div class="inline-flex items-center gap-2 bg-teal-500/10 border border-teal-500/20 rounded-full px-4 py-2 mb-6">
+        <div class="inline-flex items-center gap-2 bg-gold-500/10 border border-gold-500/20 rounded-full px-4 py-2 mb-6">
           <span class="text-2xl">&#128302;</span>
-          <span class="text-teal-400 font-medium">Energetic Blueprint</span>
+          <span class="text-gold-400 font-medium">Energetic Blueprint</span>
         </div>
         <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4">
           My <span class="gradient-text">Human Design</span>
@@ -103,10 +103,10 @@
       <div class="bg-gray-50 rounded-2xl p-6 text-center">
         <p class="text-gray-600 mb-2">
           Discover your own Human Design chart at
-          <a href="https://ahumandesign.com/human-design-chart/" target="_blank" class="text-teal-500 hover:text-teal-400 font-semibold underline">aHumanDesign.com</a>
+          <a href="https://ahumandesign.com/human-design-chart/" target="_blank" class="text-gold-500 hover:text-gold-400 font-semibold underline">aHumanDesign.com</a>
         </p>
         <p class="text-gray-500 text-sm">
-          <a href="https://youtu.be/MP6Jns365J4?si=1norZw9pZljaXi79" target="_blank" class="text-teal-500 hover:text-teal-400 underline">Watch a tutorial to learn more</a>
+          <a href="https://youtu.be/MP6Jns365J4?si=1norZw9pZljaXi79" target="_blank" class="text-gold-500 hover:text-gold-400 underline">Watch a tutorial to learn more</a>
         </p>
       </div>
     </div>
@@ -211,31 +211,31 @@
         <div class="bg-white/5 backdrop-blur border border-white/10 rounded-xl p-6 text-center">
           <div class="text-3xl mb-3">&#127869;</div>
           <h3 class="text-white font-semibold mb-2">Digestion</h3>
-          <p class="text-teal-400 text-sm font-medium mb-2">Open</p>
+          <p class="text-gold-400 text-sm font-medium mb-2">Open</p>
           <p class="text-gray-400 text-xs">Flexible processing, benefits from consistent routines</p>
         </div>
         <div class="bg-white/5 backdrop-blur border border-white/10 rounded-xl p-6 text-center">
           <div class="text-3xl mb-3">&#128065;</div>
           <h3 class="text-white font-semibold mb-2">Design Sense</h3>
-          <p class="text-teal-400 text-sm font-medium mb-2">Outer Vision</p>
+          <p class="text-gold-400 text-sm font-medium mb-2">Outer Vision</p>
           <p class="text-gray-400 text-xs">Keen ability to observe patterns and possibilities</p>
         </div>
         <div class="bg-white/5 backdrop-blur border border-white/10 rounded-xl p-6 text-center">
           <div class="text-3xl mb-3">&#128170;</div>
           <h3 class="text-white font-semibold mb-2">Motivation</h3>
-          <p class="text-teal-400 text-sm font-medium mb-2">Fear</p>
+          <p class="text-gold-400 text-sm font-medium mb-2">Fear</p>
           <p class="text-gray-400 text-xs">Driven to mitigate risks through thorough preparation</p>
         </div>
         <div class="bg-white/5 backdrop-blur border border-white/10 rounded-xl p-6 text-center">
           <div class="text-3xl mb-3">&#128081;</div>
           <h3 class="text-white font-semibold mb-2">Perspective</h3>
-          <p class="text-teal-400 text-sm font-medium mb-2">Power</p>
+          <p class="text-gold-400 text-sm font-medium mb-2">Power</p>
           <p class="text-gray-400 text-xs">Views world through influence and leadership lens</p>
         </div>
         <div class="bg-white/5 backdrop-blur border border-white/10 rounded-xl p-6 text-center">
           <div class="text-3xl mb-3">&#127956;</div>
           <h3 class="text-white font-semibold mb-2">Environment</h3>
-          <p class="text-teal-400 text-sm font-medium mb-2">Mountains</p>
+          <p class="text-gold-400 text-sm font-medium mb-2">Mountains</p>
           <p class="text-gray-400 text-xs">Thrives in elevated, quiet spaces for perspective</p>
         </div>
       </div>
@@ -250,25 +250,25 @@
         <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
           <h3 class="text-xl font-bold text-navy-900 mb-4">Active Gates</h3>
           <div class="flex flex-wrap gap-2">
-            <span class="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm">4 - Problem-solving</span>
-            <span class="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm">6 - Emotional boundaries</span>
-            <span class="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm">15 - Love for humanity</span>
-            <span class="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm">20 - Presence</span>
-            <span class="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm">26 - Integrity</span>
-            <span class="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm">29 - Commitment</span>
-            <span class="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm">30 - Emotions</span>
-            <span class="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm">32 - Continuity</span>
-            <span class="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm">34 - Strength</span>
-            <span class="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm">35 - Change</span>
-            <span class="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm">39 - Provocation</span>
-            <span class="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm">40 - Willpower</span>
-            <span class="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm">43 - Insights</span>
-            <span class="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm">47 - Mental realization</span>
-            <span class="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm">49 - Transformation</span>
-            <span class="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm">57 - Intuition</span>
-            <span class="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm">58 - Vitality</span>
-            <span class="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm">59 - Intimacy</span>
-            <span class="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm">64 - Inspiration</span>
+            <span class="px-3 py-1 bg-gold-100 text-gold-700 rounded-full text-sm">4 - Problem-solving</span>
+            <span class="px-3 py-1 bg-gold-100 text-gold-700 rounded-full text-sm">6 - Emotional boundaries</span>
+            <span class="px-3 py-1 bg-gold-100 text-gold-700 rounded-full text-sm">15 - Love for humanity</span>
+            <span class="px-3 py-1 bg-gold-100 text-gold-700 rounded-full text-sm">20 - Presence</span>
+            <span class="px-3 py-1 bg-gold-100 text-gold-700 rounded-full text-sm">26 - Integrity</span>
+            <span class="px-3 py-1 bg-gold-100 text-gold-700 rounded-full text-sm">29 - Commitment</span>
+            <span class="px-3 py-1 bg-gold-100 text-gold-700 rounded-full text-sm">30 - Emotions</span>
+            <span class="px-3 py-1 bg-gold-100 text-gold-700 rounded-full text-sm">32 - Continuity</span>
+            <span class="px-3 py-1 bg-gold-100 text-gold-700 rounded-full text-sm">34 - Strength</span>
+            <span class="px-3 py-1 bg-gold-100 text-gold-700 rounded-full text-sm">35 - Change</span>
+            <span class="px-3 py-1 bg-gold-100 text-gold-700 rounded-full text-sm">39 - Provocation</span>
+            <span class="px-3 py-1 bg-gold-100 text-gold-700 rounded-full text-sm">40 - Willpower</span>
+            <span class="px-3 py-1 bg-gold-100 text-gold-700 rounded-full text-sm">43 - Insights</span>
+            <span class="px-3 py-1 bg-gold-100 text-gold-700 rounded-full text-sm">47 - Mental realization</span>
+            <span class="px-3 py-1 bg-gold-100 text-gold-700 rounded-full text-sm">49 - Transformation</span>
+            <span class="px-3 py-1 bg-gold-100 text-gold-700 rounded-full text-sm">57 - Intuition</span>
+            <span class="px-3 py-1 bg-gold-100 text-gold-700 rounded-full text-sm">58 - Vitality</span>
+            <span class="px-3 py-1 bg-gold-100 text-gold-700 rounded-full text-sm">59 - Intimacy</span>
+            <span class="px-3 py-1 bg-gold-100 text-gold-700 rounded-full text-sm">64 - Inspiration</span>
           </div>
         </div>
         <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
@@ -310,19 +310,19 @@
           <div class="text-4xl mb-4">&#127919;</div>
           <h3 class="text-xl font-bold text-navy-900 mb-2">DISC Profile</h3>
           <p class="text-gray-500 text-sm mb-4">Balanced, versatile leadership</p>
-          <span class="text-teal-500 font-medium">View Profile &rarr;</span>
+          <span class="text-gold-500 font-medium">View Profile &rarr;</span>
         </a>
         <a href="Lee_Foropoulos_MBTI.html" class="card-hover bg-gray-50 rounded-2xl p-8 text-center border border-gray-100">
           <div class="text-4xl mb-4">&#129504;</div>
           <h3 class="text-xl font-bold text-navy-900 mb-2">MBTI (ENTJ)</h3>
           <p class="text-gray-500 text-sm mb-4">The Commander - Natural leader</p>
-          <span class="text-teal-500 font-medium">View Profile &rarr;</span>
+          <span class="text-gold-500 font-medium">View Profile &rarr;</span>
         </a>
         <a href="Lee_Foropoulos_Big_Five.html" class="card-hover bg-gray-50 rounded-2xl p-8 text-center border border-gray-100">
           <div class="text-4xl mb-4">&#11088;</div>
           <h3 class="text-xl font-bold text-navy-900 mb-2">Big Five Traits</h3>
           <p class="text-gray-500 text-sm mb-4">Core personality dimensions</p>
-          <span class="text-teal-500 font-medium">View Profile &rarr;</span>
+          <span class="text-gold-500 font-medium">View Profile &rarr;</span>
         </a>
       </div>
     </div>
@@ -335,7 +335,7 @@
       <p class="text-xl text-gray-300 mb-10 leading-relaxed">
         As a Manifesting Generator with a 6/2 Profile, I bring intuitive clarity, emotional intelligence, and a proven ability to lead with impact. Let's discuss how I can contribute to your success.
       </p>
-      <a href="https://www.upwork.com/freelancers/thesecretchief?viewMode=1" target="_blank" class="inline-block bg-teal-500 hover:bg-teal-400 text-navy-900 font-bold px-10 py-4 rounded-full text-lg transition transform hover:scale-105">
+      <a href="https://www.upwork.com/freelancers/thesecretchief?viewMode=1" target="_blank" class="inline-block bg-gold-500 hover:bg-gold-400 text-navy-900 font-bold px-10 py-4 rounded-full text-lg transition transform hover:scale-105">
         Let's Work Together
       </a>
     </div>
@@ -346,16 +346,16 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid md:grid-cols-3 gap-8 items-center">
         <div>
-          <a href="index.html" class="text-white font-bold text-2xl tracking-tight">Foropoulos<span class="text-teal-400">Now</span><span class="text-gray-400 text-sm">.com</span></a>
+          <a href="index.html" class="text-white font-bold text-2xl tracking-tight">Foropoulos<span class="text-gold-400">Now</span><span class="text-gray-400 text-sm">.com</span></a>
           <p class="text-gray-400 mt-2">Fractional CTO & Program Manager</p>
         </div>
         <div class="text-center">
           <p class="text-gray-400">Get your own Human Design:</p>
-          <a href="https://ahumandesign.com/human-design-chart/" target="_blank" class="text-teal-400 hover:text-teal-300 font-medium">aHumanDesign.com</a>
+          <a href="https://ahumandesign.com/human-design-chart/" target="_blank" class="text-gold-400 hover:text-gold-300 font-medium">aHumanDesign.com</a>
         </div>
         <div class="text-center md:text-right">
           <p class="text-gray-400">&copy; 2025 Lee Steven Foropoulos</p>
-          <a href="https://www.upwork.com/agencies/1699047706469380096/" target="_blank" class="text-teal-400 hover:text-teal-300 transition text-sm">Greek-Fire Corporation</a>
+          <a href="https://www.upwork.com/agencies/1699047706469380096/" target="_blank" class="text-gold-400 hover:text-gold-300 transition text-sm">Greek-Fire Corporation</a>
         </div>
       </div>
     </div>
