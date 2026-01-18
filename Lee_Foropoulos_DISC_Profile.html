@@ -1,165 +1,332 @@
-<script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-        </script>
-           <script type="module">
-    import { injectMenuWidget } from './widgets/menu-widget.js';
-    injectMenuWidget();
-  </script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lee Foropoulos - DISC Personality Profile</title>
+  <title>DISC Profile | Lee Foropoulos</title>
+  <meta name="description" content="Explore Lee Foropoulos's DISC personality profile - balanced leadership with assertive, collaborative, and detail-oriented qualities.">
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: {
+              900: '#0f172a',
+              800: '#1e293b',
+              700: '#334155',
+              600: '#475569',
+            },
+            teal: {
+              500: '#14b8a6',
+              400: '#2dd4bf',
+              300: '#5eead4',
+            },
+            amber: {
+              500: '#f59e0b',
+              400: '#fbbf24',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, sans-serif; }
     .gradient-text {
-      background: linear-gradient(90deg, #4b5bd1, #8e44ad);
+      background: linear-gradient(135deg, #14b8a6, #2dd4bf);
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    .chart-container {
-      max-width: 600px;
-      margin: 0 auto;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    .hero-gradient {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+    }
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+    }
+    .mobile-menu {
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+    }
+    .mobile-menu.open {
+      transform: translateX(0);
     }
   </style>
 </head>
-<body class="bg-gradient-to-br from-gray-100 to-white font-sans">
-  <!-- Header -->
-  <header class="bg-indigo-900 text-white py-12">
-    <div class="max-w-7xl mx-auto px-4 text-center">
-      <img src="headshot.png" alt="Lee Foropoulos Headshot" class="w-32 h-38 rounded-full mx-auto mb-4" onerror="this.src='https://via.placeholder.com/128x128.png?text=Headshot+Not+Loaded';">
-      <h1 class="text-5xl font-extrabold gradient-text">Lee Steven Foropoulos</h1>
-      <p class="text-2xl mt-4">Unveiling My DISC Personality Profile</p>
-      <p class="mt-6 text-lg max-w-3xl mx-auto">Explore my DISC profile to understand how my leadership style, adaptability, and teamwork skills can enhance your organization’s success.</p>
-    </div>
-  </header>
+<body class="bg-white text-gray-800">
 
- <div id="menu-widget">  </div>
-        
-  <!-- Introduction Section -->
-  <section class="py-16 bg-white">
-    <div class="max-w-7xl mx-auto px-4 text-center">
-      <h2 class="text-4xl font-semibold text-gray-800 mb-6">What is the DISC Assessment?</h2>
-      <p class="mt-6 text-lg text-gray-600">
-        The DISC assessment is a behavioral analysis tool developed by William Moulton Marston, categorizing individuals into four primary personality traits: Dominance, Influence, Steadiness, and Conscientiousness. It provides insights into how I interact with others, approach tasks, and handle challenges, offering a framework to align my professional strengths with organizational needs. Widely used by employers, DISC enhances team dynamics and leadership effectiveness, making it a valuable tool for career development.
-      </p>
-      <p class="mt-6 text-lg text-gray-600">
-        Take your own DISC assessment to discover your personality profile at <a href="https://www.123test.com/disc-personality-test/#its123-testAnchor" target="_blank" class="text-indigo-600 hover:underline font-medium">123test.com</a>. Complete the free test to unlock your unique insights!
-      </p>
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-navy-900/95 backdrop-blur-md border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <a href="index.html" class="text-white font-bold text-xl">Lee<span class="text-teal-400">.</span></a>
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="index.html" class="text-gray-300 hover:text-teal-400 transition">Home</a>
+          <a href="Lee_Foropoulos_DISC_Profile.html" class="text-teal-400 font-semibold">DISC</a>
+          <a href="Lee_Foropoulos_MBTI.html" class="text-gray-300 hover:text-teal-400 transition">MBTI</a>
+          <a href="Lee_Foropoulos_Big_Five.html" class="text-gray-300 hover:text-teal-400 transition">Big Five</a>
+          <a href="Lee_Foropoulos_Human_Design_Profile.html" class="text-gray-300 hover:text-teal-400 transition">Human Design</a>
+          <a href="https://www.upwork.com/freelancers/thesecretchief?viewMode=1" target="_blank" class="bg-teal-500 hover:bg-teal-400 text-navy-900 font-semibold px-5 py-2 rounded-full transition">Work With Me</a>
+        </div>
+        <button id="mobile-menu-btn" class="md:hidden text-white p-2">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 h-full w-72 bg-navy-900 shadow-2xl md:hidden">
+      <div class="p-6">
+        <button id="close-menu" class="absolute top-4 right-4 text-white p-2">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+        <div class="mt-12 flex flex-col space-y-6">
+          <a href="index.html" class="text-white text-lg hover:text-teal-400 transition">Home</a>
+          <a href="Lee_Foropoulos_DISC_Profile.html" class="text-teal-400 text-lg font-semibold">DISC</a>
+          <a href="Lee_Foropoulos_MBTI.html" class="text-white text-lg hover:text-teal-400 transition">MBTI</a>
+          <a href="Lee_Foropoulos_Big_Five.html" class="text-white text-lg hover:text-teal-400 transition">Big Five</a>
+          <a href="Lee_Foropoulos_Human_Design_Profile.html" class="text-white text-lg hover:text-teal-400 transition">Human Design</a>
+          <hr class="border-white/20">
+          <a href="https://www.upwork.com/freelancers/thesecretchief?viewMode=1" target="_blank" class="bg-teal-500 text-navy-900 font-semibold px-5 py-3 rounded-full text-center transition hover:bg-teal-400">Work With Me</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-gradient pt-24 pb-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <div class="inline-flex items-center gap-2 bg-teal-500/10 border border-teal-500/20 rounded-full px-4 py-2 mb-6">
+          <span class="text-2xl">&#127919;</span>
+          <span class="text-teal-400 font-medium">Personality Assessment</span>
+        </div>
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
+          My <span class="gradient-text">DISC Profile</span>
+        </h1>
+        <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          Explore how my balanced leadership style, adaptability, and teamwork skills can enhance your organization's success.
+        </p>
+      </div>
     </div>
   </section>
 
+  <!-- What is DISC Section -->
+  <section class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-navy-900 mb-4">What is the DISC Assessment?</h2>
+        <p class="text-lg text-gray-600 leading-relaxed">
+          The DISC assessment is a behavioral analysis tool developed by William Moulton Marston, categorizing individuals into four primary personality traits: <strong>Dominance</strong>, <strong>Influence</strong>, <strong>Steadiness</strong>, and <strong>Conscientiousness</strong>. It provides insights into how I interact with others, approach tasks, and handle challenges.
+        </p>
+      </div>
+      <div class="bg-gray-50 rounded-2xl p-6 text-center">
+        <p class="text-gray-600">
+          Want to discover your own profile? Take the assessment at
+          <a href="https://www.123test.com/disc-personality-test/#its123-testAnchor" target="_blank" class="text-teal-500 hover:text-teal-400 font-semibold underline">123test.com</a>
+        </p>
+      </div>
+    </div>
+  </section>
 
-
-  <!-- DISC Profile Section -->
+  <!-- DISC Chart Section -->
   <section class="py-16 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4">
-      <h2 class="text-4xl font-semibold text-center text-gray-800 mb-10">My DISC Profile</h2>
-      <div class="flex flex-col md:flex-row items-center justify-center gap-10">
-        <!-- Profile Details -->
-        <div class="grid grid-cols-1 md:grid-cols-1 gap-6 mt-6 md:mt-0">
-          <!-- Chart Image -->
-          <div class="chart-container">
-            <img src="DISC_Chart.png" alt="Lee Foropoulos DISC Chart" class="w-full rounded-lg" style="width: 200%; transform-origin: top left;" onerror="this.src='https://via.placeholder.com/600x600.png?text=Chart+Not+Loaded';" />
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="order-2 lg:order-1">
+          <h2 class="text-3xl font-bold text-navy-900 mb-6">My DISC Overview</h2>
+          <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 mb-6">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="text-4xl font-bold text-teal-500">4.7<span class="text-lg text-gray-400">/10</span></div>
+              <div class="text-gray-600">Balanced, Versatile Profile</div>
+            </div>
+            <p class="text-gray-600 leading-relaxed">
+              My score indicates a versatile personality, adaptable across various professional contexts, with notable strengths in leadership, collaboration, and reliability. The DISC model evaluates four dimensions—each reflecting how I approach challenges, interact with others, maintain pace, and handle tasks.
+            </p>
           </div>
-          <!-- Profile Details -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 md:mt-0">
-            <div class="bg-white p-6 rounded-lg shadow-lg">
-              <h3 class="text-2xl font-semibold text-indigo-700 mb-4">DISC Overview</h3>
-              <p class="text-gray-700">Based on my DISC assessment, I scored a 4.7 out of 10, suggesting a balanced profile with a slight lean toward certain traits. The DISC model evaluates four dimensions—Dominance, Influence, Steadiness, and Conscientiousness—each reflecting how I approach challenges, interact with others, maintain pace, and handle tasks. My score indicates a versatile personality, adaptable across various professional contexts, with notable strengths in leadership, collaboration, and reliability.</p>
-            </div>
-            <div class="bg-white p-6 rounded-lg shadow-lg">
-              <h3 class="text-2xl font-semibold text-indigo-700 mb-4">Trait Breakdown</h3>
-              <div class="mb-4">
-                <h4 class="text-xl font-semibold text-indigo-600">Dominance (D): Assertive Leadership</h4>
-                <p class="text-gray-700">My score suggests a moderate Dominance trait, where I exhibit <strong>assertive leadership qualities</strong> by taking charge in challenging situations. I am decisive and confident, driving projects forward with a focus on results, which is evident in my ability to lead teams and manage high-pressure tasks effectively.</p>
-              </div>
-              <div class="mb-4">
-                <h4 class="text-xl font-semibold text-indigo-600">Influence (I): Collaborative Communication</h4>
-                <p class="text-gray-700">With a balanced Influence score, I bring <strong>collaborative leadership qualities</strong> through my ability to inspire and motivate others. I communicate effectively, fostering teamwork and building strong relationships, which enhances group morale and productivity.</p>
-              </div>
-              <div class="mb-4">
-                <h4 class="text-xl font-semibold text-indigo-600">Steadiness (S): Consistent Support</h4>
-                <p class="text-gray-700">My Steadiness trait reflects a <strong>supportive leadership quality</strong>, showing patience and reliability. I provide a stable presence, ensuring team cohesion and supporting long-term goals with a calm, dependable approach.</p>
-              </div>
-              <div>
-                <h4 class="text-xl font-semibold text-indigo-600">Conscientiousness (C): Detail-Oriented Guidance</h4>
-                <p class="text-gray-700">A moderate Conscientiousness score highlights my <strong>guiding leadership quality</strong> through attention to detail and accuracy. I ensure tasks are completed thoroughly, offering structured oversight that aligns with organizational standards.</p>
-              </div>
-            </div>
-            <div class="bg-white p-6 rounded-lg shadow-lg">
-              <h3 class="text-2xl font-semibold text-indigo-700 mb-4">Recommended Job Roles</h3>
-              <ul class="text-gray-700 space-y-3">
-                <li><strong>Project Manager</strong> – My leadership and organizational skills align with managing complex projects and teams.</li>
-                <li><strong>Operations Manager</strong> – My adaptability and detail orientation suit overseeing efficient workflows.</li>
-                <li><strong>Team Leader</strong> – My collaborative and supportive nature enhances team performance and morale.</li>
-                <li><strong>Business Consultant</strong> – My strategic insight and influence support advising organizations on growth.</li>
-                <li><strong>Training Coordinator</strong> – My patience and guidance skills are ideal for mentoring and development.</li>
-              </ul>
-            </div>
+        </div>
+        <div class="order-1 lg:order-2">
+          <div class="bg-white rounded-2xl p-4 shadow-lg">
+            <img src="DISC_Chart.png" alt="Lee Foropoulos DISC Chart" class="w-full rounded-xl" onerror="this.src='https://via.placeholder.com/600x400.png?text=DISC+Chart';">
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Call to Action Section -->
-  <section class="py-16 bg-indigo-900 text-white text-center">
-    <div class="max-w-7xl mx-auto px-4">
-      <h2 class="text-4xl font-semibold mb-6">Leverage My DISC Profile in Your Team</h2>
-      <p class="text-lg mb-8 max-w-2xl mx-auto">
-        My DISC profile, with its balanced leadership qualities, equips me to enhance team dynamics, drive results, and foster collaboration. Let’s discuss how I can contribute to your organization’s success.
+  <!-- Trait Breakdown Section -->
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold text-navy-900 text-center mb-12">Trait Breakdown</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="card-hover bg-gray-50 rounded-2xl p-8 border-l-4 border-red-500">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 bg-red-500/10 rounded-xl flex items-center justify-center">
+              <span class="text-2xl">&#9889;</span>
+            </div>
+            <h3 class="text-xl font-bold text-navy-900">Dominance (D)</h3>
+          </div>
+          <p class="text-sm font-semibold text-red-500 mb-2">Assertive Leadership</p>
+          <p class="text-gray-600">My moderate Dominance trait shows assertive leadership qualities. I take charge in challenging situations, driving projects forward with a focus on results. Decisive and confident in managing high-pressure tasks.</p>
+        </div>
+
+        <div class="card-hover bg-gray-50 rounded-2xl p-8 border-l-4 border-yellow-500">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 bg-yellow-500/10 rounded-xl flex items-center justify-center">
+              <span class="text-2xl">&#128172;</span>
+            </div>
+            <h3 class="text-xl font-bold text-navy-900">Influence (I)</h3>
+          </div>
+          <p class="text-sm font-semibold text-yellow-500 mb-2">Collaborative Communication</p>
+          <p class="text-gray-600">With a balanced Influence score, I inspire and motivate others through effective communication. I foster teamwork and build strong relationships, enhancing group morale and productivity.</p>
+        </div>
+
+        <div class="card-hover bg-gray-50 rounded-2xl p-8 border-l-4 border-green-500">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center">
+              <span class="text-2xl">&#129309;</span>
+            </div>
+            <h3 class="text-xl font-bold text-navy-900">Steadiness (S)</h3>
+          </div>
+          <p class="text-sm font-semibold text-green-500 mb-2">Consistent Support</p>
+          <p class="text-gray-600">My Steadiness trait reflects supportive leadership—patience and reliability. I provide a stable presence, ensuring team cohesion and supporting long-term goals with a calm, dependable approach.</p>
+        </div>
+
+        <div class="card-hover bg-gray-50 rounded-2xl p-8 border-l-4 border-blue-500">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center">
+              <span class="text-2xl">&#128269;</span>
+            </div>
+            <h3 class="text-xl font-bold text-navy-900">Conscientiousness (C)</h3>
+          </div>
+          <p class="text-sm font-semibold text-blue-500 mb-2">Detail-Oriented Guidance</p>
+          <p class="text-gray-600">A moderate Conscientiousness score highlights my attention to detail and accuracy. I ensure tasks are completed thoroughly, offering structured oversight aligned with organizational standards.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recommended Roles Section -->
+  <section class="py-16 bg-navy-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold text-white text-center mb-12">Recommended Job Roles</h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div class="bg-white/5 backdrop-blur border border-white/10 rounded-xl p-6 text-center">
+          <div class="text-3xl mb-3">&#128188;</div>
+          <h3 class="text-white font-semibold mb-2">Project Manager</h3>
+          <p class="text-gray-400 text-sm">Leadership & organizational skills for complex projects</p>
+        </div>
+        <div class="bg-white/5 backdrop-blur border border-white/10 rounded-xl p-6 text-center">
+          <div class="text-3xl mb-3">&#9881;</div>
+          <h3 class="text-white font-semibold mb-2">Operations Manager</h3>
+          <p class="text-gray-400 text-sm">Adaptability for efficient workflows</p>
+        </div>
+        <div class="bg-white/5 backdrop-blur border border-white/10 rounded-xl p-6 text-center">
+          <div class="text-3xl mb-3">&#128101;</div>
+          <h3 class="text-white font-semibold mb-2">Team Leader</h3>
+          <p class="text-gray-400 text-sm">Collaborative nature enhances team performance</p>
+        </div>
+        <div class="bg-white/5 backdrop-blur border border-white/10 rounded-xl p-6 text-center">
+          <div class="text-3xl mb-3">&#128200;</div>
+          <h3 class="text-white font-semibold mb-2">Business Consultant</h3>
+          <p class="text-gray-400 text-sm">Strategic insight for growth advisory</p>
+        </div>
+        <div class="bg-white/5 backdrop-blur border border-white/10 rounded-xl p-6 text-center">
+          <div class="text-3xl mb-3">&#127891;</div>
+          <h3 class="text-white font-semibold mb-2">Training Coordinator</h3>
+          <p class="text-gray-400 text-sm">Patience & guidance for mentoring</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Other Profiles Section -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold text-navy-900 text-center mb-4">Explore My Other Profiles</h2>
+      <p class="text-gray-600 text-center mb-12 max-w-2xl mx-auto">Get a complete picture of how I think, lead, and collaborate</p>
+      <div class="grid sm:grid-cols-3 gap-6">
+        <a href="Lee_Foropoulos_MBTI.html" class="card-hover bg-white rounded-2xl p-8 text-center shadow-sm border border-gray-100">
+          <div class="text-4xl mb-4">&#129504;</div>
+          <h3 class="text-xl font-bold text-navy-900 mb-2">MBTI (ENTJ)</h3>
+          <p class="text-gray-500 text-sm mb-4">The Commander - Natural leader</p>
+          <span class="text-teal-500 font-medium">View Profile &rarr;</span>
+        </a>
+        <a href="Lee_Foropoulos_Big_Five.html" class="card-hover bg-white rounded-2xl p-8 text-center shadow-sm border border-gray-100">
+          <div class="text-4xl mb-4">&#11088;</div>
+          <h3 class="text-xl font-bold text-navy-900 mb-2">Big Five Traits</h3>
+          <p class="text-gray-500 text-sm mb-4">Core personality dimensions</p>
+          <span class="text-teal-500 font-medium">View Profile &rarr;</span>
+        </a>
+        <a href="Lee_Foropoulos_Human_Design_Profile.html" class="card-hover bg-white rounded-2xl p-8 text-center shadow-sm border border-gray-100">
+          <div class="text-4xl mb-4">&#128302;</div>
+          <h3 class="text-xl font-bold text-navy-900 mb-2">Human Design</h3>
+          <p class="text-gray-500 text-sm mb-4">Manifesting Generator 6/2</p>
+          <span class="text-teal-500 font-medium">View Profile &rarr;</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 hero-gradient">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">Leverage My DISC Profile in Your Team</h2>
+      <p class="text-xl text-gray-300 mb-10 leading-relaxed">
+        My balanced leadership qualities equip me to enhance team dynamics, drive results, and foster collaboration. Let's discuss how I can contribute to your organization's success.
       </p>
-      <a href="https://www.upwork.com/freelancers/thesecretchief?mp_source=share" class="inline-block bg-white text-indigo-700 font-semibold py-4 px-8 rounded-full hover:bg-gray-200 transition duration-300">Contact Me for an Interview</a>
+      <a href="https://www.upwork.com/freelancers/thesecretchief?viewMode=1" target="_blank" class="inline-block bg-teal-500 hover:bg-teal-400 text-navy-900 font-bold px-10 py-4 rounded-full text-lg transition transform hover:scale-105">
+        Let's Work Together
+      </a>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="bg-gray-800 text-white py-8 text-center">
-    <div class="max-w-7xl mx-auto px-4">
-        <p class="mt-2">Get your own DISC assessment: <a href="https://www.123test.com/disc-personality-test/#its123-testAnchor" target="_blank" class="underline hover:text-indigo-300">123test.com</a></p>
-        <p>© 2025 Lee Steven Foropoulos. All rights reserved.</p>
-        <p class="mt-2"><a href="https://www.upwork.com/agencies/1699047706469380096/" class="underline hover:text-indigo-300">Greek-Fire Corporation</a></p>
+  <footer class="bg-navy-900 border-t border-white/10 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-3 gap-8 items-center">
+        <div>
+          <a href="index.html" class="text-white font-bold text-2xl">Lee<span class="text-teal-400">.</span></a>
+          <p class="text-gray-400 mt-2">Fractional CTO & Program Manager</p>
+        </div>
+        <div class="text-center">
+          <p class="text-gray-400">Take your own DISC assessment:</p>
+          <a href="https://www.123test.com/disc-personality-test/#its123-testAnchor" target="_blank" class="text-teal-400 hover:text-teal-300 font-medium">123test.com</a>
+        </div>
+        <div class="text-center md:text-right">
+          <p class="text-gray-400">&copy; 2025 Lee Steven Foropoulos</p>
+          <a href="https://www.upwork.com/agencies/1699047706469380096/" target="_blank" class="text-teal-400 hover:text-teal-300 transition text-sm">Greek-Fire Corporation</a>
+        </div>
+      </div>
     </div>
   </footer>
+
+  <!-- Mobile Menu Script -->
+  <script>
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const closeMenuBtn = document.getElementById('close-menu');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenuBtn.addEventListener('click', () => mobileMenu.classList.add('open'));
+    closeMenuBtn.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    });
+  </script>
 
 </body>
 </html>
