@@ -8,6 +8,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
+      darkMode: 'class',
       theme: {
         extend: {
           colors: {
@@ -18,6 +19,16 @@
           fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
         }
       }
+    }
+  </script>
+  <script>
+    function getCookie(name) {
+      const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+      return match ? match[2] : null;
+    }
+    const darkPref = getCookie('darkMode');
+    if (darkPref === 'true' || (!darkPref && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
     }
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,7 +45,7 @@
     .mobile-menu.open { transform: translateX(0); }
   </style>
 </head>
-<body class="bg-white text-gray-800">
+<body class="bg-white dark:bg-navy-900 text-gray-800 dark:text-gray-200 transition-colors">
 
   <!-- Navigation -->
   <nav class="fixed top-0 left-0 right-0 z-50 bg-navy-900/95 backdrop-blur-md border-b border-white/10">
