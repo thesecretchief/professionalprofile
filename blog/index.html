@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog | Lee Foropoulos</title>
+  <meta name="description" content="Insights on leadership, technology, AI automation, fitness, and building sustainable habits from Lee Foropoulos.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            navy: {
+              900: '#0f172a',
+              800: '#1e293b',
+              700: '#334155',
+              600: '#475569',
+            },
+            gold: {
+              700: '#b45309',
+              600: '#d97706',
+              500: '#f59e0b',
+              400: '#fbbf24',
+              300: '#fcd34d',
+              200: '#fde68a',
+              100: '#fef3c7',
+              50: '#fffbeb',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script>
+    if (localStorage.getItem('darkMode') === 'true' || (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    .card-hover { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+    .dark-mode-toggle { transition: transform 0.3s ease; }
+    .dark-mode-toggle:hover { transform: rotate(15deg); }
+    .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  </style>
+</head>
+<body class="bg-white dark:bg-navy-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-navy-900/95 backdrop-blur-md border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <a href="../index.html" class="text-white font-bold text-xl tracking-tight group">
+          <span class="group-hover:text-gold-400 transition">Foropoulos</span><span class="text-gold-400">Now</span><span class="text-gray-400 text-sm">.com</span>
+        </a>
+
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="../index.html#about" class="text-gray-300 hover:text-gold-400 transition">About</a>
+          <a href="../index.html#services" class="text-gray-300 hover:text-gold-400 transition">Services</a>
+          <a href="../index.html#journey" class="text-gray-300 hover:text-gold-400 transition">Journey</a>
+          <a href="index.html" class="text-gold-400 font-semibold">Blog</a>
+
+          <button id="dark-mode-toggle" class="dark-mode-toggle text-gray-300 hover:text-gold-400 p-2 rounded-lg hover:bg-white/10 transition" aria-label="Toggle dark mode">
+            <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+            </svg>
+            <svg class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+            </svg>
+          </button>
+
+          <a href="https://www.upwork.com/freelancers/thesecretchief?viewMode=1" target="_blank" class="bg-gold-500 hover:bg-gold-400 text-navy-900 font-semibold px-5 py-2 rounded-full transition transform hover:scale-105">Work With Me</a>
+        </div>
+
+        <div class="flex items-center gap-2 md:hidden">
+          <button id="dark-mode-toggle-mobile" class="dark-mode-toggle text-gray-300 hover:text-gold-400 p-2" aria-label="Toggle dark mode">
+            <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+            </svg>
+            <svg class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+            </svg>
+          </button>
+          <a href="../index.html" class="text-white p-2">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Blog Header -->
+  <section class="bg-gradient-to-br from-navy-900 to-navy-800 pt-24 pb-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <span class="inline-block bg-gold-500/20 text-gold-400 text-sm font-semibold px-4 py-2 rounded-full mb-4">BLOG</span>
+        <h1 class="text-4xl sm:text-5xl font-bold text-white mb-4">Insights & Ideas</h1>
+        <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+          Thoughts on leadership, technology, AI automation, fitness, and building sustainable habits.
+        </p>
+      </div>
+
+      <!-- Category Filter -->
+      <div class="flex flex-wrap justify-center gap-3 mt-10">
+        <button class="category-btn active bg-gold-500 text-navy-900 font-semibold px-4 py-2 rounded-full text-sm transition" data-category="all">All Posts</button>
+        <button class="category-btn bg-white/10 text-white hover:bg-white/20 font-medium px-4 py-2 rounded-full text-sm transition" data-category="business">Business</button>
+        <button class="category-btn bg-white/10 text-white hover:bg-white/20 font-medium px-4 py-2 rounded-full text-sm transition" data-category="tech">Technology</button>
+        <button class="category-btn bg-white/10 text-white hover:bg-white/20 font-medium px-4 py-2 rounded-full text-sm transition" data-category="fitness">Fitness</button>
+        <button class="category-btn bg-white/10 text-white hover:bg-white/20 font-medium px-4 py-2 rounded-full text-sm transition" data-category="habits">Habits</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Posts Grid -->
+  <section class="py-16 bg-gray-50 dark:bg-navy-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Featured Post -->
+      <div class="mb-16">
+        <h2 class="text-sm font-semibold text-gold-600 dark:text-gold-400 uppercase tracking-wide mb-6">Featured</h2>
+        <article class="card-hover bg-white dark:bg-navy-900 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-white/10" data-category="business">
+          <div class="md:flex">
+            <div class="md:w-2/5 bg-gradient-to-br from-navy-900 to-navy-800 p-8 flex items-center justify-center">
+              <div class="text-center">
+                <span class="text-6xl">&#128640;</span>
+                <p class="text-gold-400 font-semibold mt-4">FEATURED</p>
+              </div>
+            </div>
+            <div class="md:w-3/5 p-8">
+              <div class="flex items-center gap-3 mb-4">
+                <span class="bg-gold-100 dark:bg-gold-500/20 text-gold-700 dark:text-gold-400 text-xs font-semibold px-3 py-1 rounded-full">Business</span>
+                <span class="text-gray-500 dark:text-gray-400 text-sm">Jan 15, 2026</span>
+              </div>
+              <h3 class="text-2xl font-bold text-navy-900 dark:text-white mb-3">
+                <a href="posts/ai-automation-for-small-business.html" class="hover:text-gold-600 dark:hover:text-gold-400 transition">5 AI Automation Strategies Every Small Business Should Implement in 2026</a>
+              </h3>
+              <p class="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
+                Discover practical AI automation strategies that can save your business 20+ hours per week. From email management to customer support, these tools are changing the game for lean teams.
+              </p>
+              <a href="posts/ai-automation-for-small-business.html" class="inline-flex items-center text-gold-600 dark:text-gold-400 font-semibold hover:gap-3 gap-2 transition-all">
+                Read Article <span>&rarr;</span>
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- All Posts -->
+      <h2 class="text-sm font-semibold text-gold-600 dark:text-gold-400 uppercase tracking-wide mb-6">All Posts</h2>
+      <div id="posts-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <!-- Post Card 1 -->
+        <article class="card-hover bg-white dark:bg-navy-900 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-white/10" data-category="tech">
+          <div class="h-48 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+            <span class="text-5xl">&#129302;</span>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="bg-blue-100 dark:bg-blue-500/20 text-blue-700 dark:text-blue-400 text-xs font-semibold px-3 py-1 rounded-full">Technology</span>
+              <span class="text-gray-500 dark:text-gray-400 text-sm">Jan 10, 2026</span>
+            </div>
+            <h3 class="text-xl font-bold text-navy-900 dark:text-white mb-2">
+              <a href="posts/claude-vs-chatgpt-2026.html" class="hover:text-gold-600 dark:hover:text-gold-400 transition">Claude vs ChatGPT: Which AI Assistant Should You Choose in 2026?</a>
+            </h3>
+            <p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-2 mb-4">
+              An honest comparison of the leading AI assistants for business and personal productivity.
+            </p>
+            <a href="posts/claude-vs-chatgpt-2026.html" class="text-gold-600 dark:text-gold-400 font-semibold text-sm hover:underline">Read more &rarr;</a>
+          </div>
+        </article>
+
+        <!-- Post Card 2 -->
+        <article class="card-hover bg-white dark:bg-navy-900 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-white/10" data-category="fitness">
+          <div class="h-48 bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center">
+            <span class="text-5xl">&#128170;</span>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="bg-amber-100 dark:bg-amber-500/20 text-amber-700 dark:text-amber-400 text-xs font-semibold px-3 py-1 rounded-full">Fitness</span>
+              <span class="text-gray-500 dark:text-gray-400 text-sm">Jan 5, 2026</span>
+            </div>
+            <h3 class="text-xl font-bold text-navy-900 dark:text-white mb-2">
+              <a href="posts/habit-stacking-fitness.html" class="hover:text-gold-600 dark:hover:text-gold-400 transition">Habit Stacking: The Secret to Never Missing a Workout Again</a>
+            </h3>
+            <p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-2 mb-4">
+              Learn how to attach new fitness habits to existing routines for lasting change.
+            </p>
+            <a href="posts/habit-stacking-fitness.html" class="text-gold-600 dark:text-gold-400 font-semibold text-sm hover:underline">Read more &rarr;</a>
+          </div>
+        </article>
+
+        <!-- Post Card 3 -->
+        <article class="card-hover bg-white dark:bg-navy-900 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-white/10" data-category="habits">
+          <div class="h-48 bg-gradient-to-br from-green-500 to-teal-600 flex items-center justify-center">
+            <span class="text-5xl">&#127793;</span>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="bg-green-100 dark:bg-green-500/20 text-green-700 dark:text-green-400 text-xs font-semibold px-3 py-1 rounded-full">Habits</span>
+              <span class="text-gray-500 dark:text-gray-400 text-sm">Dec 28, 2025</span>
+            </div>
+            <h3 class="text-xl font-bold text-navy-900 dark:text-white mb-2">
+              <a href="posts/morning-routine-ceo.html" class="hover:text-gold-600 dark:hover:text-gold-400 transition">My Morning Routine as a Founder & Personal Trainer</a>
+            </h3>
+            <p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-2 mb-4">
+              How I balance running a startup and maintaining peak physical performance.
+            </p>
+            <a href="posts/morning-routine-ceo.html" class="text-gold-600 dark:text-gold-400 font-semibold text-sm hover:underline">Read more &rarr;</a>
+          </div>
+        </article>
+
+        <!-- Post Card 4 -->
+        <article class="card-hover bg-white dark:bg-navy-900 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-white/10" data-category="business">
+          <div class="h-48 bg-gradient-to-br from-navy-900 to-navy-700 flex items-center justify-center">
+            <span class="text-5xl">&#128188;</span>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="bg-gold-100 dark:bg-gold-500/20 text-gold-700 dark:text-gold-400 text-xs font-semibold px-3 py-1 rounded-full">Business</span>
+              <span class="text-gray-500 dark:text-gray-400 text-sm">Dec 20, 2025</span>
+            </div>
+            <h3 class="text-xl font-bold text-navy-900 dark:text-white mb-2">
+              <a href="posts/fractional-executive-guide.html" class="hover:text-gold-600 dark:hover:text-gold-400 transition">What is a Fractional Executive? A Complete Guide</a>
+            </h3>
+            <p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-2 mb-4">
+              Everything you need to know about fractional leadership and how it can transform your business.
+            </p>
+            <a href="posts/fractional-executive-guide.html" class="text-gold-600 dark:text-gold-400 font-semibold text-sm hover:underline">Read more &rarr;</a>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- Empty State (shown when filtering returns no results) -->
+      <div id="empty-state" class="hidden text-center py-16">
+        <span class="text-6xl">&#128269;</span>
+        <h3 class="text-xl font-bold text-navy-900 dark:text-white mt-4">No posts found</h3>
+        <p class="text-gray-600 dark:text-gray-400 mt-2">No posts match this category yet. Check back soon!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter CTA -->
+  <section class="py-16 bg-white dark:bg-navy-900">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <span class="text-5xl">&#128236;</span>
+      <h2 class="text-3xl font-bold text-navy-900 dark:text-white mt-4 mb-4">Get New Posts in Your Inbox</h2>
+      <p class="text-gray-600 dark:text-gray-400 mb-8">Join the newsletter for insights on leadership, technology, and building better habits.</p>
+      <form class="flex flex-col sm:flex-row gap-4 justify-center">
+        <input type="email" placeholder="your@email.com" class="px-6 py-3 rounded-full border border-gray-300 dark:border-white/20 bg-white dark:bg-navy-800 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-gold-500 w-full sm:w-80">
+        <button type="submit" class="bg-gold-500 hover:bg-gold-400 text-navy-900 font-bold px-8 py-3 rounded-full transition transform hover:scale-105">Subscribe</button>
+      </form>
+      <p class="text-gray-500 dark:text-gray-500 text-sm mt-4">No spam. Unsubscribe anytime.</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-navy-900 border-t border-white/10 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+        <div>
+          <a href="../index.html" class="text-white font-bold text-xl tracking-tight">Foropoulos<span class="text-gold-400">Now</span><span class="text-gray-400 text-sm">.com</span></a>
+        </div>
+        <div class="flex space-x-6">
+          <a href="https://www.linkedin.com/in/thesecretchief" target="_blank" class="text-gray-400 hover:text-gold-400 transition">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <a href="https://x.com/thesecretchief" target="_blank" class="text-gray-400 hover:text-gold-400 transition">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/thesecretchief" target="_blank" class="text-gray-400 hover:text-gold-400 transition">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073z"/></svg>
+          </a>
+        </div>
+        <p class="text-gray-500 text-sm">&copy; 2025 Lee Steven Foropoulos</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Dark Mode Toggle
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    const darkModeToggleMobile = document.getElementById('dark-mode-toggle-mobile');
+
+    function toggleDarkMode() {
+      document.documentElement.classList.toggle('dark');
+      const isDark = document.documentElement.classList.contains('dark');
+      localStorage.setItem('darkMode', isDark);
+    }
+
+    if (darkModeToggle) darkModeToggle.addEventListener('click', toggleDarkMode);
+    if (darkModeToggleMobile) darkModeToggleMobile.addEventListener('click', toggleDarkMode);
+
+    // Category Filter
+    const categoryBtns = document.querySelectorAll('.category-btn');
+    const posts = document.querySelectorAll('#posts-grid article, .mb-16 article');
+    const emptyState = document.getElementById('empty-state');
+    const postsGrid = document.getElementById('posts-grid');
+
+    categoryBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Update active button
+        categoryBtns.forEach(b => {
+          b.classList.remove('active', 'bg-gold-500', 'text-navy-900');
+          b.classList.add('bg-white/10', 'text-white');
+        });
+        btn.classList.add('active', 'bg-gold-500', 'text-navy-900');
+        btn.classList.remove('bg-white/10', 'text-white');
+
+        const category = btn.dataset.category;
+        let visibleCount = 0;
+
+        posts.forEach(post => {
+          if (category === 'all' || post.dataset.category === category) {
+            post.style.display = '';
+            visibleCount++;
+          } else {
+            post.style.display = 'none';
+          }
+        });
+
+        // Show/hide empty state
+        if (visibleCount === 0) {
+          emptyState.classList.remove('hidden');
+          postsGrid.classList.add('hidden');
+        } else {
+          emptyState.classList.add('hidden');
+          postsGrid.classList.remove('hidden');
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

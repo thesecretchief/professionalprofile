@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Greek-Fire Services | Fractional Executive Leadership</title>
+  <meta name="description" content="Fractional Executive services - CEO, COO, CTO leadership, AI automation, program management, and technical architecture for growing companies.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: {
+              900: '#0f172a',
+              800: '#1e293b',
+              700: '#334155',
+              600: '#475569',
+            },
+            gold: {
+              700: '#b45309',
+              600: '#d97706',
+              500: '#f59e0b',
+              400: '#fbbf24',
+              300: '#fcd34d',
+              200: '#fde68a',
+              100: '#fef3c7',
+              50: '#fffbeb',
+            },
+            amber: {
+              500: '#f59e0b',
+              400: '#fbbf24',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    .gradient-text {
+      background: linear-gradient(135deg, #f59e0b, #fbbf24);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-gradient {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+    }
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+    .mobile-menu {
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+    }
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-800">
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-navy-900/95 backdrop-blur-md border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <a href="index.html" class="text-white font-bold text-xl tracking-tight">Foropoulos<span class="text-gold-400">Now</span><span class="text-gray-400 text-sm">.com</span></a>
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="index.html" class="text-gray-300 hover:text-gold-400 transition">Home</a>
+          <a href="greek-fire-services.html" class="text-gold-400 font-semibold">Greek-Fire Services</a>
+          <a href="gothabits.html" class="text-gray-300 hover:text-gold-400 transition">gotHABITS</a>
+          <a href="index.html#journey" class="text-gray-300 hover:text-gold-400 transition">Journey</a>
+          <a href="#contact" class="bg-gold-500 hover:bg-gold-400 text-navy-900 font-semibold px-5 py-2 rounded-full transition">Get Started</a>
+        </div>
+        <button id="mobile-menu-btn" class="md:hidden text-white">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="mobile-menu fixed inset-y-0 right-0 w-64 bg-navy-900 z-50 p-6 md:hidden">
+    <button id="close-menu-btn" class="absolute top-4 right-4 text-white">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+    <div class="mt-12 space-y-6">
+      <a href="index.html" class="block text-gray-300 hover:text-gold-400 transition">Home</a>
+      <a href="greek-fire-services.html" class="block text-gold-400 font-semibold">Greek-Fire Services</a>
+      <a href="gothabits.html" class="block text-gray-300 hover:text-gold-400 transition">gotHABITS</a>
+      <a href="index.html#journey" class="block text-gray-300 hover:text-gold-400 transition">Journey</a>
+      <a href="#contact" class="block bg-gold-500 text-navy-900 font-semibold px-5 py-2 rounded-full text-center">Get Started</a>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero-gradient pt-24 pb-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <!-- Logo Placeholder -->
+          <div class="mb-8">
+            <img src="logo_greekfirecorp.png" alt="Greek-Fire Services" class="h-16 w-auto" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div class="hidden">
+              <span class="text-3xl font-bold text-white">Greek-Fire<span class="text-gold-400"> Services</span></span>
+            </div>
+          </div>
+          <h1 class="text-4xl sm:text-5xl font-bold text-white leading-tight mb-6">
+            Fractional Executive <span class="gradient-text">Leadership</span>
+          </h1>
+          <p class="text-xl text-gray-300 mb-8 leading-relaxed">
+            CEO, COO, and CTO expertise without the full-time commitment. Strategic vision meets operational execution for growing companies.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a href="#services" class="bg-gold-500 hover:bg-gold-400 text-navy-900 font-bold px-8 py-4 rounded-full text-lg transition transform hover:scale-105">
+              View Services
+            </a>
+            <a href="#contact" class="border-2 border-white/30 hover:border-gold-400 text-white hover:text-gold-400 font-semibold px-8 py-4 rounded-full text-lg transition">
+              Book a Call
+            </a>
+          </div>
+        </div>
+        <div class="hidden lg:block">
+          <div class="grid grid-cols-2 gap-4">
+            <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
+              <div class="text-4xl font-bold text-gold-400 mb-2">20+</div>
+              <div class="text-gray-400">Years Experience</div>
+            </div>
+            <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
+              <div class="text-4xl font-bold text-gold-400 mb-2">150K+</div>
+              <div class="text-gray-400">Users Scaled</div>
+            </div>
+            <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
+              <div class="text-4xl font-bold text-gold-400 mb-2">60%</div>
+              <div class="text-gray-400">Churn Reduction</div>
+            </div>
+            <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
+              <div class="text-4xl font-bold text-gold-400 mb-2">70+</div>
+              <div class="text-gray-400">Team Members Led</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="py-24 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <span class="inline-block bg-gold-100 text-gold-700 text-sm font-semibold px-4 py-2 rounded-full mb-4">SERVICES</span>
+        <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">How I Can Help You</h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">Strategic leadership and hands-on expertise to accelerate your growth</p>
+      </div>
+
+      <!-- Expertise Cards -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+        <div class="card-hover bg-white rounded-2xl p-8 shadow-sm border border-gray-100 group">
+          <div class="w-14 h-14 bg-navy-900 group-hover:bg-gold-500 rounded-xl flex items-center justify-center mb-6 transition-colors">
+            <svg class="w-7 h-7 text-gold-400 group-hover:text-navy-900 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-navy-900 mb-3">Fractional Executive</h3>
+          <p class="text-gray-600 mb-4">CEO, COO, or CTO leadership without the full-time cost. Strategic vision meets operational execution.</p>
+          <ul class="text-sm text-gray-500 space-y-2">
+            <li class="flex items-center"><span class="text-gold-500 mr-2">&#10003;</span> Executive strategy</li>
+            <li class="flex items-center"><span class="text-gold-500 mr-2">&#10003;</span> Team building</li>
+            <li class="flex items-center"><span class="text-gold-500 mr-2">&#10003;</span> Scalability planning</li>
+          </ul>
+        </div>
+
+        <div class="card-hover bg-white rounded-2xl p-8 shadow-sm border border-gray-100 group">
+          <div class="w-14 h-14 bg-navy-900 group-hover:bg-gold-500 rounded-xl flex items-center justify-center mb-6 transition-colors">
+            <svg class="w-7 h-7 text-gold-400 group-hover:text-navy-900 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-navy-900 mb-3">Program Management</h3>
+          <p class="text-gray-600 mb-4">Agile and Waterfall expertise to deliver complex projects on time.</p>
+          <ul class="text-sm text-gray-500 space-y-2">
+            <li class="flex items-center"><span class="text-gold-500 mr-2">&#10003;</span> Cross-functional coordination</li>
+            <li class="flex items-center"><span class="text-gold-500 mr-2">&#10003;</span> Risk mitigation</li>
+            <li class="flex items-center"><span class="text-gold-500 mr-2">&#10003;</span> Stakeholder alignment</li>
+          </ul>
+        </div>
+
+        <div class="card-hover bg-white rounded-2xl p-8 shadow-sm border border-gray-100 group">
+          <div class="w-14 h-14 bg-navy-900 group-hover:bg-gold-500 rounded-xl flex items-center justify-center mb-6 transition-colors">
+            <svg class="w-7 h-7 text-gold-400 group-hover:text-navy-900 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-navy-900 mb-3">Database Architecture</h3>
+          <p class="text-gray-600 mb-4">Design and optimize databases for performance and scale.</p>
+          <ul class="text-sm text-gray-500 space-y-2">
+            <li class="flex items-center"><span class="text-gold-500 mr-2">&#10003;</span> MS SQL Server expert</li>
+            <li class="flex items-center"><span class="text-gold-500 mr-2">&#10003;</span> Data migrations</li>
+            <li class="flex items-center"><span class="text-gold-500 mr-2">&#10003;</span> Performance tuning</li>
+          </ul>
+        </div>
+
+        <div class="card-hover bg-white rounded-2xl p-8 shadow-sm border border-gray-100 group">
+          <div class="w-14 h-14 bg-navy-900 group-hover:bg-gold-500 rounded-xl flex items-center justify-center mb-6 transition-colors">
+            <svg class="w-7 h-7 text-gold-400 group-hover:text-navy-900 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-navy-900 mb-3">AI Integration</h3>
+          <p class="text-gray-600 mb-4">Leverage AI to automate workflows and enhance productivity.</p>
+          <ul class="text-sm text-gray-500 space-y-2">
+            <li class="flex items-center"><span class="text-gold-500 mr-2">&#10003;</span> ChatGPT & Copilot</li>
+            <li class="flex items-center"><span class="text-gold-500 mr-2">&#10003;</span> Process automation</li>
+            <li class="flex items-center"><span class="text-gold-500 mr-2">&#10003;</span> Custom AI solutions</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Engagement Options -->
+      <div class="text-center mb-12">
+        <h3 class="text-2xl font-bold text-navy-900 mb-4">Engagement Options</h3>
+        <p class="text-gray-600 max-w-2xl mx-auto">Flexible options to match your needs and budget</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <!-- Advisory -->
+        <div class="card-hover bg-white rounded-2xl p-8 shadow-lg border border-gray-200 relative">
+          <div class="text-center">
+            <h4 class="text-lg font-bold text-navy-900 mb-2">Advisory</h4>
+            <p class="text-gray-500 text-sm mb-4">Strategic guidance</p>
+            <div class="mb-6">
+              <span class="text-4xl font-bold text-navy-900">$250</span>
+              <span class="text-gray-500">/hour</span>
+            </div>
+          </div>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-gold-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              <span class="text-gray-600 text-sm">1-on-1 strategy sessions</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-gold-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              <span class="text-gray-600 text-sm">Tech stack reviews</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-gold-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              <span class="text-gray-600 text-sm">Architecture consulting</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-gold-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              <span class="text-gray-600 text-sm">Flexible scheduling</span>
+            </li>
+          </ul>
+          <a href="#contact" class="block w-full text-center py-3 px-6 border-2 border-navy-900 text-navy-900 font-semibold rounded-xl hover:bg-navy-900 hover:text-white transition">
+            Book a Call
+          </a>
+        </div>
+
+        <!-- Fractional - Featured -->
+        <div class="card-hover bg-navy-900 rounded-2xl p-8 shadow-xl relative transform md:-translate-y-4">
+          <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+            <span class="bg-gold-500 text-navy-900 text-xs font-bold px-4 py-1 rounded-full uppercase">Most Popular</span>
+          </div>
+          <div class="text-center">
+            <h4 class="text-lg font-bold text-white mb-2">Fractional</h4>
+            <p class="text-gray-400 text-sm mb-4">Part-time leadership</p>
+            <div class="mb-6">
+              <span class="text-4xl font-bold text-white">$5K</span>
+              <span class="text-gray-400">/month</span>
+            </div>
+          </div>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-gold-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              <span class="text-gray-300 text-sm">10-20 hours/month</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-gold-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              <span class="text-gray-300 text-sm">Weekly strategy calls</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-gold-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              <span class="text-gray-300 text-sm">Team mentorship</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-gold-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              <span class="text-gray-300 text-sm">Slack/email access</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-gold-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              <span class="text-gray-300 text-sm">Roadmap planning</span>
+            </li>
+          </ul>
+          <a href="#contact" class="block w-full text-center py-3 px-6 bg-gold-500 text-navy-900 font-bold rounded-xl hover:bg-gold-400 transition">
+            Get Started
+          </a>
+        </div>
+
+        <!-- Project-Based -->
+        <div class="card-hover bg-white rounded-2xl p-8 shadow-lg border border-gray-200 relative">
+          <div class="text-center">
+            <h4 class="text-lg font-bold text-navy-900 mb-2">Project-Based</h4>
+            <p class="text-gray-500 text-sm mb-4">Fixed scope delivery</p>
+            <div class="mb-6">
+              <span class="text-4xl font-bold text-navy-900">Custom</span>
+            </div>
+          </div>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-gold-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              <span class="text-gray-600 text-sm">System migrations</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-gold-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              <span class="text-gray-600 text-sm">Platform builds</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-gold-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              <span class="text-gray-600 text-sm">Technical due diligence</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-gold-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              <span class="text-gray-600 text-sm">Defined milestones</span>
+            </li>
+          </ul>
+          <a href="#contact" class="block w-full text-center py-3 px-6 border-2 border-navy-900 text-navy-900 font-semibold rounded-xl hover:bg-navy-900 hover:text-white transition">
+            Request Quote
+          </a>
+        </div>
+      </div>
+
+      <p class="text-center text-gray-500 mt-10 text-sm">All engagements include a complimentary discovery call. Prices are starting points and may vary based on scope.</p>
+    </div>
+  </section>
+
+  <!-- Lead Magnet Section -->
+  <section class="py-24 bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900 relative overflow-hidden">
+    <div class="absolute top-0 right-0 w-96 h-96 bg-gold-500/10 rounded-full filter blur-3xl"></div>
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="text-center">
+        <span class="inline-block bg-gold-500/20 text-gold-400 text-xs font-bold px-3 py-1 rounded-full mb-6">FREE RESOURCE</span>
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">AI Automation Playbook</h2>
+        <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+          Discover how to leverage AI to automate your business processes, reduce costs, and scale faster.
+        </p>
+
+        <ul class="flex flex-wrap justify-center gap-6 mb-10 text-gray-300">
+          <li class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            5 AI tools every executive should use
+          </li>
+          <li class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            Workflow automation templates
+          </li>
+          <li class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            ROI calculator
+          </li>
+        </ul>
+
+        <form class="max-w-md mx-auto flex flex-col sm:flex-row gap-3" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+          <input type="hidden" name="lead_type" value="ai_automation">
+          <input type="email" name="email" required
+            class="flex-1 px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-gold-500 focus:border-gold-500 transition"
+            placeholder="Enter your email">
+          <button type="submit"
+            class="bg-gold-500 hover:bg-gold-400 text-navy-900 font-bold py-3 px-6 rounded-xl transition transform hover:scale-105">
+            Get the Playbook
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-24 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 mb-6">Ready to Scale Your Business?</h2>
+      <p class="text-xl text-gray-600 mb-10 leading-relaxed">
+        Whether you need a Fractional Executive, Program Manager, or technical advisor, I'm here to help you achieve your goals with speed, integrity, and precision.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="https://www.upwork.com/freelancers/thesecretchief?viewMode=1" target="_blank" class="bg-navy-900 hover:bg-navy-800 text-white font-bold px-10 py-4 rounded-full text-lg transition transform hover:scale-105">
+          Let's Work Together
+        </a>
+        <a href="https://www.linkedin.com/in/thesecretchief" target="_blank" class="border-2 border-navy-900 hover:bg-navy-900 text-navy-900 hover:text-white font-semibold px-10 py-4 rounded-full text-lg transition">
+          Connect on LinkedIn
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-navy-900 border-t border-white/10 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-3 gap-8 items-center">
+        <div>
+          <img src="logo_greekfirecorp.png" alt="Greek-Fire Services" class="h-10 w-auto mb-2" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <a href="index.html" class="hidden text-white font-bold text-xl tracking-tight">Greek-Fire<span class="text-gold-400"> Services</span></a>
+          <p class="text-gray-400 mt-2">Fractional Executive Leadership</p>
+        </div>
+        <div class="text-center">
+          <p class="text-gray-400">Part of</p>
+          <a href="index.html" class="text-gold-400 hover:text-gold-300 font-medium">ForopoulosNow.com</a>
+        </div>
+        <div class="text-center md:text-right">
+          <p class="text-gray-400">&copy; 2025 Lee Steven Foropoulos</p>
+          <a href="https://www.upwork.com/agencies/1699047706469380096/" target="_blank" class="text-gold-400 hover:text-gold-300 transition text-sm">Greek-Fire Corporation</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const closeMenuBtn = document.getElementById('close-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.add('open');
+    });
+
+    closeMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+    });
+  </script>
+</body>
+</html>

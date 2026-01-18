@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>gotHABITS | Lee Foropoulos - Owner & Certified Personal Trainer</title>
+  <meta name="description" content="As Owner of gotHABITS, Lee Foropoulos transforms lives through habit-centered fitness and nutrition coaching.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            navy: {
+              900: '#0f172a',
+              800: '#1e293b',
+              700: '#334155',
+              600: '#475569',
+            },
+            gold: {
+              700: '#b45309',
+              600: '#d97706',
+              500: '#f59e0b',
+              400: '#fbbf24',
+              300: '#fcd34d',
+              200: '#fde68a',
+              100: '#fef3c7',
+              50: '#fffbeb',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script>
+    if (localStorage.getItem('darkMode') === 'true' || (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    .gradient-text {
+      background: linear-gradient(135deg, #f59e0b, #fbbf24);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-gradient {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%);
+    }
+  </style>
+</head>
+<body class="bg-white dark:bg-navy-900 text-gray-800 dark:text-gray-200">
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-navy-900/95 backdrop-blur-md border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <a href="../index.html" class="text-white font-bold text-xl tracking-tight group">
+          <span class="group-hover:text-gold-400 transition">Foropoulos</span><span class="text-gold-400">Now</span><span class="text-gray-400 text-sm">.com</span>
+        </a>
+        <div class="flex items-center space-x-4">
+          <a href="../index.html#journey" class="text-gray-300 hover:text-gold-400 transition flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+            Back to Journey
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-gradient pt-32 pb-20">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row gap-8 items-start">
+        <div class="flex-1">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="bg-white text-amber-600 text-xs font-bold px-3 py-1 rounded-full">ACTIVE</span>
+            <span class="text-white/80 font-medium">Aug 2024 - Present</span>
+          </div>
+          <h1 class="text-4xl sm:text-5xl font-bold text-white mb-4">Owner & Certified Personal Trainer</h1>
+          <p class="text-2xl text-white/90 font-semibold mb-6">gotHABITS</p>
+          <p class="text-xl text-white/80 leading-relaxed">
+            Transforming lives through habit-centered fitness and nutrition coaching. Designing individualized programs, providing accountability coaching, and building sustainable habit-based systems for lasting change.
+          </p>
+          <div class="flex flex-wrap gap-2 mt-6">
+            <a href="https://www.nasm.org/resources/verify-credential?id=1225367" target="_blank" class="bg-white/20 hover:bg-white/30 text-white px-3 py-1 rounded-full text-sm font-medium transition">NASM-CPT</a>
+            <a href="https://www.nasm.org/resources/verify-credential?id=1232166" target="_blank" class="bg-white/20 hover:bg-white/30 text-white px-3 py-1 rounded-full text-sm font-medium transition">CNC</a>
+            <a href="https://www.nasm.org/resources/verify-credential?id=1237420" target="_blank" class="bg-white/20 hover:bg-white/30 text-white px-3 py-1 rounded-full text-sm font-medium transition">CES</a>
+            <span class="bg-red-500/80 text-white px-3 py-1 rounded-full text-sm font-medium">AHA BLS</span>
+          </div>
+        </div>
+        <div class="w-32 h-32 bg-white rounded-2xl flex items-center justify-center shadow-2xl">
+          <svg class="w-16 h-16 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="py-16 bg-white dark:bg-navy-800">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Overview -->
+      <div class="mb-16">
+        <h2 class="text-2xl font-bold text-navy-900 dark:text-white mb-6 flex items-center gap-3">
+          <span class="w-10 h-10 bg-amber-100 dark:bg-amber-500/20 rounded-lg flex items-center justify-center">
+            <svg class="w-5 h-5 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </span>
+          The Mission
+        </h2>
+        <div class="prose prose-lg dark:prose-invert max-w-none">
+          <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+            gotHABITS was born from my own transformation journey. After years in the tech world, I discovered the power of building sustainable habits for lasting change. Now I help others achieve their fitness and nutrition goals through a systems-based approach that creates real, permanent results—not quick fixes.
+          </p>
+        </div>
+      </div>
+
+      <!-- Certifications -->
+      <div class="mb-16">
+        <h2 class="text-2xl font-bold text-navy-900 dark:text-white mb-6 flex items-center gap-3">
+          <span class="w-10 h-10 bg-amber-100 dark:bg-amber-500/20 rounded-lg flex items-center justify-center">
+            <svg class="w-5 h-5 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+            </svg>
+          </span>
+          Certifications & Credentials
+        </h2>
+        <div class="grid md:grid-cols-2 gap-6">
+          <a href="https://www.nasm.org/resources/verify-credential?id=1225367" target="_blank" class="bg-gray-50 dark:bg-navy-900 rounded-xl p-6 border border-gray-100 dark:border-navy-700 hover:border-amber-300 dark:hover:border-amber-500/50 transition group">
+            <h3 class="font-bold text-navy-900 dark:text-white mb-2 group-hover:text-amber-600 transition">NASM Certified Personal Trainer (CPT)</h3>
+            <p class="text-gray-600 dark:text-gray-400 text-sm">National Academy of Sports Medicine - The gold standard in personal training certification.</p>
+            <span class="text-amber-500 text-sm mt-2 inline-block">Verify credential &rarr;</span>
+          </a>
+          <a href="https://www.nasm.org/resources/verify-credential?id=1232166" target="_blank" class="bg-gray-50 dark:bg-navy-900 rounded-xl p-6 border border-gray-100 dark:border-navy-700 hover:border-amber-300 dark:hover:border-amber-500/50 transition group">
+            <h3 class="font-bold text-navy-900 dark:text-white mb-2 group-hover:text-amber-600 transition">Certified Nutrition Coach (CNC)</h3>
+            <p class="text-gray-600 dark:text-gray-400 text-sm">NASM nutrition certification for comprehensive dietary guidance and meal planning.</p>
+            <span class="text-amber-500 text-sm mt-2 inline-block">Verify credential &rarr;</span>
+          </a>
+          <a href="https://www.nasm.org/resources/verify-credential?id=1237420" target="_blank" class="bg-gray-50 dark:bg-navy-900 rounded-xl p-6 border border-gray-100 dark:border-navy-700 hover:border-amber-300 dark:hover:border-amber-500/50 transition group">
+            <h3 class="font-bold text-navy-900 dark:text-white mb-2 group-hover:text-amber-600 transition">Corrective Exercise Specialist (CES)</h3>
+            <p class="text-gray-600 dark:text-gray-400 text-sm">Specialized training for identifying and correcting movement dysfunctions.</p>
+            <span class="text-amber-500 text-sm mt-2 inline-block">Verify credential &rarr;</span>
+          </a>
+          <div class="bg-gray-50 dark:bg-navy-900 rounded-xl p-6 border border-gray-100 dark:border-navy-700">
+            <h3 class="font-bold text-navy-900 dark:text-white mb-2">Virtual Coaching Specialist (VCS)</h3>
+            <p class="text-gray-600 dark:text-gray-400 text-sm">Expertise in delivering effective remote coaching and training programs.</p>
+          </div>
+          <div class="bg-gray-50 dark:bg-navy-900 rounded-xl p-6 border border-gray-100 dark:border-navy-700">
+            <h3 class="font-bold text-navy-900 dark:text-white mb-2">AHA Basic Life Support (BLS)</h3>
+            <p class="text-gray-600 dark:text-gray-400 text-sm">American Heart Association certification for CPR and emergency response.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Services -->
+      <div class="mb-16">
+        <h2 class="text-2xl font-bold text-navy-900 dark:text-white mb-6 flex items-center gap-3">
+          <span class="w-10 h-10 bg-amber-100 dark:bg-amber-500/20 rounded-lg flex items-center justify-center">
+            <svg class="w-5 h-5 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+            </svg>
+          </span>
+          What I Offer
+        </h2>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-500/10 dark:to-orange-500/10 rounded-xl p-6 border border-amber-200 dark:border-amber-500/30">
+            <h3 class="font-bold text-navy-900 dark:text-white mb-3">Individualized Training Programs</h3>
+            <p class="text-gray-600 dark:text-gray-400">Custom workout plans designed around your goals, schedule, and current fitness level.</p>
+          </div>
+          <div class="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-500/10 dark:to-orange-500/10 rounded-xl p-6 border border-amber-200 dark:border-amber-500/30">
+            <h3 class="font-bold text-navy-900 dark:text-white mb-3">Nutrition Coaching</h3>
+            <p class="text-gray-600 dark:text-gray-400">Evidence-based nutrition guidance to fuel your workouts and achieve your body composition goals.</p>
+          </div>
+          <div class="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-500/10 dark:to-orange-500/10 rounded-xl p-6 border border-amber-200 dark:border-amber-500/30">
+            <h3 class="font-bold text-navy-900 dark:text-white mb-3">Accountability Coaching</h3>
+            <p class="text-gray-600 dark:text-gray-400">Regular check-ins and support to keep you on track and motivated throughout your journey.</p>
+          </div>
+          <div class="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-500/10 dark:to-orange-500/10 rounded-xl p-6 border border-amber-200 dark:border-amber-500/30">
+            <h3 class="font-bold text-navy-900 dark:text-white mb-3">Habit Building Systems</h3>
+            <p class="text-gray-600 dark:text-gray-400">Sustainable habit frameworks that make healthy living automatic—not a constant battle.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Photo Gallery Placeholder -->
+      <div class="mb-16">
+        <h2 class="text-2xl font-bold text-navy-900 dark:text-white mb-6 flex items-center gap-3">
+          <span class="w-10 h-10 bg-amber-100 dark:bg-amber-500/20 rounded-lg flex items-center justify-center">
+            <svg class="w-5 h-5 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+          </span>
+          Gallery
+        </h2>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div class="aspect-video bg-gray-100 dark:bg-navy-700 rounded-xl flex items-center justify-center">
+            <p class="text-gray-400 text-sm">Photo coming soon</p>
+          </div>
+          <div class="aspect-video bg-gray-100 dark:bg-navy-700 rounded-xl flex items-center justify-center">
+            <p class="text-gray-400 text-sm">Photo coming soon</p>
+          </div>
+          <div class="aspect-video bg-gray-100 dark:bg-navy-700 rounded-xl flex items-center justify-center">
+            <p class="text-gray-400 text-sm">Photo coming soon</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="bg-gradient-to-br from-amber-500 to-orange-500 rounded-2xl p-8 text-center text-white">
+        <h3 class="text-2xl font-bold mb-4">Ready to Transform Your Life?</h3>
+        <p class="text-white/90 mb-6 max-w-xl mx-auto">Let's build sustainable habits together. Whether you're just starting or looking to break through a plateau, I'm here to help.</p>
+        <a href="../gothabits.html" class="inline-block bg-white text-amber-600 font-bold px-8 py-3 rounded-full hover:bg-amber-50 transition">Learn More About gotHABITS</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Navigation Footer -->
+  <section class="py-12 bg-gray-50 dark:bg-navy-900 border-t border-gray-200 dark:border-navy-700">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col sm:flex-row justify-between items-center gap-6">
+        <a href="shift-spotter.html" class="text-gray-600 dark:text-gray-400 hover:text-amber-500 transition flex items-center gap-2">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+          Previous: Shift Spotter
+        </a>
+        <a href="axios-services.html" class="text-amber-500 hover:text-amber-400 transition flex items-center gap-2 font-semibold">
+          Next: Axios Services
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-navy-900 border-t border-white/10 py-8">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-gray-400">&copy; 2025 Lee Steven Foropoulos. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
