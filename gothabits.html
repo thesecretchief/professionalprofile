@@ -492,10 +492,24 @@
           <p class="text-red-100">The essentials I recommend for anyone serious about their fitness journey</p>
         </div>
         <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
-          <a href="https://1stphorm.com/products/micro-factor/?a_aid=gotHABITS" target="_blank" class="bg-white/10 hover:bg-white/20 rounded-xl p-4 text-center transition group">
-            <span class="text-3xl mb-2 block">💊</span>
-            <span class="text-white font-semibold text-sm group-hover:text-red-200">Daily Multivitamins</span>
-          </a>
+          <!-- Multivitamin Selector -->
+          <div class="relative" id="multi-selector">
+            <button onclick="toggleDropdown('multi-dropdown')" class="w-full bg-white/10 hover:bg-white/20 rounded-xl p-4 text-center transition group">
+              <span class="text-3xl mb-2 block">💊</span>
+              <span class="text-white font-semibold text-sm group-hover:text-red-200">Multivitamins</span>
+              <span class="text-white/60 text-xs block mt-1">Tap to choose</span>
+            </button>
+            <div id="multi-dropdown" class="hidden absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-xl z-20 overflow-hidden">
+              <a href="https://1stphorm.com/products/m-factor-men/?a_aid=gotHABITS" target="_blank" class="block px-4 py-3 text-gray-700 hover:bg-red-50 hover:text-red-600 transition border-b border-gray-100">
+                <span class="font-semibold">M-Factor Men</span>
+                <span class="text-xs text-gray-500 block">Complete men's formula</span>
+              </a>
+              <a href="https://1stphorm.com/products/m-factor-goddess/?a_aid=gotHABITS" target="_blank" class="block px-4 py-3 text-gray-700 hover:bg-red-50 hover:text-red-600 transition">
+                <span class="font-semibold">M-Factor Goddess</span>
+                <span class="text-xs text-gray-500 block">Complete women's formula</span>
+              </a>
+            </div>
+          </div>
           <a href="https://1stphorm.com/products/full-mega/?a_aid=gotHABITS" target="_blank" class="bg-white/10 hover:bg-white/20 rounded-xl p-4 text-center transition group">
             <span class="text-3xl mb-2 block">🐟</span>
             <span class="text-white font-semibold text-sm group-hover:text-red-200">Fish Oil</span>
@@ -504,9 +518,9 @@
             <span class="text-3xl mb-2 block">🔥</span>
             <span class="text-white font-semibold text-sm group-hover:text-red-200">CLA</span>
           </a>
-          <a href="https://1stphorm.com/products/night-t/?a_aid=gotHABITS" target="_blank" class="bg-white/10 hover:bg-white/20 rounded-xl p-4 text-center transition group">
+          <a href="https://1stphorm.com/products/core-21/?a_aid=gotHABITS" target="_blank" class="bg-white/10 hover:bg-white/20 rounded-xl p-4 text-center transition group">
             <span class="text-3xl mb-2 block">😴</span>
-            <span class="text-white font-semibold text-sm group-hover:text-red-200">Sleep Aid</span>
+            <span class="text-white font-semibold text-sm group-hover:text-red-200">Core-21</span>
           </a>
           <a href="https://1stphorm.com/products/glutamine?a_aid=gotHABITS" target="_blank" class="bg-white/10 hover:bg-white/20 rounded-xl p-4 text-center transition group">
             <span class="text-3xl mb-2 block">💪</span>
@@ -528,10 +542,36 @@
             <span class="text-3xl mb-2 block">🧬</span>
             <span class="text-white font-semibold text-sm group-hover:text-red-200">BCAAs</span>
           </a>
-          <a href="https://1stphorm.com/products/phormula-1-natural/?a_aid=gotHABITS" target="_blank" class="bg-white/10 hover:bg-white/20 rounded-xl p-4 text-center transition group">
-            <span class="text-3xl mb-2 block">🥤</span>
-            <span class="text-white font-semibold text-sm group-hover:text-red-200">Protein Powder</span>
-          </a>
+          <!-- Protein Selector -->
+          <div class="relative" id="protein-selector">
+            <button onclick="toggleDropdown('protein-dropdown')" class="w-full bg-white/10 hover:bg-white/20 rounded-xl p-4 text-center transition group">
+              <span class="text-3xl mb-2 block">🥤</span>
+              <span class="text-white font-semibold text-sm group-hover:text-red-200">Protein Powders</span>
+              <span class="text-white/60 text-xs block mt-1">Tap to choose</span>
+            </button>
+            <div id="protein-dropdown" class="hidden absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-xl z-20 overflow-hidden min-w-[200px]">
+              <a href="https://1stphorm.com/products/phormula-1/?a_aid=gotHABITS" target="_blank" class="block px-4 py-3 text-gray-700 hover:bg-red-50 hover:text-red-600 transition border-b border-gray-100">
+                <span class="font-semibold">Phormula-1</span>
+                <span class="text-xs text-gray-500 block">Fast-absorbing whey isolate</span>
+              </a>
+              <a href="https://1stphorm.com/products/phormula-1-natural/?a_aid=gotHABITS" target="_blank" class="block px-4 py-3 text-gray-700 hover:bg-red-50 hover:text-red-600 transition border-b border-gray-100">
+                <span class="font-semibold">Phormula-1 Natural</span>
+                <span class="text-xs text-gray-500 block">No artificial sweeteners</span>
+              </a>
+              <a href="https://1stphorm.com/products/phormula-1-clear/?a_aid=gotHABITS" target="_blank" class="block px-4 py-3 text-gray-700 hover:bg-red-50 hover:text-red-600 transition border-b border-gray-100">
+                <span class="font-semibold">Phormula-1 Clear</span>
+                <span class="text-xs text-gray-500 block">Light &amp; refreshing</span>
+              </a>
+              <a href="https://1stphorm.com/products/level-1/?a_aid=gotHABITS" target="_blank" class="block px-4 py-3 text-gray-700 hover:bg-red-50 hover:text-red-600 transition border-b border-gray-100">
+                <span class="font-semibold">Level-1</span>
+                <span class="text-xs text-gray-500 block">Meal replacement protein</span>
+              </a>
+              <a href="https://1stphorm.com/products/vegan-power-pro/?a_aid=gotHABITS" target="_blank" class="block px-4 py-3 text-gray-700 hover:bg-red-50 hover:text-red-600 transition">
+                <span class="font-semibold">Vegan Power Pro</span>
+                <span class="text-xs text-gray-500 block">Plant-based protein</span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -543,10 +583,11 @@
             <span class="text-xl">🍹</span> Post-Workout & Protein
           </h4>
           <div class="space-y-2 text-sm">
-            <a href="https://1stphorm.com/products/phormula-1-clear/?a_aid=gotHABITS" target="_blank" class="block text-gray-600 hover:text-red-600 transition">Phormula-1 Clear →</a>
+            <a href="https://1stphorm.com/products/phormula-1/?a_aid=gotHABITS" target="_blank" class="block text-gray-600 hover:text-red-600 transition">Phormula-1 →</a>
             <a href="https://1stphorm.com/products/phormula-1-natural/?a_aid=gotHABITS" target="_blank" class="block text-gray-600 hover:text-red-600 transition">Phormula-1 Natural →</a>
-            <a href="https://1stphorm.com/products/vegan-post-workout-stack/?a_aid=gotHABITS" target="_blank" class="block text-gray-600 hover:text-red-600 transition">Vegan Post-Workout Stack →</a>
-            <a href="https://1stphorm.com/products/natural-post-workout-stack/?a_aid=gotHABITS" target="_blank" class="block text-gray-600 hover:text-red-600 transition">Natural Post-Workout Stack →</a>
+            <a href="https://1stphorm.com/products/phormula-1-clear/?a_aid=gotHABITS" target="_blank" class="block text-gray-600 hover:text-red-600 transition">Phormula-1 Clear →</a>
+            <a href="https://1stphorm.com/products/level-1/?a_aid=gotHABITS" target="_blank" class="block text-gray-600 hover:text-red-600 transition">Level-1 (Meal Replacement) →</a>
+            <a href="https://1stphorm.com/products/vegan-power-pro/?a_aid=gotHABITS" target="_blank" class="block text-gray-600 hover:text-red-600 transition">Vegan Power Pro →</a>
             <a href="https://1stphorm.com/products/power-pro-bar/?a_aid=gotHABITS" target="_blank" class="block text-gray-600 hover:text-red-600 transition">Power Pro Bars →</a>
           </div>
         </div>
@@ -569,7 +610,8 @@
             <span class="text-xl">🥤</span> Daily Vitamins & Health
           </h4>
           <div class="space-y-2 text-sm">
-            <a href="https://1stphorm.com/products/micro-factor/?a_aid=gotHABITS" target="_blank" class="block text-gray-600 hover:text-red-600 transition">Micro Factor (Daily Packs) →</a>
+            <a href="https://1stphorm.com/products/m-factor-men/?a_aid=gotHABITS" target="_blank" class="block text-gray-600 hover:text-red-600 transition">M-Factor Men →</a>
+            <a href="https://1stphorm.com/products/m-factor-goddess/?a_aid=gotHABITS" target="_blank" class="block text-gray-600 hover:text-red-600 transition">M-Factor Goddess →</a>
             <a href="https://1stphorm.com/products/complete-health-stack/?a_aid=gotHABITS" target="_blank" class="block text-gray-600 hover:text-red-600 transition">Complete Health Stack →</a>
             <a href="https://1stphorm.com/products/probiotic/?a_aid=gotHABITS" target="_blank" class="block text-gray-600 hover:text-red-600 transition">Probiotic →</a>
             <a href="https://1stphorm.com/products/liposomal-vitamin-d3/?a_aid=gotHABITS" target="_blank" class="block text-gray-600 hover:text-red-600 transition">Vitamin D3 →</a>
@@ -607,7 +649,7 @@
             <span class="text-xl">🧬</span> Sleep & Stress Support
           </h4>
           <div class="space-y-2 text-sm">
-            <a href="https://1stphorm.com/products/night-t/?a_aid=gotHABITS" target="_blank" class="block text-gray-600 hover:text-red-600 transition">Night-T (Sleep + Ashwagandha) →</a>
+            <a href="https://1stphorm.com/products/core-21/?a_aid=gotHABITS" target="_blank" class="block text-gray-600 hover:text-red-600 transition">Core-21 →</a>
             <a href="https://1stphorm.com/products/adrenal-restore?a_aid=gotHABITS" target="_blank" class="block text-gray-600 hover:text-red-600 transition">Adrenal Restore →</a>
             <a href="https://1stphorm.com/products/harmony/?a_aid=gotHABITS" target="_blank" class="block text-gray-600 hover:text-red-600 transition">Harmony →</a>
           </div>
@@ -727,6 +769,29 @@
     const darkModeToggleMobile = document.getElementById('dark-mode-toggle-mobile');
     if (darkModeToggle) darkModeToggle.addEventListener('click', toggleDarkMode);
     if (darkModeToggleMobile) darkModeToggleMobile.addEventListener('click', toggleDarkMode);
+
+    // Product dropdown toggles
+    function toggleDropdown(id) {
+      const dropdown = document.getElementById(id);
+      const allDropdowns = document.querySelectorAll('#multi-dropdown, #protein-dropdown');
+
+      // Close other dropdowns
+      allDropdowns.forEach(d => {
+        if (d.id !== id) d.classList.add('hidden');
+      });
+
+      // Toggle this dropdown
+      dropdown.classList.toggle('hidden');
+    }
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('#multi-selector') && !e.target.closest('#protein-selector')) {
+        document.querySelectorAll('#multi-dropdown, #protein-dropdown').forEach(d => {
+          d.classList.add('hidden');
+        });
+      }
+    });
   </script>
 </body>
 </html>
