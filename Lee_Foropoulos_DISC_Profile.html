@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DISC Profile | Lee Foropoulos</title>
   <meta name="description" content="Explore Lee Foropoulos's DISC personality profile - balanced leadership with assertive, collaborative, and detail-oriented qualities.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -12,30 +13,10 @@
       theme: {
         extend: {
           colors: {
-            navy: {
-              900: '#0f172a',
-              800: '#1e293b',
-              700: '#334155',
-              600: '#475569',
-            },
-            gold: {
-              700: '#b45309',
-              600: '#d97706',
-              500: '#f59e0b',
-              400: '#fbbf24',
-              300: '#fcd34d',
-              200: '#fde68a',
-              100: '#fef3c7',
-              50: '#fffbeb',
-            },
-            amber: {
-              500: '#f59e0b',
-              400: '#fbbf24',
-            }
+            navy: { 900: '#0f172a', 800: '#1e293b', 700: '#334155', 600: '#475569' },
+            gold: { 700: '#b45309', 600: '#d97706', 500: '#f59e0b', 400: '#fbbf24', 300: '#fcd34d', 200: '#fde68a', 100: '#fef3c7', 50: '#fffbeb' }
           },
-          fontFamily: {
-            sans: ['Inter', 'system-ui', 'sans-serif'],
-          }
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
         }
       }
     }
@@ -44,6 +25,10 @@
     function getCookie(name) {
       const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
       return match ? match[2] : null;
+    }
+    function setCookie(name, value, days) {
+      const expires = new Date(Date.now() + days * 864e5).toUTCString();
+      document.cookie = name + '=' + value + '; expires=' + expires + '; path=/; SameSite=Lax';
     }
     const darkPref = getCookie('darkMode');
     if (darkPref === 'true' || (!darkPref && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -55,33 +40,138 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', system-ui, sans-serif; }
+    body { font-family: 'Inter', system-ui, sans-serif; transition: background-color 0.3s ease, color 0.3s ease; }
+
+    #scroll-progress {
+      position: fixed;
+      top: 64px;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background: linear-gradient(90deg, #f59e0b, #fbbf24);
+      z-index: 100;
+      transition: width 0.1s ease-out;
+    }
+
     .gradient-text {
       background: linear-gradient(135deg, #f59e0b, #fbbf24);
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
     }
+
     .hero-gradient {
       background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
     }
+
     .card-hover {
-      transition: all 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .card-hover:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
     }
+    .dark .card-hover:hover {
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .dark-mode-toggle {
+      transition: transform 0.3s ease;
+    }
+    .dark-mode-toggle:hover {
+      transform: rotate(15deg);
+    }
+
     .mobile-menu {
       transform: translateX(100%);
-      transition: transform 0.3s ease;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .mobile-menu.open {
       transform: translateX(0);
     }
+
+    .menu-overlay {
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    .menu-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .progress-bar {
+      height: 8px;
+      border-radius: 4px;
+      overflow: hidden;
+      background: rgba(0,0,0,0.1);
+    }
+    .dark .progress-bar {
+      background: rgba(255,255,255,0.1);
+    }
+    .progress-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 0;
+    }
+    .progress-fill.animated {
+      width: var(--target-width);
+    }
+
+    .trait-icon {
+      transition: transform 0.3s ease;
+    }
+    .card-hover:hover .trait-icon {
+      transform: scale(1.1);
+    }
+
+    .glow-card {
+      position: relative;
+    }
+    .glow-card::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 1rem;
+      padding: 2px;
+      background: linear-gradient(135deg, #f59e0b, #fbbf24, #f59e0b);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .glow-card:hover::before {
+      opacity: 1;
+    }
+
+    #back-to-top {
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    #back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
   </style>
 </head>
-<body class="bg-white dark:bg-navy-900 text-gray-800 dark:text-gray-200 transition-colors">
+<body class="bg-white dark:bg-navy-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
+
+  <!-- Scroll Progress Bar -->
+  <div id="scroll-progress"></div>
 
   <!-- Navigation -->
   <nav class="fixed top-0 left-0 right-0 z-50 bg-navy-900/95 backdrop-blur-md border-b border-white/10">
@@ -94,17 +184,39 @@
           <a href="Lee_Foropoulos_MBTI.html" class="text-gray-300 hover:text-gold-400 transition">MBTI</a>
           <a href="Lee_Foropoulos_Big_Five.html" class="text-gray-300 hover:text-gold-400 transition">Big Five</a>
           <a href="Lee_Foropoulos_Human_Design_Profile.html" class="text-gray-300 hover:text-gold-400 transition">Human Design</a>
+          <button id="dark-mode-toggle" class="dark-mode-toggle text-gray-300 hover:text-gold-400 p-2 rounded-lg hover:bg-white/10 transition" aria-label="Toggle dark mode">
+            <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+            </svg>
+            <svg class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+            </svg>
+          </button>
           <a href="https://www.upwork.com/freelancers/thesecretchief?viewMode=1" target="_blank" class="bg-gold-500 hover:bg-gold-400 text-navy-900 font-semibold px-5 py-2 rounded-full transition">Work With Me</a>
         </div>
-        <button id="mobile-menu-btn" class="md:hidden text-white p-2">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-          </svg>
-        </button>
+        <div class="flex items-center gap-2 md:hidden">
+          <button id="dark-mode-toggle-mobile" class="dark-mode-toggle text-gray-300 hover:text-gold-400 p-2" aria-label="Toggle dark mode">
+            <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+            </svg>
+            <svg class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+            </svg>
+          </button>
+          <button id="mobile-menu-btn" class="text-white p-2">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="menu-overlay" class="menu-overlay fixed inset-0 bg-black/50 md:hidden z-40"></div>
+
     <!-- Mobile Menu -->
-    <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 h-full w-72 bg-navy-900 shadow-2xl md:hidden">
+    <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 h-full w-72 bg-navy-900 shadow-2xl md:hidden z-50">
       <div class="p-6">
         <button id="close-menu" class="absolute top-4 right-4 text-white p-2">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -125,7 +237,7 @@
   </nav>
 
   <!-- Hero Section -->
-  <section class="hero-gradient pt-24 pb-16">
+  <section class="hero-gradient pt-24 pb-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center">
         <div class="inline-flex items-center gap-2 bg-gold-500/10 border border-gold-500/20 rounded-full px-4 py-2 mb-6">
@@ -135,24 +247,40 @@
         <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
           My <span class="gradient-text">DISC Profile</span>
         </h1>
-        <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+        <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-10">
           Explore how my balanced leadership style, adaptability, and teamwork skills can enhance your organization's success.
         </p>
+
+        <!-- Quick Stats -->
+        <div class="flex flex-wrap justify-center gap-6 mt-8">
+          <div class="bg-white/5 backdrop-blur border border-white/10 rounded-xl px-6 py-4">
+            <div class="text-3xl font-bold text-gold-400">4.7<span class="text-lg text-gray-400">/10</span></div>
+            <div class="text-gray-400 text-sm">Overall Score</div>
+          </div>
+          <div class="bg-white/5 backdrop-blur border border-white/10 rounded-xl px-6 py-4">
+            <div class="text-3xl font-bold text-gold-400">Balanced</div>
+            <div class="text-gray-400 text-sm">Profile Type</div>
+          </div>
+          <div class="bg-white/5 backdrop-blur border border-white/10 rounded-xl px-6 py-4">
+            <div class="text-3xl font-bold text-gold-400">Versatile</div>
+            <div class="text-gray-400 text-sm">Leadership Style</div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- What is DISC Section -->
-  <section class="py-16 bg-white">
+  <section class="py-20 bg-white dark:bg-navy-900">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold text-navy-900 mb-4">What is the DISC Assessment?</h2>
-        <p class="text-lg text-gray-600 leading-relaxed">
-          The DISC assessment is a behavioral analysis tool developed by William Moulton Marston, categorizing individuals into four primary personality traits: <strong>Dominance</strong>, <strong>Influence</strong>, <strong>Steadiness</strong>, and <strong>Conscientiousness</strong>. It provides insights into how I interact with others, approach tasks, and handle challenges.
+      <div class="reveal text-center mb-12">
+        <h2 class="text-3xl font-bold text-navy-900 dark:text-white mb-4">What is the DISC Assessment?</h2>
+        <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+          The DISC assessment is a behavioral analysis tool developed by William Moulton Marston, categorizing individuals into four primary personality traits: <strong class="text-gold-500">Dominance</strong>, <strong class="text-gold-500">Influence</strong>, <strong class="text-gold-500">Steadiness</strong>, and <strong class="text-gold-500">Conscientiousness</strong>. It provides insights into how I interact with others, approach tasks, and handle challenges.
         </p>
       </div>
-      <div class="bg-gray-50 rounded-2xl p-6 text-center">
-        <p class="text-gray-600">
+      <div class="reveal bg-gray-50 dark:bg-navy-800 rounded-2xl p-6 text-center border border-gray-100 dark:border-navy-700">
+        <p class="text-gray-600 dark:text-gray-300">
           Want to discover your own profile? Take the assessment at
           <a href="https://www.123test.com/disc-personality-test/#its123-testAnchor" target="_blank" class="text-gold-500 hover:text-gold-400 font-semibold underline">123test.com</a>
         </p>
@@ -161,23 +289,68 @@
   </section>
 
   <!-- DISC Chart Section -->
-  <section class="py-16 bg-gray-50">
+  <section class="py-20 bg-gray-50 dark:bg-navy-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
-        <div class="order-2 lg:order-1">
-          <h2 class="text-3xl font-bold text-navy-900 mb-6">My DISC Overview</h2>
-          <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 mb-6">
-            <div class="flex items-center gap-4 mb-4">
-              <div class="text-4xl font-bold text-gold-500">4.7<span class="text-lg text-gray-400">/10</span></div>
-              <div class="text-gray-600">Balanced, Versatile Profile</div>
+        <div class="reveal order-2 lg:order-1">
+          <h2 class="text-3xl font-bold text-navy-900 dark:text-white mb-6">My DISC Overview</h2>
+          <div class="bg-white dark:bg-navy-900 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-navy-700 mb-6">
+            <div class="flex items-center gap-4 mb-6">
+              <div class="w-20 h-20 bg-gradient-to-br from-gold-400 to-gold-600 rounded-2xl flex items-center justify-center">
+                <span class="text-3xl font-bold text-navy-900">4.7</span>
+              </div>
+              <div>
+                <div class="text-xl font-bold text-navy-900 dark:text-white">Balanced Profile</div>
+                <div class="text-gray-500 dark:text-gray-400">Versatile & Adaptable</div>
+              </div>
             </div>
-            <p class="text-gray-600 leading-relaxed">
+            <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
               My score indicates a versatile personality, adaptable across various professional contexts, with notable strengths in leadership, collaboration, and reliability. The DISC model evaluates four dimensions—each reflecting how I approach challenges, interact with others, maintain pace, and handle tasks.
             </p>
           </div>
+
+          <!-- Score Breakdown -->
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between mb-2">
+                <span class="font-semibold text-red-500">Dominance (D)</span>
+                <span class="text-gray-600 dark:text-gray-400">47%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill bg-gradient-to-r from-red-400 to-red-600" style="--target-width: 47%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-2">
+                <span class="font-semibold text-yellow-500">Influence (I)</span>
+                <span class="text-gray-600 dark:text-gray-400">52%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill bg-gradient-to-r from-yellow-400 to-yellow-600" style="--target-width: 52%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-2">
+                <span class="font-semibold text-green-500">Steadiness (S)</span>
+                <span class="text-gray-600 dark:text-gray-400">45%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill bg-gradient-to-r from-green-400 to-green-600" style="--target-width: 45%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-2">
+                <span class="font-semibold text-blue-500">Conscientiousness (C)</span>
+                <span class="text-gray-600 dark:text-gray-400">43%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill bg-gradient-to-r from-blue-400 to-blue-600" style="--target-width: 43%"></div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="order-1 lg:order-2">
-          <div class="bg-white rounded-2xl p-4 shadow-lg">
+        <div class="reveal order-1 lg:order-2">
+          <div class="glow-card bg-white dark:bg-navy-900 rounded-2xl p-4 shadow-xl">
             <img src="DISC_Chart.png" alt="Lee Foropoulos DISC Chart" class="w-full rounded-xl" onerror="this.src='https://via.placeholder.com/600x400.png?text=DISC+Chart';">
           </div>
         </div>
@@ -186,84 +359,127 @@
   </section>
 
   <!-- Trait Breakdown Section -->
-  <section class="py-16 bg-white">
+  <section class="py-20 bg-white dark:bg-navy-900">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-bold text-navy-900 text-center mb-12">Trait Breakdown</h2>
+      <div class="reveal text-center mb-12">
+        <span class="inline-block bg-gold-100 dark:bg-gold-500/20 text-gold-700 dark:text-gold-400 text-sm font-semibold px-4 py-2 rounded-full mb-4">TRAIT ANALYSIS</span>
+        <h2 class="text-3xl font-bold text-navy-900 dark:text-white">Trait Breakdown</h2>
+      </div>
       <div class="grid md:grid-cols-2 gap-6">
-        <div class="card-hover bg-gray-50 rounded-2xl p-8 border-l-4 border-red-500">
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-12 h-12 bg-red-500/10 rounded-xl flex items-center justify-center">
-              <span class="text-2xl">&#9889;</span>
+        <div class="reveal card-hover bg-white dark:bg-navy-800 rounded-2xl p-8 border-l-4 border-red-500 shadow-sm dark:shadow-none dark:border dark:border-l-4 dark:border-navy-700 dark:border-l-red-500">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="trait-icon w-14 h-14 bg-red-500/10 dark:bg-red-500/20 rounded-xl flex items-center justify-center">
+              <svg class="w-7 h-7 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+              </svg>
             </div>
-            <h3 class="text-xl font-bold text-navy-900">Dominance (D)</h3>
+            <div>
+              <h3 class="text-xl font-bold text-navy-900 dark:text-white">Dominance (D)</h3>
+              <p class="text-sm font-semibold text-red-500">Assertive Leadership</p>
+            </div>
           </div>
-          <p class="text-sm font-semibold text-red-500 mb-2">Assertive Leadership</p>
-          <p class="text-gray-600">My moderate Dominance trait shows assertive leadership qualities. I take charge in challenging situations, driving projects forward with a focus on results. Decisive and confident in managing high-pressure tasks.</p>
+          <p class="text-gray-600 dark:text-gray-300">My moderate Dominance trait shows assertive leadership qualities. I take charge in challenging situations, driving projects forward with a focus on results. Decisive and confident in managing high-pressure tasks.</p>
         </div>
 
-        <div class="card-hover bg-gray-50 rounded-2xl p-8 border-l-4 border-yellow-500">
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-12 h-12 bg-yellow-500/10 rounded-xl flex items-center justify-center">
-              <span class="text-2xl">&#128172;</span>
+        <div class="reveal card-hover bg-white dark:bg-navy-800 rounded-2xl p-8 border-l-4 border-yellow-500 shadow-sm dark:shadow-none dark:border dark:border-l-4 dark:border-navy-700 dark:border-l-yellow-500">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="trait-icon w-14 h-14 bg-yellow-500/10 dark:bg-yellow-500/20 rounded-xl flex items-center justify-center">
+              <svg class="w-7 h-7 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+              </svg>
             </div>
-            <h3 class="text-xl font-bold text-navy-900">Influence (I)</h3>
+            <div>
+              <h3 class="text-xl font-bold text-navy-900 dark:text-white">Influence (I)</h3>
+              <p class="text-sm font-semibold text-yellow-500">Collaborative Communication</p>
+            </div>
           </div>
-          <p class="text-sm font-semibold text-yellow-500 mb-2">Collaborative Communication</p>
-          <p class="text-gray-600">With a balanced Influence score, I inspire and motivate others through effective communication. I foster teamwork and build strong relationships, enhancing group morale and productivity.</p>
+          <p class="text-gray-600 dark:text-gray-300">With a balanced Influence score, I inspire and motivate others through effective communication. I foster teamwork and build strong relationships, enhancing group morale and productivity.</p>
         </div>
 
-        <div class="card-hover bg-gray-50 rounded-2xl p-8 border-l-4 border-green-500">
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center">
-              <span class="text-2xl">&#129309;</span>
+        <div class="reveal card-hover bg-white dark:bg-navy-800 rounded-2xl p-8 border-l-4 border-green-500 shadow-sm dark:shadow-none dark:border dark:border-l-4 dark:border-navy-700 dark:border-l-green-500">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="trait-icon w-14 h-14 bg-green-500/10 dark:bg-green-500/20 rounded-xl flex items-center justify-center">
+              <svg class="w-7 h-7 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+              </svg>
             </div>
-            <h3 class="text-xl font-bold text-navy-900">Steadiness (S)</h3>
+            <div>
+              <h3 class="text-xl font-bold text-navy-900 dark:text-white">Steadiness (S)</h3>
+              <p class="text-sm font-semibold text-green-500">Consistent Support</p>
+            </div>
           </div>
-          <p class="text-sm font-semibold text-green-500 mb-2">Consistent Support</p>
-          <p class="text-gray-600">My Steadiness trait reflects supportive leadership—patience and reliability. I provide a stable presence, ensuring team cohesion and supporting long-term goals with a calm, dependable approach.</p>
+          <p class="text-gray-600 dark:text-gray-300">My Steadiness trait reflects supportive leadership—patience and reliability. I provide a stable presence, ensuring team cohesion and supporting long-term goals with a calm, dependable approach.</p>
         </div>
 
-        <div class="card-hover bg-gray-50 rounded-2xl p-8 border-l-4 border-blue-500">
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center">
-              <span class="text-2xl">&#128269;</span>
+        <div class="reveal card-hover bg-white dark:bg-navy-800 rounded-2xl p-8 border-l-4 border-blue-500 shadow-sm dark:shadow-none dark:border dark:border-l-4 dark:border-navy-700 dark:border-l-blue-500">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="trait-icon w-14 h-14 bg-blue-500/10 dark:bg-blue-500/20 rounded-xl flex items-center justify-center">
+              <svg class="w-7 h-7 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
             </div>
-            <h3 class="text-xl font-bold text-navy-900">Conscientiousness (C)</h3>
+            <div>
+              <h3 class="text-xl font-bold text-navy-900 dark:text-white">Conscientiousness (C)</h3>
+              <p class="text-sm font-semibold text-blue-500">Detail-Oriented Guidance</p>
+            </div>
           </div>
-          <p class="text-sm font-semibold text-blue-500 mb-2">Detail-Oriented Guidance</p>
-          <p class="text-gray-600">A moderate Conscientiousness score highlights my attention to detail and accuracy. I ensure tasks are completed thoroughly, offering structured oversight aligned with organizational standards.</p>
+          <p class="text-gray-600 dark:text-gray-300">A moderate Conscientiousness score highlights my attention to detail and accuracy. I ensure tasks are completed thoroughly, offering structured oversight aligned with organizational standards.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Recommended Roles Section -->
-  <section class="py-16 bg-navy-900">
+  <section class="py-20 bg-navy-900">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-bold text-white text-center mb-12">Recommended Job Roles</h2>
+      <div class="reveal text-center mb-12">
+        <span class="inline-block bg-gold-500/20 text-gold-400 text-sm font-semibold px-4 py-2 rounded-full mb-4">CAREER FIT</span>
+        <h2 class="text-3xl font-bold text-white">Recommended Job Roles</h2>
+      </div>
       <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
-        <div class="bg-white/5 backdrop-blur border border-white/10 rounded-xl p-6 text-center">
-          <div class="text-3xl mb-3">&#128188;</div>
+        <div class="reveal card-hover bg-white/5 backdrop-blur border border-white/10 rounded-xl p-6 text-center">
+          <div class="w-14 h-14 bg-gold-500/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+            <svg class="w-7 h-7 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+            </svg>
+          </div>
           <h3 class="text-white font-semibold mb-2">Project Manager</h3>
           <p class="text-gray-400 text-sm">Leadership & organizational skills for complex projects</p>
         </div>
-        <div class="bg-white/5 backdrop-blur border border-white/10 rounded-xl p-6 text-center">
-          <div class="text-3xl mb-3">&#9881;</div>
+        <div class="reveal card-hover bg-white/5 backdrop-blur border border-white/10 rounded-xl p-6 text-center">
+          <div class="w-14 h-14 bg-gold-500/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+            <svg class="w-7 h-7 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+          </div>
           <h3 class="text-white font-semibold mb-2">Operations Manager</h3>
           <p class="text-gray-400 text-sm">Adaptability for efficient workflows</p>
         </div>
-        <div class="bg-white/5 backdrop-blur border border-white/10 rounded-xl p-6 text-center">
-          <div class="text-3xl mb-3">&#128101;</div>
+        <div class="reveal card-hover bg-white/5 backdrop-blur border border-white/10 rounded-xl p-6 text-center">
+          <div class="w-14 h-14 bg-gold-500/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+            <svg class="w-7 h-7 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+            </svg>
+          </div>
           <h3 class="text-white font-semibold mb-2">Team Leader</h3>
           <p class="text-gray-400 text-sm">Collaborative nature enhances team performance</p>
         </div>
-        <div class="bg-white/5 backdrop-blur border border-white/10 rounded-xl p-6 text-center">
-          <div class="text-3xl mb-3">&#128200;</div>
+        <div class="reveal card-hover bg-white/5 backdrop-blur border border-white/10 rounded-xl p-6 text-center">
+          <div class="w-14 h-14 bg-gold-500/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+            <svg class="w-7 h-7 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+            </svg>
+          </div>
           <h3 class="text-white font-semibold mb-2">Business Consultant</h3>
           <p class="text-gray-400 text-sm">Strategic insight for growth advisory</p>
         </div>
-        <div class="bg-white/5 backdrop-blur border border-white/10 rounded-xl p-6 text-center">
-          <div class="text-3xl mb-3">&#127891;</div>
+        <div class="reveal card-hover bg-white/5 backdrop-blur border border-white/10 rounded-xl p-6 text-center">
+          <div class="w-14 h-14 bg-gold-500/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+            <svg class="w-7 h-7 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+            </svg>
+          </div>
           <h3 class="text-white font-semibold mb-2">Training Coordinator</h3>
           <p class="text-gray-400 text-sm">Patience & guidance for mentoring</p>
         </div>
@@ -272,27 +488,41 @@
   </section>
 
   <!-- Other Profiles Section -->
-  <section class="py-16 bg-gray-50">
+  <section class="py-20 bg-gray-50 dark:bg-navy-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-bold text-navy-900 text-center mb-4">Explore My Other Profiles</h2>
-      <p class="text-gray-600 text-center mb-12 max-w-2xl mx-auto">Get a complete picture of how I think, lead, and collaborate</p>
+      <div class="reveal text-center mb-12">
+        <h2 class="text-3xl font-bold text-navy-900 dark:text-white mb-4">Explore My Other Profiles</h2>
+        <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Get a complete picture of how I think, lead, and collaborate</p>
+      </div>
       <div class="grid sm:grid-cols-3 gap-6">
-        <a href="Lee_Foropoulos_MBTI.html" class="card-hover bg-white rounded-2xl p-8 text-center shadow-sm border border-gray-100">
-          <div class="text-4xl mb-4">&#129504;</div>
-          <h3 class="text-xl font-bold text-navy-900 mb-2">MBTI (ENTJ)</h3>
-          <p class="text-gray-500 text-sm mb-4">The Commander - Natural leader</p>
+        <a href="Lee_Foropoulos_MBTI.html" class="reveal card-hover glow-card bg-white dark:bg-navy-900 rounded-2xl p-8 text-center shadow-sm border border-gray-100 dark:border-navy-700">
+          <div class="w-16 h-16 bg-purple-100 dark:bg-purple-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-navy-900 dark:text-white mb-2">MBTI (ENTJ)</h3>
+          <p class="text-gray-500 dark:text-gray-400 text-sm mb-4">The Commander - Natural leader</p>
           <span class="text-gold-500 font-medium">View Profile &rarr;</span>
         </a>
-        <a href="Lee_Foropoulos_Big_Five.html" class="card-hover bg-white rounded-2xl p-8 text-center shadow-sm border border-gray-100">
-          <div class="text-4xl mb-4">&#11088;</div>
-          <h3 class="text-xl font-bold text-navy-900 mb-2">Big Five Traits</h3>
-          <p class="text-gray-500 text-sm mb-4">Core personality dimensions</p>
+        <a href="Lee_Foropoulos_Big_Five.html" class="reveal card-hover glow-card bg-white dark:bg-navy-900 rounded-2xl p-8 text-center shadow-sm border border-gray-100 dark:border-navy-700">
+          <div class="w-16 h-16 bg-orange-100 dark:bg-orange-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-navy-900 dark:text-white mb-2">Big Five Traits</h3>
+          <p class="text-gray-500 dark:text-gray-400 text-sm mb-4">Core personality dimensions</p>
           <span class="text-gold-500 font-medium">View Profile &rarr;</span>
         </a>
-        <a href="Lee_Foropoulos_Human_Design_Profile.html" class="card-hover bg-white rounded-2xl p-8 text-center shadow-sm border border-gray-100">
-          <div class="text-4xl mb-4">&#128302;</div>
-          <h3 class="text-xl font-bold text-navy-900 mb-2">Human Design</h3>
-          <p class="text-gray-500 text-sm mb-4">Manifesting Generator 6/2</p>
+        <a href="Lee_Foropoulos_Human_Design_Profile.html" class="reveal card-hover glow-card bg-white dark:bg-navy-900 rounded-2xl p-8 text-center shadow-sm border border-gray-100 dark:border-navy-700">
+          <div class="w-16 h-16 bg-indigo-100 dark:bg-indigo-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-navy-900 dark:text-white mb-2">Human Design</h3>
+          <p class="text-gray-500 dark:text-gray-400 text-sm mb-4">Manifesting Generator 6/2</p>
           <span class="text-gold-500 font-medium">View Profile &rarr;</span>
         </a>
       </div>
@@ -300,15 +530,22 @@
   </section>
 
   <!-- CTA Section -->
-  <section class="py-20 hero-gradient">
+  <section class="py-24 hero-gradient">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">Leverage My DISC Profile in Your Team</h2>
-      <p class="text-xl text-gray-300 mb-10 leading-relaxed">
-        My balanced leadership qualities equip me to enhance team dynamics, drive results, and foster collaboration. Let's discuss how I can contribute to your organization's success.
-      </p>
-      <a href="https://www.upwork.com/freelancers/thesecretchief?viewMode=1" target="_blank" class="inline-block bg-gold-500 hover:bg-gold-400 text-navy-900 font-bold px-10 py-4 rounded-full text-lg transition transform hover:scale-105">
-        Let's Work Together
-      </a>
+      <div class="reveal">
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">Leverage My DISC Profile in Your Team</h2>
+        <p class="text-xl text-gray-300 mb-10 leading-relaxed">
+          My balanced leadership qualities equip me to enhance team dynamics, drive results, and foster collaboration. Let's discuss how I can contribute to your organization's success.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="https://www.upwork.com/freelancers/thesecretchief?viewMode=1" target="_blank" class="inline-block bg-gold-500 hover:bg-gold-400 text-navy-900 font-bold px-10 py-4 rounded-full text-lg transition transform hover:scale-105">
+            Let's Work Together
+          </a>
+          <a href="index.html#contact" class="inline-block border-2 border-white hover:bg-white text-white hover:text-navy-900 font-bold px-10 py-4 rounded-full text-lg transition">
+            Get In Touch
+          </a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -332,16 +569,94 @@
     </div>
   </footer>
 
-  <!-- Mobile Menu Script -->
+  <!-- Back to Top Button -->
+  <button id="back-to-top" class="fixed bottom-8 right-8 w-12 h-12 bg-gold-500 hover:bg-gold-400 text-navy-900 rounded-full shadow-lg flex items-center justify-center transition-all z-40" aria-label="Back to top">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+    </svg>
+  </button>
+
   <script>
+    // Mobile Menu
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
     const closeMenuBtn = document.getElementById('close-menu');
     const mobileMenu = document.getElementById('mobile-menu');
-    mobileMenuBtn.addEventListener('click', () => mobileMenu.classList.add('open'));
-    closeMenuBtn.addEventListener('click', () => mobileMenu.classList.remove('open'));
-    mobileMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    const menuOverlay = document.getElementById('menu-overlay');
+
+    function openMenu() {
+      mobileMenu.classList.add('open');
+      menuOverlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+      mobileMenu.classList.remove('open');
+      menuOverlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    mobileMenuBtn.addEventListener('click', openMenu);
+    closeMenuBtn.addEventListener('click', closeMenu);
+    menuOverlay.addEventListener('click', closeMenu);
+    mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+
+    // Dark Mode Toggle
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    const darkModeToggleMobile = document.getElementById('dark-mode-toggle-mobile');
+
+    function toggleDarkMode() {
+      const isDark = document.documentElement.classList.toggle('dark');
+      setCookie('darkMode', isDark, 365);
+    }
+
+    darkModeToggle.addEventListener('click', toggleDarkMode);
+    darkModeToggleMobile.addEventListener('click', toggleDarkMode);
+
+    // Scroll Progress Bar
+    const scrollProgress = document.getElementById('scroll-progress');
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = (scrollTop / docHeight) * 100;
+      scrollProgress.style.width = scrollPercent + '%';
     });
+
+    // Back to Top Button
+    const backToTop = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 500) {
+        backToTop.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
+      }
+    });
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Scroll Reveal Animation
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // Animate Progress Bars
+    const progressBars = document.querySelectorAll('.progress-fill');
+    const progressObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animated');
+        }
+      });
+    }, { threshold: 0.5 });
+
+    progressBars.forEach(bar => progressObserver.observe(bar));
   </script>
 
 </body>
