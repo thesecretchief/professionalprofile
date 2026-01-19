@@ -213,10 +213,15 @@
       color: #ffffff !important;
       text-shadow: 0 0 10px rgba(255,255,255,0.5);
     }
-    /* Allow dropdowns to overflow for selector cards */
+    /* Allow dropdowns to overflow and stay on top of other cards */
     #multi-selector,
     #protein-selector {
       overflow: visible;
+      z-index: 40;
+    }
+    #multi-selector.dropdown-open,
+    #protein-selector.dropdown-open {
+      z-index: 100;
     }
 
     /* Stagger animation for cards */
@@ -1237,15 +1242,21 @@
     // Product dropdown toggles
     function toggleDropdown(id) {
       const dropdown = document.getElementById(id);
+      const selector = dropdown.parentElement;
       const allDropdowns = document.querySelectorAll('#multi-dropdown, #protein-dropdown');
+      const allSelectors = document.querySelectorAll('#multi-selector, #protein-selector');
 
-      // Close other dropdowns
+      // Close other dropdowns and remove their open class
       allDropdowns.forEach(d => {
-        if (d.id !== id) d.classList.add('hidden');
+        if (d.id !== id) {
+          d.classList.add('hidden');
+          d.parentElement.classList.remove('dropdown-open');
+        }
       });
 
       // Toggle this dropdown
       dropdown.classList.toggle('hidden');
+      selector.classList.toggle('dropdown-open', !dropdown.classList.contains('hidden'));
     }
 
     // Close dropdowns when clicking outside
@@ -1253,6 +1264,9 @@
       if (!e.target.closest('#multi-selector') && !e.target.closest('#protein-selector')) {
         document.querySelectorAll('#multi-dropdown, #protein-dropdown').forEach(d => {
           d.classList.add('hidden');
+        });
+        document.querySelectorAll('#multi-selector, #protein-selector').forEach(s => {
+          s.classList.remove('dropdown-open');
         });
       }
     });
