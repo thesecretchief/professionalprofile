@@ -84,6 +84,142 @@
     .mobile-menu.open {
       transform: translateX(0);
     }
+
+    /* Premium Animations */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInLeft {
+      from { opacity: 0; transform: translateX(-40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes fadeInRight {
+      from { opacity: 0; transform: translateX(40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes pulse-gold {
+      0%, 100% { box-shadow: 0 0 20px rgba(251, 191, 36, 0.3); }
+      50% { box-shadow: 0 0 50px rgba(251, 191, 36, 0.6); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+    @keyframes shimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    @keyframes countUp {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    @keyframes borderGlow {
+      0%, 100% { border-color: rgba(251, 191, 36, 0.3); }
+      50% { border-color: rgba(251, 191, 36, 0.8); }
+    }
+    @keyframes typewriter {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    .animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+    .animate-fade-in-left { animation: fadeInLeft 0.8s ease-out forwards; }
+    .animate-fade-in-right { animation: fadeInRight 0.8s ease-out forwards; }
+    .animate-float { animation: float 4s ease-in-out infinite; }
+    .animate-pulse-gold { animation: pulse-gold 2.5s ease-in-out infinite; }
+    .animate-border-glow { animation: borderGlow 2s ease-in-out infinite; }
+
+    .delay-100 { animation-delay: 0.1s; }
+    .delay-200 { animation-delay: 0.2s; }
+    .delay-300 { animation-delay: 0.3s; }
+    .delay-400 { animation-delay: 0.4s; }
+    .delay-500 { animation-delay: 0.5s; }
+    .delay-600 { animation-delay: 0.6s; }
+
+    .opacity-0 { opacity: 0; }
+
+    /* Scroll-triggered animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Premium CTA Effects */
+    .cta-premium {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #f59e0b, #fbbf24);
+    }
+    .cta-premium::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.6s;
+    }
+    .cta-premium:hover::before {
+      left: 100%;
+    }
+
+    /* Stats Counter Animation */
+    .stat-number {
+      transition: all 0.3s ease;
+    }
+    .stat-card:hover .stat-number {
+      transform: scale(1.1);
+      color: #fbbf24;
+    }
+
+    /* Service Card Premium Hover */
+    .service-card {
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, #f59e0b, #fbbf24);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .service-card:hover::after {
+      transform: scaleX(1);
+    }
+
+    /* Trust Indicator Pulse */
+    .trust-pulse {
+      position: relative;
+    }
+    .trust-pulse::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      border: 2px solid #f59e0b;
+      border-radius: inherit;
+      transform: translate(-50%, -50%);
+      animation: pulse-ring 2s infinite;
+    }
+    @keyframes pulse-ring {
+      0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(1.3); opacity: 0; }
+    }
   </style>
 </head>
 <body class="bg-white dark:bg-navy-900 text-gray-800 dark:text-gray-200 transition-colors">
@@ -146,52 +282,135 @@
   </div>
 
   <!-- Hero Section -->
-  <section class="hero-gradient pt-24 pb-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+  <section class="hero-gradient pt-24 pb-16 relative overflow-hidden">
+    <!-- Animated Background -->
+    <div class="absolute top-20 right-10 w-64 h-64 bg-gold-500/10 rounded-full filter blur-3xl animate-float"></div>
+    <div class="absolute bottom-10 left-10 w-96 h-96 bg-gold-400/5 rounded-full filter blur-3xl"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-gold-500/10 rounded-full"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div>
           <!-- Logo -->
-          <div class="mb-8">
+          <div class="mb-8 animate-fade-in-up opacity-0">
             <img src="logo_Greek-FireCorp.png" alt="Greek-Fire Corporation" class="h-20 sm:h-28 w-auto drop-shadow-2xl" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
             <div class="hidden">
               <span class="text-3xl font-bold text-white">Greek-Fire<span class="text-gold-400"> Corporation</span></span>
             </div>
           </div>
-          <h1 class="text-4xl sm:text-5xl font-bold text-white leading-tight mb-6">
-            Fractional Executive <span class="gradient-text">Leadership</span>
-          </h1>
-          <p class="text-xl text-gray-300 mb-8 leading-relaxed">
-            CEO, COO, and CTO expertise without the full-time commitment. Strategic vision meets operational execution for growing companies.
+
+          <!-- Hook -->
+          <p class="text-gold-400 font-semibold mb-4 animate-fade-in-up opacity-0 delay-100">
+            Scaling Pains? Leadership Gaps? No Problem.
           </p>
-          <div class="flex flex-wrap gap-4">
-            <a href="#services" class="bg-gold-500 hover:bg-gold-400 text-navy-900 font-bold px-8 py-4 rounded-full text-lg transition transform hover:scale-105">
-              View Services
+
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6 animate-fade-in-up opacity-0 delay-200">
+            Executive Firepower <span class="gradient-text">On Demand</span>
+          </h1>
+
+          <p class="text-xl text-gray-300 mb-6 leading-relaxed animate-fade-in-up opacity-0 delay-300">
+            Skip the 6-month executive search. Get <strong class="text-white">battle-tested CEO, COO, and CTO leadership</strong> that plugs directly into your team—at a fraction of the cost.
+          </p>
+
+          <!-- Value Props -->
+          <div class="grid grid-cols-2 gap-3 mb-8 animate-fade-in-up opacity-0 delay-400">
+            <div class="flex items-center gap-2 text-gray-300">
+              <span class="text-gold-400">✓</span> No equity required
+            </div>
+            <div class="flex items-center gap-2 text-gray-300">
+              <span class="text-gold-400">✓</span> Month-to-month flexibility
+            </div>
+            <div class="flex items-center gap-2 text-gray-300">
+              <span class="text-gold-400">✓</span> Results in 30 days
+            </div>
+            <div class="flex items-center gap-2 text-gray-300">
+              <span class="text-gold-400">✓</span> Proven track record
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-4 animate-fade-in-up opacity-0 delay-500">
+            <a href="#contact" class="cta-premium text-navy-900 font-bold px-8 py-4 rounded-full text-lg transition transform hover:scale-105 shadow-xl animate-pulse-gold">
+              Book Strategy Call →
             </a>
-            <a href="#contact" class="border-2 border-white/30 hover:border-gold-400 text-white hover:text-gold-400 font-semibold px-8 py-4 rounded-full text-lg transition">
-              Book a Call
+            <a href="#services" class="border-2 border-white/30 hover:border-gold-400 text-white hover:text-gold-400 font-semibold px-8 py-4 rounded-full text-lg transition">
+              See How I Work
             </a>
           </div>
-        </div>
-        <div class="hidden lg:block">
-          <div class="grid grid-cols-2 gap-4">
-            <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-              <div class="text-4xl font-bold text-gold-400 mb-2">20+</div>
-              <div class="text-gray-400">Years Experience</div>
+
+          <!-- Trust Bar -->
+          <div class="mt-10 pt-6 border-t border-white/10 animate-fade-in-up opacity-0 delay-600">
+            <p class="text-gray-500 text-sm mb-3">Trusted by companies in:</p>
+            <div class="flex flex-wrap gap-3 text-xs">
+              <span class="bg-white/5 text-gray-400 px-3 py-1 rounded-full border border-white/10">SaaS</span>
+              <span class="bg-white/5 text-gray-400 px-3 py-1 rounded-full border border-white/10">Manufacturing</span>
+              <span class="bg-white/5 text-gray-400 px-3 py-1 rounded-full border border-white/10">Healthcare</span>
+              <span class="bg-white/5 text-gray-400 px-3 py-1 rounded-full border border-white/10">Enterprise</span>
             </div>
-            <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-              <div class="text-4xl font-bold text-gold-400 mb-2">150K+</div>
+          </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="hidden lg:block animate-fade-in-right opacity-0 delay-300">
+          <div class="grid grid-cols-2 gap-4 stats-section">
+            <div class="stat-card bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-gold-400/50 transition-all duration-300">
+              <div class="stat-number text-4xl font-bold text-gold-400 mb-2">20+</div>
+              <div class="text-gray-400">Years Building & Scaling</div>
+            </div>
+            <div class="stat-card bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-gold-400/50 transition-all duration-300">
+              <div class="stat-number text-4xl font-bold text-gold-400 mb-2">150K+</div>
               <div class="text-gray-400">Users Scaled</div>
             </div>
-            <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-              <div class="text-4xl font-bold text-gold-400 mb-2">60%</div>
-              <div class="text-gray-400">Churn Reduction</div>
+            <div class="stat-card bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-gold-400/50 transition-all duration-300">
+              <div class="stat-number text-4xl font-bold text-gold-400 mb-2">60%</div>
+              <div class="text-gray-400">Churn Reduced</div>
             </div>
-            <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-              <div class="text-4xl font-bold text-gold-400 mb-2">70+</div>
+            <div class="stat-card bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-gold-400/50 transition-all duration-300">
+              <div class="stat-number text-4xl font-bold text-gold-400 mb-2">70+</div>
               <div class="text-gray-400">Team Members Led</div>
             </div>
           </div>
+
+          <!-- Mini Testimonial -->
+          <div class="mt-6 bg-gradient-to-r from-gold-500/10 to-amber-500/10 rounded-xl p-4 border border-gold-500/20">
+            <p class="text-gray-300 text-sm italic">"Lee brought clarity to chaos. Within 60 days, we had systems that actually worked."</p>
+            <p class="text-gold-400 text-xs mt-2 font-semibold">— SaaS Founder, Series A</p>
+          </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem Agitation Section -->
+  <section class="py-16 bg-navy-800">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10 reveal">
+        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Growing Fast? These Problems Sound Familiar...</h2>
+        <p class="text-gray-400">Every scaling company hits these walls. The question is: how long will you stay stuck?</p>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-white/5 border border-white/10 rounded-xl p-6 text-center hover:border-red-500/50 transition reveal">
+          <span class="text-4xl mb-4 block">🔥</span>
+          <p class="text-white font-semibold mb-2">Firefighting Daily</p>
+          <p class="text-gray-400 text-sm">Reacting instead of building</p>
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-xl p-6 text-center hover:border-red-500/50 transition reveal">
+          <span class="text-4xl mb-4 block">📉</span>
+          <p class="text-white font-semibold mb-2">Leaky Revenue</p>
+          <p class="text-gray-400 text-sm">Churn eating your growth</p>
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-xl p-6 text-center hover:border-red-500/50 transition reveal">
+          <span class="text-4xl mb-4 block">🤯</span>
+          <p class="text-white font-semibold mb-2">Founder Burnout</p>
+          <p class="text-gray-400 text-sm">Wearing too many hats</p>
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-xl p-6 text-center hover:border-red-500/50 transition reveal">
+          <span class="text-4xl mb-4 block">🎯</span>
+          <p class="text-white font-semibold mb-2">No Clear Strategy</p>
+          <p class="text-gray-400 text-sm">Growth without direction</p>
+        </div>
+      </div>
+      <div class="text-center mt-10 reveal">
+        <p class="text-gold-400 text-xl font-semibold">These aren't failures—they're growing pains. Let's fix them.</p>
       </div>
     </div>
   </section>
@@ -542,6 +761,52 @@
     const darkModeToggleMobile = document.getElementById('dark-mode-toggle-mobile');
     if (darkModeToggle) darkModeToggle.addEventListener('click', toggleDarkMode);
     if (darkModeToggleMobile) darkModeToggleMobile.addEventListener('click', toggleDarkMode);
+
+    // Scroll Reveal Animation
+    function revealOnScroll() {
+      const reveals = document.querySelectorAll('.reveal');
+      reveals.forEach(el => {
+        const windowHeight = window.innerHeight;
+        const revealTop = el.getBoundingClientRect().top;
+        const revealPoint = 150;
+        if (revealTop < windowHeight - revealPoint) {
+          el.classList.add('active');
+        }
+      });
+    }
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', revealOnScroll);
+
+    // Animated Counter for Stats
+    function animateValue(element, start, end, duration) {
+      let startTime = null;
+      const step = (currentTime) => {
+        if (!startTime) startTime = currentTime;
+        const progress = Math.min((currentTime - startTime) / duration, 1);
+        const value = Math.floor(progress * (end - start) + start);
+        element.textContent = value;
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        }
+      };
+      requestAnimationFrame(step);
+    }
+
+    // Trigger animations on load
+    document.addEventListener('DOMContentLoaded', () => {
+      // Animate stats
+      const stats = document.querySelectorAll('.stat-number');
+      setTimeout(() => {
+        stats.forEach(stat => {
+          const text = stat.textContent;
+          const number = parseInt(text.replace(/[^0-9]/g, ''));
+          if (!isNaN(number)) {
+            stat.textContent = '0' + text.replace(/[0-9]+/, '');
+            animateValue(stat, 0, number, 2000);
+          }
+        });
+      }, 500);
+    });
   </script>
 </body>
 </html>
