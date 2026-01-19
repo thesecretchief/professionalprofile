@@ -159,6 +159,17 @@
     .stagger > *:nth-child(7) { animation-delay: 0.7s; }
     .stagger > *:nth-child(8) { animation-delay: 0.8s; }
     .stagger > *:nth-child(9) { animation-delay: 0.9s; }
+
+    /* Back to top button */
+    #back-to-top {
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    #back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
   </style>
 </head>
 <body class="bg-white dark:bg-navy-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
@@ -243,11 +254,10 @@
         <h2 class="text-sm font-semibold text-gold-600 dark:text-gold-400 uppercase tracking-wide mb-6">Featured</h2>
         <article class="card-hover bg-white dark:bg-navy-900 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-white/10" data-category="business">
           <div class="md:flex">
-            <div class="md:w-2/5 bg-gradient-to-br from-navy-900 to-navy-800 p-8 flex items-center justify-center">
-              <div class="text-center">
-                <span class="text-6xl">&#128640;</span>
-                <p class="text-gold-400 font-semibold mt-4">FEATURED</p>
-              </div>
+            <div class="md:w-2/5 relative overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop" alt="AI Automation" class="w-full h-full object-cover min-h-[250px]">
+              <div class="absolute inset-0 bg-gradient-to-t from-navy-900/80 to-transparent"></div>
+              <span class="absolute bottom-4 left-4 bg-gold-500 text-navy-900 text-xs font-bold px-3 py-1 rounded-full">FEATURED</span>
             </div>
             <div class="md:w-3/5 p-8">
               <div class="flex items-center gap-3 mb-4">
@@ -274,8 +284,9 @@
 
         <!-- Post: Dungeon Crawler Carl -->
         <article class="card-hover bg-white dark:bg-navy-900 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-white/10" data-category="business">
-          <div class="h-48 bg-gradient-to-br from-red-600 to-purple-700 flex items-center justify-center">
-            <span class="text-5xl">&#128009;</span>
+          <div class="h-48 relative overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=400&h=250&fit=crop" alt="Fantasy adventure" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
           </div>
           <div class="p-6">
             <div class="flex items-center gap-3 mb-3">
@@ -292,21 +303,22 @@
           </div>
         </article>
 
-        <!-- Post: Common Knowledge -->
+        <!-- Post: Common Knowledge (Rational Ritual) -->
         <article class="card-hover bg-white dark:bg-navy-900 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-white/10" data-category="business">
-          <div class="h-48 bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center">
-            <span class="text-5xl">&#129504;</span>
+          <div class="h-48 relative overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&h=250&fit=crop" alt="Coordination and shared knowledge" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
           </div>
           <div class="p-6">
             <div class="flex items-center gap-3 mb-3">
-              <span class="bg-blue-100 dark:bg-blue-500/20 text-blue-700 dark:text-blue-400 text-xs font-semibold px-3 py-1 rounded-full">Strategy</span>
+              <span class="bg-purple-100 dark:bg-purple-500/20 text-purple-700 dark:text-purple-400 text-xs font-semibold px-3 py-1 rounded-full">Book Review</span>
               <span class="text-gray-500 dark:text-gray-400 text-sm">Dec 5, 2025</span>
             </div>
             <h3 class="text-xl font-bold text-navy-900 dark:text-white mb-2">
-              <a href="posts/book-review-common-knowledge.html" class="hover:text-gold-600 dark:hover:text-gold-400 transition">Common Knowledge: When Everyone Knows That Everyone Knows</a>
+              <a href="posts/book-review-common-knowledge.html" class="hover:text-gold-600 dark:hover:text-gold-400 transition">Rational Ritual: The Power of Common Knowledge</a>
             </h3>
             <p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-2 mb-4">
-              How shared awareness transforms information into coordinated action.
+              Michael Chwe's brilliant analysis of how shared awareness transforms information into coordinated action.
             </p>
             <a href="posts/book-review-common-knowledge.html" class="text-gold-600 dark:text-gold-400 font-semibold text-sm hover:underline">Read more &rarr;</a>
           </div>
@@ -314,8 +326,9 @@
 
         <!-- Post: Supplement Stack -->
         <article class="card-hover bg-white dark:bg-navy-900 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-white/10" data-category="fitness">
-          <div class="h-48 bg-gradient-to-br from-amber-500 to-red-500 flex items-center justify-center">
-            <span class="text-5xl">&#128138;</span>
+          <div class="h-48 relative overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&h=250&fit=crop" alt="Supplements and vitamins" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
           </div>
           <div class="p-6">
             <div class="flex items-center gap-3 mb-3">
@@ -334,8 +347,9 @@
 
         <!-- Post: Brain Rules -->
         <article class="card-hover bg-white dark:bg-navy-900 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-white/10" data-category="habits">
-          <div class="h-48 bg-gradient-to-br from-green-500 to-teal-600 flex items-center justify-center">
-            <span class="text-5xl">&#129504;</span>
+          <div class="h-48 relative overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=250&fit=crop" alt="Brain and neuroscience" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
           </div>
           <div class="p-6">
             <div class="flex items-center gap-3 mb-3">
@@ -354,8 +368,9 @@
 
         <!-- Post: CEO Excellence -->
         <article class="card-hover bg-white dark:bg-navy-900 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-white/10" data-category="business">
-          <div class="h-48 bg-gradient-to-br from-navy-900 to-gold-600 flex items-center justify-center">
-            <span class="text-5xl">&#128218;</span>
+          <div class="h-48 relative overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=250&fit=crop" alt="Executive leadership" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
           </div>
           <div class="p-6">
             <div class="flex items-center gap-3 mb-3">
@@ -374,8 +389,9 @@
 
         <!-- Post: Protein Timing -->
         <article class="card-hover bg-white dark:bg-navy-900 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-white/10" data-category="fitness">
-          <div class="h-48 bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center">
-            <span class="text-5xl">&#129371;</span>
+          <div class="h-48 relative overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1532384748853-8f54a8f476e2?w=400&h=250&fit=crop" alt="Protein shake and nutrition" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
           </div>
           <div class="p-6">
             <div class="flex items-center gap-3 mb-3">
@@ -392,10 +408,11 @@
           </div>
         </article>
 
-        <!-- Post Card 1 -->
+        <!-- Post: Claude vs ChatGPT -->
         <article class="card-hover bg-white dark:bg-navy-900 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-white/10" data-category="tech">
-          <div class="h-48 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-            <span class="text-5xl">&#129302;</span>
+          <div class="h-48 relative overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=250&fit=crop" alt="Artificial intelligence" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
           </div>
           <div class="p-6">
             <div class="flex items-center gap-3 mb-3">
@@ -412,10 +429,11 @@
           </div>
         </article>
 
-        <!-- Post Card 2 -->
+        <!-- Post: Habit Stacking -->
         <article class="card-hover bg-white dark:bg-navy-900 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-white/10" data-category="fitness">
-          <div class="h-48 bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center">
-            <span class="text-5xl">&#128170;</span>
+          <div class="h-48 relative overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&h=250&fit=crop" alt="Gym and fitness" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
           </div>
           <div class="p-6">
             <div class="flex items-center gap-3 mb-3">
@@ -432,10 +450,11 @@
           </div>
         </article>
 
-        <!-- Post Card 3 -->
+        <!-- Post: Morning Routine -->
         <article class="card-hover bg-white dark:bg-navy-900 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-white/10" data-category="habits">
-          <div class="h-48 bg-gradient-to-br from-green-500 to-teal-600 flex items-center justify-center">
-            <span class="text-5xl">&#127793;</span>
+          <div class="h-48 relative overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?w=400&h=250&fit=crop" alt="Morning sunrise routine" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
           </div>
           <div class="p-6">
             <div class="flex items-center gap-3 mb-3">
@@ -452,10 +471,11 @@
           </div>
         </article>
 
-        <!-- Post Card 4 -->
+        <!-- Post: Fractional Executive Guide -->
         <article class="card-hover bg-white dark:bg-navy-900 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-white/10" data-category="business">
-          <div class="h-48 bg-gradient-to-br from-navy-900 to-navy-700 flex items-center justify-center">
-            <span class="text-5xl">&#128188;</span>
+          <div class="h-48 relative overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=400&h=250&fit=crop" alt="Executive business meeting" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
           </div>
           <div class="p-6">
             <div class="flex items-center gap-3 mb-3">
@@ -496,6 +516,13 @@
       <p class="text-gray-500 dark:text-gray-500 text-sm mt-4">No spam. Unsubscribe anytime.</p>
     </div>
   </section>
+
+  <!-- Back to Top Button -->
+  <button id="back-to-top" class="fixed bottom-8 right-8 z-40 bg-gold-500 hover:bg-gold-400 text-navy-900 p-3 rounded-full shadow-lg transition transform hover:scale-110" aria-label="Back to top">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+    </svg>
+  </button>
 
   <!-- Footer -->
   <footer class="bg-navy-900 border-t border-white/10 py-12">
@@ -590,6 +617,23 @@
       el.classList.add('reveal');
       revealObserver.observe(el);
     });
+
+    // ===== Back to Top Button =====
+    const backToTop = document.getElementById('back-to-top');
+
+    function updateBackToTop() {
+      if (window.scrollY > 500) {
+        backToTop.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
+      }
+    }
+
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    window.addEventListener('scroll', updateBackToTop);
   </script>
 
 </body>

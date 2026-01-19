@@ -55,6 +55,9 @@
     .dark .prose blockquote { background: rgba(245, 158, 11, 0.05); }
     .book-cover { box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4); transition: transform 0.3s ease; }
     .book-cover:hover { transform: rotate(-2deg) scale(1.02); }
+    #back-to-top { opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+    #back-to-top.visible { opacity: 1; visibility: visible; }
+    .content-image { border-radius: 0.75rem; margin: 2rem 0; box-shadow: 0 10px 40px rgba(0,0,0,0.15); }
   </style>
 </head>
 <body class="bg-white dark:bg-navy-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
@@ -158,6 +161,12 @@
           Culture isn't a fluffy HR initiative—it's a strategic weapon. Excellent CEOs obsess over organizational health with the same rigor they apply to financial metrics. They know that a toxic culture will eat any strategy for breakfast.
         </p>
 
+        <!-- Inline Image -->
+        <figure class="my-10">
+          <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=450&fit=crop" alt="Executive team collaboration" class="content-image w-full">
+          <figcaption class="text-center text-sm text-gray-500 dark:text-gray-400 mt-3">Excellent CEOs treat team dynamics as a strategic priority</figcaption>
+        </figure>
+
         <h3 class="text-navy-900 dark:text-white">3. Mobilizing Through Leaders: Solve for the Team's Psychology</h3>
         <p>
           This one hit home for me. The best CEOs don't just build executive teams with complementary skills—they actively manage the team's dynamics, ensuring healthy debate without destructive conflict. They're part coach, part therapist, part orchestra conductor.
@@ -188,6 +197,12 @@
           <li><strong>Time is the CEO's scarcest resource.</strong> Every hour spent on something a direct report could handle is an hour stolen from strategic work.</li>
           <li><strong>Boards are underutilized assets.</strong> Most leaders treat board meetings as performances. The best treat them as working sessions.</li>
         </ul>
+
+        <!-- Inline Image -->
+        <figure class="my-10">
+          <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&h=450&fit=crop" alt="Strategic leadership discussion" class="content-image w-full">
+          <figcaption class="text-center text-sm text-gray-500 dark:text-gray-400 mt-3">Time is the CEO's scarcest resource</figcaption>
+        </figure>
 
         <h2 class="text-navy-900 dark:text-white">Who Should Read This</h2>
 
@@ -240,6 +255,13 @@
     </div>
   </section>
 
+  <!-- Back to Top Button -->
+  <button id="back-to-top" class="fixed bottom-8 right-8 z-40 bg-gold-500 hover:bg-gold-400 text-navy-900 p-3 rounded-full shadow-lg transition transform hover:scale-110" aria-label="Back to top">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+    </svg>
+  </button>
+
   <!-- Footer -->
   <footer class="bg-navy-900 border-t border-white/10 py-8">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -256,6 +278,15 @@
       document.documentElement.classList.toggle('dark');
       setCookie('darkMode', document.documentElement.classList.contains('dark'), 365);
     });
+
+    // Back to Top Button
+    const backToTop = document.getElementById('back-to-top');
+    function updateBackToTop() {
+      if (window.scrollY > 500) { backToTop.classList.add('visible'); }
+      else { backToTop.classList.remove('visible'); }
+    }
+    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    window.addEventListener('scroll', updateBackToTop);
   </script>
 </body>
 </html>
