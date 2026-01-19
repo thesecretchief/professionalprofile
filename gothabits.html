@@ -148,6 +148,10 @@
 
     .opacity-0 { opacity: 0; }
 
+    /* Back to Top Button */
+    #back-to-top { opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+    #back-to-top.visible { opacity: 1; visibility: visible; }
+
     /* Scroll-triggered animations */
     .reveal {
       opacity: 0;
@@ -1070,6 +1074,13 @@
     </div>
   </section>
 
+  <!-- Back to Top Button -->
+  <button id="back-to-top" class="fixed bottom-8 right-8 z-40 bg-amber-500 hover:bg-amber-400 text-gray-900 p-3 rounded-full shadow-lg transition transform hover:scale-110" aria-label="Back to top">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+    </svg>
+  </button>
+
   <!-- Footer -->
   <footer class="bg-gray-900 border-t border-white/10 py-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1307,6 +1318,21 @@
     }, observerOptions);
     const statsSection = document.querySelector('.stats-section');
     if (statsSection) counterObserver.observe(statsSection);
+
+    // Back to Top Button
+    const backToTop = document.getElementById('back-to-top');
+    function updateBackToTop() {
+      if (window.scrollY > 500) {
+        backToTop.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
+      }
+    }
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    window.addEventListener('scroll', updateBackToTop);
+    updateBackToTop();
   </script>
 </body>
 </html>

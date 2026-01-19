@@ -52,6 +52,8 @@
     .prose li { margin-bottom: 0.5rem; }
     .prose blockquote { border-left: 4px solid #f59e0b; padding-left: 1.5rem; margin: 2rem 0; font-style: italic; background: rgba(245, 158, 11, 0.1); padding: 1.5rem; border-radius: 0 8px 8px 0; }
     .dark .prose blockquote { background: rgba(245, 158, 11, 0.05); }
+    #back-to-top { opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+    #back-to-top.visible { opacity: 1; visibility: visible; }
   </style>
 </head>
 <body class="bg-white dark:bg-navy-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
@@ -270,6 +272,13 @@
     </div>
   </section>
 
+  <!-- Back to Top Button -->
+  <button id="back-to-top" class="fixed bottom-8 right-8 z-40 bg-gold-500 hover:bg-gold-400 text-navy-900 p-3 rounded-full shadow-lg transition transform hover:scale-110" aria-label="Back to top">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+    </svg>
+  </button>
+
   <!-- Footer -->
   <footer class="bg-navy-900 border-t border-white/10 py-8">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -286,6 +295,15 @@
       document.documentElement.classList.toggle('dark');
       setCookie('darkMode', document.documentElement.classList.contains('dark'), 365);
     });
+
+    // Back to Top Button
+    const backToTop = document.getElementById('back-to-top');
+    function updateBackToTop() {
+      if (window.scrollY > 500) { backToTop.classList.add('visible'); }
+      else { backToTop.classList.remove('visible'); }
+    }
+    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    window.addEventListener('scroll', updateBackToTop);
   </script>
 </body>
 </html>

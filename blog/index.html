@@ -159,6 +159,17 @@
     .stagger > *:nth-child(7) { animation-delay: 0.7s; }
     .stagger > *:nth-child(8) { animation-delay: 0.8s; }
     .stagger > *:nth-child(9) { animation-delay: 0.9s; }
+
+    /* Back to top button */
+    #back-to-top {
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    #back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
   </style>
 </head>
 <body class="bg-white dark:bg-navy-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
@@ -497,6 +508,13 @@
     </div>
   </section>
 
+  <!-- Back to Top Button -->
+  <button id="back-to-top" class="fixed bottom-8 right-8 z-40 bg-gold-500 hover:bg-gold-400 text-navy-900 p-3 rounded-full shadow-lg transition transform hover:scale-110" aria-label="Back to top">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+    </svg>
+  </button>
+
   <!-- Footer -->
   <footer class="bg-navy-900 border-t border-white/10 py-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -590,6 +608,23 @@
       el.classList.add('reveal');
       revealObserver.observe(el);
     });
+
+    // ===== Back to Top Button =====
+    const backToTop = document.getElementById('back-to-top');
+
+    function updateBackToTop() {
+      if (window.scrollY > 500) {
+        backToTop.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
+      }
+    }
+
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    window.addEventListener('scroll', updateBackToTop);
   </script>
 
 </body>
