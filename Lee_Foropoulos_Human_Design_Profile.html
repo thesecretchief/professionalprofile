@@ -26,6 +26,10 @@
       const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
       return match ? match[2] : null;
     }
+    function setCookie(name, value, days) {
+      const expires = new Date(Date.now() + days * 864e5).toUTCString();
+      document.cookie = name + '=' + value + '; expires=' + expires + '; path=/';
+    }
     const darkPref = getCookie('darkMode');
     if (darkPref === 'true' || (!darkPref && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
       document.documentElement.classList.add('dark');
@@ -40,12 +44,42 @@
     .gradient-text { background: linear-gradient(135deg, #f59e0b, #fbbf24); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
     .hero-gradient { background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%); }
     .card-hover { transition: all 0.3s ease; }
-    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.1); }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.15); }
+    .dark .card-hover:hover { box-shadow: 0 12px 24px rgba(0,0,0,0.4); }
     .mobile-menu { transform: translateX(100%); transition: transform 0.3s ease; }
     .mobile-menu.open { transform: translateX(0); }
+    .mobile-overlay { opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+    .mobile-overlay.open { opacity: 1; visibility: visible; }
+
+    /* Scroll Progress Bar */
+    .scroll-progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, #f59e0b, #fbbf24); z-index: 100; width: 0%; transition: width 0.1s ease-out; }
+
+    /* Scroll Reveal Animations */
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    .reveal-left { opacity: 0; transform: translateX(-30px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+    .reveal-left.active { opacity: 1; transform: translateX(0); }
+    .reveal-right { opacity: 0; transform: translateX(30px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+    .reveal-right.active { opacity: 1; transform: translateX(0); }
+    .reveal-scale { opacity: 0; transform: scale(0.9); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+    .reveal-scale.active { opacity: 1; transform: scale(1); }
+
+    /* Back to Top Button */
+    .back-to-top { opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+    .back-to-top.visible { opacity: 1; visibility: visible; }
+
+    /* Card Stagger Animation */
+    .stagger-1 { transition-delay: 0.1s; }
+    .stagger-2 { transition-delay: 0.2s; }
+    .stagger-3 { transition-delay: 0.3s; }
+    .stagger-4 { transition-delay: 0.4s; }
+    .stagger-5 { transition-delay: 0.5s; }
   </style>
 </head>
 <body class="bg-white dark:bg-navy-900 text-gray-800 dark:text-gray-200 transition-colors">
+
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress" id="scroll-progress"></div>
 
   <!-- Navigation -->
   <nav class="fixed top-0 left-0 right-0 z-50 bg-navy-900/95 backdrop-blur-md border-b border-white/10">
@@ -58,6 +92,11 @@
           <a href="Lee_Foropoulos_MBTI.html" class="text-gray-300 hover:text-gold-400 transition">MBTI</a>
           <a href="Lee_Foropoulos_Big_Five.html" class="text-gray-300 hover:text-gold-400 transition">Big Five</a>
           <a href="Lee_Foropoulos_Human_Design_Profile.html" class="text-gold-400 font-semibold">Human Design</a>
+          <!-- Dark Mode Toggle -->
+          <button id="dark-toggle" class="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition" title="Toggle dark mode">
+            <svg id="sun-icon" class="w-5 h-5 text-gold-400 hidden" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path></svg>
+            <svg id="moon-icon" class="w-5 h-5 text-gold-400" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+          </button>
           <a href="https://www.upwork.com/freelancers/thesecretchief?viewMode=1" target="_blank" class="bg-gold-500 hover:bg-gold-400 text-navy-900 font-semibold px-5 py-2 rounded-full transition">Work With Me</a>
         </div>
         <button id="mobile-menu-btn" class="md:hidden text-white p-2">
@@ -65,6 +104,9 @@
         </button>
       </div>
     </div>
+    <!-- Mobile Overlay -->
+    <div id="mobile-overlay" class="mobile-overlay fixed inset-0 bg-black/50 md:hidden"></div>
+    <!-- Mobile Menu -->
     <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 h-full w-72 bg-navy-900 shadow-2xl md:hidden">
       <div class="p-6">
         <button id="close-menu" class="absolute top-4 right-4 text-white p-2">
@@ -77,6 +119,13 @@
           <a href="Lee_Foropoulos_Big_Five.html" class="text-white text-lg hover:text-gold-400 transition">Big Five</a>
           <a href="Lee_Foropoulos_Human_Design_Profile.html" class="text-gold-400 text-lg font-semibold">Human Design</a>
           <hr class="border-white/20">
+          <!-- Mobile Dark Mode Toggle -->
+          <button id="mobile-dark-toggle" class="flex items-center gap-3 text-white text-lg hover:text-gold-400 transition">
+            <svg id="mobile-sun-icon" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path></svg>
+            <svg id="mobile-moon-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            <span id="dark-mode-text">Light Mode</span>
+          </button>
+          <hr class="border-white/20">
           <a href="https://www.upwork.com/freelancers/thesecretchief?viewMode=1" target="_blank" class="bg-gold-500 text-navy-900 font-semibold px-5 py-3 rounded-full text-center transition hover:bg-gold-400">Work With Me</a>
         </div>
       </div>
@@ -86,7 +135,7 @@
   <!-- Hero Section -->
   <section class="hero-gradient pt-24 pb-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center">
+      <div class="text-center reveal">
         <div class="inline-flex items-center gap-2 bg-gold-500/10 border border-gold-500/20 rounded-full px-4 py-2 mb-6">
           <span class="text-2xl">&#128302;</span>
           <span class="text-gold-400 font-medium">Energetic Blueprint</span>
@@ -103,20 +152,20 @@
   </section>
 
   <!-- What is Human Design Section -->
-  <section class="py-16 bg-white">
+  <section class="py-16 bg-white dark:bg-navy-900 transition-colors">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold text-navy-900 mb-4">What is Human Design?</h2>
-        <p class="text-lg text-gray-600 leading-relaxed">
+      <div class="text-center mb-12 reveal">
+        <h2 class="text-3xl font-bold text-navy-900 dark:text-white mb-4">What is Human Design?</h2>
+        <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
           Human Design is a sophisticated system integrating principles from astrology, the I Ching, Kabbalah, the Hindu-Brahmin chakra system, and quantum mechanics. It reveals innate strengths, decision-making strategies, and life purpose, offering a framework to align professional endeavors with natural tendencies.
         </p>
       </div>
-      <div class="bg-gray-50 rounded-2xl p-6 text-center">
-        <p class="text-gray-600 mb-2">
+      <div class="bg-gray-50 dark:bg-navy-800 rounded-2xl p-6 text-center reveal border border-gray-100 dark:border-white/10">
+        <p class="text-gray-600 dark:text-gray-300 mb-2">
           Discover your own Human Design chart at
           <a href="https://ahumandesign.com/human-design-chart/" target="_blank" class="text-gold-500 hover:text-gold-400 font-semibold underline">aHumanDesign.com</a>
         </p>
-        <p class="text-gray-500 text-sm">
+        <p class="text-gray-500 dark:text-gray-400 text-sm">
           <a href="https://youtu.be/MP6Jns365J4?si=1norZw9pZljaXi79" target="_blank" class="text-gold-500 hover:text-gold-400 underline">Watch a tutorial to learn more</a>
         </p>
       </div>
@@ -124,55 +173,55 @@
   </section>
 
   <!-- Chart Section -->
-  <section class="py-16 bg-gray-50">
+  <section class="py-16 bg-gray-50 dark:bg-navy-800 transition-colors">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid lg:grid-cols-2 gap-12 items-start">
-        <div>
-          <div class="bg-white rounded-2xl p-4 shadow-lg sticky top-24">
+        <div class="reveal-left">
+          <div class="bg-white dark:bg-navy-900 rounded-2xl p-4 shadow-lg dark:shadow-2xl sticky top-24 border border-gray-100 dark:border-white/10">
             <img src="HumanDesign.png" alt="Lee Foropoulos Human Design Chart" class="w-full rounded-xl" onerror="this.src='https://via.placeholder.com/600x700.png?text=Human+Design+Chart';">
           </div>
         </div>
-        <div class="space-y-6">
-          <h2 class="text-3xl font-bold text-navy-900 mb-6">Core Attributes</h2>
+        <div class="space-y-6 reveal-right">
+          <h2 class="text-3xl font-bold text-navy-900 dark:text-white mb-6">Core Attributes</h2>
 
-          <div class="card-hover bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+          <div class="card-hover bg-white dark:bg-navy-900 rounded-2xl p-6 shadow-sm dark:shadow-lg border border-gray-100 dark:border-white/10 stagger-1 reveal">
             <div class="flex items-center gap-3 mb-3">
               <span class="text-2xl">&#9889;</span>
-              <h3 class="text-lg font-bold text-navy-900">Type: Manifesting Generator</h3>
+              <h3 class="text-lg font-bold text-navy-900 dark:text-white">Type: Manifesting Generator</h3>
             </div>
-            <p class="text-gray-600 text-sm">A dynamic, multi-talented individual designed to respond to opportunities with sustained energy and adaptability. Thrives in fast-paced, innovative environments with versatility and efficiency.</p>
+            <p class="text-gray-600 dark:text-gray-300 text-sm">A dynamic, multi-talented individual designed to respond to opportunities with sustained energy and adaptability. Thrives in fast-paced, innovative environments with versatility and efficiency.</p>
           </div>
 
-          <div class="card-hover bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+          <div class="card-hover bg-white dark:bg-navy-900 rounded-2xl p-6 shadow-sm dark:shadow-lg border border-gray-100 dark:border-white/10 stagger-2 reveal">
             <div class="flex items-center gap-3 mb-3">
               <span class="text-2xl">&#127919;</span>
-              <h3 class="text-lg font-bold text-navy-900">Strategy: To Respond</h3>
+              <h3 class="text-lg font-bold text-navy-900 dark:text-white">Strategy: To Respond</h3>
             </div>
-            <p class="text-gray-600 text-sm">Excelling by waiting for external cues—opportunities or challenges—before acting, ensuring energy aligns with meaningful outcomes and avoiding frustration.</p>
+            <p class="text-gray-600 dark:text-gray-300 text-sm">Excelling by waiting for external cues—opportunities or challenges—before acting, ensuring energy aligns with meaningful outcomes and avoiding frustration.</p>
           </div>
 
-          <div class="card-hover bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+          <div class="card-hover bg-white dark:bg-navy-900 rounded-2xl p-6 shadow-sm dark:shadow-lg border border-gray-100 dark:border-white/10 stagger-3 reveal">
             <div class="flex items-center gap-3 mb-3">
               <span class="text-2xl">&#128156;</span>
-              <h3 class="text-lg font-bold text-navy-900">Inner Authority: Emotional - Solar Plexus</h3>
+              <h3 class="text-lg font-bold text-navy-900 dark:text-white">Inner Authority: Emotional - Solar Plexus</h3>
             </div>
-            <p class="text-gray-600 text-sm">Decisions guided by emotional clarity, achieved by allowing emotional waves to settle over time. This ensures sustainable, impactful choices in strategic leadership roles.</p>
+            <p class="text-gray-600 dark:text-gray-300 text-sm">Decisions guided by emotional clarity, achieved by allowing emotional waves to settle over time. This ensures sustainable, impactful choices in strategic leadership roles.</p>
           </div>
 
-          <div class="card-hover bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+          <div class="card-hover bg-white dark:bg-navy-900 rounded-2xl p-6 shadow-sm dark:shadow-lg border border-gray-100 dark:border-white/10 stagger-4 reveal">
             <div class="flex items-center gap-3 mb-3">
               <span class="text-2xl">&#128279;</span>
-              <h3 class="text-lg font-bold text-navy-900">Definition: Split Definition</h3>
+              <h3 class="text-lg font-bold text-navy-900 dark:text-white">Definition: Split Definition</h3>
             </div>
-            <p class="text-gray-600 text-sm">Energy centers divided into two unconnected areas, fostering a natural drive to collaborate and connect with others—adept at bridging gaps between teams and ideas.</p>
+            <p class="text-gray-600 dark:text-gray-300 text-sm">Energy centers divided into two unconnected areas, fostering a natural drive to collaborate and connect with others—adept at bridging gaps between teams and ideas.</p>
           </div>
 
-          <div class="card-hover bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+          <div class="card-hover bg-white dark:bg-navy-900 rounded-2xl p-6 shadow-sm dark:shadow-lg border border-gray-100 dark:border-white/10 stagger-5 reveal">
             <div class="flex items-center gap-3 mb-3">
               <span class="text-2xl">&#128100;</span>
-              <h3 class="text-lg font-bold text-navy-900">Profile: 6/2 (Role Model/Hermit)</h3>
+              <h3 class="text-lg font-bold text-navy-900 dark:text-white">Profile: 6/2 (Role Model/Hermit)</h3>
             </div>
-            <p class="text-gray-600 text-sm">Life unfolds in three phases: experimentation (0–30), reflection (30–50), and role modeling (50+). Currently refining skills and preparing to mentor others, balancing leadership with introspection.</p>
+            <p class="text-gray-600 dark:text-gray-300 text-sm">Life unfolds in three phases: experimentation (0–30), reflection (30–50), and role modeling (50+). Currently refining skills and preparing to mentor others, balancing leadership with introspection.</p>
           </div>
         </div>
       </div>
@@ -180,35 +229,35 @@
   </section>
 
   <!-- Life Purpose Section -->
-  <section class="py-16 bg-white">
+  <section class="py-16 bg-white dark:bg-navy-900 transition-colors">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-bold text-navy-900 text-center mb-12">Life Purpose & Dynamics</h2>
+      <h2 class="text-3xl font-bold text-navy-900 dark:text-white text-center mb-12 reveal">Life Purpose & Dynamics</h2>
       <div class="grid md:grid-cols-3 gap-6">
-        <div class="card-hover bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-2xl p-8 border border-indigo-200">
+        <div class="card-hover bg-gradient-to-br from-indigo-50 to-indigo-100 dark:from-indigo-900/30 dark:to-indigo-800/30 rounded-2xl p-8 border border-indigo-200 dark:border-indigo-500/30 reveal stagger-1">
           <div class="w-14 h-14 bg-indigo-500 rounded-xl flex items-center justify-center mb-4">
             <span class="text-2xl text-white">&#10010;</span>
           </div>
-          <h3 class="text-lg font-bold text-navy-900 mb-2">Incarnation Cross</h3>
-          <p class="text-sm text-indigo-600 font-semibold mb-3">Left Angle Cross of Industry (29/30 | 20/34)</p>
-          <p class="text-gray-600 text-sm">Purpose centers on dedication, perseverance, and impactful work that drives collective progress with passion and influence.</p>
+          <h3 class="text-lg font-bold text-navy-900 dark:text-white mb-2">Incarnation Cross</h3>
+          <p class="text-sm text-indigo-600 dark:text-indigo-400 font-semibold mb-3">Left Angle Cross of Industry (29/30 | 20/34)</p>
+          <p class="text-gray-600 dark:text-gray-300 text-sm">Purpose centers on dedication, perseverance, and impactful work that drives collective progress with passion and influence.</p>
         </div>
 
-        <div class="card-hover bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-8 border border-green-200">
+        <div class="card-hover bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/30 dark:to-green-800/30 rounded-2xl p-8 border border-green-200 dark:border-green-500/30 reveal stagger-2">
           <div class="w-14 h-14 bg-green-500 rounded-xl flex items-center justify-center mb-4">
             <span class="text-2xl text-white">&#10003;</span>
           </div>
-          <h3 class="text-lg font-bold text-navy-900 mb-2">Signature</h3>
-          <p class="text-sm text-green-600 font-semibold mb-3">Satisfaction</p>
-          <p class="text-gray-600 text-sm">When aligned with design—responding to opportunities and making emotionally clear decisions—I experience deep fulfillment.</p>
+          <h3 class="text-lg font-bold text-navy-900 dark:text-white mb-2">Signature</h3>
+          <p class="text-sm text-green-600 dark:text-green-400 font-semibold mb-3">Satisfaction</p>
+          <p class="text-gray-600 dark:text-gray-300 text-sm">When aligned with design—responding to opportunities and making emotionally clear decisions—I experience deep fulfillment.</p>
         </div>
 
-        <div class="card-hover bg-gradient-to-br from-amber-50 to-amber-100 rounded-2xl p-8 border border-amber-200">
+        <div class="card-hover bg-gradient-to-br from-amber-50 to-amber-100 dark:from-amber-900/30 dark:to-amber-800/30 rounded-2xl p-8 border border-amber-200 dark:border-amber-500/30 reveal stagger-3">
           <div class="w-14 h-14 bg-amber-500 rounded-xl flex items-center justify-center mb-4">
             <span class="text-2xl text-white">&#9888;</span>
           </div>
-          <h3 class="text-lg font-bold text-navy-900 mb-2">Not-Self Theme</h3>
-          <p class="text-sm text-amber-600 font-semibold mb-3">Frustration</p>
-          <p class="text-gray-600 text-sm">Misalignment—initiating without responding or rushing decisions—leads to frustration. A signal to realign with strategy and authority.</p>
+          <h3 class="text-lg font-bold text-navy-900 dark:text-white mb-2">Not-Self Theme</h3>
+          <p class="text-sm text-amber-600 dark:text-amber-400 font-semibold mb-3">Frustration</p>
+          <p class="text-gray-600 dark:text-gray-300 text-sm">Misalignment—initiating without responding or rushing decisions—leads to frustration. A signal to realign with strategy and authority.</p>
         </div>
       </div>
     </div>
@@ -217,33 +266,33 @@
   <!-- Unique Traits Section -->
   <section class="py-16 bg-navy-900">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-bold text-white text-center mb-12">Unique Traits & Environment</h2>
+      <h2 class="text-3xl font-bold text-white text-center mb-12 reveal">Unique Traits & Environment</h2>
       <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
-        <div class="bg-white/5 backdrop-blur border border-white/10 rounded-xl p-6 text-center">
+        <div class="bg-white/5 backdrop-blur border border-white/10 rounded-xl p-6 text-center reveal stagger-1 card-hover">
           <div class="text-3xl mb-3">&#127869;</div>
           <h3 class="text-white font-semibold mb-2">Digestion</h3>
           <p class="text-gold-400 text-sm font-medium mb-2">Open</p>
           <p class="text-gray-400 text-xs">Flexible processing, benefits from consistent routines</p>
         </div>
-        <div class="bg-white/5 backdrop-blur border border-white/10 rounded-xl p-6 text-center">
+        <div class="bg-white/5 backdrop-blur border border-white/10 rounded-xl p-6 text-center reveal stagger-2 card-hover">
           <div class="text-3xl mb-3">&#128065;</div>
           <h3 class="text-white font-semibold mb-2">Design Sense</h3>
           <p class="text-gold-400 text-sm font-medium mb-2">Outer Vision</p>
           <p class="text-gray-400 text-xs">Keen ability to observe patterns and possibilities</p>
         </div>
-        <div class="bg-white/5 backdrop-blur border border-white/10 rounded-xl p-6 text-center">
+        <div class="bg-white/5 backdrop-blur border border-white/10 rounded-xl p-6 text-center reveal stagger-3 card-hover">
           <div class="text-3xl mb-3">&#128170;</div>
           <h3 class="text-white font-semibold mb-2">Motivation</h3>
           <p class="text-gold-400 text-sm font-medium mb-2">Fear</p>
           <p class="text-gray-400 text-xs">Driven to mitigate risks through thorough preparation</p>
         </div>
-        <div class="bg-white/5 backdrop-blur border border-white/10 rounded-xl p-6 text-center">
+        <div class="bg-white/5 backdrop-blur border border-white/10 rounded-xl p-6 text-center reveal stagger-4 card-hover">
           <div class="text-3xl mb-3">&#128081;</div>
           <h3 class="text-white font-semibold mb-2">Perspective</h3>
           <p class="text-gold-400 text-sm font-medium mb-2">Power</p>
           <p class="text-gray-400 text-xs">Views world through influence and leadership lens</p>
         </div>
-        <div class="bg-white/5 backdrop-blur border border-white/10 rounded-xl p-6 text-center">
+        <div class="bg-white/5 backdrop-blur border border-white/10 rounded-xl p-6 text-center reveal stagger-5 card-hover">
           <div class="text-3xl mb-3">&#127956;</div>
           <h3 class="text-white font-semibold mb-2">Environment</h3>
           <p class="text-gold-400 text-sm font-medium mb-2">Mountains</p>
@@ -254,56 +303,56 @@
   </section>
 
   <!-- Gates & Channels Section -->
-  <section class="py-16 bg-gray-50">
+  <section class="py-16 bg-gray-50 dark:bg-navy-800 transition-colors">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-bold text-navy-900 text-center mb-12">Gates & Channels</h2>
+      <h2 class="text-3xl font-bold text-navy-900 dark:text-white text-center mb-12 reveal">Gates & Channels</h2>
       <div class="grid md:grid-cols-2 gap-8">
-        <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
-          <h3 class="text-xl font-bold text-navy-900 mb-4">Active Gates</h3>
+        <div class="bg-white dark:bg-navy-900 rounded-2xl p-8 shadow-sm dark:shadow-lg border border-gray-100 dark:border-white/10 reveal-left">
+          <h3 class="text-xl font-bold text-navy-900 dark:text-white mb-4">Active Gates</h3>
           <div class="flex flex-wrap gap-2">
-            <span class="px-3 py-1 bg-gold-100 text-gold-700 rounded-full text-sm">4 - Problem-solving</span>
-            <span class="px-3 py-1 bg-gold-100 text-gold-700 rounded-full text-sm">6 - Emotional boundaries</span>
-            <span class="px-3 py-1 bg-gold-100 text-gold-700 rounded-full text-sm">15 - Love for humanity</span>
-            <span class="px-3 py-1 bg-gold-100 text-gold-700 rounded-full text-sm">20 - Presence</span>
-            <span class="px-3 py-1 bg-gold-100 text-gold-700 rounded-full text-sm">26 - Integrity</span>
-            <span class="px-3 py-1 bg-gold-100 text-gold-700 rounded-full text-sm">29 - Commitment</span>
-            <span class="px-3 py-1 bg-gold-100 text-gold-700 rounded-full text-sm">30 - Emotions</span>
-            <span class="px-3 py-1 bg-gold-100 text-gold-700 rounded-full text-sm">32 - Continuity</span>
-            <span class="px-3 py-1 bg-gold-100 text-gold-700 rounded-full text-sm">34 - Strength</span>
-            <span class="px-3 py-1 bg-gold-100 text-gold-700 rounded-full text-sm">35 - Change</span>
-            <span class="px-3 py-1 bg-gold-100 text-gold-700 rounded-full text-sm">39 - Provocation</span>
-            <span class="px-3 py-1 bg-gold-100 text-gold-700 rounded-full text-sm">40 - Willpower</span>
-            <span class="px-3 py-1 bg-gold-100 text-gold-700 rounded-full text-sm">43 - Insights</span>
-            <span class="px-3 py-1 bg-gold-100 text-gold-700 rounded-full text-sm">47 - Mental realization</span>
-            <span class="px-3 py-1 bg-gold-100 text-gold-700 rounded-full text-sm">49 - Transformation</span>
-            <span class="px-3 py-1 bg-gold-100 text-gold-700 rounded-full text-sm">57 - Intuition</span>
-            <span class="px-3 py-1 bg-gold-100 text-gold-700 rounded-full text-sm">58 - Vitality</span>
-            <span class="px-3 py-1 bg-gold-100 text-gold-700 rounded-full text-sm">59 - Intimacy</span>
-            <span class="px-3 py-1 bg-gold-100 text-gold-700 rounded-full text-sm">64 - Inspiration</span>
+            <span class="px-3 py-1 bg-gold-100 dark:bg-gold-500/20 text-gold-700 dark:text-gold-400 rounded-full text-sm">4 - Problem-solving</span>
+            <span class="px-3 py-1 bg-gold-100 dark:bg-gold-500/20 text-gold-700 dark:text-gold-400 rounded-full text-sm">6 - Emotional boundaries</span>
+            <span class="px-3 py-1 bg-gold-100 dark:bg-gold-500/20 text-gold-700 dark:text-gold-400 rounded-full text-sm">15 - Love for humanity</span>
+            <span class="px-3 py-1 bg-gold-100 dark:bg-gold-500/20 text-gold-700 dark:text-gold-400 rounded-full text-sm">20 - Presence</span>
+            <span class="px-3 py-1 bg-gold-100 dark:bg-gold-500/20 text-gold-700 dark:text-gold-400 rounded-full text-sm">26 - Integrity</span>
+            <span class="px-3 py-1 bg-gold-100 dark:bg-gold-500/20 text-gold-700 dark:text-gold-400 rounded-full text-sm">29 - Commitment</span>
+            <span class="px-3 py-1 bg-gold-100 dark:bg-gold-500/20 text-gold-700 dark:text-gold-400 rounded-full text-sm">30 - Emotions</span>
+            <span class="px-3 py-1 bg-gold-100 dark:bg-gold-500/20 text-gold-700 dark:text-gold-400 rounded-full text-sm">32 - Continuity</span>
+            <span class="px-3 py-1 bg-gold-100 dark:bg-gold-500/20 text-gold-700 dark:text-gold-400 rounded-full text-sm">34 - Strength</span>
+            <span class="px-3 py-1 bg-gold-100 dark:bg-gold-500/20 text-gold-700 dark:text-gold-400 rounded-full text-sm">35 - Change</span>
+            <span class="px-3 py-1 bg-gold-100 dark:bg-gold-500/20 text-gold-700 dark:text-gold-400 rounded-full text-sm">39 - Provocation</span>
+            <span class="px-3 py-1 bg-gold-100 dark:bg-gold-500/20 text-gold-700 dark:text-gold-400 rounded-full text-sm">40 - Willpower</span>
+            <span class="px-3 py-1 bg-gold-100 dark:bg-gold-500/20 text-gold-700 dark:text-gold-400 rounded-full text-sm">43 - Insights</span>
+            <span class="px-3 py-1 bg-gold-100 dark:bg-gold-500/20 text-gold-700 dark:text-gold-400 rounded-full text-sm">47 - Mental realization</span>
+            <span class="px-3 py-1 bg-gold-100 dark:bg-gold-500/20 text-gold-700 dark:text-gold-400 rounded-full text-sm">49 - Transformation</span>
+            <span class="px-3 py-1 bg-gold-100 dark:bg-gold-500/20 text-gold-700 dark:text-gold-400 rounded-full text-sm">57 - Intuition</span>
+            <span class="px-3 py-1 bg-gold-100 dark:bg-gold-500/20 text-gold-700 dark:text-gold-400 rounded-full text-sm">58 - Vitality</span>
+            <span class="px-3 py-1 bg-gold-100 dark:bg-gold-500/20 text-gold-700 dark:text-gold-400 rounded-full text-sm">59 - Intimacy</span>
+            <span class="px-3 py-1 bg-gold-100 dark:bg-gold-500/20 text-gold-700 dark:text-gold-400 rounded-full text-sm">64 - Inspiration</span>
           </div>
         </div>
-        <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
-          <h3 class="text-xl font-bold text-navy-900 mb-4">Defined Channels</h3>
+        <div class="bg-white dark:bg-navy-900 rounded-2xl p-8 shadow-sm dark:shadow-lg border border-gray-100 dark:border-white/10 reveal-right">
+          <h3 class="text-xl font-bold text-navy-900 dark:text-white mb-4">Defined Channels</h3>
           <div class="space-y-4">
-            <div class="p-4 bg-gray-50 rounded-xl">
-              <p class="font-semibold text-navy-900">64-47: Abstract Thinking</p>
-              <p class="text-gray-600 text-sm">Synthesizing insights into wisdom</p>
+            <div class="p-4 bg-gray-50 dark:bg-navy-800 rounded-xl border border-gray-100 dark:border-white/5">
+              <p class="font-semibold text-navy-900 dark:text-white">64-47: Abstract Thinking</p>
+              <p class="text-gray-600 dark:text-gray-400 text-sm">Synthesizing insights into wisdom</p>
             </div>
-            <div class="p-4 bg-gray-50 rounded-xl">
-              <p class="font-semibold text-navy-900">57-20: Intuition to Expression</p>
-              <p class="text-gray-600 text-sm">Clear, intuitive communication</p>
+            <div class="p-4 bg-gray-50 dark:bg-navy-800 rounded-xl border border-gray-100 dark:border-white/5">
+              <p class="font-semibold text-navy-900 dark:text-white">57-20: Intuition to Expression</p>
+              <p class="text-gray-600 dark:text-gray-400 text-sm">Clear, intuitive communication</p>
             </div>
-            <div class="p-4 bg-gray-50 rounded-xl">
-              <p class="font-semibold text-navy-900">20-34: Charisma</p>
-              <p class="text-gray-600 text-sm">Influential presence and action</p>
+            <div class="p-4 bg-gray-50 dark:bg-navy-800 rounded-xl border border-gray-100 dark:border-white/5">
+              <p class="font-semibold text-navy-900 dark:text-white">20-34: Charisma</p>
+              <p class="text-gray-600 dark:text-gray-400 text-sm">Influential presence and action</p>
             </div>
-            <div class="p-4 bg-gray-50 rounded-xl">
-              <p class="font-semibold text-navy-900">57-34: Power through Intuition</p>
-              <p class="text-gray-600 text-sm">Decisive, instinct-driven action</p>
+            <div class="p-4 bg-gray-50 dark:bg-navy-800 rounded-xl border border-gray-100 dark:border-white/5">
+              <p class="font-semibold text-navy-900 dark:text-white">57-34: Power through Intuition</p>
+              <p class="text-gray-600 dark:text-gray-400 text-sm">Decisive, instinct-driven action</p>
             </div>
-            <div class="p-4 bg-gray-50 rounded-xl">
-              <p class="font-semibold text-navy-900">59-6: Intimacy and Bonding</p>
-              <p class="text-gray-600 text-sm">Deep, meaningful connections</p>
+            <div class="p-4 bg-gray-50 dark:bg-navy-800 rounded-xl border border-gray-100 dark:border-white/5">
+              <p class="font-semibold text-navy-900 dark:text-white">59-6: Intimacy and Bonding</p>
+              <p class="text-gray-600 dark:text-gray-400 text-sm">Deep, meaningful connections</p>
             </div>
           </div>
         </div>
@@ -312,27 +361,27 @@
   </section>
 
   <!-- Other Profiles Section -->
-  <section class="py-16 bg-white">
+  <section class="py-16 bg-white dark:bg-navy-900 transition-colors">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-bold text-navy-900 text-center mb-4">Explore My Other Profiles</h2>
-      <p class="text-gray-600 text-center mb-12 max-w-2xl mx-auto">Get a complete picture of how I think, lead, and collaborate</p>
+      <h2 class="text-3xl font-bold text-navy-900 dark:text-white text-center mb-4 reveal">Explore My Other Profiles</h2>
+      <p class="text-gray-600 dark:text-gray-400 text-center mb-12 max-w-2xl mx-auto reveal">Get a complete picture of how I think, lead, and collaborate</p>
       <div class="grid sm:grid-cols-3 gap-6">
-        <a href="Lee_Foropoulos_DISC_Profile.html" class="card-hover bg-gray-50 rounded-2xl p-8 text-center border border-gray-100">
+        <a href="Lee_Foropoulos_DISC_Profile.html" class="card-hover bg-gray-50 dark:bg-navy-800 rounded-2xl p-8 text-center border border-gray-100 dark:border-white/10 reveal stagger-1">
           <div class="text-4xl mb-4">&#127919;</div>
-          <h3 class="text-xl font-bold text-navy-900 mb-2">DISC Profile</h3>
-          <p class="text-gray-500 text-sm mb-4">Balanced, versatile leadership</p>
+          <h3 class="text-xl font-bold text-navy-900 dark:text-white mb-2">DISC Profile</h3>
+          <p class="text-gray-500 dark:text-gray-400 text-sm mb-4">Balanced, versatile leadership</p>
           <span class="text-gold-500 font-medium">View Profile &rarr;</span>
         </a>
-        <a href="Lee_Foropoulos_MBTI.html" class="card-hover bg-gray-50 rounded-2xl p-8 text-center border border-gray-100">
+        <a href="Lee_Foropoulos_MBTI.html" class="card-hover bg-gray-50 dark:bg-navy-800 rounded-2xl p-8 text-center border border-gray-100 dark:border-white/10 reveal stagger-2">
           <div class="text-4xl mb-4">&#129504;</div>
-          <h3 class="text-xl font-bold text-navy-900 mb-2">MBTI (ENTJ)</h3>
-          <p class="text-gray-500 text-sm mb-4">The Commander - Natural leader</p>
+          <h3 class="text-xl font-bold text-navy-900 dark:text-white mb-2">MBTI (ENTJ)</h3>
+          <p class="text-gray-500 dark:text-gray-400 text-sm mb-4">The Commander - Natural leader</p>
           <span class="text-gold-500 font-medium">View Profile &rarr;</span>
         </a>
-        <a href="Lee_Foropoulos_Big_Five.html" class="card-hover bg-gray-50 rounded-2xl p-8 text-center border border-gray-100">
+        <a href="Lee_Foropoulos_Big_Five.html" class="card-hover bg-gray-50 dark:bg-navy-800 rounded-2xl p-8 text-center border border-gray-100 dark:border-white/10 reveal stagger-3">
           <div class="text-4xl mb-4">&#11088;</div>
-          <h3 class="text-xl font-bold text-navy-900 mb-2">Big Five Traits</h3>
-          <p class="text-gray-500 text-sm mb-4">Core personality dimensions</p>
+          <h3 class="text-xl font-bold text-navy-900 dark:text-white mb-2">Big Five Traits</h3>
+          <p class="text-gray-500 dark:text-gray-400 text-sm mb-4">Core personality dimensions</p>
           <span class="text-gold-500 font-medium">View Profile &rarr;</span>
         </a>
       </div>
@@ -341,7 +390,7 @@
 
   <!-- CTA Section -->
   <section class="py-20 hero-gradient">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal-scale">
       <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">Leverage My Human Design</h2>
       <p class="text-xl text-gray-300 mb-10 leading-relaxed">
         As a Manifesting Generator with a 6/2 Profile, I bring intuitive clarity, emotional intelligence, and a proven ability to lead with impact. Let's discuss how I can contribute to your success.
@@ -372,13 +421,97 @@
     </div>
   </footer>
 
+  <!-- Back to Top Button -->
+  <button id="back-to-top" class="back-to-top fixed bottom-8 right-8 w-12 h-12 bg-gold-500 hover:bg-gold-400 text-navy-900 rounded-full shadow-lg flex items-center justify-center transition transform hover:scale-110 z-50">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+  </button>
+
   <script>
+    // Mobile Menu
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
     const closeMenuBtn = document.getElementById('close-menu');
     const mobileMenu = document.getElementById('mobile-menu');
-    mobileMenuBtn.addEventListener('click', () => mobileMenu.classList.add('open'));
-    closeMenuBtn.addEventListener('click', () => mobileMenu.classList.remove('open'));
-    mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => mobileMenu.classList.remove('open')));
+    const mobileOverlay = document.getElementById('mobile-overlay');
+
+    function openMenu() {
+      mobileMenu.classList.add('open');
+      mobileOverlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+      mobileMenu.classList.remove('open');
+      mobileOverlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    mobileMenuBtn.addEventListener('click', openMenu);
+    closeMenuBtn.addEventListener('click', closeMenu);
+    mobileOverlay.addEventListener('click', closeMenu);
+    mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+
+    // Dark Mode Toggle
+    const darkToggle = document.getElementById('dark-toggle');
+    const mobileDarkToggle = document.getElementById('mobile-dark-toggle');
+    const sunIcon = document.getElementById('sun-icon');
+    const moonIcon = document.getElementById('moon-icon');
+    const mobileSunIcon = document.getElementById('mobile-sun-icon');
+    const mobileMoonIcon = document.getElementById('mobile-moon-icon');
+    const darkModeText = document.getElementById('dark-mode-text');
+
+    function updateDarkModeIcons() {
+      const isDark = document.documentElement.classList.contains('dark');
+      sunIcon.classList.toggle('hidden', !isDark);
+      moonIcon.classList.toggle('hidden', isDark);
+      mobileSunIcon.classList.toggle('hidden', !isDark);
+      mobileMoonIcon.classList.toggle('hidden', isDark);
+      darkModeText.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+    }
+
+    function toggleDarkMode() {
+      document.documentElement.classList.toggle('dark');
+      const isDark = document.documentElement.classList.contains('dark');
+      setCookie('darkMode', isDark, 365);
+      updateDarkModeIcons();
+    }
+
+    darkToggle.addEventListener('click', toggleDarkMode);
+    mobileDarkToggle.addEventListener('click', toggleDarkMode);
+    updateDarkModeIcons();
+
+    // Scroll Progress Bar
+    const scrollProgress = document.getElementById('scroll-progress');
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = (scrollTop / docHeight) * 100;
+      scrollProgress.style.width = scrollPercent + '%';
+    });
+
+    // Back to Top Button
+    const backToTop = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 500) {
+        backToTop.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
+      }
+    });
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Scroll Reveal Animations
+    const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    revealElements.forEach(el => revealObserver.observe(el));
   </script>
 </body>
 </html>

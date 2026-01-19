@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Big Five Personality Profile | Lee Foropoulos</title>
-  <meta name="description" content="Explore Lee Foropoulos's Big Five personality traits - Extraversion, Emotional Stability, Agreeableness, Conscientiousness, and Openness to Experience.">
+  <meta name="description" content="Explore Lee Foropoulos's Big Five personality traits - Extraversion, Emotional Stability, Agreeableness, Conscientiousness, and Openness.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -13,8 +14,7 @@
         extend: {
           colors: {
             navy: { 900: '#0f172a', 800: '#1e293b', 700: '#334155', 600: '#475569' },
-            gold: { 700: '#b45309', 600: '#d97706', 500: '#f59e0b', 400: '#fbbf24', 300: '#fcd34d', 200: '#fde68a', 100: '#fef3c7', 50: '#fffbeb' },
-            amber: { 500: '#f59e0b', 400: '#fbbf24' }
+            gold: { 700: '#b45309', 600: '#d97706', 500: '#f59e0b', 400: '#fbbf24', 300: '#fcd34d', 200: '#fde68a', 100: '#fef3c7', 50: '#fffbeb' }
           },
           fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
         }
@@ -22,32 +22,47 @@
     }
   </script>
   <script>
-    function getCookie(name) {
-      const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-      return match ? match[2] : null;
-    }
+    function getCookie(name) { const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)')); return match ? match[2] : null; }
+    function setCookie(name, value, days) { const expires = new Date(Date.now() + days * 864e5).toUTCString(); document.cookie = name + '=' + value + '; expires=' + expires + '; path=/; SameSite=Lax'; }
     const darkPref = getCookie('darkMode');
-    if (darkPref === 'true' || (!darkPref && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      document.documentElement.classList.add('dark');
-    }
+    if (darkPref === 'true' || (!darkPref && window.matchMedia('(prefers-color-scheme: dark)').matches)) { document.documentElement.classList.add('dark'); }
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', system-ui, sans-serif; }
+    body { font-family: 'Inter', system-ui, sans-serif; transition: background-color 0.3s ease, color 0.3s ease; }
+    #scroll-progress { position: fixed; top: 64px; left: 0; width: 0%; height: 3px; background: linear-gradient(90deg, #f59e0b, #fbbf24); z-index: 100; }
     .gradient-text { background: linear-gradient(135deg, #f59e0b, #fbbf24); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
     .hero-gradient { background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%); }
-    .card-hover { transition: all 0.3s ease; }
-    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.1); }
+    .card-hover { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+    .dark .card-hover:hover { box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .dark-mode-toggle:hover { transform: rotate(15deg); }
     .mobile-menu { transform: translateX(100%); transition: transform 0.3s ease; }
     .mobile-menu.open { transform: translateX(0); }
+    .menu-overlay { opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+    .menu-overlay.open { opacity: 1; visibility: visible; }
+    .progress-bar { height: 10px; border-radius: 5px; overflow: hidden; background: rgba(0,0,0,0.1); }
+    .dark .progress-bar { background: rgba(255,255,255,0.1); }
+    .progress-fill { height: 100%; border-radius: 5px; transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1); width: 0; }
+    .progress-fill.animated { width: var(--target-width); }
+    .glow-card { position: relative; }
+    .glow-card::before { content: ''; position: absolute; inset: -2px; border-radius: 1rem; padding: 2px; background: linear-gradient(135deg, #f59e0b, #fbbf24, #f59e0b); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0; transition: opacity 0.3s ease; }
+    .glow-card:hover::before { opacity: 1; }
+    #back-to-top { opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+    #back-to-top.visible { opacity: 1; visibility: visible; }
+    .trait-card:hover .trait-icon { transform: scale(1.1) rotate(5deg); }
+    .trait-icon { transition: transform 0.3s ease; }
   </style>
 </head>
-<body class="bg-white dark:bg-navy-900 text-gray-800 dark:text-gray-200 transition-colors">
+<body class="bg-white dark:bg-navy-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
 
-  <!-- Navigation -->
+  <div id="scroll-progress"></div>
+
   <nav class="fixed top-0 left-0 right-0 z-50 bg-navy-900/95 backdrop-blur-md border-b border-white/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center h-16">
@@ -58,18 +73,22 @@
           <a href="Lee_Foropoulos_MBTI.html" class="text-gray-300 hover:text-gold-400 transition">MBTI</a>
           <a href="Lee_Foropoulos_Big_Five.html" class="text-gold-400 font-semibold">Big Five</a>
           <a href="Lee_Foropoulos_Human_Design_Profile.html" class="text-gray-300 hover:text-gold-400 transition">Human Design</a>
+          <button id="dark-mode-toggle" class="dark-mode-toggle text-gray-300 hover:text-gold-400 p-2 rounded-lg hover:bg-white/10 transition" aria-label="Toggle dark mode">
+            <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+            <svg class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+          </button>
           <a href="https://www.upwork.com/freelancers/thesecretchief?viewMode=1" target="_blank" class="bg-gold-500 hover:bg-gold-400 text-navy-900 font-semibold px-5 py-2 rounded-full transition">Work With Me</a>
         </div>
-        <button id="mobile-menu-btn" class="md:hidden text-white p-2">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-        </button>
+        <div class="flex items-center gap-2 md:hidden">
+          <button id="dark-mode-toggle-mobile" class="dark-mode-toggle text-gray-300 hover:text-gold-400 p-2"><svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg><svg class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg></button>
+          <button id="mobile-menu-btn" class="text-white p-2"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg></button>
+        </div>
       </div>
     </div>
-    <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 h-full w-72 bg-navy-900 shadow-2xl md:hidden">
+    <div id="menu-overlay" class="menu-overlay fixed inset-0 bg-black/50 md:hidden z-40"></div>
+    <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 h-full w-72 bg-navy-900 shadow-2xl md:hidden z-50">
       <div class="p-6">
-        <button id="close-menu" class="absolute top-4 right-4 text-white p-2">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-        </button>
+        <button id="close-menu" class="absolute top-4 right-4 text-white p-2"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
         <div class="mt-12 flex flex-col space-y-6">
           <a href="index.html" class="text-white text-lg hover:text-gold-400 transition">Home</a>
           <a href="Lee_Foropoulos_DISC_Profile.html" class="text-white text-lg hover:text-gold-400 transition">DISC</a>
@@ -83,187 +102,134 @@
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <section class="hero-gradient pt-24 pb-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center">
-        <div class="inline-flex items-center gap-2 bg-gold-500/10 border border-gold-500/20 rounded-full px-4 py-2 mb-6">
-          <span class="text-2xl">&#11088;</span>
-          <span class="text-gold-400 font-medium">Personality Science</span>
-        </div>
-        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-          My <span class="gradient-text">Big Five</span> Profile
-        </h1>
-        <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-          The scientifically validated OCEAN model measuring Extraversion, Emotional Stability, Agreeableness, Conscientiousness, and Openness to Experience.
-        </p>
+  <section class="hero-gradient pt-24 pb-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="inline-flex items-center gap-2 bg-gold-500/10 border border-gold-500/20 rounded-full px-4 py-2 mb-6">
+        <svg class="w-5 h-5 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path></svg>
+        <span class="text-gold-400 font-medium">OCEAN Model</span>
+      </div>
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">My <span class="gradient-text">Big Five</span> Profile</h1>
+      <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-10">The scientifically validated personality framework measuring Openness, Conscientiousness, Extraversion, Agreeableness, and Emotional Stability.</p>
+      <div class="flex flex-wrap justify-center gap-3 mt-8">
+        <div class="bg-orange-500/20 border border-orange-500/30 rounded-xl px-4 py-3"><div class="text-2xl font-bold text-orange-400">High</div><div class="text-gray-400 text-xs">Extraversion</div></div>
+        <div class="bg-blue-500/20 border border-blue-500/30 rounded-xl px-4 py-3"><div class="text-2xl font-bold text-blue-400">High</div><div class="text-gray-400 text-xs">Stability</div></div>
+        <div class="bg-green-500/20 border border-green-500/30 rounded-xl px-4 py-3"><div class="text-2xl font-bold text-green-400">High</div><div class="text-gray-400 text-xs">Agreeableness</div></div>
+        <div class="bg-purple-500/20 border border-purple-500/30 rounded-xl px-4 py-3"><div class="text-2xl font-bold text-purple-400">High</div><div class="text-gray-400 text-xs">Conscientiousness</div></div>
+        <div class="bg-pink-500/20 border border-pink-500/30 rounded-xl px-4 py-3"><div class="text-2xl font-bold text-pink-400">High</div><div class="text-gray-400 text-xs">Openness</div></div>
       </div>
     </div>
   </section>
 
-  <!-- What is Big Five Section -->
-  <section class="py-16 bg-white">
+  <section class="py-20 bg-white dark:bg-navy-900">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold text-navy-900 mb-4">What is the Big Five Model?</h2>
-        <p class="text-lg text-gray-600 leading-relaxed">
-          The Big Five Personality Test (IPIP-BFFM) is a scientifically validated assessment rooted in decades of psychological research. It measures five core traits that offer a robust framework for understanding how individuals approach challenges, interact with others, and pursue goals.
-        </p>
+      <div class="reveal text-center mb-12">
+        <h2 class="text-3xl font-bold text-navy-900 dark:text-white mb-4">What is the Big Five Model?</h2>
+        <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">The Big Five Personality Test (IPIP-BFFM) is a scientifically validated assessment rooted in decades of psychological research. It measures five core traits: <strong class="text-gold-500">Openness</strong>, <strong class="text-gold-500">Conscientiousness</strong>, <strong class="text-gold-500">Extraversion</strong>, <strong class="text-gold-500">Agreeableness</strong>, and <strong class="text-gold-500">Neuroticism</strong> (reversed as Emotional Stability).</p>
       </div>
-      <div class="bg-gray-50 rounded-2xl p-6 text-center">
-        <p class="text-gray-600">
-          Discover your own traits at
-          <a href="https://openpsychometrics.org/tests/IPIP-BFFM/" target="_blank" class="text-gold-500 hover:text-gold-400 font-semibold underline">OpenPsychometrics.org</a>
-        </p>
+      <div class="reveal bg-gray-50 dark:bg-navy-800 rounded-2xl p-6 text-center border border-gray-100 dark:border-navy-700">
+        <p class="text-gray-600 dark:text-gray-300">Discover your own traits at <a href="https://openpsychometrics.org/tests/IPIP-BFFM/" target="_blank" class="text-gold-500 hover:text-gold-400 font-semibold underline">OpenPsychometrics.org</a></p>
       </div>
     </div>
   </section>
 
-  <!-- Chart Section -->
-  <section class="py-16 bg-gray-50">
+  <section class="py-20 bg-gray-50 dark:bg-navy-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
-        <div>
-          <div class="bg-white rounded-2xl p-4 shadow-lg">
-            <img src="BigFive_Chart.png" alt="Lee Foropoulos Big Five Chart" class="w-full rounded-xl" onerror="this.src='https://via.placeholder.com/600x400.png?text=Big+Five+Chart';">
+        <div class="reveal"><div class="glow-card bg-white dark:bg-navy-900 rounded-2xl p-4 shadow-xl"><img src="BigFive_Chart.png" alt="Lee Foropoulos Big Five Chart" class="w-full rounded-xl" onerror="this.src='https://via.placeholder.com/600x400.png?text=Big+Five+Chart';"></div></div>
+        <div class="reveal">
+          <h2 class="text-3xl font-bold text-navy-900 dark:text-white mb-6">How These Traits Synergize</h2>
+          <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-8">My Big Five traits form a cohesive framework that shapes my daily life and interactions. High Extraversion fuels my love for social engagement, while Emotional Stability provides a calm foundation for navigating stress. Agreeableness enhances my ability to build trusting relationships, Conscientiousness drives my disciplined approach, and Openness sparks creativity and innovative solutions.</p>
+          <div class="space-y-4">
+            <div><div class="flex justify-between mb-2"><span class="font-semibold text-orange-500">Extraversion</span><span class="text-gray-600 dark:text-gray-400">85%</span></div><div class="progress-bar"><div class="progress-fill bg-gradient-to-r from-orange-400 to-orange-600" style="--target-width: 85%"></div></div></div>
+            <div><div class="flex justify-between mb-2"><span class="font-semibold text-blue-500">Emotional Stability</span><span class="text-gray-600 dark:text-gray-400">80%</span></div><div class="progress-bar"><div class="progress-fill bg-gradient-to-r from-blue-400 to-blue-600" style="--target-width: 80%"></div></div></div>
+            <div><div class="flex justify-between mb-2"><span class="font-semibold text-green-500">Agreeableness</span><span class="text-gray-600 dark:text-gray-400">75%</span></div><div class="progress-bar"><div class="progress-fill bg-gradient-to-r from-green-400 to-green-600" style="--target-width: 75%"></div></div></div>
+            <div><div class="flex justify-between mb-2"><span class="font-semibold text-purple-500">Conscientiousness</span><span class="text-gray-600 dark:text-gray-400">90%</span></div><div class="progress-bar"><div class="progress-fill bg-gradient-to-r from-purple-400 to-purple-600" style="--target-width: 90%"></div></div></div>
+            <div><div class="flex justify-between mb-2"><span class="font-semibold text-pink-500">Openness</span><span class="text-gray-600 dark:text-gray-400">88%</span></div><div class="progress-bar"><div class="progress-fill bg-gradient-to-r from-pink-400 to-pink-600" style="--target-width: 88%"></div></div></div>
           </div>
-        </div>
-        <div>
-          <h2 class="text-3xl font-bold text-navy-900 mb-6">How These Traits Work Together</h2>
-          <p class="text-gray-600 leading-relaxed mb-6">
-            My Big Five traits form a cohesive framework that shapes my daily life and interactions. High Extraversion fuels my love for social engagement, while Emotional Stability provides a calm foundation for navigating stress.
-          </p>
-          <p class="text-gray-600 leading-relaxed">
-            Agreeableness enhances my ability to build trusting relationships, Conscientiousness drives my disciplined approach, and Openness sparks creativity and innovative solutions. Together, these traits create a dynamic synergy for confident leadership.
-          </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Five Traits Section -->
-  <section class="py-16 bg-white">
+  <section class="py-20 bg-white dark:bg-navy-900">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-bold text-navy-900 text-center mb-12">The Five Dimensions</h2>
+      <div class="reveal text-center mb-12"><span class="inline-block bg-gold-100 dark:bg-gold-500/20 text-gold-700 dark:text-gold-400 text-sm font-semibold px-4 py-2 rounded-full mb-4">THE OCEAN MODEL</span><h2 class="text-3xl font-bold text-navy-900 dark:text-white">The Five Dimensions</h2></div>
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-        <div class="card-hover bg-gradient-to-br from-orange-50 to-orange-100 rounded-2xl p-8 border border-orange-200">
-          <div class="w-14 h-14 bg-orange-500 rounded-xl flex items-center justify-center mb-4">
-            <span class="text-2xl text-white">&#9889;</span>
-          </div>
-          <h3 class="text-xl font-bold text-navy-900 mb-2">Extraversion</h3>
-          <p class="text-sm text-orange-600 font-semibold mb-3">Surgency / Positive Emotionality</p>
-          <p class="text-gray-600 text-sm leading-relaxed">High extraversion marks me as outgoing, assertive, and energized by social connections—qualities that shine in leadership and networking. I thrive in dynamic, interactive settings and build robust support networks.</p>
-        </div>
-
-        <div class="card-hover bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 border border-blue-200">
-          <div class="w-14 h-14 bg-blue-500 rounded-xl flex items-center justify-center mb-4">
-            <span class="text-2xl text-white">&#9875;</span>
-          </div>
-          <h3 class="text-xl font-bold text-navy-900 mb-2">Emotional Stability</h3>
-          <p class="text-sm text-blue-600 font-semibold mb-3">vs. Neuroticism</p>
-          <p class="text-gray-600 text-sm leading-relaxed">A high score positions me as calm, composed, and adept at navigating adversity. This stability equips me to lead under pressure, delivering consistent performance and inspiring confidence in teams.</p>
-        </div>
-
-        <div class="card-hover bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-8 border border-green-200">
-          <div class="w-14 h-14 bg-green-500 rounded-xl flex items-center justify-center mb-4">
-            <span class="text-2xl text-white">&#129309;</span>
-          </div>
-          <h3 class="text-xl font-bold text-navy-900 mb-2">Agreeableness</h3>
-          <p class="text-sm text-green-600 font-semibold mb-3">Warmth & Cooperation</p>
-          <p class="text-gray-600 text-sm leading-relaxed">Scoring high, I prioritize harmony and collaboration, making me a trusted ally. I balance empathy with assertiveness to advocate effectively, ensuring constructive contributions without compromising goals.</p>
-        </div>
-
-        <div class="card-hover bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-8 border border-purple-200">
-          <div class="w-14 h-14 bg-purple-500 rounded-xl flex items-center justify-center mb-4">
-            <span class="text-2xl text-white">&#128203;</span>
-          </div>
-          <h3 class="text-xl font-bold text-navy-900 mb-2">Conscientiousness</h3>
-          <p class="text-sm text-purple-600 font-semibold mb-3">Reliability & Discipline</p>
-          <p class="text-gray-600 text-sm leading-relaxed">A high score highlights my knack for organization and perseverance. This trait empowers me to excel in project management and strategic planning, delivering results with precision and efficiency.</p>
-        </div>
-
-        <div class="card-hover bg-gradient-to-br from-pink-50 to-pink-100 rounded-2xl p-8 border border-pink-200 lg:col-span-1 md:col-span-2">
-          <div class="w-14 h-14 bg-pink-500 rounded-xl flex items-center justify-center mb-4">
-            <span class="text-2xl text-white">&#128161;</span>
-          </div>
-          <h3 class="text-xl font-bold text-navy-900 mb-2">Openness to Experience</h3>
-          <p class="text-sm text-pink-600 font-semibold mb-3">Intellect / Imagination</p>
-          <p class="text-gray-600 text-sm leading-relaxed">A high score reveals my love for innovation, exploration, and diverse perspectives. This openness drives strategic thinking, making me a forward-thinking contributor who tempers impulsivity with focus.</p>
-        </div>
-
+        <div class="reveal trait-card card-hover bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/20 rounded-2xl p-8 border border-orange-200 dark:border-orange-800"><div class="trait-icon w-14 h-14 bg-orange-500 rounded-xl flex items-center justify-center mb-4"><svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></div><h3 class="text-xl font-bold text-navy-900 dark:text-white mb-2">Extraversion</h3><p class="text-sm text-orange-600 dark:text-orange-400 font-semibold mb-3">Surgency / Positive Emotionality</p><p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">High extraversion marks me as outgoing, assertive, and energized by social connections—qualities that shine in leadership and networking.</p></div>
+        <div class="reveal trait-card card-hover bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 rounded-2xl p-8 border border-blue-200 dark:border-blue-800"><div class="trait-icon w-14 h-14 bg-blue-500 rounded-xl flex items-center justify-center mb-4"><svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg></div><h3 class="text-xl font-bold text-navy-900 dark:text-white mb-2">Emotional Stability</h3><p class="text-sm text-blue-600 dark:text-blue-400 font-semibold mb-3">vs. Neuroticism</p><p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">A high score positions me as calm, composed, and adept at navigating adversity. This stability equips me to lead under pressure.</p></div>
+        <div class="reveal trait-card card-hover bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 rounded-2xl p-8 border border-green-200 dark:border-green-800"><div class="trait-icon w-14 h-14 bg-green-500 rounded-xl flex items-center justify-center mb-4"><svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg></div><h3 class="text-xl font-bold text-navy-900 dark:text-white mb-2">Agreeableness</h3><p class="text-sm text-green-600 dark:text-green-400 font-semibold mb-3">Warmth & Cooperation</p><p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">Scoring high, I prioritize harmony and collaboration, making me a trusted ally who balances empathy with assertiveness.</p></div>
+        <div class="reveal trait-card card-hover bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 rounded-2xl p-8 border border-purple-200 dark:border-purple-800"><div class="trait-icon w-14 h-14 bg-purple-500 rounded-xl flex items-center justify-center mb-4"><svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg></div><h3 class="text-xl font-bold text-navy-900 dark:text-white mb-2">Conscientiousness</h3><p class="text-sm text-purple-600 dark:text-purple-400 font-semibold mb-3">Reliability & Discipline</p><p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">A high score highlights my knack for organization and perseverance, empowering me to excel in project management and strategic planning.</p></div>
+        <div class="reveal trait-card card-hover bg-gradient-to-br from-pink-50 to-pink-100 dark:from-pink-900/20 dark:to-pink-800/20 rounded-2xl p-8 border border-pink-200 dark:border-pink-800 lg:col-span-1 md:col-span-2"><div class="trait-icon w-14 h-14 bg-pink-500 rounded-xl flex items-center justify-center mb-4"><svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg></div><h3 class="text-xl font-bold text-navy-900 dark:text-white mb-2">Openness to Experience</h3><p class="text-sm text-pink-600 dark:text-pink-400 font-semibold mb-3">Intellect / Imagination</p><p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">A high score reveals my love for innovation, exploration, and diverse perspectives. This openness drives strategic thinking and creativity.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- Other Profiles Section -->
-  <section class="py-16 bg-navy-900">
+  <section class="py-20 bg-gray-50 dark:bg-navy-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-bold text-white text-center mb-4">Explore My Other Profiles</h2>
-      <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto">Get a complete picture of how I think, lead, and collaborate</p>
+      <div class="reveal text-center mb-12"><h2 class="text-3xl font-bold text-navy-900 dark:text-white mb-4">Explore My Other Profiles</h2><p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Get a complete picture of how I think, lead, and collaborate</p></div>
       <div class="grid sm:grid-cols-3 gap-6">
-        <a href="Lee_Foropoulos_DISC_Profile.html" class="card-hover bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-8 text-center">
-          <div class="text-4xl mb-4">&#127919;</div>
-          <h3 class="text-xl font-bold text-white mb-2">DISC Profile</h3>
-          <p class="text-gray-400 text-sm mb-4">Balanced, versatile leadership</p>
-          <span class="text-gold-400 font-medium">View Profile &rarr;</span>
-        </a>
-        <a href="Lee_Foropoulos_MBTI.html" class="card-hover bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-8 text-center">
-          <div class="text-4xl mb-4">&#129504;</div>
-          <h3 class="text-xl font-bold text-white mb-2">MBTI (ENTJ)</h3>
-          <p class="text-gray-400 text-sm mb-4">The Commander - Natural leader</p>
-          <span class="text-gold-400 font-medium">View Profile &rarr;</span>
-        </a>
-        <a href="Lee_Foropoulos_Human_Design_Profile.html" class="card-hover bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-8 text-center">
-          <div class="text-4xl mb-4">&#128302;</div>
-          <h3 class="text-xl font-bold text-white mb-2">Human Design</h3>
-          <p class="text-gray-400 text-sm mb-4">Manifesting Generator 6/2</p>
-          <span class="text-gold-400 font-medium">View Profile &rarr;</span>
-        </a>
+        <a href="Lee_Foropoulos_DISC_Profile.html" class="reveal card-hover glow-card bg-white dark:bg-navy-900 rounded-2xl p-8 text-center shadow-sm border border-gray-100 dark:border-navy-700"><div class="w-16 h-16 bg-red-100 dark:bg-red-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4"><svg class="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></div><h3 class="text-xl font-bold text-navy-900 dark:text-white mb-2">DISC Profile</h3><p class="text-gray-500 dark:text-gray-400 text-sm mb-4">Balanced, versatile leadership</p><span class="text-gold-500 font-medium">View Profile &rarr;</span></a>
+        <a href="Lee_Foropoulos_MBTI.html" class="reveal card-hover glow-card bg-white dark:bg-navy-900 rounded-2xl p-8 text-center shadow-sm border border-gray-100 dark:border-navy-700"><div class="w-16 h-16 bg-purple-100 dark:bg-purple-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4"><svg class="w-8 h-8 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg></div><h3 class="text-xl font-bold text-navy-900 dark:text-white mb-2">MBTI (ENTJ)</h3><p class="text-gray-500 dark:text-gray-400 text-sm mb-4">The Commander - Natural leader</p><span class="text-gold-500 font-medium">View Profile &rarr;</span></a>
+        <a href="Lee_Foropoulos_Human_Design_Profile.html" class="reveal card-hover glow-card bg-white dark:bg-navy-900 rounded-2xl p-8 text-center shadow-sm border border-gray-100 dark:border-navy-700"><div class="w-16 h-16 bg-indigo-100 dark:bg-indigo-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4"><svg class="w-8 h-8 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg></div><h3 class="text-xl font-bold text-navy-900 dark:text-white mb-2">Human Design</h3><p class="text-gray-500 dark:text-gray-400 text-sm mb-4">Manifesting Generator 6/2</p><span class="text-gold-500 font-medium">View Profile &rarr;</span></a>
       </div>
     </div>
   </section>
 
-  <!-- CTA Section -->
-  <section class="py-20 hero-gradient">
+  <section class="py-24 hero-gradient">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">Harness My Big Five Traits</h2>
-      <p class="text-xl text-gray-300 mb-10 leading-relaxed">
-        My Big Five traits equip me to lead, collaborate, and innovate with impact. Let's connect to see how I can elevate your team or project.
-      </p>
-      <a href="https://www.upwork.com/freelancers/thesecretchief?viewMode=1" target="_blank" class="inline-block bg-gold-500 hover:bg-gold-400 text-navy-900 font-bold px-10 py-4 rounded-full text-lg transition transform hover:scale-105">
-        Let's Work Together
-      </a>
+      <div class="reveal">
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">Harness My Big Five Traits</h2>
+        <p class="text-xl text-gray-300 mb-10 leading-relaxed">My Big Five traits equip me to lead, collaborate, and innovate with impact. Let's connect to see how I can elevate your team or project.</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="https://www.upwork.com/freelancers/thesecretchief?viewMode=1" target="_blank" class="inline-block bg-gold-500 hover:bg-gold-400 text-navy-900 font-bold px-10 py-4 rounded-full text-lg transition transform hover:scale-105">Let's Work Together</a>
+          <a href="index.html#contact" class="inline-block border-2 border-white hover:bg-white text-white hover:text-navy-900 font-bold px-10 py-4 rounded-full text-lg transition">Get In Touch</a>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Footer -->
   <footer class="bg-navy-900 border-t border-white/10 py-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid md:grid-cols-3 gap-8 items-center">
-        <div>
-          <a href="index.html" class="text-white font-bold text-2xl tracking-tight">Foropoulos<span class="text-gold-400">Now</span><span class="text-gray-400 text-sm">.com</span></a>
-          <p class="text-gray-400 mt-2">Fractional CTO & Program Manager</p>
-        </div>
-        <div class="text-center">
-          <p class="text-gray-400">Explore your Big Five traits:</p>
-          <a href="https://openpsychometrics.org/tests/IPIP-BFFM/" target="_blank" class="text-gold-400 hover:text-gold-300 font-medium">OpenPsychometrics.org</a>
-        </div>
-        <div class="text-center md:text-right">
-          <p class="text-gray-400">&copy; 2025 Lee Steven Foropoulos</p>
-          <a href="https://www.upwork.com/agencies/1699047706469380096/" target="_blank" class="text-gold-400 hover:text-gold-300 transition text-sm">Greek-Fire Corporation</a>
-        </div>
+        <div><a href="index.html" class="text-white font-bold text-2xl tracking-tight">Foropoulos<span class="text-gold-400">Now</span><span class="text-gray-400 text-sm">.com</span></a><p class="text-gray-400 mt-2">Fractional CTO & Program Manager</p></div>
+        <div class="text-center"><p class="text-gray-400">Explore your Big Five traits:</p><a href="https://openpsychometrics.org/tests/IPIP-BFFM/" target="_blank" class="text-gold-400 hover:text-gold-300 font-medium">OpenPsychometrics.org</a></div>
+        <div class="text-center md:text-right"><p class="text-gray-400">&copy; 2025 Lee Steven Foropoulos</p><a href="https://www.upwork.com/agencies/1699047706469380096/" target="_blank" class="text-gold-400 hover:text-gold-300 transition text-sm">Greek-Fire Corporation</a></div>
       </div>
     </div>
   </footer>
+
+  <button id="back-to-top" class="fixed bottom-8 right-8 w-12 h-12 bg-gold-500 hover:bg-gold-400 text-navy-900 rounded-full shadow-lg flex items-center justify-center transition-all z-40" aria-label="Back to top"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg></button>
 
   <script>
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
     const closeMenuBtn = document.getElementById('close-menu');
     const mobileMenu = document.getElementById('mobile-menu');
-    mobileMenuBtn.addEventListener('click', () => mobileMenu.classList.add('open'));
-    closeMenuBtn.addEventListener('click', () => mobileMenu.classList.remove('open'));
-    mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => mobileMenu.classList.remove('open')));
+    const menuOverlay = document.getElementById('menu-overlay');
+    function openMenu() { mobileMenu.classList.add('open'); menuOverlay.classList.add('open'); document.body.style.overflow = 'hidden'; }
+    function closeMenu() { mobileMenu.classList.remove('open'); menuOverlay.classList.remove('open'); document.body.style.overflow = ''; }
+    mobileMenuBtn.addEventListener('click', openMenu);
+    closeMenuBtn.addEventListener('click', closeMenu);
+    menuOverlay.addEventListener('click', closeMenu);
+    mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    const darkModeToggleMobile = document.getElementById('dark-mode-toggle-mobile');
+    function toggleDarkMode() { const isDark = document.documentElement.classList.toggle('dark'); setCookie('darkMode', isDark, 365); }
+    darkModeToggle.addEventListener('click', toggleDarkMode);
+    darkModeToggleMobile.addEventListener('click', toggleDarkMode);
+
+    const scrollProgress = document.getElementById('scroll-progress');
+    window.addEventListener('scroll', () => { scrollProgress.style.width = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100 + '%'; });
+
+    const backToTop = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => { backToTop.classList.toggle('visible', window.scrollY > 500); });
+    backToTop.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+    const revealObserver = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    const progressObserver = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('animated'); }); }, { threshold: 0.5 });
+    document.querySelectorAll('.progress-fill').forEach(bar => progressObserver.observe(bar));
   </script>
 </body>
 </html>
