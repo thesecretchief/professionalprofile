@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Power of Common Knowledge: When Everyone Knows That Everyone Knows | Lee Foropoulos</title>
+  <meta name="description" content="How shared knowledge shapes group behavior, market movements, and organizational change. A deep dive into coordination theory and its business applications.">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="The Power of Common Knowledge: When Everyone Knows That Everyone Knows">
+  <meta property="og:description" content="How shared knowledge coordinates group behavior—and why this matters for leadership.">
+  <meta property="og:url" content="https://foropoulosnow.com/blog/posts/book-review-common-knowledge.html">
+  <meta property="article:author" content="Lee Foropoulos">
+  <meta property="article:published_time" content="2025-12-05">
+
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            navy: { 900: '#0f172a', 800: '#1e293b', 700: '#334155', 600: '#475569' },
+            gold: { 700: '#b45309', 600: '#d97706', 500: '#f59e0b', 400: '#fbbf24', 300: '#fcd34d', 200: '#fde68a', 100: '#fef3c7' }
+          },
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <script>
+    function getCookie(name) {
+      const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+      return match ? match[2] : null;
+    }
+    const darkPref = getCookie('darkMode');
+    if (darkPref === 'true' || (!darkPref && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    .prose { line-height: 1.8; }
+    .prose h2 { margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.75rem; }
+    .prose h3 { margin-top: 2rem; margin-bottom: 0.75rem; font-size: 1.25rem; }
+    .prose p { margin-bottom: 1.5rem; }
+    .prose ul, .prose ol { margin-bottom: 1.5rem; padding-left: 1.5rem; }
+    .prose li { margin-bottom: 0.5rem; }
+    .prose blockquote { border-left: 4px solid #f59e0b; padding-left: 1.5rem; margin: 2rem 0; font-style: italic; background: rgba(245, 158, 11, 0.1); padding: 1.5rem; border-radius: 0 8px 8px 0; }
+    .dark .prose blockquote { background: rgba(245, 158, 11, 0.05); }
+  </style>
+</head>
+<body class="bg-white dark:bg-navy-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-navy-900/95 backdrop-blur-md border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <a href="../../index.html" class="text-white font-bold text-xl tracking-tight">
+          Foropoulos<span class="text-gold-400">Now</span><span class="text-gray-400 text-sm">.com</span>
+        </a>
+        <div class="flex items-center gap-4">
+          <a href="../index.html" class="text-gray-300 hover:text-gold-400 transition text-sm font-medium">&larr; All Posts</a>
+          <button id="dark-mode-toggle" class="text-gray-300 hover:text-gold-400 p-2 rounded-lg hover:bg-white/10 transition" aria-label="Toggle dark mode">
+            <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+            </svg>
+            <svg class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Article Header -->
+  <header class="bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900 pt-24 pb-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="bg-blue-500/20 text-blue-400 text-xs font-semibold px-3 py-1 rounded-full">Strategy</span>
+        <span class="bg-gold-500/20 text-gold-400 text-xs font-semibold px-3 py-1 rounded-full">Game Theory</span>
+        <span class="text-gray-500 text-sm">Dec 5, 2025</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+        The Power of Common Knowledge: When Everyone Knows That Everyone Knows
+      </h1>
+      <p class="text-xl text-gray-400 mb-8">
+        Why information isn't enough—and how shared awareness transforms individual knowledge into collective action.
+      </p>
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 bg-gold-500 rounded-full flex items-center justify-center text-navy-900 font-bold text-lg">LF</div>
+        <div>
+          <p class="text-white font-semibold">Lee Foropoulos</p>
+          <p class="text-gray-500 text-sm">10 min read</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Article Content -->
+  <article class="py-16 bg-white dark:bg-navy-900">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="prose dark:prose-invert text-gray-700 dark:text-gray-300">
+
+        <p class="text-xl leading-relaxed">
+          There's a concept from game theory that changed how I think about organizational change, market dynamics, and even social movements: <strong>common knowledge</strong>. It's not just about what people know—it's about what people know that other people know, and what they know that others know that they know, recursively.
+        </p>
+
+        <p>
+          This might sound academic, but the practical implications are profound. Let me explain with an example.
+        </p>
+
+        <h2 class="text-navy-900 dark:text-white">The Emperor's New Clothes Problem</h2>
+
+        <p>
+          In the classic fairy tale, everyone in the crowd individually knows the emperor is naked. But nobody acts on this knowledge because they don't know that everyone else also knows. They assume they might be wrong, or alone in their perception.
+        </p>
+
+        <p>
+          Then a child shouts "He's naked!" and everything changes. Not because the child added new information—everyone already knew—but because the child's announcement made that knowledge <em>common</em>. Now everyone knows that everyone knows. And suddenly, coordinated action becomes possible.
+        </p>
+
+        <blockquote>
+          "Common knowledge isn't about information. It's about the mutual awareness of information that enables coordination."
+        </blockquote>
+
+        <h2 class="text-navy-900 dark:text-white">Why This Matters for Business</h2>
+
+        <h3 class="text-navy-900 dark:text-white">Market Movements and Bubbles</h3>
+        <p>
+          Asset bubbles often persist not because investors believe the prices are justified, but because each investor believes other investors believe it. The bubble pops when common knowledge shifts—when everyone suddenly knows that everyone knows the prices are unsustainable.
+        </p>
+        <p>
+          This is why public statements from credible figures can move markets dramatically. It's not the information itself (often already known); it's the creation of common knowledge.
+        </p>
+
+        <h3 class="text-navy-900 dark:text-white">Organizational Change</h3>
+        <p>
+          I've seen this pattern repeatedly in companies struggling with transformation. Everyone might privately know that a particular strategy isn't working, or that a leader is ineffective, or that the culture is toxic. But nothing changes because people don't know that others share their perception.
+        </p>
+        <p>
+          This is why town halls, all-hands meetings, and public acknowledgments from leadership matter so much during change initiatives. They create common knowledge.
+        </p>
+
+        <h3 class="text-navy-900 dark:text-white">Team Dynamics</h3>
+        <p>
+          Team dysfunction often stems from common knowledge failures. Someone isn't performing, and everyone knows it—but everyone assumes they're the only one who's noticed, or that leadership doesn't know. The result is paralysis.
+        </p>
+        <p>
+          Effective leaders make relevant knowledge common. They say out loud what people are thinking privately. This isn't about gossip or blame; it's about creating the shared awareness necessary for coordinated action.
+        </p>
+
+        <h2 class="text-navy-900 dark:text-white">The Coordination Problem</h2>
+
+        <p>
+          Common knowledge is essential for solving coordination problems—situations where the best outcome requires multiple people to act together, but no individual wants to act alone.
+        </p>
+
+        <p>
+          Think about:
+        </p>
+        <ul>
+          <li><strong>Network effects:</strong> No one wants to join an empty social network, but everyone would join if everyone else joined.</li>
+          <li><strong>Standing ovations:</strong> People wait to see if others stand before committing.</li>
+          <li><strong>Workplace initiatives:</strong> New processes fail if individuals don't believe others will adopt them.</li>
+          <li><strong>Market standards:</strong> VHS vs. Betamax wasn't about quality; it was about coordination.</li>
+        </ul>
+
+        <p>
+          In all these cases, individual knowledge isn't enough. What matters is shared certainty that others will act.
+        </p>
+
+        <h2 class="text-navy-900 dark:text-white">How to Create Common Knowledge</h2>
+
+        <h3 class="text-navy-900 dark:text-white">1. Public Announcements Over Private Conversations</h3>
+        <p>
+          If you need coordinated action, make the relevant information public. A team-wide email creates more common knowledge than individual conversations, even if the content is identical.
+        </p>
+
+        <h3 class="text-navy-900 dark:text-white">2. Rituals and Ceremonies</h3>
+        <p>
+          There's a reason cultures develop rituals. A graduation ceremony doesn't add information—the student already passed. But it creates common knowledge in the community that this person has achieved a milestone.
+        </p>
+        <p>
+          Company kickoffs, product launches, and celebration events serve similar functions.
+        </p>
+
+        <h3 class="text-navy-900 dark:text-white">3. Visible Metrics and Dashboards</h3>
+        <p>
+          When everyone can see the same numbers, you create common knowledge about performance. This is why transparent metrics drive accountability more effectively than private reports.
+        </p>
+
+        <h3 class="text-navy-900 dark:text-white">4. Credible Signals</h3>
+        <p>
+          Sometimes you need a trusted third party to establish common knowledge. This is why external audits, certifications, and press coverage matter—they create shared awareness that internal statements can't.
+        </p>
+
+        <h2 class="text-navy-900 dark:text-white">The Dark Side</h2>
+
+        <p>
+          Common knowledge can also be weaponized. Propaganda works by creating false common knowledge—making people believe that everyone believes something. Authoritarian regimes suppress free assembly and open communication precisely because these create common knowledge that could enable coordination against the regime.
+        </p>
+
+        <p>
+          In organizations, toxic leaders sometimes maintain power by preventing the formation of common knowledge. They isolate critics, discourage open discussion, and control information flows.
+        </p>
+
+        <h2 class="text-navy-900 dark:text-white">Practical Takeaways</h2>
+
+        <ul>
+          <li><strong>For leaders:</strong> Your job isn't just to know things or to inform individuals—it's to create shared awareness that enables coordination.</li>
+          <li><strong>For change agents:</strong> Private dissent doesn't create change. Public acknowledgment of problems does.</li>
+          <li><strong>For strategists:</strong> When analyzing why coordination fails, ask not what people know, but what they know that others know.</li>
+          <li><strong>For communicators:</strong> The venue and visibility of a message matters as much as its content.</li>
+        </ul>
+
+        <h2 class="text-navy-900 dark:text-white">Further Reading</h2>
+
+        <p>
+          The academic treatment of common knowledge comes from game theorist Robert Aumann. For more accessible explorations, I recommend:
+        </p>
+        <ul>
+          <li><em>Rational Ritual</em> by Michael Suk-Young Chwe</li>
+          <li>Ben Hunt's writing at Epsilon Theory on narrative and common knowledge in markets</li>
+          <li>Scott Alexander's essays on coordination problems</li>
+        </ul>
+
+        <div class="bg-gold-50 dark:bg-gold-500/10 rounded-xl p-6 mt-8 border border-gold-200 dark:border-gold-500/30">
+          <p class="font-semibold text-navy-900 dark:text-white mb-2">Key Insight</p>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Information alone doesn't drive collective action. Common knowledge—the shared awareness that everyone knows what everyone knows—is the catalyst for coordination.</p>
+        </div>
+
+      </div>
+    </div>
+  </article>
+
+  <!-- Related Posts -->
+  <section class="py-16 bg-gray-50 dark:bg-navy-800">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-navy-900 dark:text-white mb-8">Related Reading</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <a href="book-review-ceo-excellence.html" class="block bg-white dark:bg-navy-900 rounded-xl p-6 border border-gray-200 dark:border-white/10 hover:border-gold-400 transition">
+          <span class="text-purple-500 text-sm font-semibold">Book Review</span>
+          <h3 class="font-bold text-navy-900 dark:text-white mt-2">CEO Excellence: Six Mindsets of the Best Leaders</h3>
+          <p class="text-gray-600 dark:text-gray-400 text-sm mt-2">How the best CEOs align organizations...</p>
+        </a>
+        <a href="ai-automation-for-small-business.html" class="block bg-white dark:bg-navy-900 rounded-xl p-6 border border-gray-200 dark:border-white/10 hover:border-gold-400 transition">
+          <span class="text-gold-500 text-sm font-semibold">Business</span>
+          <h3 class="font-bold text-navy-900 dark:text-white mt-2">5 AI Automation Strategies for Small Business</h3>
+          <p class="text-gray-600 dark:text-gray-400 text-sm mt-2">Practical tools that create leverage...</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-navy-900 border-t border-white/10 py-8">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-gray-500">&copy; 2025 Lee Foropoulos. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    function setCookie(name, value, days) {
+      const expires = new Date(Date.now() + days * 864e5).toUTCString();
+      document.cookie = name + '=' + value + '; expires=' + expires + '; path=/; SameSite=Lax';
+    }
+    document.getElementById('dark-mode-toggle').addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      setCookie('darkMode', document.documentElement.classList.contains('dark'), 365);
+    });
+  </script>
+</body>
+</html>
