@@ -52,6 +52,8 @@
     .prose li { margin-bottom: 0.5rem; }
     .prose blockquote { border-left: 4px solid #f59e0b; padding-left: 1.5rem; margin: 2rem 0; font-style: italic; background: rgba(245, 158, 11, 0.1); padding: 1.5rem; border-radius: 0 8px 8px 0; }
     .dark .prose blockquote { background: rgba(245, 158, 11, 0.05); }
+    .book-cover { box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4); transition: transform 0.3s ease; }
+    .book-cover:hover { transform: rotate(-2deg) scale(1.02); }
   </style>
 </head>
 <body class="bg-white dark:bg-navy-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
@@ -78,25 +80,43 @@
     </div>
   </nav>
 
-  <!-- Article Header -->
+  <!-- Article Header with Book Cover -->
   <header class="bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900 pt-24 pb-16">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center gap-3 mb-6">
-        <span class="bg-purple-500/20 text-purple-400 text-xs font-semibold px-3 py-1 rounded-full">Book Review</span>
-        <span class="bg-red-500/20 text-red-400 text-xs font-semibold px-3 py-1 rounded-full">LitRPG</span>
-        <span class="text-gray-500 text-sm">Dec 20, 2025</span>
-      </div>
-      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
-        Dungeon Crawler Carl: My Unexpected Leadership Manual
-      </h1>
-      <p class="text-xl text-gray-400 mb-8">
-        A guy in his underwear, a talking cat, and a galaxy-spanning dungeon game show taught me more about crisis leadership than most business books.
-      </p>
-      <div class="flex items-center gap-4">
-        <div class="w-12 h-12 bg-gold-500 rounded-full flex items-center justify-center text-navy-900 font-bold text-lg">LF</div>
-        <div>
-          <p class="text-white font-semibold">Lee Foropoulos</p>
-          <p class="text-gray-500 text-sm">9 min read</p>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col lg:flex-row gap-10 items-center lg:items-start">
+        <!-- Book Cover -->
+        <div class="flex-shrink-0">
+          <img
+            src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1598372952i/54659324.jpg"
+            alt="Dungeon Crawler Carl Book Cover"
+            class="book-cover w-48 lg:w-56 rounded-lg"
+            onerror="this.src='https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=600&fit=crop'"
+          >
+        </div>
+
+        <!-- Header Content -->
+        <div class="flex-1 text-center lg:text-left">
+          <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-6">
+            <span class="bg-purple-500/20 text-purple-400 text-xs font-semibold px-3 py-1 rounded-full">Book Review</span>
+            <span class="bg-red-500/20 text-red-400 text-xs font-semibold px-3 py-1 rounded-full">LitRPG</span>
+            <span class="text-gray-500 text-sm">Dec 20, 2025</span>
+          </div>
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
+            Dungeon Crawler Carl: My Unexpected Leadership Manual
+          </h1>
+          <p class="text-lg text-gray-400 mb-3">
+            by <span class="text-gold-400">Matt Dinniman</span>
+          </p>
+          <p class="text-xl text-gray-400 mb-8">
+            A guy in his underwear, a talking cat, and a galaxy-spanning dungeon game show taught me more about crisis leadership than most business books.
+          </p>
+          <div class="flex items-center justify-center lg:justify-start gap-4">
+            <div class="w-12 h-12 bg-gold-500 rounded-full flex items-center justify-center text-navy-900 font-bold text-lg">LF</div>
+            <div>
+              <p class="text-white font-semibold">Lee Foropoulos</p>
+              <p class="text-gray-500 text-sm">9 min read</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
