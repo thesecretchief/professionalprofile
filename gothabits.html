@@ -146,6 +146,109 @@
     .delay-400 { animation-delay: 0.4s; }
     .delay-500 { animation-delay: 0.5s; }
 
+    /* Training Stack Card Effects */
+    @keyframes emoji-bounce {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-8px) scale(1.15); }
+    }
+    @keyframes card-glow-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.2), inset 0 0 20px rgba(255,255,255,0.05); }
+      50% { box-shadow: 0 0 20px 5px rgba(255,255,255,0.3), inset 0 0 30px rgba(255,255,255,0.1); }
+    }
+    @keyframes border-glow {
+      0%, 100% { border-color: rgba(255,255,255,0.1); }
+      50% { border-color: rgba(255,255,255,0.4); }
+    }
+    @keyframes shimmer-effect {
+      0% { left: -100%; }
+      100% { left: 200%; }
+    }
+    @keyframes tilt-shake {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(-2deg); }
+      75% { transform: rotate(2deg); }
+    }
+
+    .stack-card {
+      position: relative;
+      overflow: hidden;
+      border: 2px solid transparent;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .stack-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.6s ease;
+    }
+    .stack-card:hover::before {
+      left: 200%;
+    }
+    .stack-card:hover {
+      transform: translateY(-8px) scale(1.05);
+      background: rgba(255,255,255,0.25) !important;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.3), 0 0 30px rgba(255,255,255,0.2);
+      border-color: rgba(255,255,255,0.5);
+    }
+    .stack-card:active {
+      transform: translateY(-2px) scale(0.98);
+    }
+    .stack-card .emoji {
+      display: block;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .stack-card:hover .emoji {
+      animation: emoji-bounce 0.6s ease-in-out;
+      transform: scale(1.2);
+      filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));
+    }
+    .stack-card .card-label {
+      transition: all 0.3s ease;
+    }
+    .stack-card:hover .card-label {
+      color: #ffffff !important;
+      text-shadow: 0 0 10px rgba(255,255,255,0.5);
+    }
+
+    /* Stagger animation for cards */
+    .stack-card.animate-in {
+      animation: fadeInUp 0.5s ease forwards;
+    }
+    .stack-card:nth-child(1) { animation-delay: 0.05s; }
+    .stack-card:nth-child(2) { animation-delay: 0.1s; }
+    .stack-card:nth-child(3) { animation-delay: 0.15s; }
+    .stack-card:nth-child(4) { animation-delay: 0.2s; }
+    .stack-card:nth-child(5) { animation-delay: 0.25s; }
+    .stack-card:nth-child(6) { animation-delay: 0.3s; }
+    .stack-card:nth-child(7) { animation-delay: 0.35s; }
+    .stack-card:nth-child(8) { animation-delay: 0.4s; }
+    .stack-card:nth-child(9) { animation-delay: 0.45s; }
+    .stack-card:nth-child(10) { animation-delay: 0.5s; }
+
+    /* Pulsing glow on the container */
+    .stack-container {
+      position: relative;
+    }
+    .stack-container::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 1.5rem;
+      padding: 2px;
+      background: linear-gradient(135deg, #fff 0%, transparent 50%, #fff 100%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0.3;
+      animation: gradientShift 4s ease infinite;
+      background-size: 200% 200%;
+    }
+
     .opacity-0 { opacity: 0; }
 
     /* Back to Top Button */
@@ -682,17 +785,17 @@
       </div>
 
       <!-- Must-Have Training Stack -->
-      <div class="bg-gradient-to-br from-red-600 to-red-700 rounded-3xl p-8 md:p-12 mb-12">
+      <div class="stack-container bg-gradient-to-br from-red-600 via-red-700 to-red-800 rounded-3xl p-8 md:p-12 mb-12 animate-gradient" style="background-size: 200% 200%;">
         <div class="text-center mb-8">
-          <h3 class="text-2xl font-bold text-white mb-2">My Must-Have Training Stack</h3>
-          <p class="text-red-100">The essentials I recommend for anyone serious about their fitness journey</p>
+          <h3 class="text-2xl md:text-3xl font-bold text-white mb-2 animate-pulse" style="animation: none; text-shadow: 0 0 30px rgba(255,255,255,0.3);">My Must-Have Training Stack</h3>
+          <p class="text-red-100 text-lg">The essentials I recommend for anyone serious about their fitness journey</p>
         </div>
-        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4" id="stack-grid">
           <!-- Multivitamin Selector -->
-          <div class="relative" id="multi-selector">
-            <button onclick="toggleDropdown('multi-dropdown')" class="w-full bg-white/10 hover:bg-white/20 rounded-xl p-4 text-center transition group">
-              <span class="text-3xl mb-2 block">💊</span>
-              <span class="text-white font-semibold text-sm group-hover:text-red-200">Multivitamins</span>
+          <div class="relative stack-card rounded-xl" id="multi-selector">
+            <button onclick="toggleDropdown('multi-dropdown')" class="w-full bg-white/10 rounded-xl p-4 text-center transition-all">
+              <span class="text-3xl mb-2 emoji">💊</span>
+              <span class="text-white font-semibold text-sm card-label">Multivitamins</span>
               <span class="text-white/60 text-xs block mt-1">Tap to choose</span>
             </button>
             <div id="multi-dropdown" class="hidden absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-xl z-20 overflow-hidden">
@@ -706,43 +809,43 @@
               </a>
             </div>
           </div>
-          <a href="https://1stphorm.com/products/full-mega/?a_aid=gotHABITS" target="_blank" class="bg-white/10 hover:bg-white/20 rounded-xl p-4 text-center transition group">
-            <span class="text-3xl mb-2 block">🐟</span>
-            <span class="text-white font-semibold text-sm group-hover:text-red-200">Fish Oil</span>
+          <a href="https://1stphorm.com/products/full-mega/?a_aid=gotHABITS" target="_blank" class="stack-card bg-white/10 rounded-xl p-4 text-center">
+            <span class="text-3xl mb-2 emoji">🐟</span>
+            <span class="text-white font-semibold text-sm card-label">Fish Oil</span>
           </a>
-          <a href="https://1stphorm.com/products/cla/?a_aid=gotHABITS" target="_blank" class="bg-white/10 hover:bg-white/20 rounded-xl p-4 text-center transition group">
-            <span class="text-3xl mb-2 block">🔥</span>
-            <span class="text-white font-semibold text-sm group-hover:text-red-200">CLA</span>
+          <a href="https://1stphorm.com/products/cla/?a_aid=gotHABITS" target="_blank" class="stack-card bg-white/10 rounded-xl p-4 text-center">
+            <span class="text-3xl mb-2 emoji">🔥</span>
+            <span class="text-white font-semibold text-sm card-label">CLA</span>
           </a>
-          <a href="https://1stphorm.com/products/core-21/?a_aid=gotHABITS" target="_blank" class="bg-white/10 hover:bg-white/20 rounded-xl p-4 text-center transition group">
-            <span class="text-3xl mb-2 block">😴</span>
-            <span class="text-white font-semibold text-sm group-hover:text-red-200">Core-21</span>
+          <a href="https://1stphorm.com/products/core-21/?a_aid=gotHABITS" target="_blank" class="stack-card bg-white/10 rounded-xl p-4 text-center">
+            <span class="text-3xl mb-2 emoji">😴</span>
+            <span class="text-white font-semibold text-sm card-label">Core-21</span>
           </a>
-          <a href="https://1stphorm.com/products/glutamine?a_aid=gotHABITS" target="_blank" class="bg-white/10 hover:bg-white/20 rounded-xl p-4 text-center transition group">
-            <span class="text-3xl mb-2 block">💪</span>
-            <span class="text-white font-semibold text-sm group-hover:text-red-200">Glutamine</span>
+          <a href="https://1stphorm.com/products/glutamine?a_aid=gotHABITS" target="_blank" class="stack-card bg-white/10 rounded-xl p-4 text-center">
+            <span class="text-3xl mb-2 emoji">💪</span>
+            <span class="text-white font-semibold text-sm card-label">Glutamine</span>
           </a>
-          <a href="https://1stphorm.com/products/micronized-creatine-monohydrate?a_aid=gotHABITS" target="_blank" class="bg-white/10 hover:bg-white/20 rounded-xl p-4 text-center transition group">
-            <span class="text-3xl mb-2 block">⚡</span>
-            <span class="text-white font-semibold text-sm group-hover:text-red-200">Creatine</span>
+          <a href="https://1stphorm.com/products/micronized-creatine-monohydrate?a_aid=gotHABITS" target="_blank" class="stack-card bg-white/10 rounded-xl p-4 text-center">
+            <span class="text-3xl mb-2 emoji">⚡</span>
+            <span class="text-white font-semibold text-sm card-label">Creatine</span>
           </a>
-          <a href="https://1stphorm.com/products/collagen-with-dermaval/?a_aid=gotHABITS" target="_blank" class="bg-white/10 hover:bg-white/20 rounded-xl p-4 text-center transition group">
-            <span class="text-3xl mb-2 block">✨</span>
-            <span class="text-white font-semibold text-sm group-hover:text-red-200">Collagen</span>
+          <a href="https://1stphorm.com/products/collagen-with-dermaval/?a_aid=gotHABITS" target="_blank" class="stack-card bg-white/10 rounded-xl p-4 text-center">
+            <span class="text-3xl mb-2 emoji">✨</span>
+            <span class="text-white font-semibold text-sm card-label">Collagen</span>
           </a>
-          <a href="https://1stphorm.com/collections/protein-bars/?a_aid=gotHABITS" target="_blank" class="bg-white/10 hover:bg-white/20 rounded-xl p-4 text-center transition group">
-            <span class="text-3xl mb-2 block">🍫</span>
-            <span class="text-white font-semibold text-sm group-hover:text-red-200">Protein Bars</span>
+          <a href="https://1stphorm.com/collections/protein-bars/?a_aid=gotHABITS" target="_blank" class="stack-card bg-white/10 rounded-xl p-4 text-center">
+            <span class="text-3xl mb-2 emoji">🍫</span>
+            <span class="text-white font-semibold text-sm card-label">Protein Bars</span>
           </a>
-          <a href="https://1stphorm.com/products/bcaa?a_aid=gotHABITS" target="_blank" class="bg-white/10 hover:bg-white/20 rounded-xl p-4 text-center transition group">
-            <span class="text-3xl mb-2 block">🧬</span>
-            <span class="text-white font-semibold text-sm group-hover:text-red-200">BCAAs</span>
+          <a href="https://1stphorm.com/products/bcaa?a_aid=gotHABITS" target="_blank" class="stack-card bg-white/10 rounded-xl p-4 text-center">
+            <span class="text-3xl mb-2 emoji">🧬</span>
+            <span class="text-white font-semibold text-sm card-label">BCAAs</span>
           </a>
           <!-- Protein Selector -->
-          <div class="relative" id="protein-selector">
-            <button onclick="toggleDropdown('protein-dropdown')" class="w-full bg-white/10 hover:bg-white/20 rounded-xl p-4 text-center transition group">
-              <span class="text-3xl mb-2 block">🥤</span>
-              <span class="text-white font-semibold text-sm group-hover:text-red-200">Protein Powders</span>
+          <div class="relative stack-card rounded-xl" id="protein-selector">
+            <button onclick="toggleDropdown('protein-dropdown')" class="w-full bg-white/10 rounded-xl p-4 text-center transition-all">
+              <span class="text-3xl mb-2 emoji">🥤</span>
+              <span class="text-white font-semibold text-sm card-label">Protein Powders</span>
               <span class="text-white/60 text-xs block mt-1">Tap to choose</span>
             </button>
             <div id="protein-dropdown" class="hidden absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-xl z-20 overflow-hidden min-w-[200px]">
