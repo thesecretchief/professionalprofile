@@ -213,6 +213,16 @@
       color: #ffffff !important;
       text-shadow: 0 0 10px rgba(255,255,255,0.5);
     }
+    /* Allow dropdowns to overflow and stay on top of other cards */
+    #multi-selector,
+    #protein-selector {
+      overflow: visible;
+      z-index: 40;
+    }
+    #multi-selector.dropdown-open,
+    #protein-selector.dropdown-open {
+      z-index: 100;
+    }
 
     /* Stagger animation for cards */
     .stack-card.animate-in {
@@ -794,11 +804,11 @@
           <!-- Multivitamin Selector -->
           <div class="relative stack-card rounded-xl" id="multi-selector">
             <button onclick="toggleDropdown('multi-dropdown')" class="w-full bg-white/10 rounded-xl p-4 text-center transition-all">
-              <span class="text-3xl mb-2 emoji">💊</span>
-              <span class="text-white font-semibold text-sm card-label">Multivitamins</span>
+              <span class="text-3xl mb-2 emoji block">💊</span>
+              <span class="text-white font-semibold text-sm card-label block">Multivitamins</span>
               <span class="text-white/60 text-xs block mt-1">Tap to choose</span>
             </button>
-            <div id="multi-dropdown" class="hidden absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-xl z-20 overflow-hidden">
+            <div id="multi-dropdown" class="hidden absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-xl z-50 overflow-hidden">
               <a href="https://1stphorm.com/products/m-factor-men/?a_aid=gotHABITS" target="_blank" class="block px-4 py-3 text-gray-700 hover:bg-red-50 hover:text-red-600 transition border-b border-gray-100">
                 <span class="font-semibold">M-Factor Men</span>
                 <span class="text-xs text-gray-500 block">Complete men's formula</span>
@@ -844,11 +854,11 @@
           <!-- Protein Selector -->
           <div class="relative stack-card rounded-xl" id="protein-selector">
             <button onclick="toggleDropdown('protein-dropdown')" class="w-full bg-white/10 rounded-xl p-4 text-center transition-all">
-              <span class="text-3xl mb-2 emoji">🥤</span>
-              <span class="text-white font-semibold text-sm card-label">Protein Powders</span>
+              <span class="text-3xl mb-2 emoji block">🥤</span>
+              <span class="text-white font-semibold text-sm card-label block">Protein Powders</span>
               <span class="text-white/60 text-xs block mt-1">Tap to choose</span>
             </button>
-            <div id="protein-dropdown" class="hidden absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-xl z-20 overflow-hidden min-w-[200px]">
+            <div id="protein-dropdown" class="hidden absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-xl z-50 overflow-hidden min-w-[200px]">
               <a href="https://1stphorm.com/products/phormula-1/?a_aid=gotHABITS" target="_blank" class="block px-4 py-3 text-gray-700 hover:bg-red-50 hover:text-red-600 transition border-b border-gray-100">
                 <span class="font-semibold">Phormula-1</span>
                 <span class="text-xs text-gray-500 block">Fast-absorbing whey isolate</span>
@@ -1232,15 +1242,21 @@
     // Product dropdown toggles
     function toggleDropdown(id) {
       const dropdown = document.getElementById(id);
+      const selector = dropdown.parentElement;
       const allDropdowns = document.querySelectorAll('#multi-dropdown, #protein-dropdown');
+      const allSelectors = document.querySelectorAll('#multi-selector, #protein-selector');
 
-      // Close other dropdowns
+      // Close other dropdowns and remove their open class
       allDropdowns.forEach(d => {
-        if (d.id !== id) d.classList.add('hidden');
+        if (d.id !== id) {
+          d.classList.add('hidden');
+          d.parentElement.classList.remove('dropdown-open');
+        }
       });
 
       // Toggle this dropdown
       dropdown.classList.toggle('hidden');
+      selector.classList.toggle('dropdown-open', !dropdown.classList.contains('hidden'));
     }
 
     // Close dropdowns when clicking outside
@@ -1248,6 +1264,9 @@
       if (!e.target.closest('#multi-selector') && !e.target.closest('#protein-selector')) {
         document.querySelectorAll('#multi-dropdown, #protein-dropdown').forEach(d => {
           d.classList.add('hidden');
+        });
+        document.querySelectorAll('#multi-selector, #protein-selector').forEach(s => {
+          s.classList.remove('dropdown-open');
         });
       }
     });
