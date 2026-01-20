@@ -17,6 +17,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Breaking Big Tasks Into Small Chunks">
   <meta name="twitter:description" content="How scheduling and planning prevent costly marathon sessions and keep you from being blindsided.">
+  <meta name="share:hook" content="Every 'disaster' I've seen at work had one thing in common: Someone tried to do too much at once. Here's why scheduling small chunks beats marathon sessions:">
   <meta name="twitter:image" content="https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?w=1200&h=630&fit=crop">
 
   <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
@@ -65,9 +66,11 @@
     #back-to-top { opacity: 0; visibility: hidden; transition: all 0.3s ease; }
     #back-to-top.visible { opacity: 1; visibility: visible; }
     .content-image { border-radius: 0.75rem; margin: 2rem 0; box-shadow: 0 10px 40px rgba(0,0,0,0.15); }
-    .share-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.625rem 1rem; border-radius: 0.5rem; font-weight: 500; font-size: 0.875rem; transition: all 0.2s ease; }
-    .share-btn:hover { transform: translateY(-2px); }
+    .share-btn { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 2.75rem; height: 2.75rem; border-radius: 50%; transition: all 0.2s ease; }
+    .share-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
     .share-btn svg { width: 1.25rem; height: 1.25rem; }
+    .share-btn[data-tooltip]:hover::after { content: attr(data-tooltip); position: absolute; bottom: -2rem; left: 50%; transform: translateX(-50%); background: #0f172a; color: white; padding: 0.25rem 0.5rem; border-radius: 0.25rem; font-size: 0.75rem; white-space: nowrap; z-index: 10; }
+    .dark .share-btn[data-tooltip]:hover::after { background: #f59e0b; color: #0f172a; }
     .copy-toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(100px); background: #0f172a; color: white; padding: 0.75rem 1.5rem; border-radius: 0.5rem; font-weight: 500; opacity: 0; transition: all 0.3s ease; z-index: 100; }
     .copy-toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
   </style>
@@ -358,21 +361,17 @@
         <div class="border-t border-gray-200 dark:border-white/10 pt-8 mt-10">
           <h3 class="text-lg font-bold text-navy-900 dark:text-white mb-4">Share this article</h3>
           <div class="flex flex-wrap gap-3">
-            <button onclick="shareOnTwitter()" class="share-btn bg-black hover:bg-gray-800 text-white">
+            <button onclick="shareOnTwitter()" class="share-btn bg-black hover:bg-gray-800 text-white" data-tooltip="Share on X" aria-label="Share on X">
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-              Share on X
             </button>
-            <button onclick="shareOnLinkedIn()" class="share-btn bg-[#0A66C2] hover:bg-[#094c8f] text-white">
+            <button onclick="shareOnLinkedIn()" class="share-btn bg-[#0A66C2] hover:bg-[#094c8f] text-white" data-tooltip="Share on LinkedIn" aria-label="Share on LinkedIn">
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-              Share on LinkedIn
             </button>
-            <button onclick="shareOnFacebook()" class="share-btn bg-[#1877F2] hover:bg-[#1464c0] text-white">
+            <button onclick="shareOnFacebook()" class="share-btn bg-[#1877F2] hover:bg-[#1464c0] text-white" data-tooltip="Share on Facebook" aria-label="Share on Facebook">
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-              Share on Facebook
             </button>
-            <button onclick="copyLink()" class="share-btn bg-gray-600 hover:bg-gray-500 text-white">
+            <button onclick="copyLink()" class="share-btn bg-gray-600 hover:bg-gray-500 text-white" data-tooltip="Copy Link" aria-label="Copy Link">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-              Copy Link
             </button>
           </div>
         </div>
@@ -448,29 +447,30 @@
     backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
     window.addEventListener('scroll', updateBackToTop);
 
-    // Social Share Functions
+    // Share functionality with engaging hooks
     function getShareData() {
-      return {
-        title: document.querySelector('meta[property="og:title"]')?.content || document.title,
-        description: document.querySelector('meta[property="og:description"]')?.content || '',
-        url: document.querySelector('meta[property="og:url"]')?.content || window.location.href
-      };
+      const title = document.querySelector('meta[property="og:title"]')?.content || document.title;
+      const description = document.querySelector('meta[property="og:description"]')?.content || '';
+      const url = document.querySelector('meta[property="og:url"]')?.content || window.location.href;
+      const hook = document.querySelector('meta[name="share:hook"]')?.content || description;
+      return { title, description, url, hook };
     }
 
     function shareOnTwitter() {
-      const { title, description, url } = getShareData();
-      const text = title + (description ? ' — ' + description : '');
+      const { hook, url } = getShareData();
+      const text = hook;
       window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank', 'width=550,height=420');
     }
 
     function shareOnLinkedIn() {
-      const { url } = getShareData();
+      const { title, hook, url } = getShareData();
+      const text = hook + '\n\nRead more:';
       window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, '_blank', 'width=550,height=420');
     }
 
     function shareOnFacebook() {
-      const { url } = getShareData();
-      window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank', 'width=550,height=420');
+      const { hook, url } = getShareData();
+      window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(hook)}`, '_blank', 'width=550,height=420');
     }
 
     function copyLink() {
