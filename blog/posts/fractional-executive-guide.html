@@ -14,6 +14,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="The Fractional Executive Guide">
   <meta name="twitter:description" content="When and why to hire a fractional executive for your business.">
+  <meta name="share:hook" content="Not every company needs a full-time C-suite. Here's when hiring a fractional executive makes more sense (and saves you 70% vs full-time):">
 
   <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
   <script src="https://cdn.tailwindcss.com"></script>
@@ -58,15 +59,15 @@
     #back-to-top.visible { opacity: 1; visibility: visible; }
     .content-image { border-radius: 0.75rem; margin: 2rem 0; box-shadow: 0 10px 40px rgba(0,0,0,0.15); }
     .share-buttons { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
-    .share-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; border-radius: 0.5rem; font-weight: 500; transition: all 0.3s ease; border: none; cursor: pointer; }
+    .share-btn { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 2.75rem; height: 2.75rem; border-radius: 50%; transition: all 0.2s ease; border: none; cursor: pointer; }
+    .share-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+    .share-btn svg { width: 1.25rem; height: 1.25rem; }
+    .share-btn[data-tooltip]:hover::after { content: attr(data-tooltip); position: absolute; bottom: -2rem; left: 50%; transform: translateX(-50%); background: #0f172a; color: white; padding: 0.25rem 0.5rem; border-radius: 0.25rem; font-size: 0.75rem; white-space: nowrap; z-index: 10; }
+    .dark .share-btn[data-tooltip]:hover::after { background: #f59e0b; color: #0f172a; }
     .share-btn-x { background-color: #000; color: white; }
-    .share-btn-x:hover { background-color: #1a1a1a; transform: translateY(-2px); }
     .share-btn-linkedin { background-color: #0a66c2; color: white; }
-    .share-btn-linkedin:hover { background-color: #095399; transform: translateY(-2px); }
     .share-btn-facebook { background-color: #1877f2; color: white; }
-    .share-btn-facebook:hover { background-color: #0a66c2; transform: translateY(-2px); }
     .share-btn-copy { background-color: #f59e0b; color: #0f172a; }
-    .share-btn-copy:hover { background-color: #fbbf24; transform: translateY(-2px); }
     #copy-toast { position: fixed; bottom: 2rem; right: 2rem; background-color: #10b981; color: white; padding: 1rem 1.5rem; border-radius: 0.5rem; box-shadow: 0 10px 30px rgba(0,0,0,0.3); opacity: 0; visibility: hidden; transition: all 0.3s ease; z-index: 50; }
     #copy-toast.show { opacity: 1; visibility: visible; }
   </style>
@@ -270,21 +271,17 @@
         <div class="my-10 py-8 border-t border-b border-gray-200 dark:border-gray-700">
           <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Share this article:</p>
           <div class="share-buttons">
-            <button class="share-btn share-btn-x" onclick="shareOnX()" aria-label="Share on X">
+            <button class="share-btn share-btn-x" onclick="shareOnTwitter()" aria-label="Share on X" data-tooltip="Share on X">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.514l-5.106-6.666-5.849 6.666h-3.31l7.73-8.835L2.45 2.25h6.63l4.872 6.444 5.292-6.444zM16.594 19.5h1.828L7.974 4.07H6.04l10.554 15.43z"></path></svg>
-              Share on X
             </button>
-            <button class="share-btn share-btn-linkedin" onclick="shareOnLinkedIn()" aria-label="Share on LinkedIn">
+            <button class="share-btn share-btn-linkedin" onclick="shareOnLinkedIn()" aria-label="Share on LinkedIn" data-tooltip="Share on LinkedIn">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.475-2.236-1.986-2.236-1.081 0-1.722.728-2.004 1.431-.103.249-.129.597-.129.946v5.428h-3.553v-11h3.413v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 9.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 10.019H3.555v-11h3.564v11zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"></path></svg>
-              Share on LinkedIn
             </button>
-            <button class="share-btn share-btn-facebook" onclick="shareOnFacebook()" aria-label="Share on Facebook">
+            <button class="share-btn share-btn-facebook" onclick="shareOnFacebook()" aria-label="Share on Facebook" data-tooltip="Share on Facebook">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path></svg>
-              Share on Facebook
             </button>
-            <button class="share-btn share-btn-copy" onclick="copyLinkToClipboard()" aria-label="Copy link to clipboard">
+            <button class="share-btn share-btn-copy" onclick="copyLink()" aria-label="Copy Link" data-tooltip="Copy Link">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.658 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
-              Copy Link
             </button>
           </div>
         </div>
@@ -358,36 +355,38 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // Social sharing functions
-    const articleUrl = window.location.href;
-    const articleTitle = 'The Fractional Executive Guide: When and Why to Hire One';
-    const articleDescription = 'Everything you need to know about fractional executives and when they make sense for your business.';
+    // Share functionality with engaging hooks
+    function getShareData() {
+      const title = document.querySelector('meta[property="og:title"]')?.content || document.title;
+      const description = document.querySelector('meta[property="og:description"]')?.content || '';
+      const url = document.querySelector('meta[property="og:url"]')?.content || window.location.href;
+      const hook = document.querySelector('meta[name="share:hook"]')?.content || description;
+      return { title, description, url, hook };
+    }
 
-    function shareOnX() {
-      const text = `${articleTitle} - ${articleDescription}`;
-      const xUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(articleUrl)}&text=${encodeURIComponent(text)}`;
-      window.open(xUrl, '_blank', 'width=550,height=420');
+    function shareOnTwitter() {
+      const { hook, url } = getShareData();
+      const text = hook;
+      window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank', 'width=550,height=420');
     }
 
     function shareOnLinkedIn() {
-      const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(articleUrl)}`;
-      window.open(linkedInUrl, '_blank', 'width=550,height=420');
+      const { title, hook, url } = getShareData();
+      const text = hook + '\n\nRead more:';
+      window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, '_blank', 'width=550,height=420');
     }
 
     function shareOnFacebook() {
-      const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(articleUrl)}`;
-      window.open(facebookUrl, '_blank', 'width=550,height=420');
+      const { hook, url } = getShareData();
+      window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(hook)}`, '_blank', 'width=550,height=420');
     }
 
-    function copyLinkToClipboard() {
-      navigator.clipboard.writeText(articleUrl).then(() => {
+    function copyLink() {
+      const { url } = getShareData();
+      navigator.clipboard.writeText(url).then(() => {
         const toast = document.getElementById('copy-toast');
         toast.classList.add('show');
-        setTimeout(() => {
-          toast.classList.remove('show');
-        }, 3000);
-      }).catch(() => {
-        console.error('Failed to copy link');
+        setTimeout(() => toast.classList.remove('show'), 2000);
       });
     }
   </script>

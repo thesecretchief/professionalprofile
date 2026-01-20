@@ -15,6 +15,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="CEO Excellence: What the Best Do Differently">
   <meta name="twitter:description" content="Key insights from McKinsey's research on what separates great CEOs.">
+  <meta name="share:hook" content="McKinsey spent 20 years studying what separates great CEOs from good ones. The findings might surprise you:">
 
   <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
   <script src="https://cdn.tailwindcss.com"></script>
@@ -62,17 +63,15 @@
     .content-image { border-radius: 0.75rem; margin: 2rem 0; box-shadow: 0 10px 40px rgba(0,0,0,0.15); }
     .share-section { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #e5e7eb; }
     .dark .share-section { border-top-color: rgba(255, 255, 255, 0.1); }
-    .share-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem; border-radius: 0.5rem; font-weight: 500; text-decoration: none; transition: all 0.3s ease; border: none; cursor: pointer; font-size: 0.95rem; }
+    .share-btn { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 2.75rem; height: 2.75rem; border-radius: 50%; transition: all 0.2s ease; border: none; cursor: pointer; }
+    .share-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+    .share-btn svg { width: 1.25rem; height: 1.25rem; }
+    .share-btn[data-tooltip]:hover::after { content: attr(data-tooltip); position: absolute; bottom: -2rem; left: 50%; transform: translateX(-50%); background: #0f172a; color: white; padding: 0.25rem 0.5rem; border-radius: 0.25rem; font-size: 0.75rem; white-space: nowrap; z-index: 10; }
+    .dark .share-btn[data-tooltip]:hover::after { background: #f59e0b; color: #0f172a; }
     .share-btn-x { background: #000; color: white; }
-    .share-btn-x:hover { background: #1a1a1a; }
     .share-btn-linkedin { background: #0a66c2; color: white; }
-    .share-btn-linkedin:hover { background: #094399; }
     .share-btn-facebook { background: #1877f2; color: white; }
-    .share-btn-facebook:hover { background: #0a66c2; }
     .share-btn-copy { background: #f59e0b; color: #000; }
-    .share-btn-copy:hover { background: #f97316; }
-    .dark .share-btn-copy { background: #fbbf24; }
-    .dark .share-btn-copy:hover { background: #f59e0b; }
     .copy-toast { position: fixed; bottom: 2rem; right: 2rem; background: #10b981; color: white; padding: 1rem 1.5rem; border-radius: 0.5rem; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); display: none; z-index: 50; animation: slideUp 0.3s ease; }
     .copy-toast.show { display: block; }
     @keyframes slideUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
@@ -252,21 +251,17 @@
 
         <div class="share-section">
           <p class="text-sm text-gray-600 dark:text-gray-400 w-full">Share this article:</p>
-          <button class="share-btn share-btn-x" onclick="shareToX()">
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.514l-5.106-6.694L2.306 21.75H-.688l7.73-8.835L.117 2.25h6.675l4.882 6.268L18.244 2.25zM17.15 19.85h1.833L5.898 4.174H4.075l13.075 15.676z"/></svg>
-            Share on X
+          <button class="share-btn share-btn-x" onclick="shareOnTwitter()" data-tooltip="Share on X" aria-label="Share on X">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
           </button>
-          <button class="share-btn share-btn-linkedin" onclick="shareToLinkedIn()">
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/></svg>
-            Share on LinkedIn
+          <button class="share-btn share-btn-linkedin" onclick="shareOnLinkedIn()" data-tooltip="Share on LinkedIn" aria-label="Share on LinkedIn">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/></svg>
           </button>
-          <button class="share-btn share-btn-facebook" onclick="shareToFacebook()">
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-            Share on Facebook
+          <button class="share-btn share-btn-facebook" onclick="shareOnFacebook()" data-tooltip="Share on Facebook" aria-label="Share on Facebook">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
           </button>
-          <button class="share-btn share-btn-copy" onclick="copyToClipboard()">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.658 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
-            Copy Link
+          <button class="share-btn share-btn-copy" onclick="copyLink()" data-tooltip="Copy Link" aria-label="Copy Link">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.658 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
           </button>
         </div>
 
@@ -328,29 +323,38 @@
     backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
     window.addEventListener('scroll', updateBackToTop);
 
-    // Social Share Functions
-    const shareURL = 'https://foropoulosnow.com/blog/posts/book-review-ceo-excellence.html';
-    const shareTitle = 'CEO Excellence: What the Best Do Differently';
-    const shareDescription = 'Key insights from McKinsey\'s research on what separates great CEOs.';
-
-    function shareToX() {
-      const text = encodeURIComponent(shareTitle + ' ' + shareURL);
-      window.open('https://twitter.com/intent/tweet?text=' + text, '_blank', 'width=550,height=420');
+    // Share functionality with engaging hooks
+    function getShareData() {
+      const title = document.querySelector('meta[property="og:title"]')?.content || document.title;
+      const description = document.querySelector('meta[property="og:description"]')?.content || '';
+      const url = document.querySelector('meta[property="og:url"]')?.content || window.location.href;
+      const hook = document.querySelector('meta[name="share:hook"]')?.content || description;
+      return { title, description, url, hook };
     }
 
-    function shareToLinkedIn() {
-      window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(shareURL), '_blank', 'width=550,height=420');
+    function shareOnTwitter() {
+      const { hook, url } = getShareData();
+      const text = hook;
+      window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank', 'width=550,height=420');
     }
 
-    function shareToFacebook() {
-      window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(shareURL), '_blank', 'width=550,height=420');
+    function shareOnLinkedIn() {
+      const { title, hook, url } = getShareData();
+      const text = hook + '\n\nRead more:';
+      window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, '_blank', 'width=550,height=420');
     }
 
-    function copyToClipboard() {
-      navigator.clipboard.writeText(shareURL).then(() => {
+    function shareOnFacebook() {
+      const { hook, url } = getShareData();
+      window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(hook)}`, '_blank', 'width=550,height=420');
+    }
+
+    function copyLink() {
+      const { url } = getShareData();
+      navigator.clipboard.writeText(url).then(() => {
         const toast = document.getElementById('copy-toast');
         toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 3000);
+        setTimeout(() => toast.classList.remove('show'), 2000);
       });
     }
   </script>
