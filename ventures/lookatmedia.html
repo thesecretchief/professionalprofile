@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lookatmedia | AI-Powered PR & Earned Media Solutions</title>
+  <meta name="description" content="Stop wasting pitches. Lookatmedia helps communications teams get in front of the right journalists with AI-powered newsroom solutions, Copy Desk AI, and digital asset management.">
+  <meta property="og:title" content="Lookatmedia | Transform Your Earned Media Strategy">
+  <meta property="og:description" content="AI-powered tools to help PR teams land more coverage with less effort.">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            navy: { 900: '#0f172a', 800: '#1e293b', 700: '#334155', 600: '#475569' },
+            gold: { 700: '#b45309', 600: '#d97706', 500: '#f59e0b', 400: '#fbbf24', 300: '#fcd34d' },
+            media: { 600: '#4f46e5', 500: '#6366f1', 400: '#818cf8' }
+          },
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <script>
+    const darkPref = localStorage.getItem('darkMode');
+    if (darkPref === 'true' || (!darkPref && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    .hero-gradient { background: linear-gradient(135deg, #1e40af 0%, #4f46e5 50%, #0f172a 100%); }
+    .gradient-text { background: linear-gradient(135deg, #6366f1, #fbbf24); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    .card-hover { transition: all 0.3s ease; }
+    .card-hover:hover { transform: translateY(-8px); box-shadow: 0 25px 50px rgba(0,0,0,0.25); }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.3); } 50% { box-shadow: 0 0 40px rgba(99, 102, 241, 0.6); } }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+    .animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; opacity: 0; }
+    .animate-float { animation: float 3s ease-in-out infinite; }
+    .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+    .animate-shake { animation: shake 0.5s ease-in-out; }
+    .delay-100 { animation-delay: 0.1s; }
+    .delay-200 { animation-delay: 0.2s; }
+    .delay-300 { animation-delay: 0.3s; }
+    .pain-point { border-left: 4px solid #ef4444; }
+    .solution-point { border-left: 4px solid #22c55e; }
+  </style>
+</head>
+<body class="bg-white dark:bg-navy-900 text-gray-800 dark:text-gray-200">
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-navy-900/95 backdrop-blur-md border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <a href="../index.html" class="text-white font-bold text-xl">
+          <span class="hover:text-gold-400 transition">Foropoulos</span><span class="text-gold-400">Now</span><span class="text-gray-400 text-sm">.com</span>
+        </a>
+        <div class="flex items-center gap-4">
+          <a href="#demo" class="bg-media-500 text-white px-4 py-2 rounded-lg font-semibold text-sm hover:bg-media-600 transition">Book Demo</a>
+          <a href="../index.html" class="text-gray-300 hover:text-gold-400 transition text-sm hidden sm:block">Back to Profile</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-gradient pt-32 pb-24 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute top-20 left-10 w-72 h-72 bg-media-500 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-20 right-10 w-96 h-96 bg-gold-500 rounded-full blur-3xl"></div>
+    </div>
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div class="flex flex-col lg:flex-row gap-12 items-center">
+        <div class="flex-1 text-center lg:text-left">
+          <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur rounded-full px-4 py-2 mb-6">
+            <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+            <span class="text-white/90 text-sm font-medium">Now Serving U.S. Communications Teams</span>
+          </div>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-6 leading-tight animate-fade-in-up">
+            Stop Wasting Pitches.<br><span class="gradient-text">Land More Coverage.</span>
+          </h1>
+          <p class="text-xl text-gray-300 mb-8 leading-relaxed animate-fade-in-up delay-100">
+            Lookatmedia gives your communications team the AI-powered tools to get in front of the right journalists—adding earned media exposure to your arsenal of tactics.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-in-up delay-200">
+            <a href="#demo" class="bg-gradient-to-r from-gold-500 to-gold-600 text-navy-900 px-8 py-4 rounded-xl font-bold text-lg hover:from-gold-400 hover:to-gold-500 transition shadow-lg hover:shadow-gold-500/25">
+              Schedule a Demo
+            </a>
+            <a href="#lead-magnet" class="border-2 border-white/30 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-white/10 transition flex items-center justify-center gap-2">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+              Get Free Guide
+            </a>
+          </div>
+        </div>
+        <div class="flex-shrink-0 animate-float">
+          <div class="w-48 h-48 bg-white rounded-3xl flex items-center justify-center shadow-2xl animate-pulse-glow p-4">
+            <img src="../experience/logos/Lookatmedia-logo.jpg" alt="Lookatmedia" class="w-full h-full object-contain rounded-xl">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem Section (The Pain) -->
+  <section class="py-20 bg-white dark:bg-navy-800">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <span class="text-red-500 font-semibold text-sm uppercase tracking-wider">The Problem</span>
+        <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 dark:text-white mt-3">Sound Familiar?</h2>
+      </div>
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="pain-point bg-red-50 dark:bg-red-500/10 rounded-r-2xl p-8">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 bg-red-500 rounded-xl flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path></svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-navy-900 dark:text-white mb-2">Pitches Disappear Into the Void</h3>
+              <p class="text-gray-600 dark:text-gray-400">You spend hours crafting the perfect pitch, send it to 50 journalists... and hear nothing. No opens. No responses. Just silence.</p>
+            </div>
+          </div>
+        </div>
+        <div class="pain-point bg-red-50 dark:bg-red-500/10 rounded-r-2xl p-8">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 bg-red-500 rounded-xl flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-navy-900 dark:text-white mb-2">Wrong Journalists, Wrong Timing</h3>
+              <p class="text-gray-600 dark:text-gray-400">You're guessing which reporters cover your beat. By the time you find the right one, your story is stale.</p>
+            </div>
+          </div>
+        </div>
+        <div class="pain-point bg-red-50 dark:bg-red-500/10 rounded-r-2xl p-8">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 bg-red-500 rounded-xl flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path></svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-navy-900 dark:text-white mb-2">Assets Scattered Everywhere</h3>
+              <p class="text-gray-600 dark:text-gray-400">Press kits in Dropbox. Images in Google Drive. Logos somewhere in Slack. Finding the right asset takes longer than writing the pitch.</p>
+            </div>
+          </div>
+        </div>
+        <div class="pain-point bg-red-50 dark:bg-red-500/10 rounded-r-2xl p-8">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 bg-red-500 rounded-xl flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-navy-900 dark:text-white mb-2">Can't Prove ROI</h3>
+              <p class="text-gray-600 dark:text-gray-400">Leadership asks "what's the value of PR?" and you're scrambling to show impact. No clear metrics. No attribution.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Agitation Section -->
+  <section class="py-20 bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-8">Meanwhile, Your Competitors Are Getting Coverage</h2>
+      <p class="text-xl text-gray-300 mb-8 leading-relaxed">
+        Every day you're not landing earned media is a day your competitors are building authority, trust, and market share. The journalists you should be talking to? They're hearing from someone else.
+      </p>
+      <div class="bg-white/5 backdrop-blur rounded-2xl p-8 border border-white/10">
+        <div class="grid md:grid-cols-3 gap-8 text-center">
+          <div>
+            <div class="text-4xl font-black text-red-400 mb-2">73%</div>
+            <p class="text-gray-400">of pitches are never opened</p>
+          </div>
+          <div>
+            <div class="text-4xl font-black text-red-400 mb-2">4 hrs</div>
+            <p class="text-gray-400">average time finding the right contact</p>
+          </div>
+          <div>
+            <div class="text-4xl font-black text-red-400 mb-2">$0</div>
+            <p class="text-gray-400">tracked revenue from most PR efforts</p>
+          </div>
+        </div>
+      </div>
+      <p class="text-gold-400 font-semibold mt-8 text-lg">There's a better way.</p>
+    </div>
+  </section>
+
+  <!-- Solution Section -->
+  <section class="py-20 bg-white dark:bg-navy-800">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <span class="text-green-500 font-semibold text-sm uppercase tracking-wider">The Solution</span>
+        <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 dark:text-white mt-3">Your Earned Media Command Center</h2>
+        <p class="text-gray-600 dark:text-gray-400 mt-4 max-w-2xl mx-auto">Lookatmedia brings AI-powered intelligence to every step of your PR workflow.</p>
+      </div>
+
+      <!-- Product Cards -->
+      <div class="grid lg:grid-cols-3 gap-8">
+        <!-- Copy Desk AI -->
+        <div class="bg-gradient-to-br from-media-500/10 to-media-500/5 rounded-2xl p-8 border border-media-500/20 card-hover">
+          <div class="w-14 h-14 bg-gradient-to-br from-media-500 to-media-600 rounded-xl flex items-center justify-center mb-6">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+          </div>
+          <h3 class="text-2xl font-bold text-navy-900 dark:text-white mb-4">Copy Desk AI</h3>
+          <p class="text-gray-600 dark:text-gray-400 mb-6">AI-powered content creation that transforms your raw ideas into polished, journalist-ready pitches and press releases in minutes.</p>
+          <ul class="space-y-3">
+            <li class="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+              <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              Generate pitches in your brand voice
+            </li>
+            <li class="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+              <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              Optimize for journalist preferences
+            </li>
+            <li class="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+              <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              A/B test subject lines automatically
+            </li>
+          </ul>
+        </div>
+
+        <!-- Newsroom Solution -->
+        <div class="bg-gradient-to-br from-gold-500/10 to-gold-500/5 rounded-2xl p-8 border border-gold-500/20 card-hover">
+          <div class="w-14 h-14 bg-gradient-to-br from-gold-500 to-gold-600 rounded-xl flex items-center justify-center mb-6">
+            <svg class="w-7 h-7 text-navy-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
+          </div>
+          <h3 class="text-2xl font-bold text-navy-900 dark:text-white mb-4">Newsroom Solution</h3>
+          <p class="text-gray-600 dark:text-gray-400 mb-6">Your always-on digital newsroom that journalists actually want to visit. Beautiful, fast, and optimized for coverage.</p>
+          <ul class="space-y-3">
+            <li class="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+              <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              SEO-optimized press releases
+            </li>
+            <li class="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+              <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              Real-time media kit updates
+            </li>
+            <li class="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+              <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              Journalist engagement tracking
+            </li>
+          </ul>
+        </div>
+
+        <!-- Digital Asset Manager -->
+        <div class="bg-gradient-to-br from-green-500/10 to-green-500/5 rounded-2xl p-8 border border-green-500/20 card-hover">
+          <div class="w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mb-6">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+          </div>
+          <h3 class="text-2xl font-bold text-navy-900 dark:text-white mb-4">Digital Asset Manager</h3>
+          <p class="text-gray-600 dark:text-gray-400 mb-6">All your media assets in one place. AI-tagged, instantly searchable, and ready to share with journalists.</p>
+          <ul class="space-y-3">
+            <li class="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+              <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              AI-powered auto-tagging
+            </li>
+            <li class="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+              <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              Shareable media kits
+            </li>
+            <li class="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+              <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              Version control & usage rights
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lead Magnet Section -->
+  <section id="lead-magnet" class="py-20 bg-gradient-to-br from-media-600 to-media-500">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-white dark:bg-navy-800 rounded-3xl p-8 md:p-12 shadow-2xl">
+        <div class="flex flex-col md:flex-row gap-8 items-center">
+          <div class="flex-1">
+            <span class="text-media-500 font-semibold text-sm uppercase tracking-wider">Free Resource</span>
+            <h2 class="text-2xl sm:text-3xl font-bold text-navy-900 dark:text-white mt-2 mb-4">The Modern PR Playbook</h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-6">
+              Download our comprehensive guide to earning media coverage in 2026. Learn the strategies top communications teams use to land tier-one placements.
+            </p>
+            <ul class="space-y-2 mb-6">
+              <li class="flex items-center gap-2 text-gray-600 dark:text-gray-400 text-sm">
+                <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                7 pitch templates that get responses
+              </li>
+              <li class="flex items-center gap-2 text-gray-600 dark:text-gray-400 text-sm">
+                <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                Journalist outreach timing cheat sheet
+              </li>
+              <li class="flex items-center gap-2 text-gray-600 dark:text-gray-400 text-sm">
+                <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                PR metrics that prove ROI
+              </li>
+            </ul>
+            <form class="flex flex-col sm:flex-row gap-3">
+              <input type="email" placeholder="Enter your email" class="flex-1 px-4 py-3 rounded-xl border border-gray-200 dark:border-navy-600 bg-white dark:bg-navy-700 text-navy-900 dark:text-white focus:ring-2 focus:ring-media-500 focus:border-transparent">
+              <button type="submit" class="bg-gradient-to-r from-media-500 to-media-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-media-600 hover:to-media-700 transition whitespace-nowrap">
+                Get Free Guide
+              </button>
+            </form>
+            <p class="text-xs text-gray-500 mt-3">No spam. Unsubscribe anytime.</p>
+          </div>
+          <div class="flex-shrink-0 hidden md:block">
+            <div class="w-48 h-64 bg-gradient-to-br from-media-100 to-media-200 dark:from-media-500/20 dark:to-media-500/10 rounded-xl flex items-center justify-center border-2 border-media-300 dark:border-media-500/30 shadow-lg">
+              <div class="text-center p-4">
+                <svg class="w-16 h-16 text-media-500 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                <p class="text-media-700 dark:text-media-300 font-bold text-sm">PR Playbook</p>
+                <p class="text-media-600 dark:text-media-400 text-xs">2026 Edition</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Proof / Use Cases -->
+  <section class="py-20 bg-white dark:bg-navy-800">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <span class="text-media-500 font-semibold text-sm uppercase tracking-wider">Who It's For</span>
+        <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 dark:text-white mt-3">Built for Communications Teams</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="text-center p-8">
+          <div class="w-20 h-20 bg-media-100 dark:bg-media-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg class="w-10 h-10 text-media-600 dark:text-media-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+          </div>
+          <h3 class="text-xl font-bold text-navy-900 dark:text-white mb-3">In-House PR Teams</h3>
+          <p class="text-gray-600 dark:text-gray-400">Amplify your small team's output. Do the work of an agency without the agency fees.</p>
+        </div>
+        <div class="text-center p-8">
+          <div class="w-20 h-20 bg-gold-100 dark:bg-gold-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg class="w-10 h-10 text-gold-600 dark:text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+          </div>
+          <h3 class="text-xl font-bold text-navy-900 dark:text-white mb-3">PR Agencies</h3>
+          <p class="text-gray-600 dark:text-gray-400">Serve more clients with fewer resources. Scale your media relations operation.</p>
+        </div>
+        <div class="text-center p-8">
+          <div class="w-20 h-20 bg-green-100 dark:bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg class="w-10 h-10 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+          </div>
+          <h3 class="text-xl font-bold text-navy-900 dark:text-white mb-3">Growth-Stage Startups</h3>
+          <p class="text-gray-600 dark:text-gray-400">Build brand authority through earned media. Punch above your weight with AI-powered PR.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demo CTA Section -->
+  <section id="demo" class="py-20 bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <span class="text-gold-400 font-semibold text-sm uppercase tracking-wider">See It In Action</span>
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mt-3">Ready to Transform Your PR?</h2>
+        <p class="text-gray-400 mt-4 max-w-2xl mx-auto">Book a personalized demo to see how Lookatmedia can help your team land more coverage with less effort.</p>
+      </div>
+
+      <div class="bg-white/5 backdrop-blur rounded-2xl p-8 border border-white/10">
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- What You'll See -->
+          <div>
+            <h3 class="text-xl font-bold text-white mb-6">In Your Demo, You'll See:</h3>
+            <ul class="space-y-4">
+              <li class="flex items-start gap-3">
+                <svg class="w-6 h-6 text-gold-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <span class="text-gray-300">How Copy Desk AI creates pitches in your brand voice</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-6 h-6 text-gold-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <span class="text-gray-300">Your personalized newsroom setup</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-6 h-6 text-gold-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <span class="text-gray-300">AI-powered asset management in action</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-6 h-6 text-gold-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <span class="text-gray-300">Pricing options for your team size</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Booking Form -->
+          <div>
+            <h3 class="text-xl font-bold text-white mb-6">Book Your Demo</h3>
+            <form class="space-y-4">
+              <div>
+                <input type="text" placeholder="Full Name" class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:ring-2 focus:ring-gold-500 focus:border-transparent">
+              </div>
+              <div>
+                <input type="email" placeholder="Work Email" class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:ring-2 focus:ring-gold-500 focus:border-transparent">
+              </div>
+              <div>
+                <input type="text" placeholder="Company Name" class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:ring-2 focus:ring-gold-500 focus:border-transparent">
+              </div>
+              <div>
+                <select class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-gray-400 focus:ring-2 focus:ring-gold-500 focus:border-transparent">
+                  <option value="">Team Size</option>
+                  <option value="1-5">1-5 people</option>
+                  <option value="6-20">6-20 people</option>
+                  <option value="21-50">21-50 people</option>
+                  <option value="50+">50+ people</option>
+                </select>
+              </div>
+              <button type="submit" class="w-full bg-gradient-to-r from-gold-500 to-gold-600 text-navy-900 py-4 rounded-xl font-bold text-lg hover:from-gold-400 hover:to-gold-500 transition shadow-lg">
+                Schedule My Demo
+              </button>
+            </form>
+            <p class="text-gray-500 text-xs text-center mt-4">30-minute call. No commitment required.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-navy-900 border-t border-white/10 py-12">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+        <div class="flex items-center gap-4">
+          <img src="../experience/logos/Lookatmedia-logo.jpg" alt="Lookatmedia" class="h-10 object-contain rounded">
+          <div class="text-gray-400 text-sm">
+            <p>&copy; 2026 Lookatmedia. All rights reserved.</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-6">
+          <a href="https://www.lookatmedia.co" target="_blank" class="text-gray-400 hover:text-white transition text-sm">Visit Lookatmedia.co</a>
+          <a href="../index.html" class="text-gray-400 hover:text-white transition text-sm">Back to Profile</a>
+          <a href="../experience/lookatmedia.html" class="text-gray-400 hover:text-white transition text-sm">About Lee's Role</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
