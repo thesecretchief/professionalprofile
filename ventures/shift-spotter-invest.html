@@ -18,7 +18,7 @@
           colors: {
             navy: { 900: '#0f172a', 800: '#1e293b', 700: '#334155', 600: '#475569' },
             gold: { 700: '#b45309', 600: '#d97706', 500: '#f59e0b', 400: '#fbbf24', 300: '#fcd34d', 200: '#fde68a', 100: '#fef3c7' },
-            shift: { 600: '#0284c7', 500: '#0ea5e9', 400: '#38bdf8' }
+            shift: { 700: '#0369a1', 600: '#0284c7', 500: '#0ea5e9', 400: '#38bdf8', 300: '#7dd3fc' }
           },
           fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
         }
@@ -36,22 +36,124 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Inter', system-ui, sans-serif; }
-    .hero-gradient { background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f172a 100%); }
-    .gradient-text { background: linear-gradient(135deg, #f59e0b, #0ea5e9); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
-    .card-hover { transition: all 0.3s ease; }
-    .card-hover:hover { transform: translateY(-8px); box-shadow: 0 25px 50px rgba(0,0,0,0.25); }
-    @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 20px rgba(14, 165, 233, 0.3); } 50% { box-shadow: 0 0 40px rgba(14, 165, 233, 0.6); } }
-    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+    /* Gradient Text */
+    .gradient-text {
+      background: linear-gradient(135deg, #f59e0b, #0ea5e9);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Scroll Reveal Animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .reveal-left.active {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .reveal-right.active {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Keyframe Animations */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(14, 165, 233, 0.4); }
+      50% { box-shadow: 0 0 50px rgba(14, 165, 233, 0.8); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+    @keyframes count-up {
+      from { opacity: 0; transform: scale(0.5); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
     .animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; opacity: 0; }
-    .animate-float { animation: float 3s ease-in-out infinite; }
-    .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+    .animate-float { animation: float 4s ease-in-out infinite; }
+    .animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
     .delay-100 { animation-delay: 0.1s; }
     .delay-200 { animation-delay: 0.2s; }
     .delay-300 { animation-delay: 0.3s; }
     .delay-400 { animation-delay: 0.4s; }
-    .gated-blur { filter: blur(8px); pointer-events: none; user-select: none; }
-    .data-room-overlay { background: linear-gradient(to bottom, transparent 0%, rgba(15, 23, 42, 0.95) 30%); }
+    .delay-500 { animation-delay: 0.5s; }
+
+    /* Card Effects */
+    .card-hover {
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .card-hover:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+    }
+
+    /* Shimmer Effect */
+    .shimmer-effect {
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      background-size: 200% 100%;
+      animation: shimmer 2s infinite;
+    }
+
+    /* Gated Content */
+    .gated-blur {
+      filter: blur(8px);
+      pointer-events: none;
+      user-select: none;
+    }
+    .data-room-overlay {
+      background: linear-gradient(to bottom, transparent 0%, rgba(15, 23, 42, 0.98) 40%);
+    }
+
+    /* Hero Background */
+    .hero-gradient {
+      background: linear-gradient(135deg, #0f172a 0%, #0c4a6e 30%, #0f172a 70%, #1e3a5f 100%);
+    }
+
+    /* Animated Background Shapes */
+    .bg-shape {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.15;
+    }
+
+    /* Back to top button */
+    .back-to-top {
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
   </style>
 </head>
 <body class="bg-white dark:bg-navy-900 text-gray-800 dark:text-gray-200">
@@ -64,174 +166,339 @@
           <span class="hover:text-gold-400 transition">Foropoulos</span><span class="text-gold-400">Now</span><span class="text-gray-400 text-sm">.com</span>
         </a>
         <div class="flex items-center gap-4">
-          <span class="text-shift-400 text-sm font-medium px-3 py-1 bg-shift-500/20 rounded-full">Investor Relations</span>
+          <span class="text-shift-400 text-sm font-medium px-3 py-1 bg-shift-500/20 rounded-full border border-shift-500/30">Investor Relations</span>
           <a href="../index.html" class="text-gray-300 hover:text-gold-400 transition text-sm">Back to Profile</a>
         </div>
       </div>
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <section class="hero-gradient pt-32 pb-24 relative overflow-hidden">
-    <div class="absolute inset-0 opacity-10">
-      <div class="absolute top-20 left-10 w-72 h-72 bg-shift-500 rounded-full blur-3xl"></div>
-      <div class="absolute bottom-20 right-10 w-96 h-96 bg-gold-500 rounded-full blur-3xl"></div>
+  <!-- Hero Section - Full Height with Aggressive Hook -->
+  <section class="hero-gradient min-h-screen flex items-center relative overflow-hidden">
+    <!-- Animated Background Elements -->
+    <div class="absolute inset-0">
+      <div class="bg-shape w-96 h-96 bg-shift-500 top-20 left-10 animate-float"></div>
+      <div class="bg-shape w-80 h-80 bg-gold-500 bottom-20 right-10" style="animation: float 5s ease-in-out infinite reverse;"></div>
+      <div class="bg-shape w-64 h-64 bg-shift-400 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" style="animation: float 6s ease-in-out infinite;"></div>
     </div>
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+
+    <!-- Grid Pattern Overlay -->
+    <div class="absolute inset-0 opacity-5">
+      <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMCAwaDIwdjIwSDB6TTIwIDIwaDIwdjIwSDIweiIvPjwvZz48L2c+PC9zdmc+')]"></div>
+    </div>
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-20">
       <div class="flex flex-col lg:flex-row gap-12 items-center">
         <div class="flex-1 text-center lg:text-left">
-          <div class="flex items-center justify-center lg:justify-start gap-3 mb-6">
-            <span class="bg-shift-500 text-white text-xs font-bold px-4 py-1.5 rounded-full animate-pulse">CLOSED BETA</span>
-            <span class="bg-gold-500/20 text-gold-400 text-xs font-bold px-4 py-1.5 rounded-full">SEEKING INVESTMENT</span>
+          <!-- Status Badges -->
+          <div class="flex items-center justify-center lg:justify-start gap-3 mb-8 animate-fade-in-up">
+            <span class="bg-shift-500 text-white text-xs font-bold px-4 py-2 rounded-full animate-pulse shadow-lg shadow-shift-500/30">CLOSED BETA</span>
+            <span class="bg-gold-500/20 text-gold-400 text-xs font-bold px-4 py-2 rounded-full border border-gold-500/30">SEEKING INVESTMENT</span>
           </div>
-          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-6 leading-tight animate-fade-in-up">
-            Transforming the <span class="gradient-text">$500B+</span> Staffing Industry
-          </h1>
-          <p class="text-xl text-gray-300 mb-8 leading-relaxed animate-fade-in-up delay-100">
-            Shift Spotter is building the marketplace that connects vetted shift workers with businesses—instant pay for workers, transparent pricing for businesses.
+
+          <!-- Aggressive Hook -->
+          <p class="text-shift-400 font-bold text-lg sm:text-xl mb-4 animate-fade-in-up delay-100">
+            The staffing industry is broken. Everyone knows it.
           </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-in-up delay-200">
-            <a href="https://cal.com/thesecretchief/shiftspotter" target="_blank" class="bg-gradient-to-r from-gold-500 to-gold-600 text-navy-900 px-8 py-4 rounded-xl font-bold text-lg hover:from-gold-400 hover:to-gold-500 transition shadow-lg hover:shadow-gold-500/25 flex items-center gap-2">
+
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-6 leading-tight animate-fade-in-up delay-200">
+            <span class="gradient-text">$500 Billion</span> in Friction.<br>
+            <span class="text-white">We're Eliminating It.</span>
+          </h1>
+
+          <p class="text-xl text-gray-300 mb-4 leading-relaxed animate-fade-in-up delay-300">
+            Workers wait weeks to get paid. Businesses wait days to fill shifts. Agencies take 40-60% markups.
+          </p>
+          <p class="text-xl text-white font-semibold mb-8 animate-fade-in-up delay-400">
+            Shift Spotter fixes all of it. <span class="text-shift-400">Instantly.</span>
+          </p>
+
+          <!-- CTA Buttons -->
+          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-in-up delay-500">
+            <a href="https://cal.com/thesecretchief/shiftspotter" target="_blank" class="group bg-gradient-to-r from-gold-500 to-gold-600 text-navy-900 px-8 py-4 rounded-xl font-bold text-lg hover:from-gold-400 hover:to-gold-500 transition-all duration-300 shadow-lg hover:shadow-gold-500/40 hover:scale-105 flex items-center justify-center gap-2">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
               Book Discovery Call
+              <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
             </a>
-            <a href="#opportunity" class="border-2 border-white/30 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-white/10 transition">
-              View Opportunity
+            <a href="#opportunity" class="border-2 border-white/30 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-white/10 hover:border-white/50 transition-all duration-300">
+              See the Opportunity
             </a>
           </div>
         </div>
+
+        <!-- Floating Logo -->
         <div class="flex-shrink-0 animate-float">
-          <div class="w-48 h-48 bg-white rounded-3xl flex items-center justify-center shadow-2xl animate-pulse-glow p-4">
-            <img src="../experience/logos/Shiftspotter.png" alt="Shift Spotter" class="w-full h-full object-contain">
+          <div class="w-56 h-56 bg-white rounded-3xl flex items-center justify-center shadow-2xl animate-pulse-glow p-6 relative">
+            <div class="absolute inset-0 rounded-3xl shimmer-effect"></div>
+            <img src="../experience/logos/Shiftspotter.png" alt="Shift Spotter" class="w-full h-full object-contain relative z-10">
           </div>
         </div>
+      </div>
+
+      <!-- Scroll Indicator -->
+      <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <svg class="w-6 h-6 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
       </div>
     </div>
   </section>
 
-  <!-- Problem Section -->
+  <!-- Pain Point Stats - The Broken System -->
+  <section class="py-20 bg-red-950 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-navy-900 to-red-950"></div>
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="text-center mb-16 reveal">
+        <span class="inline-block bg-red-500/20 text-red-400 text-sm font-bold px-4 py-2 rounded-full mb-4 border border-red-500/30">THE BROKEN SYSTEM</span>
+        <h2 class="text-3xl sm:text-4xl font-black text-white">The Numbers Don't Lie</h2>
+        <p class="text-gray-400 mt-4 max-w-2xl mx-auto">Every day, millions of dollars are wasted on inefficiency. Workers suffer. Businesses suffer. Only middlemen win.</p>
+      </div>
+
+      <div class="grid md:grid-cols-4 gap-6">
+        <div class="bg-white/5 backdrop-blur rounded-2xl p-8 text-center border border-red-500/20 card-hover reveal">
+          <div class="text-5xl font-black text-red-400 mb-2">14</div>
+          <p class="text-gray-400 text-sm">average days workers wait for payment</p>
+          <p class="text-red-400 text-xs mt-2 font-semibold">Unacceptable.</p>
+        </div>
+        <div class="bg-white/5 backdrop-blur rounded-2xl p-8 text-center border border-red-500/20 card-hover reveal">
+          <div class="text-5xl font-black text-red-400 mb-2">3-5</div>
+          <p class="text-gray-400 text-sm">days to fill urgent shift requests</p>
+          <p class="text-red-400 text-xs mt-2 font-semibold">Too slow.</p>
+        </div>
+        <div class="bg-white/5 backdrop-blur rounded-2xl p-8 text-center border border-red-500/20 card-hover reveal">
+          <div class="text-5xl font-black text-red-400 mb-2">40-60%</div>
+          <p class="text-gray-400 text-sm">staffing agency markups</p>
+          <p class="text-red-400 text-xs mt-2 font-semibold">Highway robbery.</p>
+        </div>
+        <div class="bg-white/5 backdrop-blur rounded-2xl p-8 text-center border border-red-500/20 card-hover reveal">
+          <div class="text-5xl font-black text-red-400 mb-2">31%</div>
+          <p class="text-gray-400 text-sm">no-show rate industry average</p>
+          <p class="text-red-400 text-xs mt-2 font-semibold">Unreliable.</p>
+        </div>
+      </div>
+
+      <div class="mt-12 bg-gradient-to-r from-red-500/20 to-orange-500/20 rounded-2xl p-8 border border-red-500/30 reveal">
+        <p class="text-red-400 font-bold text-xl text-center">This isn't an inconvenience. It's a <span class="text-white">$500+ billion problem</span> waiting to be solved.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Three-Sided Problem -->
   <section class="py-20 bg-white dark:bg-navy-800">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
+      <div class="text-center mb-16 reveal">
         <span class="text-shift-500 font-semibold text-sm uppercase tracking-wider">The Problem</span>
-        <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 dark:text-white mt-3">A Broken Industry</h2>
+        <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 dark:text-white mt-3">Everyone Loses. Except the Middlemen.</h2>
       </div>
       <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-red-50 dark:bg-red-500/10 rounded-2xl p-8 border border-red-200 dark:border-red-500/30 card-hover">
-          <div class="w-14 h-14 bg-red-500 rounded-xl flex items-center justify-center mb-6">
-            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        <div class="bg-red-50 dark:bg-red-500/10 rounded-2xl p-8 border border-red-200 dark:border-red-500/30 card-hover reveal">
+          <div class="w-14 h-14 bg-red-500 rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-red-500/30">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
           </div>
-          <h3 class="text-xl font-bold text-navy-900 dark:text-white mb-3">For Businesses</h3>
-          <p class="text-gray-600 dark:text-gray-400">Unpredictable coverage, no-shows, and opaque agency fees eating into margins. Average time-to-fill: 3-5 days.</p>
+          <h3 class="text-xl font-bold text-navy-900 dark:text-white mb-3">Businesses Are Bleeding</h3>
+          <ul class="space-y-2 text-gray-600 dark:text-gray-400">
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+              <span>Unpredictable shift coverage</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+              <span>Constant no-shows and call-offs</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+              <span>Opaque agency fees eating margins</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+              <span>Zero visibility into worker quality</span>
+            </li>
+          </ul>
         </div>
-        <div class="bg-red-50 dark:bg-red-500/10 rounded-2xl p-8 border border-red-200 dark:border-red-500/30 card-hover">
-          <div class="w-14 h-14 bg-red-500 rounded-xl flex items-center justify-center mb-6">
-            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        <div class="bg-red-50 dark:bg-red-500/10 rounded-2xl p-8 border border-red-200 dark:border-red-500/30 card-hover reveal">
+          <div class="w-14 h-14 bg-red-500 rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-red-500/30">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
           </div>
-          <h3 class="text-xl font-bold text-navy-900 dark:text-white mb-3">For Workers</h3>
-          <p class="text-gray-600 dark:text-gray-400">Inflexible schedules, delayed payments (often 2+ weeks), and limited control over when and where they work.</p>
+          <h3 class="text-xl font-bold text-navy-900 dark:text-white mb-3">Workers Are Trapped</h3>
+          <ul class="space-y-2 text-gray-600 dark:text-gray-400">
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+              <span>Waiting 2+ weeks for paychecks</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+              <span>Inflexible, assigned schedules</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+              <span>No control over where they work</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+              <span>Agencies take their cut first</span>
+            </li>
+          </ul>
         </div>
-        <div class="bg-red-50 dark:bg-red-500/10 rounded-2xl p-8 border border-red-200 dark:border-red-500/30 card-hover">
-          <div class="w-14 h-14 bg-red-500 rounded-xl flex items-center justify-center mb-6">
+        <div class="bg-red-50 dark:bg-red-500/10 rounded-2xl p-8 border border-red-200 dark:border-red-500/30 card-hover reveal">
+          <div class="w-14 h-14 bg-red-500 rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-red-500/30">
             <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
           </div>
-          <h3 class="text-xl font-bold text-navy-900 dark:text-white mb-3">For Everyone</h3>
-          <p class="text-gray-600 dark:text-gray-400">Lack of transparency in pricing, quality, and reliability. Trust deficit on both sides of the marketplace.</p>
+          <h3 class="text-xl font-bold text-navy-900 dark:text-white mb-3">Trust Is Non-Existent</h3>
+          <ul class="space-y-2 text-gray-600 dark:text-gray-400">
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+              <span>No transparency in pricing</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+              <span>No verification of credentials</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+              <span>No accountability for quality</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+              <span>Black box operations</span>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Solution Section -->
-  <section class="py-20 bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
-        <span class="text-gold-400 font-semibold text-sm uppercase tracking-wider">The Solution</span>
-        <h2 class="text-3xl sm:text-4xl font-bold text-white mt-3">Shift Spotter Changes Everything</h2>
+  <!-- Solution Section - What We're Building -->
+  <section class="py-24 bg-gradient-to-br from-navy-900 via-shift-700/20 to-navy-900 relative overflow-hidden">
+    <div class="absolute inset-0">
+      <div class="bg-shape w-96 h-96 bg-shift-500 top-0 right-0 opacity-10"></div>
+      <div class="bg-shape w-80 h-80 bg-gold-500 bottom-0 left-0 opacity-10"></div>
+    </div>
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="text-center mb-16 reveal">
+        <span class="inline-block bg-green-500/20 text-green-400 text-sm font-bold px-4 py-2 rounded-full mb-4 border border-green-500/30">THE SOLUTION</span>
+        <h2 class="text-3xl sm:text-4xl font-black text-white">Shift Spotter Changes Everything</h2>
+        <p class="text-gray-400 mt-4 max-w-2xl mx-auto">We're not improving the system. We're replacing it with something that actually works.</p>
       </div>
+
       <div class="grid md:grid-cols-2 gap-8">
-        <div class="bg-white/5 backdrop-blur rounded-2xl p-8 border border-white/10 card-hover">
+        <div class="bg-white/5 backdrop-blur rounded-2xl p-8 border border-shift-500/30 card-hover group reveal-left">
           <div class="flex items-center gap-4 mb-6">
-            <div class="w-12 h-12 bg-gradient-to-br from-shift-400 to-shift-600 rounded-xl flex items-center justify-center">
-              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+            <div class="w-14 h-14 bg-gradient-to-br from-shift-400 to-shift-600 rounded-xl flex items-center justify-center shadow-lg shadow-shift-500/30 group-hover:scale-110 transition-transform">
+              <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
             </div>
-            <h3 class="text-xl font-bold text-white">Instant Matching</h3>
+            <div>
+              <h3 class="text-xl font-bold text-white">Instant Matching</h3>
+              <p class="text-shift-400 text-sm">Minutes, not days</p>
+            </div>
           </div>
-          <p class="text-gray-400">AI-powered matching connects businesses with qualified, credential-verified workers in minutes—not days.</p>
+          <p class="text-gray-400">AI-powered matching connects businesses with qualified, credential-verified workers in minutes. Post a shift, get matched, confirm. Done.</p>
         </div>
-        <div class="bg-white/5 backdrop-blur rounded-2xl p-8 border border-white/10 card-hover">
+
+        <div class="bg-white/5 backdrop-blur rounded-2xl p-8 border border-gold-500/30 card-hover group reveal-right">
           <div class="flex items-center gap-4 mb-6">
-            <div class="w-12 h-12 bg-gradient-to-br from-gold-400 to-gold-600 rounded-xl flex items-center justify-center">
-              <svg class="w-6 h-6 text-navy-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <div class="w-14 h-14 bg-gradient-to-br from-gold-400 to-gold-600 rounded-xl flex items-center justify-center shadow-lg shadow-gold-500/30 group-hover:scale-110 transition-transform">
+              <svg class="w-7 h-7 text-navy-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
             </div>
-            <h3 class="text-xl font-bold text-white">Instant Pay</h3>
+            <div>
+              <h3 class="text-xl font-bold text-white">Instant Pay</h3>
+              <p class="text-gold-400 text-sm">Same day, every time</p>
+            </div>
           </div>
-          <p class="text-gray-400">Workers get paid immediately after shifts. No more waiting weeks for paychecks.</p>
+          <p class="text-gray-400">Workers get paid immediately after shifts complete. No more waiting weeks. No more living paycheck to paycheck because agencies hold your money.</p>
         </div>
-        <div class="bg-white/5 backdrop-blur rounded-2xl p-8 border border-white/10 card-hover">
+
+        <div class="bg-white/5 backdrop-blur rounded-2xl p-8 border border-green-500/30 card-hover group reveal-left">
           <div class="flex items-center gap-4 mb-6">
-            <div class="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-xl flex items-center justify-center">
-              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <div class="w-14 h-14 bg-gradient-to-br from-green-400 to-green-600 rounded-xl flex items-center justify-center shadow-lg shadow-green-500/30 group-hover:scale-110 transition-transform">
+              <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
             </div>
-            <h3 class="text-xl font-bold text-white">Verified Quality</h3>
+            <div>
+              <h3 class="text-xl font-bold text-white">Verified Quality</h3>
+              <p class="text-green-400 text-sm">Trust, built in</p>
+            </div>
           </div>
-          <p class="text-gray-400">Every worker is credential-verified and rated. Businesses know exactly who they're hiring.</p>
+          <p class="text-gray-400">Every worker is credential-verified and rated by businesses. You know exactly who you're hiring before they walk in the door.</p>
         </div>
-        <div class="bg-white/5 backdrop-blur rounded-2xl p-8 border border-white/10 card-hover">
+
+        <div class="bg-white/5 backdrop-blur rounded-2xl p-8 border border-purple-500/30 card-hover group reveal-right">
           <div class="flex items-center gap-4 mb-6">
-            <div class="w-12 h-12 bg-gradient-to-br from-purple-400 to-purple-600 rounded-xl flex items-center justify-center">
-              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+            <div class="w-14 h-14 bg-gradient-to-br from-purple-400 to-purple-600 rounded-xl flex items-center justify-center shadow-lg shadow-purple-500/30 group-hover:scale-110 transition-transform">
+              <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
             </div>
-            <h3 class="text-xl font-bold text-white">Transparent Pricing</h3>
+            <div>
+              <h3 class="text-xl font-bold text-white">Transparent Pricing</h3>
+              <p class="text-purple-400 text-sm">No hidden fees</p>
+            </div>
           </div>
-          <p class="text-gray-400">Pay only for hours worked. No hidden fees, no agency markups, no surprises.</p>
+          <p class="text-gray-400">Pay only for hours worked. Our fee is visible upfront. No hidden markups, no surprise charges, no agency games.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Market Opportunity -->
-  <section id="opportunity" class="py-20 bg-white dark:bg-navy-800">
+  <section id="opportunity" class="py-24 bg-white dark:bg-navy-800">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
+      <div class="text-center mb-16 reveal">
         <span class="text-shift-500 font-semibold text-sm uppercase tracking-wider">Market Opportunity</span>
-        <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 dark:text-white mt-3">A Massive, Growing Market</h2>
+        <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 dark:text-white mt-3">A Massive Market Ready for Disruption</h2>
       </div>
+
       <div class="grid md:grid-cols-3 gap-8 mb-16">
-        <div class="text-center">
-          <div class="text-5xl font-black gradient-text mb-2">$500B+</div>
-          <p class="text-gray-600 dark:text-gray-400 font-medium">Total Addressable Market</p>
+        <div class="text-center reveal">
+          <div class="text-6xl font-black gradient-text mb-2">$500B+</div>
+          <p class="text-gray-600 dark:text-gray-400 font-semibold text-lg">Total Addressable Market</p>
           <p class="text-sm text-gray-500 dark:text-gray-500 mt-1">U.S. Staffing Industry</p>
         </div>
-        <div class="text-center">
-          <div class="text-5xl font-black gradient-text mb-2">16M+</div>
-          <p class="text-gray-600 dark:text-gray-400 font-medium">Temp Workers</p>
+        <div class="text-center reveal">
+          <div class="text-6xl font-black gradient-text mb-2">16M+</div>
+          <p class="text-gray-600 dark:text-gray-400 font-semibold text-lg">Temp Workers</p>
           <p class="text-sm text-gray-500 dark:text-gray-500 mt-1">In the U.S. annually</p>
         </div>
-        <div class="text-center">
-          <div class="text-5xl font-black gradient-text mb-2">12%</div>
-          <p class="text-gray-600 dark:text-gray-400 font-medium">CAGR Growth</p>
+        <div class="text-center reveal">
+          <div class="text-6xl font-black gradient-text mb-2">12%</div>
+          <p class="text-gray-600 dark:text-gray-400 font-semibold text-lg">CAGR Growth</p>
           <p class="text-sm text-gray-500 dark:text-gray-500 mt-1">Gig economy expansion</p>
         </div>
       </div>
-      <div class="bg-gradient-to-r from-shift-500/10 to-gold-500/10 rounded-2xl p-8 border border-shift-500/30">
-        <h3 class="text-xl font-bold text-navy-900 dark:text-white mb-4">Why Now?</h3>
+
+      <div class="bg-gradient-to-r from-shift-500/10 to-gold-500/10 rounded-3xl p-8 md:p-12 border border-shift-500/30 reveal">
+        <h3 class="text-2xl font-bold text-navy-900 dark:text-white mb-6 text-center">Why Now?</h3>
         <div class="grid md:grid-cols-2 gap-6">
-          <div class="flex items-start gap-3">
-            <svg class="w-6 h-6 text-shift-500 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-            <p class="text-gray-600 dark:text-gray-300">Post-pandemic shift to flexible work is permanent</p>
+          <div class="flex items-start gap-4 bg-white dark:bg-navy-900 rounded-xl p-4">
+            <div class="w-10 h-10 bg-shift-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+              <svg class="w-5 h-5 text-shift-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            </div>
+            <div>
+              <p class="font-semibold text-navy-900 dark:text-white">Post-pandemic shift to flexible work is permanent</p>
+              <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">Workers won't go back to rigid schedules</p>
+            </div>
           </div>
-          <div class="flex items-start gap-3">
-            <svg class="w-6 h-6 text-shift-500 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-            <p class="text-gray-600 dark:text-gray-300">Workers demanding instant pay and schedule control</p>
+          <div class="flex items-start gap-4 bg-white dark:bg-navy-900 rounded-xl p-4">
+            <div class="w-10 h-10 bg-shift-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+              <svg class="w-5 h-5 text-shift-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            </div>
+            <div>
+              <p class="font-semibold text-navy-900 dark:text-white">Workers demanding instant pay and control</p>
+              <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">The Uber/DoorDash generation expects it</p>
+            </div>
           </div>
-          <div class="flex items-start gap-3">
-            <svg class="w-6 h-6 text-shift-500 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-            <p class="text-gray-600 dark:text-gray-300">Businesses seeking alternatives to traditional agencies</p>
+          <div class="flex items-start gap-4 bg-white dark:bg-navy-900 rounded-xl p-4">
+            <div class="w-10 h-10 bg-shift-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+              <svg class="w-5 h-5 text-shift-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            </div>
+            <div>
+              <p class="font-semibold text-navy-900 dark:text-white">Businesses seeking alternatives to agencies</p>
+              <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">Fed up with high fees and low reliability</p>
+            </div>
           </div>
-          <div class="flex items-start gap-3">
-            <svg class="w-6 h-6 text-shift-500 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-            <p class="text-gray-600 dark:text-gray-300">Technology enabling real-time matching at scale</p>
+          <div class="flex items-start gap-4 bg-white dark:bg-navy-900 rounded-xl p-4">
+            <div class="w-10 h-10 bg-shift-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+              <svg class="w-5 h-5 text-shift-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            </div>
+            <div>
+              <p class="font-semibold text-navy-900 dark:text-white">Technology enabling real-time matching at scale</p>
+              <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">AI + mobile + instant payments = perfect storm</p>
+            </div>
           </div>
         </div>
       </div>
@@ -241,26 +508,27 @@
   <!-- Leadership Section -->
   <section class="py-20 bg-gray-50 dark:bg-navy-900">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
+      <div class="text-center mb-16 reveal">
         <span class="text-gold-500 font-semibold text-sm uppercase tracking-wider">Leadership</span>
-        <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 dark:text-white mt-3">Built by Operators</h2>
+        <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 dark:text-white mt-3">Built by Operators, Not MBAs</h2>
+        <p class="text-gray-600 dark:text-gray-400 mt-4">We've scaled platforms. We've built products. We know what it takes.</p>
       </div>
-      <div class="bg-white dark:bg-navy-800 rounded-2xl p-8 shadow-xl border border-gray-100 dark:border-navy-700">
+      <div class="bg-white dark:bg-navy-800 rounded-3xl p-8 md:p-12 shadow-2xl border border-gray-100 dark:border-navy-700 reveal">
         <div class="flex flex-col md:flex-row gap-8 items-center">
-          <div class="w-32 h-32 rounded-2xl overflow-hidden flex-shrink-0">
-            <img src="../headshot.png" alt="Lee Foropoulos" class="w-full h-full object-cover" style="object-position: 50% 15%; transform: scale(1.25); transform-origin: center 20%;">
+          <div class="w-48 h-48 rounded-2xl overflow-hidden flex-shrink-0 shadow-xl ring-4 ring-shift-500/20">
+            <img src="../headshot.png" alt="Lee Foropoulos" class="w-full h-full object-cover" style="object-position: 50% 20%; transform: scale(1.5); transform-origin: center 25%;">
           </div>
           <div class="flex-1 text-center md:text-left">
             <h3 class="text-2xl font-bold text-navy-900 dark:text-white">Lee Foropoulos</h3>
             <p class="text-shift-500 font-semibold mb-4">Founder & CEO</p>
-            <p class="text-gray-600 dark:text-gray-400 mb-4">
-              20+ years of SaaS leadership experience. Previously CTO at SixLeaf where he scaled platforms to 150K+ concurrent users and reduced churn by 60%. SaaS Academy (Dan Martell) trained. Deep expertise in enterprise compliance (HIPAA, SSAE16, CMMC) and building CI/CD pipelines that accelerate release cycles.
+            <p class="text-gray-600 dark:text-gray-400 mb-6">
+              20+ years of SaaS leadership. Previously CTO at SixLeaf where he scaled platforms to <strong class="text-navy-900 dark:text-white">150K+ concurrent users</strong> and <strong class="text-navy-900 dark:text-white">reduced churn by 60%</strong>. SaaS Academy (Dan Martell) trained. Deep expertise in enterprise compliance (HIPAA, SSAE16, CMMC) and building CI/CD pipelines that accelerate release cycles.
             </p>
             <div class="flex flex-wrap gap-2 justify-center md:justify-start">
-              <span class="bg-navy-100 dark:bg-navy-700 text-navy-700 dark:text-gray-300 px-3 py-1 rounded-full text-sm">SaaS Scaling</span>
-              <span class="bg-navy-100 dark:bg-navy-700 text-navy-700 dark:text-gray-300 px-3 py-1 rounded-full text-sm">Enterprise Compliance</span>
-              <span class="bg-navy-100 dark:bg-navy-700 text-navy-700 dark:text-gray-300 px-3 py-1 rounded-full text-sm">Product Strategy</span>
-              <span class="bg-navy-100 dark:bg-navy-700 text-navy-700 dark:text-gray-300 px-3 py-1 rounded-full text-sm">Platform Architecture</span>
+              <span class="bg-shift-100 dark:bg-shift-500/20 text-shift-700 dark:text-shift-300 px-4 py-2 rounded-full text-sm font-medium">SaaS Scaling</span>
+              <span class="bg-shift-100 dark:bg-shift-500/20 text-shift-700 dark:text-shift-300 px-4 py-2 rounded-full text-sm font-medium">Enterprise Compliance</span>
+              <span class="bg-shift-100 dark:bg-shift-500/20 text-shift-700 dark:text-shift-300 px-4 py-2 rounded-full text-sm font-medium">Product Strategy</span>
+              <span class="bg-shift-100 dark:bg-shift-500/20 text-shift-700 dark:text-shift-300 px-4 py-2 rounded-full text-sm font-medium">Platform Architecture</span>
             </div>
           </div>
         </div>
@@ -268,87 +536,111 @@
     </div>
   </section>
 
-  <!-- Investment Highlights (Public) -->
+  <!-- Investment Highlights -->
   <section class="py-20 bg-white dark:bg-navy-800">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
+      <div class="text-center mb-16 reveal">
         <span class="text-shift-500 font-semibold text-sm uppercase tracking-wider">Investment Highlights</span>
-        <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 dark:text-white mt-3">Why Invest in Shift Spotter</h2>
+        <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 dark:text-white mt-3">Why Smart Money Is Paying Attention</h2>
       </div>
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="bg-gradient-to-br from-shift-500/10 to-shift-500/5 rounded-xl p-6 border border-shift-500/20">
-          <div class="text-3xl mb-3">🎯</div>
-          <h3 class="font-bold text-navy-900 dark:text-white mb-2">Focused Execution</h3>
-          <p class="text-gray-600 dark:text-gray-400 text-sm">Targeting specific verticals with highest friction first, then expanding.</p>
+        <div class="bg-gradient-to-br from-shift-500/10 to-shift-500/5 rounded-2xl p-8 border border-shift-500/20 card-hover reveal">
+          <div class="w-14 h-14 bg-shift-500/20 rounded-xl flex items-center justify-center mb-4">
+            <svg class="w-7 h-7 text-shift-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+          </div>
+          <h3 class="font-bold text-navy-900 dark:text-white text-lg mb-2">Focused Execution</h3>
+          <p class="text-gray-600 dark:text-gray-400">Targeting specific verticals with highest friction first. Prove the model, then expand.</p>
         </div>
-        <div class="bg-gradient-to-br from-gold-500/10 to-gold-500/5 rounded-xl p-6 border border-gold-500/20">
-          <div class="text-3xl mb-3">💰</div>
-          <h3 class="font-bold text-navy-900 dark:text-white mb-2">Capital Efficient</h3>
-          <p class="text-gray-600 dark:text-gray-400 text-sm">Lean team with proven track record of doing more with less.</p>
+        <div class="bg-gradient-to-br from-gold-500/10 to-gold-500/5 rounded-2xl p-8 border border-gold-500/20 card-hover reveal">
+          <div class="w-14 h-14 bg-gold-500/20 rounded-xl flex items-center justify-center mb-4">
+            <svg class="w-7 h-7 text-gold-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          </div>
+          <h3 class="font-bold text-navy-900 dark:text-white text-lg mb-2">Capital Efficient</h3>
+          <p class="text-gray-600 dark:text-gray-400">Lean team with proven track record of doing more with less. Every dollar works harder.</p>
         </div>
-        <div class="bg-gradient-to-br from-green-500/10 to-green-500/5 rounded-xl p-6 border border-green-500/20">
-          <div class="text-3xl mb-3">📈</div>
-          <h3 class="font-bold text-navy-900 dark:text-white mb-2">Network Effects</h3>
-          <p class="text-gray-600 dark:text-gray-400 text-sm">Two-sided marketplace with compounding value as network grows.</p>
+        <div class="bg-gradient-to-br from-green-500/10 to-green-500/5 rounded-2xl p-8 border border-green-500/20 card-hover reveal">
+          <div class="w-14 h-14 bg-green-500/20 rounded-xl flex items-center justify-center mb-4">
+            <svg class="w-7 h-7 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+          </div>
+          <h3 class="font-bold text-navy-900 dark:text-white text-lg mb-2">Network Effects</h3>
+          <p class="text-gray-600 dark:text-gray-400">Two-sided marketplace with compounding value. More workers = more businesses = more workers.</p>
         </div>
-        <div class="bg-gradient-to-br from-purple-500/10 to-purple-500/5 rounded-xl p-6 border border-purple-500/20">
-          <div class="text-3xl mb-3">🔄</div>
-          <h3 class="font-bold text-navy-900 dark:text-white mb-2">Recurring Revenue</h3>
-          <p class="text-gray-600 dark:text-gray-400 text-sm">Transaction-based model with high repeat usage and retention.</p>
+        <div class="bg-gradient-to-br from-purple-500/10 to-purple-500/5 rounded-2xl p-8 border border-purple-500/20 card-hover reveal">
+          <div class="w-14 h-14 bg-purple-500/20 rounded-xl flex items-center justify-center mb-4">
+            <svg class="w-7 h-7 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+          </div>
+          <h3 class="font-bold text-navy-900 dark:text-white text-lg mb-2">Recurring Revenue</h3>
+          <p class="text-gray-600 dark:text-gray-400">Transaction-based model with high repeat usage. Businesses don't switch once they see reliability.</p>
         </div>
-        <div class="bg-gradient-to-br from-blue-500/10 to-blue-500/5 rounded-xl p-6 border border-blue-500/20">
-          <div class="text-3xl mb-3">🛡️</div>
-          <h3 class="font-bold text-navy-900 dark:text-white mb-2">Defensible Moat</h3>
-          <p class="text-gray-600 dark:text-gray-400 text-sm">Proprietary verification system and worker quality scores.</p>
+        <div class="bg-gradient-to-br from-blue-500/10 to-blue-500/5 rounded-2xl p-8 border border-blue-500/20 card-hover reveal">
+          <div class="w-14 h-14 bg-blue-500/20 rounded-xl flex items-center justify-center mb-4">
+            <svg class="w-7 h-7 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+          </div>
+          <h3 class="font-bold text-navy-900 dark:text-white text-lg mb-2">Defensible Moat</h3>
+          <p class="text-gray-600 dark:text-gray-400">Proprietary verification system and worker quality scores create switching costs.</p>
         </div>
-        <div class="bg-gradient-to-br from-orange-500/10 to-orange-500/5 rounded-xl p-6 border border-orange-500/20">
-          <div class="text-3xl mb-3">🚀</div>
-          <h3 class="font-bold text-navy-900 dark:text-white mb-2">Clear Path to Scale</h3>
-          <p class="text-gray-600 dark:text-gray-400 text-sm">Playbook for geographic and vertical expansion post-PMF.</p>
+        <div class="bg-gradient-to-br from-orange-500/10 to-orange-500/5 rounded-2xl p-8 border border-orange-500/20 card-hover reveal">
+          <div class="w-14 h-14 bg-orange-500/20 rounded-xl flex items-center justify-center mb-4">
+            <svg class="w-7 h-7 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+          </div>
+          <h3 class="font-bold text-navy-900 dark:text-white text-lg mb-2">Clear Path to Scale</h3>
+          <p class="text-gray-600 dark:text-gray-400">Playbook for geographic and vertical expansion post-PMF. We know how to grow.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Gated Data Room Section -->
-  <section class="py-20 bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900 relative">
+  <section class="py-24 bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900 relative">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <span class="text-gold-400 font-semibold text-sm uppercase tracking-wider">Investor Data Room</span>
-        <h2 class="text-3xl sm:text-4xl font-bold text-white mt-3">Full Materials Available</h2>
+      <div class="text-center mb-12 reveal">
+        <span class="inline-block bg-gold-500/20 text-gold-400 text-sm font-bold px-4 py-2 rounded-full mb-4 border border-gold-500/30">INVESTOR DATA ROOM</span>
+        <h2 class="text-3xl sm:text-4xl font-bold text-white">Everything You Need to Decide</h2>
         <p class="text-gray-400 mt-4 max-w-2xl mx-auto">Access our complete pitch deck, financial projections, product roadmap, and competitive analysis after a brief introductory call.</p>
       </div>
 
       <!-- Blurred Preview -->
-      <div class="relative">
+      <div class="relative reveal">
         <div class="grid md:grid-cols-3 gap-6 gated-blur">
           <div class="bg-white/10 rounded-xl p-6 border border-white/20">
-            <div class="text-2xl mb-3">📊</div>
+            <div class="w-12 h-12 bg-shift-500/20 rounded-lg flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-shift-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+            </div>
             <h3 class="font-bold text-white">Full Pitch Deck</h3>
             <p class="text-gray-400 text-sm">25-slide comprehensive deck</p>
           </div>
           <div class="bg-white/10 rounded-xl p-6 border border-white/20">
-            <div class="text-2xl mb-3">💹</div>
+            <div class="w-12 h-12 bg-gold-500/20 rounded-lg flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+            </div>
             <h3 class="font-bold text-white">Financial Model</h3>
             <p class="text-gray-400 text-sm">5-year projections & assumptions</p>
           </div>
           <div class="bg-white/10 rounded-xl p-6 border border-white/20">
-            <div class="text-2xl mb-3">🗺️</div>
+            <div class="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+            </div>
             <h3 class="font-bold text-white">Product Roadmap</h3>
             <p class="text-gray-400 text-sm">12-month development plan</p>
           </div>
           <div class="bg-white/10 rounded-xl p-6 border border-white/20">
-            <div class="text-2xl mb-3">⚔️</div>
+            <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+            </div>
             <h3 class="font-bold text-white">Competitive Analysis</h3>
             <p class="text-gray-400 text-sm">Market landscape & positioning</p>
           </div>
           <div class="bg-white/10 rounded-xl p-6 border border-white/20">
-            <div class="text-2xl mb-3">📈</div>
+            <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path></svg>
+            </div>
             <h3 class="font-bold text-white">Go-to-Market Plan</h3>
             <p class="text-gray-400 text-sm">Launch strategy & channels</p>
           </div>
           <div class="bg-white/10 rounded-xl p-6 border border-white/20">
-            <div class="text-2xl mb-3">📋</div>
+            <div class="w-12 h-12 bg-orange-500/20 rounded-lg flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+            </div>
             <h3 class="font-bold text-white">Use of Funds</h3>
             <p class="text-gray-400 text-sm">Detailed allocation breakdown</p>
           </div>
@@ -357,13 +649,13 @@
         <!-- Overlay CTA -->
         <div class="absolute inset-0 data-room-overlay flex items-center justify-center">
           <div class="text-center p-8">
-            <div class="w-16 h-16 bg-gold-500 rounded-full flex items-center justify-center mx-auto mb-6">
-              <svg class="w-8 h-8 text-navy-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+            <div class="w-20 h-20 bg-gradient-to-br from-gold-400 to-gold-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-2xl shadow-gold-500/30">
+              <svg class="w-10 h-10 text-navy-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
             </div>
             <h3 class="text-2xl font-bold text-white mb-3">Full Materials After Discovery Call</h3>
-            <p class="text-gray-400 mb-6 max-w-md">Book a 20-minute discovery call to discuss fit, then receive access to our complete investor data room including pitch deck, financials, and roadmap.</p>
-            <a href="https://cal.com/thesecretchief/shiftspotter" target="_blank" class="inline-block bg-gradient-to-r from-gold-500 to-gold-600 text-navy-900 px-8 py-4 rounded-xl font-bold text-lg hover:from-gold-400 hover:to-gold-500 transition shadow-lg hover:shadow-gold-500/25">
-              Book Discovery Call →
+            <p class="text-gray-400 mb-8 max-w-md">20 minutes. We'll discuss fit, answer questions, and if there's mutual interest, you get full access.</p>
+            <a href="https://cal.com/thesecretchief/shiftspotter" target="_blank" class="inline-block bg-gradient-to-r from-gold-500 to-gold-600 text-navy-900 px-10 py-5 rounded-xl font-bold text-lg hover:from-gold-400 hover:to-gold-500 transition-all duration-300 shadow-xl hover:shadow-gold-500/40 hover:scale-105">
+              Book Discovery Call
             </a>
           </div>
         </div>
@@ -374,33 +666,33 @@
   <!-- Contact Section -->
   <section id="contact" class="py-20 bg-white dark:bg-navy-800">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
+      <div class="text-center mb-12 reveal">
         <span class="text-shift-500 font-semibold text-sm uppercase tracking-wider">Get Started</span>
         <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 dark:text-white mt-3">Let's Talk</h2>
-        <p class="text-gray-600 dark:text-gray-400 mt-4">Interested in learning more about investing in Shift Spotter? Schedule a call or send us a message.</p>
+        <p class="text-gray-600 dark:text-gray-400 mt-4">Serious about the opportunity? Let's have a conversation.</p>
       </div>
 
       <div class="grid md:grid-cols-2 gap-8">
         <!-- Schedule Call -->
-        <div class="bg-gradient-to-br from-shift-500/10 to-shift-500/5 rounded-2xl p-8 border border-shift-500/20 text-center">
-          <div class="w-16 h-16 bg-shift-500 rounded-full flex items-center justify-center mx-auto mb-6">
+        <div class="bg-gradient-to-br from-shift-500/10 to-shift-500/5 rounded-2xl p-8 border border-shift-500/20 text-center card-hover reveal">
+          <div class="w-16 h-16 bg-gradient-to-br from-shift-400 to-shift-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-shift-500/30">
             <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
           </div>
-          <h3 class="text-xl font-bold text-navy-900 dark:text-white mb-3">Discovery & Strategy Call</h3>
-          <p class="text-gray-600 dark:text-gray-400 mb-6">A working discussion for operators, partners, and investors to evaluate use cases, market opportunity, and execution path. 20 minutes focused on clarity, fit, and next steps.</p>
-          <a href="https://cal.com/thesecretchief/shiftspotter" target="_blank" class="inline-block bg-shift-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-shift-600 transition shadow-lg hover:shadow-shift-500/25">
-            Book Your Call →
+          <h3 class="text-xl font-bold text-navy-900 dark:text-white mb-3">Discovery Call</h3>
+          <p class="text-gray-600 dark:text-gray-400 mb-6">20 minutes. We'll discuss the opportunity, your thesis, and whether there's a fit. No pitch deck until we're both interested.</p>
+          <a href="https://cal.com/thesecretchief/shiftspotter" target="_blank" class="inline-block bg-gradient-to-r from-shift-500 to-shift-600 text-white px-8 py-4 rounded-xl font-bold hover:from-shift-400 hover:to-shift-500 transition-all duration-300 shadow-lg hover:shadow-shift-500/30 hover:scale-105">
+            Book Your Call
           </a>
         </div>
 
         <!-- Direct Contact -->
-        <div class="bg-gradient-to-br from-gold-500/10 to-gold-500/5 rounded-2xl p-8 border border-gold-500/20 text-center">
-          <div class="w-16 h-16 bg-gold-500 rounded-full flex items-center justify-center mx-auto mb-6">
+        <div class="bg-gradient-to-br from-gold-500/10 to-gold-500/5 rounded-2xl p-8 border border-gold-500/20 text-center card-hover reveal">
+          <div class="w-16 h-16 bg-gradient-to-br from-gold-400 to-gold-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-gold-500/30">
             <svg class="w-8 h-8 text-navy-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
           </div>
           <h3 class="text-xl font-bold text-navy-900 dark:text-white mb-3">Email Directly</h3>
-          <p class="text-gray-600 dark:text-gray-400 mb-6">Prefer email? Send us your questions or request materials directly.</p>
-          <a href="mailto:invest@shiftspotter.com" class="inline-block bg-gold-500 text-navy-900 px-6 py-3 rounded-xl font-semibold hover:bg-gold-400 transition">
+          <p class="text-gray-600 dark:text-gray-400 mb-6">Prefer email? Send your questions or request specific materials. We respond within 24 hours.</p>
+          <a href="mailto:invest@shiftspotter.com" class="inline-block bg-gradient-to-r from-gold-500 to-gold-600 text-navy-900 px-8 py-4 rounded-xl font-bold hover:from-gold-400 hover:to-gold-500 transition-all duration-300 shadow-lg hover:shadow-gold-500/30 hover:scale-105">
             invest@shiftspotter.com
           </a>
         </div>
@@ -413,9 +705,10 @@
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex flex-col md:flex-row justify-between items-center gap-6">
         <div class="flex items-center gap-4">
-          <img src="../experience/logos/Shiftspotter.png" alt="Shift Spotter" class="h-10 object-contain">
+          <img src="../experience/logos/Shiftspotter.png" alt="Shift Spotter" class="h-12 object-contain">
           <div class="text-gray-400 text-sm">
-            <p>&copy; 2026 Shift Spotter. All rights reserved.</p>
+            <p class="font-semibold text-white">Shift Spotter</p>
+            <p>&copy; 2026 All rights reserved.</p>
           </div>
         </div>
         <div class="flex items-center gap-6">
@@ -428,6 +721,49 @@
       </div>
     </div>
   </footer>
+
+  <!-- Back to Top Button -->
+  <button id="backToTop" class="back-to-top fixed bottom-8 right-8 w-12 h-12 bg-shift-500 text-white rounded-full shadow-lg hover:bg-shift-400 transition-all duration-300 flex items-center justify-center z-50">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+  </button>
+
+  <!-- Scroll Reveal Script -->
+  <script>
+    // Scroll Reveal
+    function reveal() {
+      const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+      reveals.forEach(el => {
+        const windowHeight = window.innerHeight;
+        const elementTop = el.getBoundingClientRect().top;
+        const elementVisible = 150;
+        if (elementTop < windowHeight - elementVisible) {
+          el.classList.add('active');
+        }
+      });
+    }
+
+    // Back to Top
+    const backToTop = document.getElementById('backToTop');
+    function toggleBackToTop() {
+      if (window.scrollY > 500) {
+        backToTop.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
+      }
+    }
+
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    window.addEventListener('scroll', () => {
+      reveal();
+      toggleBackToTop();
+    });
+
+    // Initial reveal
+    reveal();
+  </script>
 
 </body>
 </html>
