@@ -43,7 +43,7 @@ Follow these exact specifications:
   <meta property="og:title" content="[Title]">
   <meta property="og:description" content="[Short description - engaging, under 200 chars]">
   <meta property="og:url" content="https://foropoulosnow.com/blog/posts/[slug].html">
-  <meta property="og:image" content="[Unsplash URL]?w=1200&h=630&fit=crop">
+  <meta property="og:image" content="https://foropoulosnow.com/blog/images/[slug]-hero.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="article:author" content="Lee Foropoulos">
@@ -54,18 +54,20 @@ Follow these exact specifications:
   <meta name="twitter:creator" content="@thesecretchief">
   <meta name="twitter:title" content="[Title]">
   <meta name="twitter:description" content="[Short description - same as og:description]">
-  <meta name="twitter:image" content="[Same Unsplash URL]?w=1200&h=630&fit=crop">
+  <meta name="twitter:image" content="https://foropoulosnow.com/blog/images/[slug]-hero.jpg">
   <meta name="twitter:image:alt" content="[Title]">
   <meta name="share:hook" content="[Engaging hook for social shares - see examples below]">
   <meta name="facebook-domain-verification" content="vx40czm6ccxtpl4crzqbiso70hmjoi" />
 ```
 
 **CRITICAL for social previews:**
-- NO HTML comments in the meta section (no `<!-- Open Graph -->` etc.)
-- og:image and twitter:image MUST use ?w=1200&h=630&fit=crop for proper social card dimensions
+- og:image and twitter:image MUST use locally hosted images at `/blog/images/[slug]-hero.jpg`
+- Download hero image from Unsplash (1200x630), save to `/blog/images/[slug]-hero.jpg`
+- Use FULL URL: `https://foropoulosnow.com/blog/images/[slug]-hero.jpg` (NOT relative paths)
 - og:image:width and og:image:height help social platforms render correctly
 - twitter:site and twitter:creator are required for proper Twitter card attribution
 - share:hook is for copy/paste when sharing - make it engaging and curiosity-driven
+- Unsplash URLs DO NOT WORK for social sharing (blocked by Unsplash)
 
 **Color Scheme:**
 - Navy: 900:#0f172a, 800:#1e293b, 700:#334155, 600:#475569
@@ -156,13 +158,18 @@ Follow these exact specifications:
   "date": "[YYYY-MM-DD]",
   "dateFormatted": "[Mon DD, YYYY]",
   "readTime": "[X min read]",
-  "image": "[Unsplash URL]?w=400&h=250&fit=crop",
+  "image": "../images/[slug]-hero.jpg",
   "imageAlt": "[Descriptive alt text]",
   "featured": false,
   "excerpt": "[1-2 sentence excerpt for blog index cards]",
   "shareHook": "[Engaging hook for social shares - CRITICAL for engagement]"
 }
 ```
+
+**Hero Image Setup:**
+1. Find image on Unsplash, download at 1200x630
+2. Save to `/blog/images/[slug]-hero.jpg`
+3. For blog index cards, the build system will use the same image
 ```
 
 ---
@@ -219,10 +226,10 @@ Good hooks create curiosity and promise value:
 
 - [ ] File saved to /blog/posts/[slug].html
 - [ ] All meta tags populated (og:*, twitter:*, share:hook)
-- [ ] og:image and twitter:image use ?w=1200&h=630&fit=crop
+- [ ] Hero image downloaded and saved to /blog/images/[slug]-hero.jpg (1200x630)
+- [ ] og:image and twitter:image use full URL: https://foropoulosnow.com/blog/images/[slug]-hero.jpg
 - [ ] og:image:width and og:image:height tags included
 - [ ] twitter:site and twitter:creator set to @thesecretchief
-- [ ] Hero image from Unsplash with proper dimensions
 - [ ] 4-6 interlaced images throughout content
 - [ ] Quick share buttons added under description in header
 - [ ] All internal links working (../../ paths)
@@ -257,15 +264,8 @@ Social platforms cache link previews. After publishing, validate and clear cache
 - Ensure image URL uses HTTPS
 - Clear platform cache using tools above
 
-**IMPORTANT - Unsplash Image Hosting Issue:**
-Unsplash blocks social media crawlers (returns 403 Forbidden). This causes LinkedIn/Facebook/Twitter to fall back to other images on the page (like the author headshot).
-
-**Recommended solutions:**
-1. **Host images locally** - Download from Unsplash, save to `/blog/images/[slug]-hero.jpg`, use path `https://foropoulosnow.com/blog/images/[slug]-hero.jpg`
-2. **Use Cloudinary** - Free tier, bot-friendly: `https://res.cloudinary.com/[cloud-name]/image/fetch/w_1200,h_630,c_fill/[unsplash-url]`
-3. **Use source.unsplash.com** - Sometimes works better: `https://source.unsplash.com/[photo-id]/1200x630`
-
-For critical posts, always host hero images locally to guarantee social sharing works.
+**WHY LOCAL IMAGES ARE REQUIRED:**
+Unsplash blocks social media crawlers (returns 403 Forbidden). Always host hero images locally at `/blog/images/[slug]-hero.jpg` to ensure social sharing works correctly.
 
 ---
 
