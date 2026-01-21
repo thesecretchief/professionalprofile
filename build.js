@@ -189,6 +189,15 @@ function updateHtmlFile(filePath, data, includes, pageConfig) {
   const processedScripts = processTemplate(includes.scripts || '', context);
   const processedCookieConsent = processTemplate(includes['cookie-consent'] || '', context);
 
+  // Insert/update navigation using marker system
+  const navMarker = '<!-- SITE_NAV -->';
+  const navEndMarker = '<!-- /SITE_NAV -->';
+  if (content.includes(navMarker)) {
+    // Replace content between markers
+    const navRegex = /<!-- SITE_NAV -->[\s\S]*?<!-- \/SITE_NAV -->/;
+    content = content.replace(navRegex, `${navMarker}\n${processedNav}\n${navEndMarker}`);
+  }
+
   // Insert cookie consent banner before </body>
   if (!content.includes('id="cookie-consent"')) {
     content = content.replace('</body>', `${processedCookieConsent}\n</body>`);
