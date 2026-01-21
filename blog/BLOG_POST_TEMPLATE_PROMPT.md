@@ -43,7 +43,7 @@ Follow these exact specifications:
   <meta property="og:title" content="[Title]">
   <meta property="og:description" content="[Short description - engaging, under 200 chars]">
   <meta property="og:url" content="https://foropoulosnow.com/blog/posts/[slug].html">
-  <meta property="og:image" content="https://foropoulosnow.com/blog/images/[slug]-hero.jpg">
+  <meta property="og:image" content="https://res.cloudinary.com/foropoulosnow/image/fetch/w_1200,h_630,c_fill,q_auto,f_auto/[Unsplash-URL-encoded]">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="article:author" content="Lee Foropoulos">
@@ -54,20 +54,30 @@ Follow these exact specifications:
   <meta name="twitter:creator" content="@thesecretchief">
   <meta name="twitter:title" content="[Title]">
   <meta name="twitter:description" content="[Short description - same as og:description]">
-  <meta name="twitter:image" content="https://foropoulosnow.com/blog/images/[slug]-hero.jpg">
+  <meta name="twitter:image" content="https://res.cloudinary.com/foropoulosnow/image/fetch/w_1200,h_630,c_fill,q_auto,f_auto/[Unsplash-URL-encoded]">
   <meta name="twitter:image:alt" content="[Title]">
   <meta name="share:hook" content="[Engaging hook for social shares - see examples below]">
   <meta name="facebook-domain-verification" content="vx40czm6ccxtpl4crzqbiso70hmjoi" />
 ```
 
-**CRITICAL for social previews:**
-- og:image and twitter:image MUST use locally hosted images at `/blog/images/[slug]-hero.jpg`
-- Download hero image from Unsplash (1200x630), save to `/blog/images/[slug]-hero.jpg`
-- Use FULL URL: `https://foropoulosnow.com/blog/images/[slug]-hero.jpg` (NOT relative paths)
+**CRITICAL for social previews - USE CLOUDINARY FETCH:**
+Unsplash blocks social media crawlers (403 Forbidden). Use Cloudinary to proxy images:
+
+**Cloudinary Fetch URL Format:**
+```
+https://res.cloudinary.com/foropoulosnow/image/fetch/w_1200,h_630,c_fill,q_auto,f_auto/https%3A%2F%2Fimages.unsplash.com%2Fphoto-XXXXX
+```
+
+**How to create the URL:**
+1. Get Unsplash image URL (e.g., `https://images.unsplash.com/photo-1620712943543-bcc4688e7485`)
+2. URL-encode it: `https%3A%2F%2Fimages.unsplash.com%2Fphoto-1620712943543-bcc4688e7485`
+3. Append to Cloudinary fetch: `https://res.cloudinary.com/foropoulosnow/image/fetch/w_1200,h_630,c_fill,q_auto,f_auto/[encoded-url]`
+
+**Quick URL encoder:** In browser console: `encodeURIComponent('https://images.unsplash.com/photo-XXX')`
+
 - og:image:width and og:image:height help social platforms render correctly
 - twitter:site and twitter:creator are required for proper Twitter card attribution
 - share:hook is for copy/paste when sharing - make it engaging and curiosity-driven
-- Unsplash URLs DO NOT WORK for social sharing (blocked by Unsplash)
 
 **Color Scheme:**
 - Navy: 900:#0f172a, 800:#1e293b, 700:#334155, 600:#475569
@@ -166,10 +176,10 @@ Follow these exact specifications:
 }
 ```
 
-**Hero Image Setup:**
-1. Find image on Unsplash, download at 1200x630
-2. Save to `/blog/images/[slug]-hero.jpg`
-3. For blog index cards, the build system will use the same image
+**Hero Image Setup (for social sharing):**
+1. Find image on Unsplash, get the photo ID (e.g., photo-1677442136019-21780ecad995)
+2. Create Cloudinary fetch URL for og:image and twitter:image meta tags
+3. Use direct Unsplash URLs (with ?w=X&h=Y params) for inline images in the article
 ```
 
 ---
@@ -226,8 +236,7 @@ Good hooks create curiosity and promise value:
 
 - [ ] File saved to /blog/posts/[slug].html
 - [ ] All meta tags populated (og:*, twitter:*, share:hook)
-- [ ] Hero image downloaded and saved to /blog/images/[slug]-hero.jpg (1200x630)
-- [ ] og:image and twitter:image use full URL: https://foropoulosnow.com/blog/images/[slug]-hero.jpg
+- [ ] og:image and twitter:image use Cloudinary fetch URL format (see meta tags section above)
 - [ ] og:image:width and og:image:height tags included
 - [ ] twitter:site and twitter:creator set to @thesecretchief
 - [ ] 4-6 interlaced images throughout content
@@ -264,8 +273,8 @@ Social platforms cache link previews. After publishing, validate and clear cache
 - Ensure image URL uses HTTPS
 - Clear platform cache using tools above
 
-**WHY LOCAL IMAGES ARE REQUIRED:**
-Unsplash blocks social media crawlers (returns 403 Forbidden). Always host hero images locally at `/blog/images/[slug]-hero.jpg` to ensure social sharing works correctly.
+**WHY CLOUDINARY FETCH IS REQUIRED:**
+Unsplash blocks social media crawlers (returns 403 Forbidden). Cloudinary fetch URLs proxy the images through Cloudinary's CDN, making them accessible to social media crawlers for proper preview rendering.
 
 ---
 
