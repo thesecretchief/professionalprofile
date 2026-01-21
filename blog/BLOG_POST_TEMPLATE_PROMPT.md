@@ -240,9 +240,11 @@ Good hooks create curiosity and promise value:
 - Always use Unsplash for images with appropriate ?w=X&h=Y&fit=crop parameters
 - Author headshot: ../../headshot.png with fallback onerror handler
 - Copyright year in footer: 2026
+- Copyright holder: Greek-Fire Corporation (NOT personal name)
+- Footer copyright format: `&copy; 2026 Greek-Fire Corporation`
 - Domain for og:url: https://foropoulosnow.com
 - Twitter handle: @thesecretchief
-- Lee's role: Business Development Lead at Lookatmedia | Fractional Executive
+- Lee's role: Business Development Lead at Lookatmedia | Fractional Executive | Tourism Ambassador for Visit Mobile
 
 ## WRITING STYLE - AVOIDING AI TELLS
 
