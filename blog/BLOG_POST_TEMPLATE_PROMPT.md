@@ -37,14 +37,29 @@ Follow these exact specifications:
 - Save to: /blog/posts/[slug].html
 - Use kebab-case for filename (e.g., my-post-title.html)
 
-**Meta Tags Required:**
-- og:type, og:title, og:description, og:url
-- og:image (use hero image URL with ?w=1200&h=630&fit=crop for social previews)
-- article:author (Lee Foropoulos)
-- article:published_time
-- twitter:card, twitter:site (@thesecretchief), twitter:title, twitter:description
-- twitter:image (same as og:image - required for social media previews)
-- share:hook (engaging copy for social shares - must be compelling and include a hook)
+**Meta Tags Required (EXACT FORMAT - no HTML comments, exact order):**
+```html
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="[Title]">
+  <meta property="og:description" content="[Short description]">
+  <meta property="og:url" content="https://foropoulosnow.com/blog/posts/[slug].html">
+  <meta property="og:image" content="[Unsplash URL]?w=1200&h=630&fit=crop">
+  <meta property="article:author" content="Lee Foropoulos">
+  <meta property="article:published_time" content="[YYYY-MM-DD]">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="[Title]">
+  <meta name="twitter:description" content="[Short description]">
+  <meta name="share:hook" content="[Engaging hook for social shares]">
+  <meta name="twitter:image" content="[Same Unsplash URL]?w=1200&h=630&fit=crop">
+```
+
+**CRITICAL for social previews:**
+- NO HTML comments in the meta section (no `<!-- Open Graph -->` etc.)
+- NO twitter:site tag
+- twitter:image MUST come AFTER share:hook
+- og:image comes after og:url
+- Exact order matters for social media crawlers
 
 **Color Scheme:**
 - Navy: 900:#0f172a, 800:#1e293b, 700:#334155, 600:#475569
