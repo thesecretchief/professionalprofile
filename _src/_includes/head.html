@@ -12,6 +12,8 @@
   <meta property="og:title" content="{{ogTitle}}">
   <meta property="og:description" content="{{ogDescription}}">
   <meta property="og:image" content="{{ogImage}}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta property="og:site_name" content="{{site.domain}}">
   {{#if articleAuthor}}
   <meta property="article:author" content="{{articleAuthor}}">
@@ -20,10 +22,13 @@
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@thesecretchief">
+  <meta name="twitter:creator" content="@thesecretchief">
   <meta name="twitter:url" content="{{site.url}}{{canonicalPath}}">
   <meta name="twitter:title" content="{{ogTitle}}">
   <meta name="twitter:description" content="{{ogDescription}}">
   <meta name="twitter:image" content="{{ogImage}}">
+  <meta name="twitter:image:alt" content="{{ogTitle}}">
   {{#if shareHook}}
   <meta name="share:hook" content="{{shareHook}}">
   {{/if}}
