@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blog | Lee Foropoulos</title>
   <meta name="description" content="Insights on leadership, technology, AI automation, fitness, and building sustainable habits from Lee Foropoulos.">
+  <meta name="facebook-domain-verification" content="vx40czm6ccxtpl4crzqbiso70hmjoi" />
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -171,6 +172,8 @@
       visibility: visible;
     }
   </style>
+  <!-- Analytics: Google Analytics 4 + Microsoft Clarity -->
+  <script src="/analytics.js" defer></script>
 </head>
 <body class="bg-white dark:bg-navy-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
 
@@ -322,6 +325,48 @@
       <!-- All Posts -->
       <h2 class="text-sm font-semibold text-gold-600 dark:text-gold-400 uppercase tracking-wide mb-6">All Posts</h2>
       <div id="posts-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <!-- Post: BMR Calculator Weight Loss Guide -->
+        <article class="card-hover bg-white dark:bg-navy-900 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-white/10" data-category="fitness">
+          <div class="h-48 relative overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=400&h=250&fit=crop" alt="Fitness measurement and tracking" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="bg-green-100 dark:bg-green-500/20 text-green-700 dark:text-green-400 text-xs font-semibold px-3 py-1 rounded-full">Fitness</span>
+              <span class="text-gray-500 dark:text-gray-400 text-sm">Jan 21, 2026</span>
+            </div>
+            <h3 class="text-xl font-bold text-navy-900 dark:text-white mb-2">
+              <a href="posts/bmr-calculator-weight-loss-guide.html" class="hover:text-gold-600 dark:hover:text-gold-400 transition">The Science of Weight Loss: How to Actually Use a BMR Calculator</a>
+            </h3>
+            <p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-2 mb-4">
+              Stop guessing about calories. Learn how to calculate your BMR and optimize for fat loss or muscle gain.
+            </p>
+            <a href="posts/bmr-calculator-weight-loss-guide.html" class="text-gold-600 dark:text-gold-400 font-semibold text-sm hover:underline">Read more &rarr;</a>
+          </div>
+        </article>
+
+        <!-- Post: Spotting AI Slop Guide -->
+        <article class="card-hover bg-white dark:bg-navy-900 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-white/10" data-category="tech">
+          <div class="h-48 relative overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=400&h=250&fit=crop" alt="AI detection and verification" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="bg-red-100 dark:bg-red-500/20 text-red-700 dark:text-red-400 text-xs font-semibold px-3 py-1 rounded-full">Technology</span>
+              <span class="text-gray-500 dark:text-gray-400 text-sm">Jan 20, 2026</span>
+            </div>
+            <h3 class="text-xl font-bold text-navy-900 dark:text-white mb-2">
+              <a href="posts/spotting-ai-slop-guide.html" class="hover:text-gold-600 dark:hover:text-gold-400 transition">How to Spot AI Slop: A Practical Guide to Identifying AI-Generated Content</a>
+            </h3>
+            <p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-2 mb-4">
+              Learn how to identify AI-generated text, images, and video with the best detection tools for each type.
+            </p>
+            <a href="posts/spotting-ai-slop-guide.html" class="text-gold-600 dark:text-gold-400 font-semibold text-sm hover:underline">Read more &rarr;</a>
+          </div>
+        </article>
 
         <!-- Post: Breaking Big Tasks Into Chunks -->
         <article class="card-hover bg-white dark:bg-navy-900 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-white/10" data-category="business">
@@ -604,7 +649,7 @@
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073z"/></svg>
           </a>
         </div>
-        <p class="text-gray-500 text-sm">&copy; 2025 Lee Steven Foropoulos</p>
+        <p class="text-gray-500 text-sm">&copy; 2026 Greek-Fire Corporation</p>
       </div>
     </div>
   </footer>

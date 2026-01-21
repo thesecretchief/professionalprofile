@@ -10,15 +10,16 @@
   <meta property="og:title" content="Building a Sustainable Supplement Stack: The Science-Backed Essentials">
   <meta property="og:description" content="Cut through the supplement hype. The evidence-based foundations that actually work.">
   <meta property="og:url" content="https://foropoulosnow.com/blog/posts/building-sustainable-supplement-stack.html">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1579758629938-03607ccdbaba?w=1200&h=630&fit=crop">
   <meta property="article:author" content="Lee Foropoulos">
   <meta property="article:published_time" content="2025-11-22">
 
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Building a Sustainable Supplement Stack">
   <meta name="twitter:description" content="Cut through the supplement hype. The evidence-based foundations that actually work.">
   <meta name="share:hook" content="The supplement industry wants you confused. Here's the evidence-based stack that actually works (and what's just marketing):">
   <meta name="twitter:image" content="https://images.unsplash.com/photo-1579758629938-03607ccdbaba?w=1200&h=630&fit=crop">
+  <meta name="facebook-domain-verification" content="vx40czm6ccxtpl4crzqbiso70hmjoi" />
 
   <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
   <script src="https://cdn.tailwindcss.com"></script>
@@ -72,6 +73,8 @@
     .copy-toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(100px); background: #0f172a; color: white; padding: 0.75rem 1.5rem; border-radius: 0.5rem; font-weight: 500; opacity: 0; transition: all 0.3s ease; z-index: 100; }
     .copy-toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
   </style>
+  <!-- Analytics: Google Analytics 4 + Microsoft Clarity -->
+  <script src="/analytics.js" defer></script>
 </head>
 <body class="bg-white dark:bg-navy-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
 
@@ -118,9 +121,25 @@
       <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
         Building a Sustainable Supplement Stack: The Science-Backed Essentials
       </h1>
-      <p class="text-xl text-amber-100 mb-8">
+      <p class="text-xl text-amber-100 mb-6">
         Cut through the hype. Here's what actually works, why it works, and how to build a stack that supports long-term health without breaking the bank.
       </p>
+      <!-- Quick Share Buttons -->
+      <div class="flex items-center gap-2 mb-6">
+        <span class="text-amber-200 text-sm mr-1">Share:</span>
+        <button onclick="shareOnTwitter()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition" aria-label="Share on X">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </button>
+        <button onclick="shareOnLinkedIn()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition" aria-label="Share on LinkedIn">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </button>
+        <button onclick="shareOnFacebook()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition" aria-label="Share on Facebook">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </button>
+        <button onclick="copyLink()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition" aria-label="Copy Link">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        </button>
+      </div>
       <div class="flex items-center gap-4">
         <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-amber-600 font-bold text-lg">LF</div>
         <div>
@@ -175,7 +194,7 @@
 
         <h3 class="text-navy-900 dark:text-white">Omega-3 Fish Oil</h3>
         <p>
-          <strong>Why it matters:</strong> The modern diet is dramatically skewed toward omega-6 fatty acids (from vegetable oils, processed foods) and deficient in omega-3s. This imbalance promotes chronic inflammation—the root of most degenerative disease.
+          <strong>Why it matters:</strong> The modern diet is dramatically skewed toward omega-6 fatty acids (from vegetable oils, processed foods) and deficient in omega-3s. This imbalance promotes chronic inflammation, the root of most degenerative disease.
         </p>
         <p>
           <strong>What to look for:</strong> High EPA/DHA content per serving, third-party tested for purity (heavy metals, PCBs), and triglyceride form for better absorption.
@@ -202,7 +221,7 @@
 
         <h3 class="text-navy-900 dark:text-white">Protein Powder</h3>
         <p>
-          <strong>Why it matters:</strong> Most people don't eat enough protein, especially as they age. Protein is essential for muscle maintenance, satiety, and metabolic health. The target: 0.8-1g per pound of <em>lean muscle mass</em> daily—we're feeding muscle, not fat stores.
+          <strong>Why it matters:</strong> Most people don't eat enough protein, especially as they age. Protein is essential for muscle maintenance, satiety, and metabolic health. The target: 0.8-1g per pound of <em>lean muscle mass</em> daily, we're feeding muscle, not fat stores.
         </p>
         <p>
           <strong>What to look for:</strong> Quality sourcing, complete amino acid profile, minimal additives. For post-workout, a fast-absorbing whey isolate works well. For meal replacement, a slower-digesting blend keeps you fuller longer.
@@ -213,10 +232,10 @@
 
         <h3 class="text-navy-900 dark:text-white">Creatine Monohydrate</h3>
         <p>
-          <strong>Why it matters:</strong> Creatine is the single most researched sports supplement in existence. It improves strength, power output, and—increasingly—shows cognitive benefits. It's safe, cheap, and effective.
+          <strong>Why it matters:</strong> Creatine is the single most researched sports supplement in existence. It improves strength, power output, and, increasingly, shows cognitive benefits. It's safe, cheap, and effective.
         </p>
         <p>
-          <strong>What to look for:</strong> Plain <a href="https://1stphorm.com/products/creatine-monohydrate/?a_aid=gotHABITS" target="_blank" class="text-amber-600 dark:text-amber-400 hover:underline font-semibold">creatine monohydrate</a>. Skip the fancy forms—they're not better, just more expensive. 5g daily, every day. No loading necessary.
+          <strong>What to look for:</strong> Plain <a href="https://1stphorm.com/products/creatine-monohydrate/?a_aid=gotHABITS" target="_blank" class="text-amber-600 dark:text-amber-400 hover:underline font-semibold">creatine monohydrate</a>. Skip the fancy forms, they're not better, just more expensive. 5g daily, every day. No loading necessary.
         </p>
 
         <h3 class="text-navy-900 dark:text-white">Greens Powder</h3>
@@ -237,12 +256,12 @@
 
         <h3 class="text-navy-900 dark:text-white">Sleep & Recovery</h3>
         <p>
-          Sleep is when your body repairs itself. If you're training hard, optimizing sleep is non-negotiable. Look for formulas that combine magnesium, ashwagandha, and other calming ingredients without creating dependency. I use <a href="https://1stphorm.com/products/core-21/?a_aid=gotHABITS" target="_blank" class="text-amber-600 dark:text-amber-400 hover:underline font-semibold">Core-21</a>—it supports deep, restorative sleep without leaving you groggy.
+          Sleep is when your body repairs itself. If you're training hard, optimizing sleep is non-negotiable. Look for formulas that combine magnesium, ashwagandha, and other calming ingredients without creating dependency. I use <a href="https://1stphorm.com/products/core-21/?a_aid=gotHABITS" target="_blank" class="text-amber-600 dark:text-amber-400 hover:underline font-semibold">Core-21</a>, it supports deep, restorative sleep without leaving you groggy.
         </p>
 
         <h3 class="text-navy-900 dark:text-white">Joint Support</h3>
         <p>
-          If you're over 35 or training intensely, proactive joint care prevents problems. Collagen peptides, glucosamine, and anti-inflammatory compounds keep you moving pain-free. <a href="https://1stphorm.com/products/collagen-with-dermacal/?a_aid=gotHABITS" target="_blank" class="text-amber-600 dark:text-amber-400 hover:underline font-semibold">Collagen with Dermacal</a> is my go-to—it supports joints, skin, hair, and nails.
+          If you're over 35 or training intensely, proactive joint care prevents problems. Collagen peptides, glucosamine, and anti-inflammatory compounds keep you moving pain-free. <a href="https://1stphorm.com/products/collagen-with-dermacal/?a_aid=gotHABITS" target="_blank" class="text-amber-600 dark:text-amber-400 hover:underline font-semibold">Collagen with Dermacal</a> is my go-to, it supports joints, skin, hair, and nails.
         </p>
 
         <h3 class="text-navy-900 dark:text-white">Glutamine</h3>
@@ -250,12 +269,12 @@
           <strong>Why it matters:</strong> Glutamine is the most abundant amino acid in your body, and intense training depletes it rapidly. It's critical for muscle recovery, gut health, and immune function. When you're pushing hard, your body can't make enough on its own.
         </p>
         <p>
-          I take <a href="https://1stphorm.com/products/glutamine/?a_aid=gotHABITS" target="_blank" class="text-amber-600 dark:text-amber-400 hover:underline font-semibold">Glutamine</a> in my evening shake—it supports overnight recovery when your body does most of its repair work.
+          I take <a href="https://1stphorm.com/products/glutamine/?a_aid=gotHABITS" target="_blank" class="text-amber-600 dark:text-amber-400 hover:underline font-semibold">Glutamine</a> in my evening shake, it supports overnight recovery when your body does most of its repair work.
         </p>
 
         <h3 class="text-navy-900 dark:text-white">Probiotics</h3>
         <p>
-          Gut health affects everything—digestion, immune function, even mood. A quality probiotic with diverse strains supports the microbiome.
+          Gut health affects everything, digestion, immune function, even mood. A quality probiotic with diverse strains supports the microbiome.
         </p>
 
         <h2 class="text-navy-900 dark:text-white">My Current Stack</h2>
@@ -275,7 +294,7 @@
         <!-- Inline Image -->
         <figure class="my-10">
           <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&h=450&fit=crop" alt="Morning wellness routine" class="content-image w-full">
-          <figcaption class="text-center text-sm text-gray-500 dark:text-gray-400 mt-3">Consistency matters more than complexity—stick to the basics</figcaption>
+          <figcaption class="text-center text-sm text-gray-500 dark:text-gray-400 mt-3">Consistency matters more than complexity, stick to the basics</figcaption>
         </figure>
 
         <h2 class="text-navy-900 dark:text-white">Common Mistakes to Avoid</h2>
@@ -290,7 +309,7 @@
         <h2 class="text-navy-900 dark:text-white">The Bottom Line</h2>
 
         <p>
-          A thoughtful supplement stack fills nutritional gaps, supports recovery, and provides an edge—but only after the fundamentals are in place. Start with the non-negotiables, add performance enhancers if you're training seriously, and incorporate targeted support as needed.
+          A thoughtful supplement stack fills nutritional gaps, supports recovery, and provides an edge, but only after the fundamentals are in place. Start with the non-negotiables, add performance enhancers if you're training seriously, and incorporate targeted support as needed.
         </p>
 
         <p>
@@ -337,7 +356,7 @@
         <a href="book-review-brain-rules.html" class="block bg-white dark:bg-navy-900 rounded-xl p-6 border border-gray-200 dark:border-white/10 hover:border-gold-400 transition">
           <span class="text-purple-500 text-sm font-semibold">Book Review</span>
           <h3 class="font-bold text-navy-900 dark:text-white mt-2">Brain Rules: The Neuroscience of Performance</h3>
-          <p class="text-gray-600 dark:text-gray-400 text-sm mt-2">How your brain actually works—and how to work with it...</p>
+          <p class="text-gray-600 dark:text-gray-400 text-sm mt-2">How your brain actually works, and how to work with it...</p>
         </a>
         <a href="protein-timing-myth-vs-reality.html" class="block bg-white dark:bg-navy-900 rounded-xl p-6 border border-gray-200 dark:border-white/10 hover:border-gold-400 transition">
           <span class="text-amber-500 text-sm font-semibold">Fitness</span>
@@ -358,7 +377,7 @@
   <!-- Footer -->
   <footer class="bg-navy-900 border-t border-white/10 py-8">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <p class="text-gray-500">&copy; 2025 Lee Foropoulos. All rights reserved.</p>
+      <p class="text-gray-500">&copy; 2026 Greek-Fire Corporation. All rights reserved.</p>
     </div>
   </footer>
 
