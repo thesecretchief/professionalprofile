@@ -1,39 +1,23 @@
 /**
  * Unified Analytics Script for Lee Foropoulos Professional Profile
  * Includes: Google Analytics 4 + Microsoft Clarity
- *
- * SETUP INSTRUCTIONS:
- * 1. Create a GA4 property at https://analytics.google.com
- *    - Go to Admin > Create Property > Follow setup
- *    - Get your Measurement ID (starts with G-)
- *    - Replace 'G-XXXXXXXXXX' below with your ID
- *
- * 2. Create a Clarity project at https://clarity.microsoft.com
- *    - Sign up/in > New Project > Add your site URL
- *    - Get your Project ID from the setup code
- *    - Replace 'CLARITY_PROJECT_ID' below with your ID
  */
 
 (function() {
   'use strict';
 
   // ========================================
-  // CONFIGURATION - UPDATE THESE VALUES
+  // CONFIGURATION
   // ========================================
   const CONFIG = {
-    GA4_MEASUREMENT_ID: 'G-XXXXXXXXXX',      // Replace with your GA4 Measurement ID
-    CLARITY_PROJECT_ID: 'CLARITY_PROJECT_ID'  // Replace with your Clarity Project ID
+    GA4_MEASUREMENT_ID: 'G-GDYH7KERT7',
+    CLARITY_PROJECT_ID: 'v4s0f5gykr'
   };
 
   // ========================================
   // GOOGLE ANALYTICS 4 SETUP
   // ========================================
   function initGA4() {
-    if (CONFIG.GA4_MEASUREMENT_ID === 'G-XXXXXXXXXX') {
-      console.warn('Analytics: GA4 Measurement ID not configured. Visit https://analytics.google.com to get your ID.');
-      return;
-    }
-
     // Load gtag.js
     const script = document.createElement('script');
     script.async = true;
@@ -55,11 +39,6 @@
   // MICROSOFT CLARITY SETUP
   // ========================================
   function initClarity() {
-    if (CONFIG.CLARITY_PROJECT_ID === 'CLARITY_PROJECT_ID') {
-      console.warn('Analytics: Clarity Project ID not configured. Visit https://clarity.microsoft.com to get your ID.');
-      return;
-    }
-
     (function(c,l,a,r,i,t,y){
       c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
       t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
