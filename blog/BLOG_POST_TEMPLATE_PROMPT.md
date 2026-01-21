@@ -257,6 +257,16 @@ Social platforms cache link previews. After publishing, validate and clear cache
 - Ensure image URL uses HTTPS
 - Clear platform cache using tools above
 
+**IMPORTANT - Unsplash Image Hosting Issue:**
+Unsplash blocks social media crawlers (returns 403 Forbidden). This causes LinkedIn/Facebook/Twitter to fall back to other images on the page (like the author headshot).
+
+**Recommended solutions:**
+1. **Host images locally** - Download from Unsplash, save to `/blog/images/[slug]-hero.jpg`, use path `https://foropoulosnow.com/blog/images/[slug]-hero.jpg`
+2. **Use Cloudinary** - Free tier, bot-friendly: `https://res.cloudinary.com/[cloud-name]/image/fetch/w_1200,h_630,c_fill/[unsplash-url]`
+3. **Use source.unsplash.com** - Sometimes works better: `https://source.unsplash.com/[photo-id]/1200x630`
+
+For critical posts, always host hero images locally to guarantee social sharing works.
+
 ---
 
 ## EXAMPLE BLOG INDEX CARD
