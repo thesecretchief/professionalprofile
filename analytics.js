@@ -1,6 +1,7 @@
 /**
  * Unified Analytics Script for Lee Foropoulos Professional Profile
  * Includes: Google Analytics 4 + Microsoft Clarity
+ * GDPR-compliant: Only loads when user consents
  */
 
 (function() {
@@ -15,9 +16,41 @@
   };
 
   // ========================================
+  // STATE
+  // ========================================
+  let analyticsInitialized = false;
+  let clarityInitialized = false;
+
+  // ========================================
+  // COOKIE UTILITIES
+  // ========================================
+  function getCookie(name) {
+    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    return match ? match[2] : null;
+  }
+
+  function getConsent() {
+    const consent = getCookie('cookieConsent');
+    if (!consent) return null;
+    try {
+      return JSON.parse(decodeURIComponent(consent));
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function hasAnalyticsConsent() {
+    const consent = getConsent();
+    return consent && consent.analytics === true;
+  }
+
+  // ========================================
   // GOOGLE ANALYTICS 4 SETUP
   // ========================================
   function initGA4() {
+    if (analyticsInitialized) return;
+    if (!hasAnalyticsConsent()) return;
+
     // Load gtag.js
     const script = document.createElement('script');
     script.async = true;
@@ -31,19 +64,37 @@
     gtag('js', new Date());
     gtag('config', CONFIG.GA4_MEASUREMENT_ID, {
       send_page_view: true,
-      cookie_flags: 'SameSite=None;Secure'
+      cookie_flags: 'SameSite=None;Secure',
+      anonymize_ip: true // Additional privacy measure
     });
+
+    analyticsInitialized = true;
+
+    // Log initialization (dev only)
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      console.log('GA4 initialized with consent');
+    }
   }
 
   // ========================================
   // MICROSOFT CLARITY SETUP
   // ========================================
   function initClarity() {
+    if (clarityInitialized) return;
+    if (!hasAnalyticsConsent()) return;
+
     (function(c,l,a,r,i,t,y){
       c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
       t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
       y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", CONFIG.CLARITY_PROJECT_ID);
+
+    clarityInitialized = true;
+
+    // Log initialization (dev only)
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      console.log('Clarity initialized with consent');
+    }
   }
 
   // ========================================
@@ -52,6 +103,7 @@
 
   // Track custom event to GA4
   function trackEvent(eventName, params = {}) {
+    if (!hasAnalyticsConsent()) return;
     if (typeof gtag === 'function') {
       gtag('event', eventName, params);
     }
@@ -63,6 +115,8 @@
   // ========================================
   function initClickTracking() {
     document.addEventListener('click', function(e) {
+      if (!hasAnalyticsConsent()) return;
+
       const target = e.target.closest('a, button');
       if (!target) return;
 
@@ -169,6 +223,8 @@
   // ========================================
   function initFormTracking() {
     document.addEventListener('submit', function(e) {
+      if (!hasAnalyticsConsent()) return;
+
       const form = e.target;
       const emailInput = form.querySelector('input[type="email"]');
 
@@ -199,6 +255,8 @@
 
     let ticking = false;
     window.addEventListener('scroll', function() {
+      if (!hasAnalyticsConsent()) return;
+
       if (!ticking) {
         window.requestAnimationFrame(function() {
           const percent = getScrollPercent();
@@ -224,16 +282,20 @@
   // PAGE TIMING TRACKING
   // ========================================
   function initTimingTracking() {
+    if (!hasAnalyticsConsent()) return;
+
     // Track time on page at intervals
     const intervals = [30, 60, 120, 300]; // seconds
     intervals.forEach(seconds => {
       setTimeout(() => {
-        trackEvent('time_on_page', {
-          event_category: 'engagement',
-          event_label: `${seconds}s`,
-          value: seconds,
-          page_location: window.location.pathname
-        });
+        if (hasAnalyticsConsent()) {
+          trackEvent('time_on_page', {
+            event_category: 'engagement',
+            event_label: `${seconds}s`,
+            value: seconds,
+            page_location: window.location.pathname
+          });
+        }
       }, seconds * 1000);
     });
   }
@@ -245,6 +307,8 @@
     // Watch for category filter clicks on blog page
     document.querySelectorAll('[data-category]').forEach(btn => {
       btn.addEventListener('click', function() {
+        if (!hasAnalyticsConsent()) return;
+
         const category = this.getAttribute('data-category') || this.innerText.trim();
         trackEvent('blog_filter', {
           event_category: 'engagement',
@@ -260,6 +324,8 @@
   // ========================================
   function initDarkModeTracking() {
     const observer = new MutationObserver(function(mutations) {
+      if (!hasAnalyticsConsent()) return;
+
       mutations.forEach(function(mutation) {
         if (mutation.attributeName === 'class') {
           const isDark = document.documentElement.classList.contains('dark');
@@ -288,21 +354,8 @@
   }
 
   // ========================================
-  // INITIALIZE EVERYTHING
+  // INITIALIZE TRACKING (After consent)
   // ========================================
-  function init() {
-    // Initialize analytics platforms
-    initGA4();
-    initClarity();
-
-    // Wait for DOM ready
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initTracking);
-    } else {
-      initTracking();
-    }
-  }
-
   function initTracking() {
     // Track page type
     const pageType = getPageType();
@@ -322,11 +375,44 @@
 
     // Log initialization (dev only)
     if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-      console.log('Analytics initialized:', {
+      console.log('Analytics tracking initialized:', {
         pageType,
-        ga4: CONFIG.GA4_MEASUREMENT_ID !== 'G-XXXXXXXXXX',
-        clarity: CONFIG.CLARITY_PROJECT_ID !== 'CLARITY_PROJECT_ID'
+        ga4: analyticsInitialized,
+        clarity: clarityInitialized
       });
+    }
+  }
+
+  // ========================================
+  // CONSENT EVENT LISTENER
+  // ========================================
+  function onConsentUpdated(event) {
+    const consent = event.detail;
+    if (consent && consent.analytics) {
+      initGA4();
+      initClarity();
+      initTracking();
+    }
+  }
+
+  // ========================================
+  // INITIALIZE
+  // ========================================
+  function init() {
+    // Listen for consent updates
+    window.addEventListener('cookieConsentUpdated', onConsentUpdated);
+
+    // Check if we already have consent
+    if (hasAnalyticsConsent()) {
+      initGA4();
+      initClarity();
+
+      // Wait for DOM ready before initializing tracking
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initTracking);
+      } else {
+        initTracking();
+      }
     }
   }
 
@@ -334,6 +420,9 @@
   init();
 
   // Expose trackEvent for manual tracking if needed
-  window.siteAnalytics = { trackEvent };
+  window.siteAnalytics = {
+    trackEvent,
+    hasConsent: hasAnalyticsConsent
+  };
 
 })();
