@@ -1,0 +1,53 @@
+{
+  "name": "Lee Foropoulos",
+  "title": "Lee Foropoulos | Founder & CEO at Shift Spotter | Fractional Executive",
+  "description": "Founder & CEO of Shift Spotter. Fractional Executive with 20+ years scaling teams, systems, and SaaS platforms. Certified Personal Trainer & Nutrition Coach.",
+  "url": "https://foropoulosnow.com",
+  "domain": "foropoulosnow.com",
+  "author": "Lee Foropoulos",
+  "copyright": "Greek-Fire Corporation",
+  "copyrightYear": "2026",
+  "facebookVerification": "vx40czm6ccxtpl4crzqbiso70hmjoi",
+  "analytics": {
+    "ga4MeasurementId": "G-GDYH7KERT7",
+    "clarityProjectId": "v4s0f5gykr"
+  },
+  "social": {
+    "linkedin": "https://www.linkedin.com/in/thesecretchief",
+    "twitter": "https://x.com/thesecretchief",
+    "instagram": "https://www.instagram.com/thesecretchief",
+    "facebook": "https://www.facebook.com/thesecretchief",
+    "upwork": "https://www.upwork.com/freelancers/thesecretchief"
+  },
+  "booking": {
+    "strategy": "https://cal.com/thesecretchief/strategy",
+    "shiftspotter": "https://cal.com/thesecretchief/shiftspotter",
+    "pr": "https://cal.com/thesecretchief/pr"
+  },
+  "ventures": [
+    {
+      "name": "Greek-Fire Services",
+      "slug": "greek-fire-services",
+      "emoji": "fire",
+      "tagline": "Business Consulting & AI"
+    },
+    {
+      "name": "gotHABITS",
+      "slug": "gothabits",
+      "emoji": "muscle",
+      "tagline": "Fitness & Nutrition Coaching"
+    },
+    {
+      "name": "Shift Spotter",
+      "slug": "shift-spotter-invest",
+      "emoji": "chart",
+      "tagline": "Workforce Analytics Platform"
+    },
+    {
+      "name": "Lookatmedia",
+      "slug": "lookatmedia",
+      "emoji": "newspaper",
+      "tagline": "PR & Earned Media"
+    }
+  ]
+}
