@@ -52,6 +52,7 @@ Follow these exact specifications:
   <meta name="twitter:description" content="[Short description]">
   <meta name="share:hook" content="[Engaging hook for social shares]">
   <meta name="twitter:image" content="[Same Unsplash URL]?w=1200&h=630&fit=crop">
+  <meta name="facebook-domain-verification" content="vx40czm6ccxtpl4crzqbiso70hmjoi" />
 ```
 
 **CRITICAL for social previews:**
