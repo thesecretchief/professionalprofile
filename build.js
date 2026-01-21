@@ -186,8 +186,31 @@ function updateHtmlFile(filePath, data, includes, pageConfig) {
   const processedStyles = processTemplate(includes.styles || '', context);
   const processedNav = processTemplate(includes.nav || '', context);
   const processedFooter = processTemplate(includes.footer || '', context);
+  const processedFooterLinks = processTemplate(includes['footer-links'] || '', context);
   const processedScripts = processTemplate(includes.scripts || '', context);
   const processedCookieConsent = processTemplate(includes['cookie-consent'] || '', context);
+
+  // Insert/update navigation using marker system
+  const navMarker = '<!-- SITE_NAV -->';
+  const navEndMarker = '<!-- /SITE_NAV -->';
+  if (content.includes(navMarker)) {
+    // Replace content between markers
+    const navRegex = /<!-- SITE_NAV -->[\s\S]*?<!-- \/SITE_NAV -->/;
+    content = content.replace(navRegex, `${navMarker}\n${processedNav}\n${navEndMarker}`);
+  }
+
+  // Insert footer legal links before </footer> if not already present
+  if (content.includes('</footer>') && !content.includes('id="cookie-settings-btn"')) {
+    // Find the last </div> before </footer> and insert after it
+    const footerMatch = content.match(/([ \t]*)<\/footer>/);
+    if (footerMatch) {
+      const indent = footerMatch[1] || '  ';
+      content = content.replace(
+        /(<\/div>\s*)(<\/footer>)/,
+        `$1\n${indent}  ${processedFooterLinks.trim()}\n${indent}$2`
+      );
+    }
+  }
 
   // Insert cookie consent banner before </body>
   if (!content.includes('id="cookie-consent"')) {

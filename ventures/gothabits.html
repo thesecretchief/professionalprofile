@@ -331,64 +331,126 @@
 </head>
 <body class="bg-white dark:bg-navy-900 text-gray-800 dark:text-gray-200 transition-colors">
 
-  <!-- Navigation -->
-  <nav class="fixed top-0 left-0 right-0 z-50 bg-amber-600/95 backdrop-blur-md border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-center h-16">
-        <a href="../index.html" class="text-white font-bold text-xl tracking-tight">Foropoulos<span class="text-amber-200">Now</span><span class="text-amber-100 text-sm">.com</span></a>
-        <div class="hidden md:flex items-center space-x-6">
-          <a href="../index.html" class="text-amber-100 hover:text-white transition">Home</a>
-          <a href="greek-fire-services.html" class="text-amber-100 hover:text-white transition">Greek-Fire Services</a>
-          <a href="gothabits.html" class="text-white font-semibold">gotHABITS</a>
-          <a href="#calculator" class="text-amber-100 hover:text-white transition">Calculator</a>
-          <a href="index.html#journey" class="text-amber-100 hover:text-white transition">Journey</a>
-          <!-- Dark Mode Toggle -->
-          <button id="dark-mode-toggle" class="text-amber-100 hover:text-white p-2 rounded-lg hover:bg-white/10 transition" aria-label="Toggle dark mode">
-            <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
-            </svg>
-            <svg class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+  <!-- SITE_NAV -->
+<!-- Navigation -->
+<nav class="fixed top-0 left-0 right-0 z-50 bg-navy-900/95 backdrop-blur-md border-b border-white/10">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <a href="../index.html" class="text-white font-bold text-xl tracking-tight group">
+        <span class="group-hover:text-gold-400 transition">Foropoulos</span><span class="text-gold-400">Now</span><span class="text-gray-400 text-sm">.com</span>
+      </a>
+
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="../index.html#about" class="nav-link text-gray-300 hover:text-gold-400 transition" data-section="about">About</a>
+        <a href="../index.html#services" class="nav-link text-gray-300 hover:text-gold-400 transition" data-section="services">Services</a>
+        <a href="../index.html#journey" class="nav-link text-gray-300 hover:text-gold-400 transition" data-section="journey">Journey</a>
+
+        <!-- Ventures Dropdown -->
+        <div class="relative group">
+          <button class="text-gray-300 hover:text-gold-400 transition flex items-center gap-1">
+            Ventures
+            <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
             </svg>
           </button>
-          <a href="#contact" class="bg-white hover:bg-amber-100 text-amber-700 font-semibold px-5 py-2 rounded-full transition">Start Today</a>
+          <div class="absolute top-full left-0 mt-2 w-56 bg-navy-800 rounded-xl shadow-xl border border-white/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+            <a href="../ventures/greek-fire-services.html" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-gold-400 hover:bg-white/5 rounded-t-xl transition">
+              <span class="text-xl">&#128293;</span>
+              <div>
+                <p class="font-semibold">Greek-Fire Services</p>
+                <p class="text-xs text-gray-500">Business Consulting & AI</p>
+              </div>
+            </a>
+            <a href="../ventures/gothabits.html" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-gold-400 hover:bg-white/5 transition">
+              <span class="text-xl">&#128170;</span>
+              <div>
+                <p class="font-semibold">gotHABITS</p>
+                <p class="text-xs text-gray-500">Fitness & Nutrition Coaching</p>
+              </div>
+            </a>
+            <a href="../ventures/shift-spotter-invest.html" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-gold-400 hover:bg-white/5 transition">
+              <span class="text-xl">&#128101;</span>
+              <div>
+                <p class="font-semibold">Shift Spotter</p>
+                <p class="text-xs text-gray-500">Staffing Marketplace</p>
+              </div>
+            </a>
+            <a href="../ventures/lookatmedia.html" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-gold-400 hover:bg-white/5 rounded-b-xl transition">
+              <span class="text-xl">&#128240;</span>
+              <div>
+                <p class="font-semibold">Lookatmedia</p>
+                <p class="text-xs text-gray-500">PR & Earned Media</p>
+              </div>
+            </a>
+          </div>
         </div>
-        <div class="flex items-center gap-2 md:hidden">
-          <!-- Mobile Dark Mode Toggle -->
-          <button id="dark-mode-toggle-mobile" class="text-amber-100 hover:text-white p-2 rounded-lg" aria-label="Toggle dark mode">
-            <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
-            </svg>
-            <svg class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
-            </svg>
-          </button>
-          <button id="mobile-menu-btn" class="text-white p-2">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
-          </button>
-        </div>
+
+        <a href="../blog/index.html" class="nav-link text-gray-300 hover:text-gold-400 transition ">Blog</a>
+
+        <button id="dark-mode-toggle" class="dark-mode-toggle text-gray-300 hover:text-gold-400 p-2 rounded-lg hover:bg-white/10 transition" aria-label="Toggle dark mode">
+          <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+          </svg>
+          <svg class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+          </svg>
+        </button>
+
+        <a href="https://cal.com/thesecretchief/strategy" target="_blank" class="bg-gold-500 hover:bg-gold-400 text-navy-900 font-semibold px-5 py-2 rounded-full transition transform hover:scale-105">Work With Me</a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <div class="flex items-center gap-2 md:hidden">
+        <button id="dark-mode-toggle-mobile" class="dark-mode-toggle text-gray-300 hover:text-gold-400 p-2" aria-label="Toggle dark mode">
+          <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+          </svg>
+          <svg class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+          </svg>
+        </button>
+        <button id="mobile-menu-btn" class="text-white p-2" aria-label="Open menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
       </div>
     </div>
-  </nav>
+  </div>
+</nav>
 
-  <!-- Mobile Menu -->
-  <div id="mobile-menu" class="mobile-menu fixed inset-y-0 right-0 w-64 bg-amber-600 z-50 p-6 md:hidden">
-    <button id="close-menu-btn" class="absolute top-4 right-4 text-white">
+<!-- Mobile Menu Overlay -->
+<div id="menu-overlay" class="menu-overlay fixed inset-0 bg-black/50 z-40 md:hidden"></div>
+
+<!-- Mobile Menu -->
+<div id="mobile-menu" class="mobile-menu fixed top-0 right-0 bottom-0 w-80 max-w-full bg-navy-900 z-50 md:hidden">
+  <div class="flex items-center justify-between p-4 border-b border-white/10">
+    <span class="text-white font-bold">Menu</span>
+    <button id="close-menu" class="text-white p-2" aria-label="Close menu">
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
       </svg>
     </button>
-    <div class="mt-12 space-y-6">
-      <a href="../index.html" class="block text-amber-100 hover:text-white transition">Home</a>
-      <a href="greek-fire-services.html" class="block text-amber-100 hover:text-white transition">Greek-Fire Services</a>
-      <a href="gothabits.html" class="block text-white font-semibold">gotHABITS</a>
-      <a href="#calculator" class="block text-amber-100 hover:text-white transition">Calculator</a>
-      <a href="index.html#journey" class="block text-amber-100 hover:text-white transition">Journey</a>
-      <a href="#contact" class="block bg-white text-amber-700 font-semibold px-5 py-2 rounded-full text-center">Start Today</a>
-    </div>
   </div>
+  <div class="p-4 space-y-4">
+    <a href="../index.html#about" class="block text-gray-300 hover:text-gold-400 py-2 transition">About</a>
+    <a href="../index.html#services" class="block text-gray-300 hover:text-gold-400 py-2 transition">Services</a>
+    <a href="../index.html#journey" class="block text-gray-300 hover:text-gold-400 py-2 transition">Journey</a>
+    <div class="border-t border-white/10 pt-4 mt-4">
+      <p class="text-gray-500 text-sm mb-2">Ventures</p>
+      <a href="../ventures/greek-fire-services.html" class="block text-gray-300 hover:text-gold-400 py-2 transition">&#128293; Greek-Fire Services</a>
+      <a href="../ventures/gothabits.html" class="block text-gray-300 hover:text-gold-400 py-2 transition">&#128170; gotHABITS</a>
+      <a href="../ventures/shift-spotter-invest.html" class="block text-gray-300 hover:text-gold-400 py-2 transition">&#128101; Shift Spotter</a>
+      <a href="../ventures/lookatmedia.html" class="block text-gray-300 hover:text-gold-400 py-2 transition">&#128240; Lookatmedia</a>
+    </div>
+    <div class="border-t border-white/10 pt-4 mt-4">
+      <a href="../blog/index.html" class="block text-gray-300 hover:text-gold-400 py-2 transition">Blog</a>
+    </div>
+    <a href="https://cal.com/thesecretchief/strategy" target="_blank" class="block bg-gold-500 hover:bg-gold-400 text-navy-900 font-semibold px-5 py-3 rounded-full text-center transition mt-4">Work With Me</a>
+  </div>
+</div>
+
+<!-- /SITE_NAV -->
 
   <!-- Urgency Banner -->
   <div class="urgency-banner text-white text-center py-3 text-sm font-semibold fixed top-16 left-0 right-0 z-40">
@@ -1240,6 +1302,13 @@
         </div>
       </div>
     </div>
+  
+    <!-- Legal Links -->
+<div class="mt-8 pt-6 border-t border-white/10 flex flex-wrap justify-center gap-4 text-sm">
+  <button id="cookie-settings-btn" class="text-gray-500 hover:text-gold-400 transition">Cookie Settings</button>
+  <span class="text-gray-600">|</span>
+  <a href="../privacy.html" class="text-gray-500 hover:text-gold-400 transition">Privacy Policy</a>
+</div>
   </footer>
 
   <script>
