@@ -41,26 +41,31 @@ Follow these exact specifications:
 ```html
   <meta property="og:type" content="article">
   <meta property="og:title" content="[Title]">
-  <meta property="og:description" content="[Short description]">
+  <meta property="og:description" content="[Short description - engaging, under 200 chars]">
   <meta property="og:url" content="https://foropoulosnow.com/blog/posts/[slug].html">
   <meta property="og:image" content="[Unsplash URL]?w=1200&h=630&fit=crop">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta property="article:author" content="Lee Foropoulos">
   <meta property="article:published_time" content="[YYYY-MM-DD]">
 
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@thesecretchief">
+  <meta name="twitter:creator" content="@thesecretchief">
   <meta name="twitter:title" content="[Title]">
-  <meta name="twitter:description" content="[Short description]">
-  <meta name="share:hook" content="[Engaging hook for social shares]">
+  <meta name="twitter:description" content="[Short description - same as og:description]">
   <meta name="twitter:image" content="[Same Unsplash URL]?w=1200&h=630&fit=crop">
+  <meta name="twitter:image:alt" content="[Title]">
+  <meta name="share:hook" content="[Engaging hook for social shares - see examples below]">
   <meta name="facebook-domain-verification" content="vx40czm6ccxtpl4crzqbiso70hmjoi" />
 ```
 
 **CRITICAL for social previews:**
 - NO HTML comments in the meta section (no `<!-- Open Graph -->` etc.)
-- NO twitter:site tag
-- twitter:image MUST come AFTER share:hook
-- og:image comes after og:url
-- Exact order matters for social media crawlers
+- og:image and twitter:image MUST use ?w=1200&h=630&fit=crop for proper social card dimensions
+- og:image:width and og:image:height help social platforms render correctly
+- twitter:site and twitter:creator are required for proper Twitter card attribution
+- share:hook is for copy/paste when sharing - make it engaging and curiosity-driven
 
 **Color Scheme:**
 - Navy: 900:#0f172a, 800:#1e293b, 700:#334155, 600:#475569
@@ -137,7 +142,27 @@ Follow these exact specifications:
 - Copy toast notification
 
 **Also Update:**
-- /blog/index.html - Add new post card to the grid
+- /_src/_data/posts.json - Add new post entry with ALL required fields (see below)
+- /blog/index.html - Add new post card to the grid (or run `node build.js` to auto-generate)
+
+**posts.json Entry (REQUIRED for build system):**
+```json
+{
+  "slug": "[slug]",
+  "title": "[Full Post Title]",
+  "description": "[Short description for SEO and social]",
+  "category": "[business|tech|fitness|habits]",
+  "categoryLabel": "[Business|Technology|Fitness|Habits|Book Review]",
+  "date": "[YYYY-MM-DD]",
+  "dateFormatted": "[Mon DD, YYYY]",
+  "readTime": "[X min read]",
+  "image": "[Unsplash URL]?w=400&h=250&fit=crop",
+  "imageAlt": "[Descriptive alt text]",
+  "featured": false,
+  "excerpt": "[1-2 sentence excerpt for blog index cards]",
+  "shareHook": "[Engaging hook for social shares - CRITICAL for engagement]"
+}
+```
 ```
 
 ---
@@ -194,7 +219,9 @@ Good hooks create curiosity and promise value:
 
 - [ ] File saved to /blog/posts/[slug].html
 - [ ] All meta tags populated (og:*, twitter:*, share:hook)
-- [ ] og:image and twitter:image meta tags included (1200x630 for social previews)
+- [ ] og:image and twitter:image use ?w=1200&h=630&fit=crop
+- [ ] og:image:width and og:image:height tags included
+- [ ] twitter:site and twitter:creator set to @thesecretchief
 - [ ] Hero image from Unsplash with proper dimensions
 - [ ] 4-6 interlaced images throughout content
 - [ ] Quick share buttons added under description in header
@@ -203,9 +230,32 @@ Good hooks create curiosity and promise value:
 - [ ] Share buttons functional
 - [ ] Author bio section included
 - [ ] Related posts section with 2 relevant posts
-- [ ] Blog index.html updated with new post card
+- [ ] posts.json updated with new entry (including shareHook!)
+- [ ] Run `node build.js` to update blog index
 - [ ] Category filter data-category attribute matches
 - [ ] NO em-dashes (—) in the text - replace with commas or rewrite
+
+## AFTER PUBLISHING - TEST SOCIAL PREVIEWS
+
+Social platforms cache link previews. After publishing, validate and clear cache:
+
+1. **Twitter/X Card Validator**: https://cards-dev.twitter.com/validator
+   - Paste URL, click "Preview Card"
+   - This refreshes Twitter's cache
+
+2. **Facebook Sharing Debugger**: https://developers.facebook.com/tools/debug/
+   - Paste URL, click "Debug"
+   - Click "Scrape Again" to refresh cache
+
+3. **LinkedIn Post Inspector**: https://www.linkedin.com/post-inspector/
+   - Paste URL, click "Inspect"
+   - Click "Refetch" to refresh cache
+
+**If image doesn't show:**
+- Verify og:image URL is accessible (paste in browser)
+- Check image dimensions (must be at least 1200x630)
+- Ensure image URL uses HTTPS
+- Clear platform cache using tools above
 
 ---
 
