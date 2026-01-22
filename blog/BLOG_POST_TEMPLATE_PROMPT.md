@@ -124,8 +124,11 @@ https://res.cloudinary.com/foropoulosnow/image/fetch/w_1200,h_630,c_fill,q_auto,
 8. Share buttons (X, LinkedIn, Facebook, Copy Link)
 9. Author bio box
 10. Related posts section (2 posts)
-11. Back to top button
-12. Footer
+11. Voice Reader widget (automatically injected by build system via `<!-- VOICE_READER -->` marker)
+12. Back to top button
+13. Cookie Consent banner (automatically injected by build system via `<!-- COOKIE_CONSENT -->` marker)
+14. Footer with Legal Links (Cookie Settings, Privacy Policy)
+15. Shared Scripts (automatically injected by build system via `<!-- SHARED_SCRIPTS -->` marker)
 
 **Quick Share Buttons Pattern (under description):**
 ```html
@@ -152,6 +155,28 @@ https://res.cloudinary.com/foropoulosnow/image/fetch/w_1200,h_630,c_fill,q_auto,
 - Back to top button visibility on scroll
 - Share functionality with getShareData(), shareOnTwitter(), shareOnLinkedIn(), shareOnFacebook(), copyLink()
 - Copy toast notification
+
+**Auto-Injected Components (via build.js markers):**
+The build system automatically injects these components. Include these comment markers in your HTML:
+
+1. **Voice Reader** - Place `<!-- VOICE_READER -->` before the back-to-top button
+   - Provides text-to-speech functionality for article content
+   - Highlights paragraphs as they are read
+   - Includes voice selection, speed controls, and skip navigation
+   - Uses Web Speech API with natural voice preference scoring
+
+2. **Cookie Consent** - Place `<!-- COOKIE_CONSENT -->` at the end of the body, before shared scripts
+   - GDPR-compliant cookie consent banner
+   - Customizable preferences modal (Essential, Analytics, Marketing)
+   - Integrates with analytics.js
+
+3. **Shared Scripts** - Place `<!-- SHARED_SCRIPTS -->` as the last element before `</body>`
+   - Cookie utilities and consent management
+   - Dark mode toggle functionality
+   - Mobile menu handling
+   - Back to top button
+   - Scroll reveal animations
+   - Smooth scrolling for anchor links
 
 **Also Update:**
 - /_src/_data/posts.json - Add new post entry with ALL required fields (see below)
@@ -249,7 +274,10 @@ Good hooks create curiosity and promise value:
 - [ ] posts.json updated with new entry (including shareHook!)
 - [ ] Run `node build.js` to update blog index
 - [ ] Category filter data-category attribute matches
-- [ ] NO em-dashes (—) in the text - replace with commas or rewrite
+- [ ] CRITICAL: NO em dashes (—) or double hyphens (--) anywhere in the text
+- [ ] Voice reader marker `<!-- VOICE_READER -->` placed before back-to-top button
+- [ ] Cookie consent marker `<!-- COOKIE_CONSENT -->` placed before shared scripts
+- [ ] Shared scripts marker `<!-- SHARED_SCRIPTS -->` placed before closing body tag
 
 ## AFTER PUBLISHING - TEST SOCIAL PREVIEWS
 
@@ -318,11 +346,24 @@ Unsplash blocks social media crawlers (returns 403 Forbidden). Cloudinary fetch 
 
 ## WRITING STYLE - AVOIDING AI TELLS
 
-**IMPORTANT:** Avoid these AI writing patterns that make text look auto-generated:
+**CRITICAL RULE - NO EM DASHES:**
+Never use em dashes (—) or double hyphens (--) in any content. This is a dead giveaway of AI-generated text. Instead:
+- Use commas for brief pauses
+- Use periods to break into separate sentences
+- Use colons to introduce explanations
+- Rewrite the sentence entirely if needed
 
-1. **NO em-dashes (—)**: Replace with commas, periods, or rewrite the sentence. Em-dashes are a dead giveaway of AI-generated text.
-2. **Avoid overused phrases**: "It's important to note", "In today's fast-paced world", "Let's dive in", "game-changer", "cutting-edge"
-3. **Vary sentence structure**: Don't make every sentence the same length or follow the same pattern
-4. **Add personality**: Include opinions, experiences, and specific details
-5. **Use contractions naturally**: "don't" instead of "do not" where appropriate
-6. **Avoid perfect parallel structure**: Real writing has natural variation
+**Examples:**
+- BAD: "The solution was simple — automate the process"
+- GOOD: "The solution was simple. Automate the process."
+- GOOD: "The solution was simple: automate the process."
+
+**Additional AI Writing Patterns to Avoid:**
+
+1. **Avoid overused phrases**: "It's important to note", "In today's fast-paced world", "Let's dive in", "game-changer", "cutting-edge", "leverage", "robust", "seamless"
+2. **Vary sentence structure**: Don't make every sentence the same length or follow the same pattern
+3. **Add personality**: Include opinions, experiences, and specific details
+4. **Use contractions naturally**: "don't" instead of "do not" where appropriate
+5. **Avoid perfect parallel structure**: Real writing has natural variation
+6. **Skip filler phrases**: Don't pad sentences with "essentially", "basically", "actually"
+7. **Be specific**: Use concrete examples and numbers instead of vague descriptions

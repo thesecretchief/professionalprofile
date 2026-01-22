@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Building Your First AI Agent: A Practical Guide for Everyday Professionals | Lee Foropoulos</title>
+  <meta name="description" content="Learn how to identify repetitive tasks perfect for AI agents and build your first one with free tools. The future of work is here, and you're in the driver's seat.">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Building Your First AI Agent: A Practical Guide for Everyday Professionals">
+  <meta property="og:description" content="Learn how to identify repetitive tasks perfect for AI agents and build your first one with free tools.">
+  <meta property="og:url" content="https://foropoulosnow.com/blog/posts/building-your-first-ai-agent.html">
+  <meta property="og:image" content="https://res.cloudinary.com/foropoulosnow/image/fetch/w_1200,h_630,c_fill,q_auto,f_auto/https%3A%2F%2Fimages.unsplash.com%2Fphoto-1485827404703-89b55fcc595e">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="article:author" content="Lee Foropoulos">
+  <meta property="article:published_time" content="2026-01-22">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@thesecretchief">
+  <meta name="twitter:creator" content="@thesecretchief">
+  <meta name="twitter:title" content="Building Your First AI Agent: A Practical Guide for Everyday Professionals">
+  <meta name="twitter:description" content="Learn how to identify repetitive tasks perfect for AI agents and build your first one with free tools.">
+  <meta name="twitter:image" content="https://res.cloudinary.com/foropoulosnow/image/fetch/w_1200,h_630,c_fill,q_auto,f_auto/https%3A%2F%2Fimages.unsplash.com%2Fphoto-1485827404703-89b55fcc595e">
+  <meta name="twitter:image:alt" content="AI robot representing artificial intelligence agents">
+  <meta name="share:hook" content="You don't need to be a programmer to build an AI agent. Here's exactly how I help my clients identify tasks to automate and create their first agent in under an hour:">
+  <meta name="facebook-domain-verification" content="vx40czm6ccxtpl4crzqbiso70hmjoi" />
+
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            navy: { 900: '#0f172a', 800: '#1e293b', 700: '#334155', 600: '#475569' },
+            gold: { 700: '#b45309', 600: '#d97706', 500: '#f59e0b', 400: '#fbbf24', 300: '#fcd34d', 200: '#fde68a', 100: '#fef3c7' }
+          },
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+          typography: {
+            DEFAULT: {
+              css: {
+                maxWidth: 'none',
+                color: 'inherit',
+                a: { color: '#f59e0b', textDecoration: 'underline', '&:hover': { color: '#fbbf24' } },
+                h2: { color: 'inherit', fontWeight: '700' },
+                h3: { color: 'inherit', fontWeight: '600' },
+                strong: { color: 'inherit' },
+                code: { backgroundColor: 'rgba(0,0,0,0.1)', padding: '2px 6px', borderRadius: '4px' }
+              }
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <script>
+    function getCookie(name) {
+      const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+      return match ? match[2] : null;
+    }
+    const darkPref = getCookie('darkMode');
+    if (darkPref === 'true' || (!darkPref && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    .prose { line-height: 1.8; }
+    .prose h2 { margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.75rem; }
+    .prose h3 { margin-top: 2rem; margin-bottom: 0.75rem; font-size: 1.25rem; }
+    .prose p { margin-bottom: 1.5rem; }
+    .prose ul, .prose ol { margin-bottom: 1.5rem; padding-left: 1.5rem; }
+    .prose li { margin-bottom: 0.5rem; }
+    .prose blockquote { border-left: 4px solid #f59e0b; padding-left: 1.5rem; margin: 2rem 0; font-style: italic; }
+    .prose code { background: rgba(0,0,0,0.1); padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
+    .dark .prose code { background: rgba(255,255,255,0.1); }
+    .dark-mode-toggle { transition: transform 0.3s ease; }
+    .dark-mode-toggle:hover { transform: rotate(15deg); }
+    #back-to-top { opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+    #back-to-top.visible { opacity: 1; visibility: visible; }
+    .content-image { border-radius: 0.75rem; margin: 2rem 0; box-shadow: 0 10px 40px rgba(0,0,0,0.15); }
+    .share-btn { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 2.75rem; height: 2.75rem; border-radius: 50%; transition: all 0.2s ease; }
+    .share-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+    .share-btn svg { width: 1.25rem; height: 1.25rem; }
+    .share-btn[data-tooltip]:hover::after { content: attr(data-tooltip); position: absolute; bottom: -2rem; left: 50%; transform: translateX(-50%); background: #0f172a; color: white; padding: 0.25rem 0.5rem; border-radius: 0.25rem; font-size: 0.75rem; white-space: nowrap; z-index: 10; }
+    .dark .share-btn[data-tooltip]:hover::after { background: #f59e0b; color: #0f172a; }
+    .copy-toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(100px); background: #0f172a; color: white; padding: 0.75rem 1.5rem; border-radius: 0.5rem; font-weight: 500; opacity: 0; transition: all 0.3s ease; z-index: 100; }
+    .copy-toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+  </style>
+  <!-- Analytics: Google Analytics 4 + Microsoft Clarity -->
+  <script src="/analytics.js" defer></script>
+</head>
+<body class="bg-white dark:bg-navy-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-navy-900/95 backdrop-blur-md border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <a href="../" class="text-white font-bold text-xl tracking-tight">
+          Foropoulos<span class="text-gold-400">Now</span><span class="text-gray-400 text-sm">.com</span>
+        </a>
+        <div class="flex items-center gap-4">
+          <a href="../" class="text-gray-300 hover:text-gold-400 transition text-sm font-medium">&larr; All Posts</a>
+          <button id="dark-mode-toggle" class="dark-mode-toggle text-gray-300 hover:text-gold-400 p-2 rounded-lg hover:bg-white/10 transition" aria-label="Toggle dark mode">
+            <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+            </svg>
+            <svg class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Image -->
+  <div class="relative h-64 sm:h-80 lg:h-96 overflow-hidden">
+    <img
+      src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1600&h=900&fit=crop"
+      alt="AI robot representing artificial intelligence agents"
+      class="w-full h-full object-cover"
+    >
+    <div class="absolute inset-0 bg-gradient-to-t from-navy-900 via-navy-900/70 to-transparent"></div>
+  </div>
+
+  <!-- Article Header -->
+  <header class="bg-gradient-to-br from-navy-900 to-navy-800 -mt-32 relative z-10 pt-8 pb-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="bg-blue-500/20 text-blue-400 text-xs font-semibold px-3 py-1 rounded-full">Technology</span>
+        <span class="text-gray-400 text-sm">January 22, 2026</span>
+        <span class="text-gray-400 text-sm">&#8226; 10 min read</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-6">
+        Building Your First AI Agent: A Practical Guide for Everyday Professionals
+      </h1>
+      <p class="text-xl text-gray-300 leading-relaxed">
+        Learn how to identify repetitive tasks perfect for AI agents and build your first one with free tools. The future of work is here, and you're in the driver's seat.
+      </p>
+
+      <!-- Quick Share Buttons -->
+      <div class="flex items-center gap-2 mt-6">
+        <span class="text-gray-400 text-sm mr-1">Share:</span>
+        <button onclick="shareOnTwitter()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition" aria-label="Share on X">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </button>
+        <button onclick="shareOnLinkedIn()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition" aria-label="Share on LinkedIn">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </button>
+        <button onclick="shareOnFacebook()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition" aria-label="Share on Facebook">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </button>
+        <button onclick="copyLink()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition" aria-label="Copy Link">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        </button>
+      </div>
+
+      <!-- Author -->
+      <div class="flex items-center gap-4 mt-8 pt-8 border-t border-white/10">
+        <img src="../../headshot.png" alt="Lee Foropoulos" class="w-12 h-12 rounded-full object-cover" onerror="this.src='https://via.placeholder.com/48x48.png?text=LF';">
+        <div>
+          <p class="text-white font-semibold">Lee Foropoulos</p>
+          <p class="text-gray-400 text-sm">Business Development Lead at Lookatmedia | Fractional Executive</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Article Content -->
+  <article class="py-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="prose prose-lg dark:prose-invert">
+
+        <p>
+          Last month, a client called me frustrated. She's a property manager handling 47 units, and every morning she'd spend two hours sorting tenant emails, categorizing maintenance requests, and forwarding them to the right contractors. Two hours. Every single day.
+        </p>
+
+        <p>
+          Within a week, we had an AI agent handling 80% of that work automatically. Now she spends 15 minutes reviewing what the agent processed overnight. That's not science fiction. That's what AI agents can do for you right now, and you don't need to write a single line of code to make it happen.
+        </p>
+
+        <h2>What Exactly Is an AI Agent?</h2>
+
+        <p>
+          Think of an AI agent as a digital worker that never sleeps. It's software that can read information, make decisions based on rules you set, and take actions on your behalf. Unlike traditional automation that follows rigid scripts, AI agents can understand context and handle situations they weren't explicitly programmed for.
+        </p>
+
+        <!-- Inline Image -->
+        <figure class="my-10">
+          <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=450&fit=crop" alt="AI neural network visualization showing connected nodes" class="content-image w-full">
+          <figcaption class="text-center text-sm text-gray-500 dark:text-gray-400 mt-3">AI agents tap into neural networks trained on billions of documents and conversations</figcaption>
+        </figure>
+
+        <p>
+          Here's what makes them powerful. These agents are built on large language models trained on billions of documents, conversations, and examples. When your agent encounters a new email, it's drawing on patterns learned from countless similar situations. It's like having an assistant who has read every business communication ever written and remembers all of it perfectly.
+        </p>
+
+        <blockquote>
+          "An AI agent isn't just faster than a human at repetitive tasks. It's drawing on more accumulated knowledge than any single person could absorb in multiple lifetimes."
+        </blockquote>
+
+        <p>
+          The best part? Agents work at machine speed. A task that takes you 30 seconds takes an agent milliseconds. Multiply that across hundreds of daily tasks, and you're looking at serious time savings.
+        </p>
+
+        <h2>Spotting Tasks That Agents Can Handle</h2>
+
+        <p>
+          Not every task is right for an AI agent. Here's how to identify the perfect candidates in your own work.
+        </p>
+
+        <h3>The "Rules in Your Head" Test</h3>
+
+        <p>
+          Pay attention to tasks where you follow mental rules without thinking. When you see a certain type of email, you forward it to a specific person. When a customer asks about pricing, you send the same PDF. When an invoice arrives, you file it in a particular folder. These mental rules are gold for AI agents.
+        </p>
+
+        <!-- Inline Image -->
+        <figure class="my-10">
+          <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=450&fit=crop" alt="Person working at desk with laptop showing workflow" class="content-image w-full">
+          <figcaption class="text-center text-sm text-gray-500 dark:text-gray-400 mt-3">Most knowledge workers spend hours on tasks that follow predictable patterns</figcaption>
+        </figure>
+
+        <h3>The Volume Test</h3>
+
+        <p>
+          High-volume, low-complexity tasks are perfect. Data entry from forms, categorizing support tickets, scheduling confirmations, copying information between systems. If you do something more than 10 times a day, it's probably worth automating.
+        </p>
+
+        <h3>The "I Wish I Had Time" Test</h3>
+
+        <p>
+          Think about tasks you keep putting off because they're tedious. Following up with leads after a week of no response. Cleaning up your contact database. Generating weekly reports from spreadsheets. Agents don't procrastinate.
+        </p>
+
+        <h3>Common Tasks Perfect for Your First Agent</h3>
+
+        <ul>
+          <li><strong>Email triage:</strong> Sorting, categorizing, and routing incoming messages</li>
+          <li><strong>Meeting prep:</strong> Gathering background info on attendees before calls</li>
+          <li><strong>Data extraction:</strong> Pulling specific information from documents or websites</li>
+          <li><strong>Response drafting:</strong> Creating first drafts of routine replies</li>
+          <li><strong>Schedule coordination:</strong> Managing back-and-forth for meeting times</li>
+          <li><strong>Report generation:</strong> Compiling regular summaries from data sources</li>
+        </ul>
+
+        <!-- Inline Image -->
+        <figure class="my-10">
+          <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=450&fit=crop" alt="Team collaborating around a computer discussing workflow" class="content-image w-full">
+          <figcaption class="text-center text-sm text-gray-500 dark:text-gray-400 mt-3">The best agent tasks are ones you can explain clearly to a new team member</figcaption>
+        </figure>
+
+        <h2>Build Your First Agent in Under an Hour</h2>
+
+        <p>
+          Here's a step-by-step guide using completely free tools. We're going to create an email assistant that monitors your inbox and drafts responses to common questions.
+        </p>
+
+        <h3>Step 1: Sign Up for Make.com (5 minutes)</h3>
+
+        <p>
+          Make.com (formerly Integromat) offers a free tier that's perfect for getting started. Create an account and you'll have access to their visual automation builder. No coding required.
+        </p>
+
+        <h3>Step 2: Connect Your Email (3 minutes)</h3>
+
+        <p>
+          In Make.com, create a new scenario and add an email trigger. Connect your Gmail or Outlook account. The platform will ask for permission to read your incoming emails. This is secure and you can revoke access anytime.
+        </p>
+
+        <h3>Step 3: Add AI Processing (10 minutes)</h3>
+
+        <p>
+          Add a ChatGPT module to your scenario. You'll need a free OpenAI account with API access. Here's where the magic happens. Configure the AI with a prompt like this:
+        </p>
+
+        <p>
+          "You are an email assistant for [your name]. When you receive an email, categorize it as: URGENT, NEEDS_RESPONSE, INFORMATIONAL, or SPAM. For NEEDS_RESPONSE emails about [common topic], draft a brief, friendly response. Return your analysis in JSON format."
+        </p>
+
+        <!-- Inline Image -->
+        <figure class="my-10">
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=450&fit=crop" alt="Computer screen showing automation workflow diagram" class="content-image w-full">
+          <figcaption class="text-center text-sm text-gray-500 dark:text-gray-400 mt-3">Visual automation builders let you connect services without writing code</figcaption>
+        </figure>
+
+        <h3>Step 4: Set Up Actions (15 minutes)</h3>
+
+        <p>
+          Based on the AI's categorization, add different actions. For URGENT emails, send yourself a Slack notification or text message. For NEEDS_RESPONSE emails, save the draft to a Google Doc for your review. For SPAM, automatically archive or delete.
+        </p>
+
+        <h3>Step 5: Test and Refine (20 minutes)</h3>
+
+        <p>
+          Send yourself a few test emails matching different scenarios. Watch how your agent processes them. Adjust the AI prompt based on results. This refinement is where you'll spend most of your time, but each tweak makes your agent smarter.
+        </p>
+
+        <h3>Alternative Free Tools</h3>
+
+        <p>
+          Don't like Make.com? Here are other free options that work similarly:
+        </p>
+
+        <ul>
+          <li><strong>Zapier:</strong> The most popular automation platform, generous free tier</li>
+          <li><strong>n8n:</strong> Open source and self-hostable for maximum control</li>
+          <li><strong>Microsoft Power Automate:</strong> Free with Microsoft 365 subscriptions</li>
+          <li><strong>Google Apps Script:</strong> Free and powerful for Google Workspace users</li>
+        </ul>
+
+        <h2>The Future Is Already Here</h2>
+
+        <p>
+          I talk to business owners every week who worry they're falling behind on AI. They see headlines about billion-dollar companies deploying armies of AI agents and feel overwhelmed. Here's what I tell them: you don't need to boil the ocean.
+        </p>
+
+        <!-- Inline Image -->
+        <figure class="my-10">
+          <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&h=450&fit=crop" alt="Person using futuristic holographic interface representing AI technology" class="content-image w-full">
+          <figcaption class="text-center text-sm text-gray-500 dark:text-gray-400 mt-3">You don't need enterprise budgets to start using AI agents effectively</figcaption>
+        </figure>
+
+        <p>
+          Start with one agent handling one task. Get comfortable with how it works. Then add another. Within a few months, you'll have a small team of digital workers handling the repetitive stuff while you focus on work that actually requires your brain, your creativity, and your relationships.
+        </p>
+
+        <p>
+          The professionals who thrive in the next decade won't be the ones who fear AI. They'll be the ones who learned to work alongside it early. You're reading this article, which means you're already thinking about it. You're already ahead.
+        </p>
+
+        <blockquote>
+          "The question isn't whether AI will change your job. It's whether you'll be the one directing that change or reacting to it."
+        </blockquote>
+
+        <h2>Ready to Go Deeper?</h2>
+
+        <p>
+          Building a single agent is one thing. Developing a comprehensive automation strategy for your business is another. At <a href="../../ventures/greek-fire-services.html">Greek-Fire Services</a>, we specialize in helping companies identify their highest-impact automation opportunities and build roadmaps to get there.
+        </p>
+
+        <div class="bg-gold-50 dark:bg-gold-500/10 rounded-xl p-6 my-8 border border-gold-200 dark:border-gold-500/30">
+          <p class="font-semibold text-navy-900 dark:text-white mb-2">Want Expert Guidance?</p>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">We'll help you identify the tasks draining your team's time, create a prioritized automation roadmap, and train your staff to manage AI agents effectively. The future is coming faster than most people realize. Let us help you stay ahead of it.</p>
+          <a href="../../ventures/greek-fire-services.html" class="inline-block bg-gold-500 hover:bg-gold-600 text-white font-semibold px-6 py-2 rounded-full transition">Learn About Greek-Fire Services &rarr;</a>
+        </div>
+
+        <hr class="my-12 border-gray-200 dark:border-gray-700">
+
+        <p>
+          <strong>Your move:</strong> This week, keep a notepad handy. Every time you catch yourself doing a repetitive task, write it down. By Friday, you'll have a list of agent candidates. Pick the easiest one and build your first automation this weekend. The hardest part isn't the technology. It's getting started.
+        </p>
+
+      </div>
+
+      <!-- Share Section -->
+      <div class="border-t border-gray-200 dark:border-white/10 pt-8 mt-10">
+        <h3 class="text-lg font-bold text-navy-900 dark:text-white mb-4">Share this article</h3>
+        <div class="flex flex-wrap gap-3">
+          <button onclick="shareOnTwitter()" class="share-btn bg-black hover:bg-gray-800 text-white" data-tooltip="Share on X" aria-label="Share on X">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </button>
+          <button onclick="shareOnLinkedIn()" class="share-btn bg-[#0A66C2] hover:bg-[#094c8f] text-white" data-tooltip="Share on LinkedIn" aria-label="Share on LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </button>
+          <button onclick="shareOnFacebook()" class="share-btn bg-[#1877F2] hover:bg-[#1464c0] text-white" data-tooltip="Share on Facebook" aria-label="Share on Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </button>
+          <button onclick="copyLink()" class="share-btn bg-gray-600 hover:bg-gray-500 text-white" data-tooltip="Copy Link" aria-label="Copy Link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Author Bio -->
+      <div class="mt-12 p-8 bg-gray-50 dark:bg-navy-800 rounded-2xl">
+        <div class="flex items-start gap-4">
+          <img src="../../headshot.png" alt="Lee Foropoulos" class="w-16 h-16 rounded-full object-cover" onerror="this.src='https://via.placeholder.com/64x64.png?text=LF';">
+          <div>
+            <h3 class="font-bold text-navy-900 dark:text-white">Lee Foropoulos</h3>
+            <p class="text-gray-600 dark:text-gray-400 text-sm mb-3">Business Development Lead at Lookatmedia | Fractional Executive | Tourism Ambassador for Visit Mobile</p>
+            <p class="text-gray-600 dark:text-gray-300 text-sm">
+              20+ years of experience scaling SaaS platforms and leading teams. I write about leadership, technology, AI, and building sustainable habits.
+            </p>
+            <div class="flex gap-3 mt-4">
+              <a href="https://x.com/thesecretchief" target="_blank" class="text-gray-500 hover:text-gold-500 transition">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              </a>
+              <a href="https://www.linkedin.com/in/thesecretchief" target="_blank" class="text-gray-500 hover:text-gold-500 transition">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </article>
+
+  <!-- Copy Toast -->
+  <div id="copy-toast" class="copy-toast">Link copied to clipboard!</div>
+
+  <!-- Related Posts -->
+  <section class="py-12 bg-gray-50 dark:bg-navy-800">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-navy-900 dark:text-white mb-8">Related Posts</h2>
+      <div class="grid sm:grid-cols-2 gap-6">
+        <a href="ai-automation-for-small-business.html" class="bg-white dark:bg-navy-900 rounded-xl p-6 shadow-sm hover:shadow-lg transition border border-gray-100 dark:border-white/10">
+          <span class="text-xs font-semibold text-gold-600 dark:text-gold-400">Business</span>
+          <h3 class="font-bold text-navy-900 dark:text-white mt-2">5 AI Automation Strategies for Small Business</h3>
+          <p class="text-gray-600 dark:text-gray-400 text-sm mt-2">Practical strategies that can save your business 20+ hours per week.</p>
+        </a>
+        <a href="claude-vs-chatgpt-2026.html" class="bg-white dark:bg-navy-900 rounded-xl p-6 shadow-sm hover:shadow-lg transition border border-gray-100 dark:border-white/10">
+          <span class="text-xs font-semibold text-blue-600 dark:text-blue-400">Technology</span>
+          <h3 class="font-bold text-navy-900 dark:text-white mt-2">Claude vs ChatGPT in 2026</h3>
+          <p class="text-gray-600 dark:text-gray-400 text-sm mt-2">Which AI assistant should you choose for your automation needs?</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Back to Top Button -->
+  <!-- VOICE_READER -->
+
+<button id="back-to-top" class="fixed bottom-8 right-8 z-40 bg-gold-500 hover:bg-gold-400 text-navy-900 p-3 rounded-full shadow-lg transition transform hover:scale-110" aria-label="Back to top">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+    </svg>
+  </button>
+
+  <!-- Footer -->
+  <footer class="bg-navy-900 border-t border-white/10 py-8">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <a href="../" class="text-white font-bold text-lg">Foropoulos<span class="text-gold-400">Now</span><span class="text-gray-400 text-sm">.com</span></a>
+      <p class="text-gray-500 text-sm mt-2">&copy; 2026 Greek-Fire Corporation</p>
+    </div>
+
+    <!-- Legal Links -->
+<div class="mt-8 pt-6 border-t border-white/10 flex flex-wrap justify-center gap-4 text-sm">
+  <button id="cookie-settings-btn" class="text-gray-500 hover:text-gold-400 transition">Cookie Settings</button>
+  <span class="text-gray-600">|</span>
+  <a href="../../privacy" class="text-gray-500 hover:text-gold-400 transition">Privacy Policy</a>
+</div>
+  </footer>
+
+  <script>
+    // Back to Top Button
+    const backToTop = document.getElementById('back-to-top');
+    function updateBackToTop() {
+      if (window.scrollY > 500) {
+        backToTop.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
+      }
+    }
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    window.addEventListener('scroll', updateBackToTop);
+    updateBackToTop();
+
+    // Share functionality with engaging hooks
+    function getShareData() {
+      const title = document.querySelector('meta[property="og:title"]')?.content || document.title;
+      const description = document.querySelector('meta[property="og:description"]')?.content || '';
+      const url = document.querySelector('meta[property="og:url"]')?.content || window.location.href;
+      // Get custom hook from meta tag, or generate from description
+      const hook = document.querySelector('meta[name="share:hook"]')?.content || description;
+      return { title, description, url, hook };
+    }
+
+    function shareOnTwitter() {
+      const { hook, url } = getShareData();
+      // Create engaging tweet: hook + URL (Twitter will auto-unfurl the link with OG metadata)
+      const text = hook;
+      window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank', 'width=550,height=420');
+    }
+
+    function shareOnLinkedIn() {
+      const { title, hook, url } = getShareData();
+      // LinkedIn uses the URL's OG tags for the preview card, but we can add context
+      // The text parameter adds a comment above the link preview
+      const text = hook + '\n\nRead more:';
+      window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, '_blank', 'width=550,height=420');
+    }
+
+    function shareOnFacebook() {
+      const { hook, url } = getShareData();
+      // Facebook uses OG tags from the URL for preview, quote adds highlighted text
+      window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(hook)}`, '_blank', 'width=550,height=420');
+    }
+
+    function copyLink() {
+      const { url } = getShareData();
+      navigator.clipboard.writeText(url).then(() => {
+        const toast = document.getElementById('copy-toast');
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2000);
+      });
+    }
+  </script>
+
+<!-- COOKIE_CONSENT -->
+
+<!-- SHARED_SCRIPTS -->
+</body>
+</html>
