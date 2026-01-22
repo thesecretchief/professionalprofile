@@ -1557,6 +1557,16 @@ function initCookieConsentListeners() {
       }
     });
   });
+
+  // Toggle checkboxes when clicking on the toggle switch div
+  document.querySelectorAll('#cookie-modal input[type="checkbox"]').forEach(checkbox => {
+    const toggleDiv = checkbox.nextElementSibling;
+    if (toggleDiv && !checkbox.disabled) {
+      toggleDiv.addEventListener('click', () => {
+        checkbox.checked = !checkbox.checked;
+      });
+    }
+  });
 }
 
 // ===== INITIALIZE ALL =====

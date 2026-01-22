@@ -441,21 +441,21 @@
     const mobileOverlay = document.getElementById('mobile-overlay');
 
     function openMenu() {
-      mobileMenu.classList.add('open');
-      mobileOverlay.classList.add('open');
+      if (mobileMenu) mobileMenu.classList.add('open');
+      if (mobileOverlay) mobileOverlay.classList.add('open');
       document.body.style.overflow = 'hidden';
     }
 
     function closeMenu() {
-      mobileMenu.classList.remove('open');
-      mobileOverlay.classList.remove('open');
+      if (mobileMenu) mobileMenu.classList.remove('open');
+      if (mobileOverlay) mobileOverlay.classList.remove('open');
       document.body.style.overflow = '';
     }
 
-    mobileMenuBtn.addEventListener('click', openMenu);
-    closeMenuBtn.addEventListener('click', closeMenu);
-    mobileOverlay.addEventListener('click', closeMenu);
-    mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+    if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', openMenu);
+    if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeMenu);
+    if (mobileOverlay) mobileOverlay.addEventListener('click', closeMenu);
+    if (mobileMenu) mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
 
     // Dark Mode Toggle
     const darkToggle = document.getElementById('dark-toggle');
@@ -468,22 +468,24 @@
 
     function updateDarkModeIcons() {
       const isDark = document.documentElement.classList.contains('dark');
-      sunIcon.classList.toggle('hidden', !isDark);
-      moonIcon.classList.toggle('hidden', isDark);
-      mobileSunIcon.classList.toggle('hidden', !isDark);
-      mobileMoonIcon.classList.toggle('hidden', isDark);
-      darkModeText.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+      if (sunIcon) sunIcon.classList.toggle('hidden', !isDark);
+      if (moonIcon) moonIcon.classList.toggle('hidden', isDark);
+      if (mobileSunIcon) mobileSunIcon.classList.toggle('hidden', !isDark);
+      if (mobileMoonIcon) mobileMoonIcon.classList.toggle('hidden', isDark);
+      if (darkModeText) darkModeText.textContent = isDark ? 'Light Mode' : 'Dark Mode';
     }
 
     function toggleDarkMode() {
       document.documentElement.classList.toggle('dark');
       const isDark = document.documentElement.classList.contains('dark');
-      setCookie('darkMode', isDark, 365);
+      // Use direct cookie setting to avoid dependency on SHARED_SCRIPTS loading order
+      const expires = new Date(Date.now() + 365 * 864e5).toUTCString();
+      document.cookie = 'darkMode=' + encodeURIComponent(isDark) + '; expires=' + expires + '; path=/; SameSite=Lax';
       updateDarkModeIcons();
     }
 
-    darkToggle.addEventListener('click', toggleDarkMode);
-    mobileDarkToggle.addEventListener('click', toggleDarkMode);
+    if (darkToggle) darkToggle.addEventListener('click', toggleDarkMode);
+    if (mobileDarkToggle) mobileDarkToggle.addEventListener('click', toggleDarkMode);
     updateDarkModeIcons();
 
     // Scroll Progress Bar
@@ -914,6 +916,16 @@ function initCookieConsentListeners() {
         checkbox.checked = !checkbox.checked;
       }
     });
+  });
+
+  // Toggle checkboxes when clicking on the toggle switch div
+  document.querySelectorAll('#cookie-modal input[type="checkbox"]').forEach(checkbox => {
+    const toggleDiv = checkbox.nextElementSibling;
+    if (toggleDiv && !checkbox.disabled) {
+      toggleDiv.addEventListener('click', () => {
+        checkbox.checked = !checkbox.checked;
+      });
+    }
   });
 }
 
