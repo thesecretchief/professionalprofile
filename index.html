@@ -1455,38 +1455,43 @@
     const menuOverlay = document.getElementById('menu-overlay');
 
     function openMobileMenu() {
-      mobileMenu.classList.add('open');
-      menuOverlay.classList.add('open');
+      if (mobileMenu) mobileMenu.classList.add('open');
+      if (menuOverlay) menuOverlay.classList.add('open');
       document.body.style.overflow = 'hidden';
     }
 
     function closeMobileMenu() {
-      mobileMenu.classList.remove('open');
-      menuOverlay.classList.remove('open');
+      if (mobileMenu) mobileMenu.classList.remove('open');
+      if (menuOverlay) menuOverlay.classList.remove('open');
       document.body.style.overflow = '';
     }
 
-    mobileMenuBtn.addEventListener('click', openMobileMenu);
-    closeMenuBtn.addEventListener('click', closeMobileMenu);
-    menuOverlay.addEventListener('click', closeMobileMenu);
+    if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', openMobileMenu);
+    if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeMobileMenu);
+    if (menuOverlay) menuOverlay.addEventListener('click', closeMobileMenu);
 
     // Close menu when clicking a link
-    mobileMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', closeMobileMenu);
-    });
+    if (mobileMenu) {
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', closeMobileMenu);
+      });
+    }
 
     // ===== Dark Mode Toggle =====
+    // Note: SHARED_SCRIPTS handles dark mode toggle. This is kept for pages that may load before SHARED_SCRIPTS.
     const darkModeToggle = document.getElementById('dark-mode-toggle');
     const darkModeToggleMobile = document.getElementById('dark-mode-toggle-mobile');
 
     function toggleDarkMode() {
       document.documentElement.classList.toggle('dark');
       const isDark = document.documentElement.classList.contains('dark');
-      setCookie('darkMode', isDark, 365);
+      // Use direct cookie setting to avoid dependency on SHARED_SCRIPTS loading order
+      const expires = new Date(Date.now() + 365 * 864e5).toUTCString();
+      document.cookie = 'darkMode=' + encodeURIComponent(isDark) + '; expires=' + expires + '; path=/; SameSite=Lax';
     }
 
-    darkModeToggle.addEventListener('click', toggleDarkMode);
-    darkModeToggleMobile.addEventListener('click', toggleDarkMode);
+    if (darkModeToggle) darkModeToggle.addEventListener('click', toggleDarkMode);
+    if (darkModeToggleMobile) darkModeToggleMobile.addEventListener('click', toggleDarkMode);
 
     // ===== Scroll Progress Bar =====
     const scrollProgress = document.getElementById('scroll-progress');
@@ -2052,6 +2057,16 @@ function initCookieConsentListeners() {
         checkbox.checked = !checkbox.checked;
       }
     });
+  });
+
+  // Toggle checkboxes when clicking on the toggle switch div
+  document.querySelectorAll('#cookie-modal input[type="checkbox"]').forEach(checkbox => {
+    const toggleDiv = checkbox.nextElementSibling;
+    if (toggleDiv && !checkbox.disabled) {
+      toggleDiv.addEventListener('click', () => {
+        checkbox.checked = !checkbox.checked;
+      });
+    }
   });
 }
 

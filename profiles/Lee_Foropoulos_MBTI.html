@@ -460,22 +460,22 @@
     const mobileMenu = document.getElementById('mobile-menu');
     const menuOverlay = document.getElementById('menu-overlay');
 
-    function openMenu() { mobileMenu.classList.add('open'); menuOverlay.classList.add('open'); document.body.style.overflow = 'hidden'; }
-    function closeMenu() { mobileMenu.classList.remove('open'); menuOverlay.classList.remove('open'); document.body.style.overflow = ''; }
+    function openMenu() { if (mobileMenu) mobileMenu.classList.add('open'); if (menuOverlay) menuOverlay.classList.add('open'); document.body.style.overflow = 'hidden'; }
+    function closeMenu() { if (mobileMenu) mobileMenu.classList.remove('open'); if (menuOverlay) menuOverlay.classList.remove('open'); document.body.style.overflow = ''; }
 
-    mobileMenuBtn.addEventListener('click', openMenu);
-    closeMenuBtn.addEventListener('click', closeMenu);
-    menuOverlay.addEventListener('click', closeMenu);
-    mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+    if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', openMenu);
+    if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeMenu);
+    if (menuOverlay) menuOverlay.addEventListener('click', closeMenu);
+    if (mobileMenu) mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
 
     const darkModeToggle = document.getElementById('dark-mode-toggle');
     const darkModeToggleMobile = document.getElementById('dark-mode-toggle-mobile');
-    function toggleDarkMode() { const isDark = document.documentElement.classList.toggle('dark'); setCookie('darkMode', isDark, 365); }
-    darkModeToggle.addEventListener('click', toggleDarkMode);
-    darkModeToggleMobile.addEventListener('click', toggleDarkMode);
+    function toggleDarkMode() { const isDark = document.documentElement.classList.toggle('dark'); const expires = new Date(Date.now() + 365 * 864e5).toUTCString(); document.cookie = 'darkMode=' + encodeURIComponent(isDark) + '; expires=' + expires + '; path=/; SameSite=Lax'; }
+    if (darkModeToggle) darkModeToggle.addEventListener('click', toggleDarkMode);
+    if (darkModeToggleMobile) darkModeToggleMobile.addEventListener('click', toggleDarkMode);
 
     const scrollProgress = document.getElementById('scroll-progress');
-    window.addEventListener('scroll', () => {
+    if (scrollProgress) window.addEventListener('scroll', () => {
       const scrollTop = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const scrollPercent = (scrollTop / docHeight) * 100;
@@ -483,8 +483,7 @@
     });
 
     const backToTop = document.getElementById('back-to-top');
-    window.addEventListener('scroll', () => { backToTop.classList.toggle('visible', window.scrollY > 500); });
-    backToTop.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    if (backToTop) { window.addEventListener('scroll', () => { backToTop.classList.toggle('visible', window.scrollY > 500); }); backToTop.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); }); }
 
     const revealElements = document.querySelectorAll('.reveal');
     const revealObserver = new IntersectionObserver((entries) => {
@@ -887,6 +886,16 @@ function initCookieConsentListeners() {
         checkbox.checked = !checkbox.checked;
       }
     });
+  });
+
+  // Toggle checkboxes when clicking on the toggle switch div
+  document.querySelectorAll('#cookie-modal input[type="checkbox"]').forEach(checkbox => {
+    const toggleDiv = checkbox.nextElementSibling;
+    if (toggleDiv && !checkbox.disabled) {
+      toggleDiv.addEventListener('click', () => {
+        checkbox.checked = !checkbox.checked;
+      });
+    }
   });
 }
 

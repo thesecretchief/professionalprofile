@@ -1360,12 +1360,12 @@
     const closeMenuBtn = document.getElementById('close-menu');
     const mobileMenu = document.getElementById('mobile-menu');
 
-    mobileMenuBtn.addEventListener('click', () => {
-      mobileMenu.classList.add('open');
+    if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', () => {
+      if (mobileMenu) mobileMenu.classList.add('open');
     });
 
-    closeMenuBtn.addEventListener('click', () => {
-      mobileMenu.classList.remove('open');
+    if (closeMenuBtn) closeMenuBtn.addEventListener('click', () => {
+      if (mobileMenu) mobileMenu.classList.remove('open');
     });
 
     // Dark mode toggle
@@ -1994,6 +1994,16 @@ function initCookieConsentListeners() {
         checkbox.checked = !checkbox.checked;
       }
     });
+  });
+
+  // Toggle checkboxes when clicking on the toggle switch div
+  document.querySelectorAll('#cookie-modal input[type="checkbox"]').forEach(checkbox => {
+    const toggleDiv = checkbox.nextElementSibling;
+    if (toggleDiv && !checkbox.disabled) {
+      toggleDiv.addEventListener('click', () => {
+        checkbox.checked = !checkbox.checked;
+      });
+    }
   });
 }
 

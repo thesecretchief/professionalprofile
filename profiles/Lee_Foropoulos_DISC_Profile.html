@@ -591,21 +591,21 @@
     const menuOverlay = document.getElementById('menu-overlay');
 
     function openMenu() {
-      mobileMenu.classList.add('open');
-      menuOverlay.classList.add('open');
+      if (mobileMenu) mobileMenu.classList.add('open');
+      if (menuOverlay) menuOverlay.classList.add('open');
       document.body.style.overflow = 'hidden';
     }
 
     function closeMenu() {
-      mobileMenu.classList.remove('open');
-      menuOverlay.classList.remove('open');
+      if (mobileMenu) mobileMenu.classList.remove('open');
+      if (menuOverlay) menuOverlay.classList.remove('open');
       document.body.style.overflow = '';
     }
 
-    mobileMenuBtn.addEventListener('click', openMenu);
-    closeMenuBtn.addEventListener('click', closeMenu);
-    menuOverlay.addEventListener('click', closeMenu);
-    mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+    if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', openMenu);
+    if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeMenu);
+    if (menuOverlay) menuOverlay.addEventListener('click', closeMenu);
+    if (mobileMenu) mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
 
     // Dark Mode Toggle
     const darkModeToggle = document.getElementById('dark-mode-toggle');
@@ -613,11 +613,13 @@
 
     function toggleDarkMode() {
       const isDark = document.documentElement.classList.toggle('dark');
-      setCookie('darkMode', isDark, 365);
+      // Use direct cookie setting to avoid dependency on SHARED_SCRIPTS loading order
+      const expires = new Date(Date.now() + 365 * 864e5).toUTCString();
+      document.cookie = 'darkMode=' + encodeURIComponent(isDark) + '; expires=' + expires + '; path=/; SameSite=Lax';
     }
 
-    darkModeToggle.addEventListener('click', toggleDarkMode);
-    darkModeToggleMobile.addEventListener('click', toggleDarkMode);
+    if (darkModeToggle) darkModeToggle.addEventListener('click', toggleDarkMode);
+    if (darkModeToggleMobile) darkModeToggleMobile.addEventListener('click', toggleDarkMode);
 
     // Scroll Progress Bar
     const scrollProgress = document.getElementById('scroll-progress');
@@ -1060,6 +1062,16 @@ function initCookieConsentListeners() {
         checkbox.checked = !checkbox.checked;
       }
     });
+  });
+
+  // Toggle checkboxes when clicking on the toggle switch div
+  document.querySelectorAll('#cookie-modal input[type="checkbox"]').forEach(checkbox => {
+    const toggleDiv = checkbox.nextElementSibling;
+    if (toggleDiv && !checkbox.disabled) {
+      toggleDiv.addEventListener('click', () => {
+        checkbox.checked = !checkbox.checked;
+      });
+    }
   });
 }
 
