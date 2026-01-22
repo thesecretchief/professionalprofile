@@ -416,6 +416,7 @@
       });
     }
   </script>
+<!-- COOKIE_CONSENT -->
 <!-- Cookie Consent Banner -->
 <div id="cookie-consent" class="fixed bottom-0 left-0 right-0 z-[100] transform translate-y-full transition-transform duration-500" role="dialog" aria-labelledby="cookie-consent-title" aria-describedby="cookie-consent-description">
   <div class="bg-navy-900/98 backdrop-blur-lg border-t border-white/10 shadow-2xl">
@@ -483,12 +484,11 @@
               <label for="cookie-analytics" class="text-white font-semibold cursor-pointer">Analytics Cookies</label>
               <p class="text-gray-400 text-sm mt-1">Help us understand how visitors interact with our site. We use Google Analytics and Microsoft Clarity.</p>
             </div>
-            <div class="relative">
+            <label for="cookie-analytics" class="relative cursor-pointer">
               <input type="checkbox" id="cookie-analytics" class="sr-only peer">
-              <div class="w-11 h-6 bg-gray-600 peer-checked:bg-gold-500 rounded-full cursor-pointer transition-colors">
-                <div class="absolute top-0.5 left-0.5 peer-checked:left-5 w-5 h-5 bg-white rounded-full shadow transition-all"></div>
-              </div>
-            </div>
+              <div class="w-11 h-6 bg-gray-600 peer-checked:bg-gold-500 rounded-full transition-colors"></div>
+              <div class="absolute top-0.5 left-0.5 peer-checked:left-5 w-5 h-5 bg-white rounded-full shadow transition-all"></div>
+            </label>
           </div>
 
           <!-- Marketing Cookies -->
@@ -497,12 +497,11 @@
               <label for="cookie-marketing" class="text-white font-semibold cursor-pointer">Marketing Cookies</label>
               <p class="text-gray-400 text-sm mt-1">Used to track visitors across websites to display relevant ads and measure campaign effectiveness.</p>
             </div>
-            <div class="relative">
+            <label for="cookie-marketing" class="relative cursor-pointer">
               <input type="checkbox" id="cookie-marketing" class="sr-only peer">
-              <div class="w-11 h-6 bg-gray-600 peer-checked:bg-gold-500 rounded-full cursor-pointer transition-colors">
-                <div class="absolute top-0.5 left-0.5 peer-checked:left-5 w-5 h-5 bg-white rounded-full shadow transition-all"></div>
-              </div>
-            </div>
+              <div class="w-11 h-6 bg-gray-600 peer-checked:bg-gold-500 rounded-full transition-colors"></div>
+              <div class="absolute top-0.5 left-0.5 peer-checked:left-5 w-5 h-5 bg-white rounded-full shadow transition-all"></div>
+            </label>
           </div>
         </div>
 
@@ -518,7 +517,7 @@
     </div>
   </div>
 </div>
-
+<!-- /COOKIE_CONSENT -->
 
 <!-- SHARED_SCRIPTS -->
 <script>
