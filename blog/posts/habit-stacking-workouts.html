@@ -345,7 +345,337 @@
   </section>
 
   <!-- Back to Top Button -->
-  <button id="back-to-top" class="fixed bottom-8 right-8 z-40 bg-gold-500 hover:bg-gold-400 text-navy-900 p-3 rounded-full shadow-lg transition transform hover:scale-110" aria-label="Back to top">
+  <!-- VOICE_READER -->
+<!-- Voice Reader for Blog Posts -->
+<div id="voice-reader" class="fixed bottom-24 right-8 z-40 flex flex-col items-end gap-2">
+  <!-- Controls (hidden by default, shown when reading) -->
+  <div id="voice-controls" class="hidden bg-navy-800 rounded-xl shadow-xl border border-white/10 p-3 mb-2">
+    <div class="flex items-center gap-3 mb-3">
+      <button id="voice-slower" class="p-2 text-gray-400 hover:text-gold-400 transition" title="Slower">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
+        </svg>
+      </button>
+      <span id="voice-speed" class="text-white text-sm font-medium min-w-[3rem] text-center">1.0x</span>
+      <button id="voice-faster" class="p-2 text-gray-400 hover:text-gold-400 transition" title="Faster">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="flex items-center gap-2">
+      <button id="voice-skip-back" class="p-2 text-gray-400 hover:text-gold-400 transition" title="Previous paragraph">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0019 16V8a1 1 0 00-1.6-.8l-5.333 4zM4.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0011 16V8a1 1 0 00-1.6-.8l-5.334 4z"></path>
+        </svg>
+      </button>
+      <button id="voice-skip-forward" class="p-2 text-gray-400 hover:text-gold-400 transition" title="Next paragraph">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.933 12.8a1 1 0 000-1.6L6.6 7.2A1 1 0 005 8v8a1 1 0 001.6.8l5.333-4zM19.933 12.8a1 1 0 000-1.6l-5.333-4A1 1 0 0013 8v8a1 1 0 001.6.8l5.333-4z"></path>
+        </svg>
+      </button>
+    </div>
+    <!-- Progress indicator -->
+    <div class="mt-3 text-xs text-gray-400 text-center">
+      <span id="voice-progress">0</span> / <span id="voice-total">0</span> paragraphs
+    </div>
+  </div>
+
+  <!-- Main Play/Pause Button -->
+  <button id="voice-toggle" class="bg-gold-500 hover:bg-gold-400 text-navy-900 p-4 rounded-full shadow-lg transition transform hover:scale-110 group" title="Listen to article">
+    <!-- Play icon -->
+    <svg id="voice-play-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+    </svg>
+    <!-- Pause icon (hidden by default) -->
+    <svg id="voice-pause-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+    </svg>
+    <!-- Stop icon (hidden by default) -->
+    <svg id="voice-stop-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 10h6v4H9z"></path>
+    </svg>
+  </button>
+</div>
+
+<style>
+  /* Highlight currently reading element */
+  .voice-reading {
+    background: linear-gradient(90deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.2) 50%, rgba(245, 158, 11, 0.1) 100%);
+    border-left: 3px solid #f59e0b;
+    padding-left: 1rem;
+    margin-left: -1rem;
+    border-radius: 0 0.5rem 0.5rem 0;
+    transition: all 0.3s ease;
+  }
+
+  .dark .voice-reading {
+    background: linear-gradient(90deg, rgba(245, 158, 11, 0.05) 0%, rgba(245, 158, 11, 0.15) 50%, rgba(245, 158, 11, 0.05) 100%);
+  }
+</style>
+
+<script>
+(function() {
+  'use strict';
+
+  // Check if Speech Synthesis is supported
+  if (!('speechSynthesis' in window)) {
+    const voiceReader = document.getElementById('voice-reader');
+    if (voiceReader) voiceReader.style.display = 'none';
+    return;
+  }
+
+  const synth = window.speechSynthesis;
+  let utterance = null;
+  let paragraphs = [];
+  let currentIndex = 0;
+  let isPlaying = false;
+  let isPaused = false;
+  let rate = 1.0;
+
+  // DOM elements
+  const toggleBtn = document.getElementById('voice-toggle');
+  const playIcon = document.getElementById('voice-play-icon');
+  const pauseIcon = document.getElementById('voice-pause-icon');
+  const stopIcon = document.getElementById('voice-stop-icon');
+  const controls = document.getElementById('voice-controls');
+  const speedDisplay = document.getElementById('voice-speed');
+  const progressDisplay = document.getElementById('voice-progress');
+  const totalDisplay = document.getElementById('voice-total');
+  const slowerBtn = document.getElementById('voice-slower');
+  const fasterBtn = document.getElementById('voice-faster');
+  const skipBackBtn = document.getElementById('voice-skip-back');
+  const skipForwardBtn = document.getElementById('voice-skip-forward');
+
+  // Get article content
+  function getArticleParagraphs() {
+    const article = document.querySelector('article .prose');
+    if (!article) return [];
+
+    const elements = article.querySelectorAll('p, h2, h3, li');
+    return Array.from(elements).filter(el => {
+      const text = el.innerText.trim();
+      return text.length > 0;
+    });
+  }
+
+  // Update UI state
+  function updateUI() {
+    if (isPlaying && !isPaused) {
+      playIcon.classList.add('hidden');
+      pauseIcon.classList.remove('hidden');
+      stopIcon.classList.add('hidden');
+      controls.classList.remove('hidden');
+    } else if (isPaused) {
+      playIcon.classList.remove('hidden');
+      pauseIcon.classList.add('hidden');
+      stopIcon.classList.add('hidden');
+      controls.classList.remove('hidden');
+    } else {
+      playIcon.classList.remove('hidden');
+      pauseIcon.classList.add('hidden');
+      stopIcon.classList.add('hidden');
+      controls.classList.add('hidden');
+    }
+
+    progressDisplay.textContent = currentIndex + 1;
+    totalDisplay.textContent = paragraphs.length;
+    speedDisplay.textContent = rate.toFixed(1) + 'x';
+  }
+
+  // Highlight current paragraph
+  function highlightParagraph(index) {
+    // Remove previous highlight
+    document.querySelectorAll('.voice-reading').forEach(el => {
+      el.classList.remove('voice-reading');
+    });
+
+    // Add highlight to current
+    if (paragraphs[index]) {
+      paragraphs[index].classList.add('voice-reading');
+
+      // Smooth scroll to element
+      const rect = paragraphs[index].getBoundingClientRect();
+      const offset = window.innerHeight / 3;
+
+      if (rect.top < 100 || rect.bottom > window.innerHeight - 100) {
+        window.scrollTo({
+          top: window.scrollY + rect.top - offset,
+          behavior: 'smooth'
+        });
+      }
+    }
+  }
+
+  // Speak a paragraph
+  function speakParagraph(index) {
+    if (index >= paragraphs.length) {
+      stopReading();
+      return;
+    }
+
+    currentIndex = index;
+    highlightParagraph(index);
+    updateUI();
+
+    const text = paragraphs[index].innerText.trim();
+    utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = rate;
+    utterance.pitch = 1;
+
+    // Try to get a good voice
+    const voices = synth.getVoices();
+    const preferredVoice = voices.find(v =>
+      v.lang.startsWith('en') && (v.name.includes('Google') || v.name.includes('Natural') || v.name.includes('Premium'))
+    ) || voices.find(v => v.lang.startsWith('en'));
+
+    if (preferredVoice) {
+      utterance.voice = preferredVoice;
+    }
+
+    utterance.onend = function() {
+      if (isPlaying && !isPaused) {
+        speakParagraph(currentIndex + 1);
+      }
+    };
+
+    utterance.onerror = function(e) {
+      if (e.error !== 'interrupted') {
+        console.error('Speech error:', e.error);
+        speakParagraph(currentIndex + 1);
+      }
+    };
+
+    synth.speak(utterance);
+  }
+
+  // Start reading
+  function startReading() {
+    paragraphs = getArticleParagraphs();
+    if (paragraphs.length === 0) return;
+
+    isPlaying = true;
+    isPaused = false;
+
+    if (synth.paused) {
+      synth.resume();
+    } else {
+      speakParagraph(currentIndex);
+    }
+
+    updateUI();
+  }
+
+  // Pause reading
+  function pauseReading() {
+    isPaused = true;
+    synth.pause();
+    updateUI();
+  }
+
+  // Resume reading
+  function resumeReading() {
+    isPaused = false;
+    synth.resume();
+    updateUI();
+  }
+
+  // Stop reading
+  function stopReading() {
+    isPlaying = false;
+    isPaused = false;
+    currentIndex = 0;
+    synth.cancel();
+
+    // Remove highlights
+    document.querySelectorAll('.voice-reading').forEach(el => {
+      el.classList.remove('voice-reading');
+    });
+
+    updateUI();
+  }
+
+  // Toggle button click
+  toggleBtn.addEventListener('click', function() {
+    if (!isPlaying) {
+      startReading();
+    } else if (isPaused) {
+      resumeReading();
+    } else {
+      pauseReading();
+    }
+  });
+
+  // Long press to stop
+  let pressTimer;
+  toggleBtn.addEventListener('mousedown', function() {
+    pressTimer = setTimeout(function() {
+      stopReading();
+    }, 800);
+  });
+  toggleBtn.addEventListener('mouseup', function() {
+    clearTimeout(pressTimer);
+  });
+  toggleBtn.addEventListener('mouseleave', function() {
+    clearTimeout(pressTimer);
+  });
+
+  // Speed controls
+  slowerBtn.addEventListener('click', function() {
+    rate = Math.max(0.5, rate - 0.25);
+    speedDisplay.textContent = rate.toFixed(1) + 'x';
+    if (isPlaying && !isPaused) {
+      synth.cancel();
+      speakParagraph(currentIndex);
+    }
+  });
+
+  fasterBtn.addEventListener('click', function() {
+    rate = Math.min(2.0, rate + 0.25);
+    speedDisplay.textContent = rate.toFixed(1) + 'x';
+    if (isPlaying && !isPaused) {
+      synth.cancel();
+      speakParagraph(currentIndex);
+    }
+  });
+
+  // Skip controls
+  skipBackBtn.addEventListener('click', function() {
+    if (currentIndex > 0) {
+      synth.cancel();
+      speakParagraph(currentIndex - 1);
+    }
+  });
+
+  skipForwardBtn.addEventListener('click', function() {
+    if (currentIndex < paragraphs.length - 1) {
+      synth.cancel();
+      speakParagraph(currentIndex + 1);
+    }
+  });
+
+  // Initialize paragraphs count
+  paragraphs = getArticleParagraphs();
+  totalDisplay.textContent = paragraphs.length;
+
+  // Load voices (some browsers load them asynchronously)
+  if (synth.onvoiceschanged !== undefined) {
+    synth.onvoiceschanged = function() {};
+  }
+
+  // Stop when leaving page
+  window.addEventListener('beforeunload', function() {
+    synth.cancel();
+  });
+
+})();
+</script>
+
+<!-- /VOICE_READER -->
+
+<button id="back-to-top" class="fixed bottom-8 right-8 z-40 bg-gold-500 hover:bg-gold-400 text-navy-900 p-3 rounded-full shadow-lg transition transform hover:scale-110" aria-label="Back to top">
     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
     </svg>
