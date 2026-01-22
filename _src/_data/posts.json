@@ -1,5 +1,20 @@
 [
   {
+    "slug": "building-your-first-ai-agent",
+    "title": "Building Your First AI Agent: A Practical Guide for Everyday Professionals",
+    "description": "Learn how to identify repetitive tasks perfect for AI agents and build your first one with free tools. The future of work is here, and you're in the driver's seat.",
+    "category": "tech",
+    "categoryLabel": "Technology",
+    "date": "2026-01-22",
+    "dateFormatted": "Jan 22, 2026",
+    "readTime": "10 min read",
+    "image": "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=400&h=250&fit=crop",
+    "imageAlt": "AI robot representing artificial intelligence agents",
+    "featured": false,
+    "excerpt": "Learn how to identify repetitive tasks perfect for AI agents and build your first one using free tools. No coding required.",
+    "shareHook": "You don't need to be a programmer to build an AI agent. Here's exactly how I help my clients identify tasks to automate and create their first agent in under an hour:"
+  },
+  {
     "slug": "ai-automation-for-small-business",
     "title": "5 AI Automation Strategies Every Small Business Should Implement in 2026",
     "description": "Discover practical AI automation strategies that can save your business 20+ hours per week. From email management to customer support, these tools are changing the game.",
