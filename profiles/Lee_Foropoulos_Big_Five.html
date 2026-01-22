@@ -222,11 +222,7 @@
     if (menuOverlay) menuOverlay.addEventListener('click', closeMenu);
     if (mobileMenu) mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
 
-    const darkModeToggle = document.getElementById('dark-mode-toggle');
-    const darkModeToggleMobile = document.getElementById('dark-mode-toggle-mobile');
-    function toggleDarkMode() { const isDark = document.documentElement.classList.toggle('dark'); const expires = new Date(Date.now() + 365 * 864e5).toUTCString(); document.cookie = 'darkMode=' + encodeURIComponent(isDark) + '; expires=' + expires + '; path=/; SameSite=Lax'; }
-    if (darkModeToggle) darkModeToggle.addEventListener('click', toggleDarkMode);
-    if (darkModeToggleMobile) darkModeToggleMobile.addEventListener('click', toggleDarkMode);
+    // Note: Dark mode toggle is handled by SHARED_SCRIPTS - do not duplicate here
 
     const scrollProgress = document.getElementById('scroll-progress');
     if (scrollProgress) window.addEventListener('scroll', () => { scrollProgress.style.width = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100 + '%'; });

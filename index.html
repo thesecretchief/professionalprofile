@@ -1477,21 +1477,7 @@
       });
     }
 
-    // ===== Dark Mode Toggle =====
-    // Note: SHARED_SCRIPTS handles dark mode toggle. This is kept for pages that may load before SHARED_SCRIPTS.
-    const darkModeToggle = document.getElementById('dark-mode-toggle');
-    const darkModeToggleMobile = document.getElementById('dark-mode-toggle-mobile');
-
-    function toggleDarkMode() {
-      document.documentElement.classList.toggle('dark');
-      const isDark = document.documentElement.classList.contains('dark');
-      // Use direct cookie setting to avoid dependency on SHARED_SCRIPTS loading order
-      const expires = new Date(Date.now() + 365 * 864e5).toUTCString();
-      document.cookie = 'darkMode=' + encodeURIComponent(isDark) + '; expires=' + expires + '; path=/; SameSite=Lax';
-    }
-
-    if (darkModeToggle) darkModeToggle.addEventListener('click', toggleDarkMode);
-    if (darkModeToggleMobile) darkModeToggleMobile.addEventListener('click', toggleDarkMode);
+    // Note: Dark mode toggle is handled by SHARED_SCRIPTS - do not duplicate here
 
     // ===== Scroll Progress Bar =====
     const scrollProgress = document.getElementById('scroll-progress');

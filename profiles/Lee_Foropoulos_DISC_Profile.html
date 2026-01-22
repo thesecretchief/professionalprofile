@@ -607,19 +607,7 @@
     if (menuOverlay) menuOverlay.addEventListener('click', closeMenu);
     if (mobileMenu) mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
 
-    // Dark Mode Toggle
-    const darkModeToggle = document.getElementById('dark-mode-toggle');
-    const darkModeToggleMobile = document.getElementById('dark-mode-toggle-mobile');
-
-    function toggleDarkMode() {
-      const isDark = document.documentElement.classList.toggle('dark');
-      // Use direct cookie setting to avoid dependency on SHARED_SCRIPTS loading order
-      const expires = new Date(Date.now() + 365 * 864e5).toUTCString();
-      document.cookie = 'darkMode=' + encodeURIComponent(isDark) + '; expires=' + expires + '; path=/; SameSite=Lax';
-    }
-
-    if (darkModeToggle) darkModeToggle.addEventListener('click', toggleDarkMode);
-    if (darkModeToggleMobile) darkModeToggleMobile.addEventListener('click', toggleDarkMode);
+    // Note: Dark mode toggle is handled by SHARED_SCRIPTS - do not duplicate here
 
     // Scroll Progress Bar
     const scrollProgress = document.getElementById('scroll-progress');

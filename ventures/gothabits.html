@@ -1368,18 +1368,7 @@
       if (mobileMenu) mobileMenu.classList.remove('open');
     });
 
-    // Dark mode toggle
-    function toggleDarkMode() {
-      document.documentElement.classList.toggle('dark');
-      const isDark = document.documentElement.classList.contains('dark');
-      // Use direct cookie setting to avoid dependency on SHARED_SCRIPTS loading order
-      const expires = new Date(Date.now() + 365 * 864e5).toUTCString();
-      document.cookie = 'darkMode=' + encodeURIComponent(isDark) + '; expires=' + expires + '; path=/; SameSite=Lax';
-    }
-    const darkModeToggle = document.getElementById('dark-mode-toggle');
-    const darkModeToggleMobile = document.getElementById('dark-mode-toggle-mobile');
-    if (darkModeToggle) darkModeToggle.addEventListener('click', toggleDarkMode);
-    if (darkModeToggleMobile) darkModeToggleMobile.addEventListener('click', toggleDarkMode);
+    // Note: Dark mode toggle is handled by SHARED_SCRIPTS - do not duplicate here
 
     // Product dropdown toggles
     function toggleDropdown(id) {
