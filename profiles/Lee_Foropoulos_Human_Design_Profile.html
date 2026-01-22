@@ -54,13 +54,13 @@
 
     /* Scroll Reveal Animations */
     .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
-    .reveal.active { opacity: 1; transform: translateY(0); }
+    .reveal.active, .reveal.visible { opacity: 1; transform: translateY(0); }
     .reveal-left { opacity: 0; transform: translateX(-30px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
-    .reveal-left.active { opacity: 1; transform: translateX(0); }
+    .reveal-left.active, .reveal-left.visible { opacity: 1; transform: translateX(0); }
     .reveal-right { opacity: 0; transform: translateX(30px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
-    .reveal-right.active { opacity: 1; transform: translateX(0); }
+    .reveal-right.active, .reveal-right.visible { opacity: 1; transform: translateX(0); }
     .reveal-scale { opacity: 0; transform: scale(0.9); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
-    .reveal-scale.active { opacity: 1; transform: scale(1); }
+    .reveal-scale.active, .reveal-scale.visible { opacity: 1; transform: scale(1); }
 
     /* Back to Top Button */
     .back-to-top { opacity: 0; visibility: hidden; transition: all 0.3s ease; }

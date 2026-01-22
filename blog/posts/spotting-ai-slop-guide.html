@@ -571,16 +571,6 @@
   </footer>
 
   <script>
-    function setCookie(name, value, days) {
-      const expires = new Date(Date.now() + days * 864e5).toUTCString();
-      document.cookie = name + '=' + value + '; expires=' + expires + '; path=/; SameSite=Lax';
-    }
-    const darkModeToggle = document.getElementById('dark-mode-toggle');
-    darkModeToggle.addEventListener('click', () => {
-      document.documentElement.classList.toggle('dark');
-      setCookie('darkMode', document.documentElement.classList.contains('dark'), 365);
-    });
-
     // Back to Top Button
     const backToTop = document.getElementById('back-to-top');
     function updateBackToTop() {

@@ -269,7 +269,8 @@
       transform: translateY(30px);
       transition: all 0.8s ease;
     }
-    .reveal.active {
+    .reveal.active,
+    .reveal.visible {
       opacity: 1;
       transform: translateY(0);
     }
@@ -1108,75 +1109,75 @@
   </section>
 
   <!-- BMR Calculator Section -->
-  <section id="calculator" class="py-24 bg-white">
+  <section id="calculator" class="py-24 bg-white dark:bg-navy-900">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12">
-        <span class="inline-block bg-purple-100 text-purple-700 text-sm font-semibold px-4 py-2 rounded-full mb-4">FREE TOOL</span>
-        <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">BMR & Calorie Calculator</h2>
-        <p class="text-xl text-gray-600">Know your numbers. Calculate your Basal Metabolic Rate and daily calorie needs.</p>
+        <span class="inline-block bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 text-sm font-semibold px-4 py-2 rounded-full mb-4">FREE TOOL</span>
+        <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">BMR & Calorie Calculator</h2>
+        <p class="text-xl text-gray-600 dark:text-gray-300">Know your numbers. Calculate your Basal Metabolic Rate and daily calorie needs.</p>
       </div>
 
-      <div class="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-3xl p-8 border border-purple-100">
+      <div class="bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-navy-800 dark:to-navy-800 rounded-3xl p-8 border border-purple-100 dark:border-purple-900/30">
         <div class="grid md:grid-cols-2 gap-8">
           <!-- Input Section -->
           <div class="space-y-5">
             <!-- Gender -->
             <div>
-              <label class="block text-sm font-semibold text-gray-700 mb-2">Gender</label>
+              <label class="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">Gender</label>
               <div class="flex gap-3">
                 <button type="button" onclick="setGender('male')" id="btn-male" class="flex-1 py-3 px-4 rounded-xl border-2 border-purple-500 bg-purple-500 text-white font-semibold transition">Male</button>
-                <button type="button" onclick="setGender('female')" id="btn-female" class="flex-1 py-3 px-4 rounded-xl border-2 border-gray-200 bg-white text-gray-600 font-semibold hover:border-purple-300 transition">Female</button>
+                <button type="button" onclick="setGender('female')" id="btn-female" class="flex-1 py-3 px-4 rounded-xl border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-navy-700 text-gray-600 dark:text-gray-300 font-semibold hover:border-purple-300 dark:hover:border-purple-500 transition">Female</button>
               </div>
             </div>
 
             <!-- Age -->
             <div>
-              <label class="block text-sm font-semibold text-gray-700 mb-2">Age</label>
-              <input type="number" id="calc-age" value="30" min="15" max="100" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition text-lg" onchange="calculateBMR()">
+              <label class="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">Age</label>
+              <input type="number" id="calc-age" value="30" min="15" max="100" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-navy-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition text-lg" oninput="calculateBMR()">
             </div>
 
             <!-- Height -->
             <div>
               <div class="flex justify-between items-center mb-2">
-                <label class="text-sm font-semibold text-gray-700">Height</label>
-                <button type="button" onclick="toggleHeightUnit()" id="height-unit-btn" class="text-xs text-purple-600 hover:text-purple-700 font-medium">Switch to cm</button>
+                <label class="text-sm font-semibold text-gray-700 dark:text-gray-200">Height</label>
+                <button type="button" onclick="toggleHeightUnit()" id="height-unit-btn" class="text-xs text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 font-medium">Switch to cm</button>
               </div>
               <div id="height-imperial" class="flex gap-3">
                 <div class="flex-1">
-                  <input type="number" id="calc-feet" value="5" min="3" max="8" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition text-lg" onchange="calculateBMR()">
-                  <span class="text-xs text-gray-500 mt-1 block text-center">feet</span>
+                  <input type="number" id="calc-feet" value="5" min="3" max="8" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-navy-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition text-lg" oninput="calculateBMR()">
+                  <span class="text-xs text-gray-500 dark:text-gray-400 mt-1 block text-center">feet</span>
                 </div>
                 <div class="flex-1">
-                  <input type="number" id="calc-inches" value="10" min="0" max="11" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition text-lg" onchange="calculateBMR()">
-                  <span class="text-xs text-gray-500 mt-1 block text-center">inches</span>
+                  <input type="number" id="calc-inches" value="10" min="0" max="11" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-navy-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition text-lg" oninput="calculateBMR()">
+                  <span class="text-xs text-gray-500 dark:text-gray-400 mt-1 block text-center">inches</span>
                 </div>
               </div>
               <div id="height-metric" class="hidden">
-                <input type="number" id="calc-cm" value="178" min="100" max="250" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition text-lg" onchange="calculateBMR()">
-                <span class="text-xs text-gray-500 mt-1 block text-center">centimeters</span>
+                <input type="number" id="calc-cm" value="178" min="100" max="250" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-navy-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition text-lg" oninput="calculateBMR()">
+                <span class="text-xs text-gray-500 dark:text-gray-400 mt-1 block text-center">centimeters</span>
               </div>
             </div>
 
             <!-- Weight -->
             <div>
               <div class="flex justify-between items-center mb-2">
-                <label class="text-sm font-semibold text-gray-700">Weight</label>
-                <button type="button" onclick="toggleWeightUnit()" id="weight-unit-btn" class="text-xs text-purple-600 hover:text-purple-700 font-medium">Switch to kg</button>
+                <label class="text-sm font-semibold text-gray-700 dark:text-gray-200">Weight</label>
+                <button type="button" onclick="toggleWeightUnit()" id="weight-unit-btn" class="text-xs text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 font-medium">Switch to kg</button>
               </div>
               <div id="weight-imperial">
-                <input type="number" id="calc-lbs" value="180" min="80" max="500" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition text-lg" onchange="calculateBMR()">
-                <span class="text-xs text-gray-500 mt-1 block text-center">pounds</span>
+                <input type="number" id="calc-lbs" value="180" min="80" max="500" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-navy-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition text-lg" oninput="calculateBMR()">
+                <span class="text-xs text-gray-500 dark:text-gray-400 mt-1 block text-center">pounds</span>
               </div>
               <div id="weight-metric" class="hidden">
-                <input type="number" id="calc-kg" value="82" min="30" max="250" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition text-lg" onchange="calculateBMR()">
-                <span class="text-xs text-gray-500 mt-1 block text-center">kilograms</span>
+                <input type="number" id="calc-kg" value="82" min="30" max="250" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-navy-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition text-lg" oninput="calculateBMR()">
+                <span class="text-xs text-gray-500 dark:text-gray-400 mt-1 block text-center">kilograms</span>
               </div>
             </div>
 
             <!-- Activity Level -->
             <div>
-              <label class="block text-sm font-semibold text-gray-700 mb-2">Activity Level</label>
-              <select id="calc-activity" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition text-base" onchange="calculateBMR()">
+              <label class="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">Activity Level</label>
+              <select id="calc-activity" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-navy-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition text-base" onchange="calculateBMR()">
                 <option value="1.2">Sedentary (office job, little exercise)</option>
                 <option value="1.375">Light (exercise 1-3 days/week)</option>
                 <option value="1.55" selected>Moderate (exercise 3-5 days/week)</option>
@@ -1187,43 +1188,43 @@
           </div>
 
           <!-- Results Section -->
-          <div class="bg-white rounded-2xl p-6 shadow-sm border border-purple-100">
-            <h3 class="text-lg font-bold text-gray-900 mb-4">Your Results</h3>
+          <div class="bg-white dark:bg-navy-800 rounded-2xl p-6 shadow-sm border border-purple-100 dark:border-purple-900/30">
+            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Your Results</h3>
 
             <div class="space-y-4">
               <!-- BMR -->
               <div class="bg-gray-50 dark:bg-navy-700 rounded-xl p-4">
                 <div class="text-sm text-gray-500 dark:text-gray-400 mb-1">Basal Metabolic Rate (BMR)</div>
                 <div class="text-3xl font-bold text-gray-900 dark:text-white"><span id="result-bmr">1,800</span> <span class="text-lg font-normal text-gray-500 dark:text-gray-400">cal/day</span></div>
-                <div class="text-xs text-gray-400 mt-1">Calories burned at complete rest</div>
+                <div class="text-xs text-gray-400 dark:text-gray-500 mt-1">Calories burned at complete rest</div>
               </div>
 
               <!-- TDEE -->
-              <div class="bg-purple-100 rounded-xl p-4">
-                <div class="text-sm text-purple-700 mb-1">Maintenance Calories (TDEE)</div>
-                <div class="text-3xl font-bold text-purple-900"><span id="result-tdee">2,790</span> <span class="text-lg font-normal text-purple-600">cal/day</span></div>
-                <div class="text-xs text-purple-500 mt-1">To maintain current weight</div>
+              <div class="bg-purple-100 dark:bg-purple-900/30 rounded-xl p-4">
+                <div class="text-sm text-purple-700 dark:text-purple-300 mb-1">Maintenance Calories (TDEE)</div>
+                <div class="text-3xl font-bold text-purple-900 dark:text-purple-100"><span id="result-tdee">2,790</span> <span class="text-lg font-normal text-purple-600 dark:text-purple-400">cal/day</span></div>
+                <div class="text-xs text-purple-500 dark:text-purple-400 mt-1">To maintain current weight</div>
               </div>
 
               <!-- Goals -->
               <div class="grid grid-cols-2 gap-3">
-                <div class="bg-green-50 rounded-xl p-4 text-center">
-                  <div class="text-xs text-green-600 mb-1">Fat Loss</div>
-                  <div class="text-xl font-bold text-green-700"><span id="result-deficit">2,290</span></div>
-                  <div class="text-xs text-green-500">-500 cal</div>
+                <div class="bg-green-50 dark:bg-green-900/20 rounded-xl p-4 text-center">
+                  <div class="text-xs text-green-600 dark:text-green-400 mb-1">Fat Loss</div>
+                  <div class="text-xl font-bold text-green-700 dark:text-green-300"><span id="result-deficit">2,290</span></div>
+                  <div class="text-xs text-green-500 dark:text-green-400">-500 cal</div>
                 </div>
-                <div class="bg-blue-50 rounded-xl p-4 text-center">
-                  <div class="text-xs text-blue-600 mb-1">Muscle Gain</div>
-                  <div class="text-xl font-bold text-blue-700"><span id="result-surplus">3,090</span></div>
-                  <div class="text-xs text-blue-500">+300 cal</div>
+                <div class="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4 text-center">
+                  <div class="text-xs text-blue-600 dark:text-blue-400 mb-1">Muscle Gain</div>
+                  <div class="text-xl font-bold text-blue-700 dark:text-blue-300"><span id="result-surplus">3,090</span></div>
+                  <div class="text-xs text-blue-500 dark:text-blue-400">+300 cal</div>
                 </div>
               </div>
 
               <!-- Protein -->
-              <div class="bg-amber-50 rounded-xl p-4">
-                <div class="text-sm text-amber-700 mb-1">Protein Target</div>
-                <div class="text-2xl font-bold text-amber-900"><span id="result-protein">144-180</span>g <span class="text-sm font-normal text-amber-600">per day</span></div>
-                <div class="text-xs text-amber-500 mt-1">0.8-1g per lb of body weight</div>
+              <div class="bg-amber-50 dark:bg-amber-900/20 rounded-xl p-4">
+                <div class="text-sm text-amber-700 dark:text-amber-300 mb-1">Protein Target</div>
+                <div class="text-2xl font-bold text-amber-900 dark:text-amber-200"><span id="result-protein">144-180</span>g <span class="text-sm font-normal text-amber-600 dark:text-amber-400">per day</span></div>
+                <div class="text-xs text-amber-500 dark:text-amber-400 mt-1">0.8-1g per lb of body weight</div>
               </div>
             </div>
 
@@ -1418,16 +1419,18 @@
       calcGender = gender;
       const maleBtn = document.getElementById('btn-male');
       const femaleBtn = document.getElementById('btn-female');
+      const activeClasses = ['border-purple-500', 'bg-purple-500', 'text-white'];
+      const inactiveClasses = ['border-gray-200', 'dark:border-gray-600', 'bg-white', 'dark:bg-navy-700', 'text-gray-600', 'dark:text-gray-300'];
       if (gender === 'male') {
-        maleBtn.classList.add('border-purple-500', 'bg-purple-500', 'text-white');
-        maleBtn.classList.remove('border-gray-200', 'bg-white', 'text-gray-600');
-        femaleBtn.classList.remove('border-purple-500', 'bg-purple-500', 'text-white');
-        femaleBtn.classList.add('border-gray-200', 'bg-white', 'text-gray-600');
+        activeClasses.forEach(c => maleBtn.classList.add(c));
+        inactiveClasses.forEach(c => maleBtn.classList.remove(c));
+        activeClasses.forEach(c => femaleBtn.classList.remove(c));
+        inactiveClasses.forEach(c => femaleBtn.classList.add(c));
       } else {
-        femaleBtn.classList.add('border-purple-500', 'bg-purple-500', 'text-white');
-        femaleBtn.classList.remove('border-gray-200', 'bg-white', 'text-gray-600');
-        maleBtn.classList.remove('border-purple-500', 'bg-purple-500', 'text-white');
-        maleBtn.classList.add('border-gray-200', 'bg-white', 'text-gray-600');
+        activeClasses.forEach(c => femaleBtn.classList.add(c));
+        inactiveClasses.forEach(c => femaleBtn.classList.remove(c));
+        activeClasses.forEach(c => maleBtn.classList.remove(c));
+        inactiveClasses.forEach(c => maleBtn.classList.add(c));
       }
       calculateBMR();
     }
