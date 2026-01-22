@@ -189,6 +189,30 @@ function updateHtmlFile(filePath, data, includes, pageConfig) {
   const processedFooterLinks = processTemplate(includes['footer-links'] || '', context);
   const processedScripts = processTemplate(includes.scripts || '', context);
   const processedCookieConsent = processTemplate(includes['cookie-consent'] || '', context);
+  const processedVoiceReader = processTemplate(includes['voice-reader'] || '', context);
+
+  // Insert voice reader for blog posts (before back-to-top button or end of body)
+  if (pageConfig.isBlogPost && processedVoiceReader) {
+    const voiceMarker = '<!-- VOICE_READER -->';
+    const voiceEndMarker = '<!-- /VOICE_READER -->';
+    if (content.includes(voiceMarker)) {
+      const voiceRegex = /<!-- VOICE_READER -->[\s\S]*?<!-- \/VOICE_READER -->/;
+      content = content.replace(voiceRegex, `${voiceMarker}\n${processedVoiceReader}\n${voiceEndMarker}`);
+    } else if (!content.includes('id="voice-reader"')) {
+      // Insert before back-to-top button or before COOKIE_CONSENT
+      if (content.includes('id="back-to-top"')) {
+        content = content.replace(
+          /(<button id="back-to-top")/,
+          `${voiceMarker}\n${processedVoiceReader}\n${voiceEndMarker}\n\n$1`
+        );
+      } else if (content.includes('<!-- COOKIE_CONSENT -->')) {
+        content = content.replace(
+          '<!-- COOKIE_CONSENT -->',
+          `${voiceMarker}\n${processedVoiceReader}\n${voiceEndMarker}\n\n<!-- COOKIE_CONSENT -->`
+        );
+      }
+    }
+  }
 
   // Insert/update navigation using marker system
   const navMarker = '<!-- SITE_NAV -->';
@@ -300,7 +324,8 @@ function injectComponents(data, includes) {
           articleAuthor: site.author,
           articleDate: post.date,
           shareHook: post.shareHook,
-          isBlog: true
+          isBlog: true,
+          isBlogPost: true
         };
       }
     } else if (relativePath.startsWith('blog/')) {
