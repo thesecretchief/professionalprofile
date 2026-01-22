@@ -110,12 +110,12 @@ function generateBlogIndex(data, includes) {
               <span class="text-gray-500 dark:text-gray-400 text-sm">${post.dateFormatted}</span>
             </div>
             <h3 class="text-xl font-bold text-navy-900 dark:text-white mb-2">
-              <a href="posts/${post.slug}.html" class="hover:text-gold-600 dark:hover:text-gold-400 transition">${post.title}</a>
+              <a href="posts/${post.slug}" class="hover:text-gold-600 dark:hover:text-gold-400 transition">${post.title}</a>
             </h3>
             <p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-2 mb-4">
               ${post.excerpt}
             </p>
-            <a href="posts/${post.slug}.html" class="text-gold-600 dark:text-gold-400 font-semibold text-sm hover:underline">Read more &rarr;</a>
+            <a href="posts/${post.slug}" class="text-gold-600 dark:text-gold-400 font-semibold text-sm hover:underline">Read more &rarr;</a>
           </div>
         </article>`;
     }).join('\n');
@@ -139,12 +139,12 @@ function generateBlogIndex(data, includes) {
                 <span class="text-gray-500 dark:text-gray-400 text-sm">${featuredPost.dateFormatted}</span>
               </div>
               <h3 class="text-2xl font-bold text-navy-900 dark:text-white mb-3">
-                <a href="posts/${featuredPost.slug}.html" class="hover:text-gold-600 dark:hover:text-gold-400 transition">${featuredPost.title}</a>
+                <a href="posts/${featuredPost.slug}" class="hover:text-gold-600 dark:hover:text-gold-400 transition">${featuredPost.title}</a>
               </h3>
               <p class="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
                 ${featuredPost.excerpt}
               </p>
-              <a href="posts/${featuredPost.slug}.html" class="inline-flex items-center text-gold-600 dark:text-gold-400 font-semibold hover:gap-3 gap-2 transition-all">
+              <a href="posts/${featuredPost.slug}" class="inline-flex items-center text-gold-600 dark:text-gold-400 font-semibold hover:gap-3 gap-2 transition-all">
                 Read Article <span>&rarr;</span>
               </a>
             </div>
