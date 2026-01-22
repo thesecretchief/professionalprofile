@@ -666,6 +666,10 @@ function initDarkMode() {
   const darkModeToggle = document.getElementById('dark-mode-toggle');
   const darkModeToggleMobile = document.getElementById('dark-mode-toggle-mobile');
 
+  // Prevent duplicate initialization
+  if (window._darkModeInitialized) return;
+  window._darkModeInitialized = true;
+
   function toggleDarkMode() {
     document.documentElement.classList.toggle('dark');
     const isDark = document.documentElement.classList.contains('dark');
@@ -763,29 +767,12 @@ function initCookieConsentListeners() {
   const cookieSettingsBtn = document.getElementById('cookie-settings-btn');
   if (cookieSettingsBtn) cookieSettingsBtn.addEventListener('click', () => CookieConsent.showModal());
 
-  // Toggle checkboxes on label click
-  document.querySelectorAll('#cookie-modal label').forEach(label => {
-    label.addEventListener('click', () => {
-      const checkbox = document.getElementById(label.getAttribute('for'));
-      if (checkbox && !checkbox.disabled) {
-        checkbox.checked = !checkbox.checked;
-      }
-    });
-  });
-
-  // Toggle checkboxes when clicking on the toggle switch div
-  document.querySelectorAll('#cookie-modal input[type="checkbox"]').forEach(checkbox => {
-    const toggleDiv = checkbox.nextElementSibling;
-    if (toggleDiv && !checkbox.disabled) {
-      toggleDiv.addEventListener('click', () => {
-        checkbox.checked = !checkbox.checked;
-      });
-    }
-  });
+  // Note: Cookie toggles are now wrapped in <label> elements, so native browser behavior handles the toggle.
+  // No additional JavaScript handlers needed for the toggle switches.
 }
 
 // ===== INITIALIZE ALL =====
-document.addEventListener('DOMContentLoaded', function() {
+function initAll() {
   initMobileMenu();
   initDarkMode();
   initBackToTop();
@@ -793,7 +780,15 @@ document.addEventListener('DOMContentLoaded', function() {
   initSmoothScroll();
   initCookieConsentListeners();
   CookieConsent.init();
-});
+}
+
+// Handle both fresh page load and cases where DOM is already ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initAll);
+} else {
+  // DOM is already ready, initialize immediately
+  initAll();
+}
 
 // Expose CookieConsent for external use
 window.CookieConsent = CookieConsent;
