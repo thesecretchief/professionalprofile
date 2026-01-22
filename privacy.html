@@ -228,40 +228,7 @@
     </svg>
   </button>
 
-  <script>
-    // Dark Mode Toggle
-    const darkModeToggle = document.getElementById('dark-mode-toggle');
-
-    function setCookie(name, value, days) {
-      const expires = new Date(Date.now() + days * 864e5).toUTCString();
-      document.cookie = name + '=' + value + '; expires=' + expires + '; path=/; SameSite=Lax';
-    }
-
-    function toggleDarkMode() {
-      document.documentElement.classList.toggle('dark');
-      const isDark = document.documentElement.classList.contains('dark');
-      setCookie('darkMode', isDark, 365);
-    }
-
-    if (darkModeToggle) darkModeToggle.addEventListener('click', toggleDarkMode);
-
-    // Back to Top
-    const backToTop = document.getElementById('back-to-top');
-
-    window.addEventListener('scroll', function() {
-      if (window.scrollY > 500) {
-        backToTop.classList.add('visible');
-      } else {
-        backToTop.classList.remove('visible');
-      }
-    });
-
-    backToTop.addEventListener('click', function() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  </script>
-
-<!-- Cookie Consent Banner -->
+  <!-- Cookie Consent Banner -->
 <div id="cookie-consent" class="fixed bottom-0 left-0 right-0 z-[100] transform translate-y-full transition-transform duration-500" role="dialog" aria-labelledby="cookie-consent-title" aria-describedby="cookie-consent-description">
   <div class="bg-navy-900/98 backdrop-blur-lg border-t border-white/10 shadow-2xl">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">

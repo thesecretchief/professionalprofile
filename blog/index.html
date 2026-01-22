@@ -677,23 +677,6 @@
   </footer>
 
   <script>
-    // Dark Mode Toggle
-    const darkModeToggle = document.getElementById('dark-mode-toggle');
-    const darkModeToggleMobile = document.getElementById('dark-mode-toggle-mobile');
-
-    function setCookie(name, value, days) {
-      const expires = new Date(Date.now() + days * 864e5).toUTCString();
-      document.cookie = name + '=' + value + '; expires=' + expires + '; path=/; SameSite=Lax';
-    }
-    function toggleDarkMode() {
-      document.documentElement.classList.toggle('dark');
-      const isDark = document.documentElement.classList.contains('dark');
-      setCookie('darkMode', isDark, 365);
-    }
-
-    if (darkModeToggle) darkModeToggle.addEventListener('click', toggleDarkMode);
-    if (darkModeToggleMobile) darkModeToggleMobile.addEventListener('click', toggleDarkMode);
-
     // Category Filter
     const categoryBtns = document.querySelectorAll('.category-btn');
     const posts = document.querySelectorAll('#posts-grid article, .mb-16 article');
