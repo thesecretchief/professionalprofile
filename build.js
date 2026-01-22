@@ -212,8 +212,15 @@ function updateHtmlFile(filePath, data, includes, pageConfig) {
     }
   }
 
-  // Insert cookie consent banner before </body>
-  if (!content.includes('id="cookie-consent"')) {
+  // Insert/update cookie consent banner
+  const cookieMarker = '<!-- COOKIE_CONSENT -->';
+  const cookieEndMarker = '<!-- /COOKIE_CONSENT -->';
+  if (content.includes(cookieMarker)) {
+    // Replace content between markers
+    const cookieRegex = /<!-- COOKIE_CONSENT -->[\s\S]*?<!-- \/COOKIE_CONSENT -->/;
+    content = content.replace(cookieRegex, processedCookieConsent.trim());
+  } else if (!content.includes('id="cookie-consent"')) {
+    // Insert new cookie consent before </body>
     content = content.replace('</body>', `${processedCookieConsent}\n</body>`);
   }
 
