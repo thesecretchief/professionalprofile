@@ -345,34 +345,55 @@
 <!-- Voice Reader for Blog Posts -->
 <div id="voice-reader" class="fixed bottom-24 right-8 z-40 flex flex-col items-end gap-2">
   <!-- Controls (hidden by default, shown when reading) -->
-  <div id="voice-controls" class="hidden bg-navy-800 rounded-xl shadow-xl border border-white/10 p-3 mb-2">
-    <div class="flex items-center gap-3 mb-3">
-      <button id="voice-slower" class="p-2 text-gray-400 hover:text-gold-400 transition" title="Slower">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
-        </svg>
-      </button>
-      <span id="voice-speed" class="text-white text-sm font-medium min-w-[3rem] text-center">1.0x</span>
-      <button id="voice-faster" class="p-2 text-gray-400 hover:text-gold-400 transition" title="Faster">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-        </svg>
-      </button>
+  <div id="voice-controls" class="hidden bg-navy-800 rounded-xl shadow-xl border border-white/10 p-4 mb-2 min-w-[200px]">
+    <!-- Voice selector -->
+    <div class="mb-3">
+      <label class="text-gray-400 text-xs block mb-1">Voice</label>
+      <select id="voice-select" class="w-full bg-navy-700 text-white text-sm rounded-lg px-3 py-2 border border-white/10 focus:border-gold-500 focus:outline-none">
+        <option value="">Loading voices...</option>
+      </select>
     </div>
-    <div class="flex items-center gap-2">
-      <button id="voice-skip-back" class="p-2 text-gray-400 hover:text-gold-400 transition" title="Previous paragraph">
+
+    <!-- Speed controls -->
+    <div class="flex items-center justify-between mb-3">
+      <label class="text-gray-400 text-xs">Speed</label>
+      <div class="flex items-center gap-2">
+        <button id="voice-slower" class="p-1.5 text-gray-400 hover:text-gold-400 transition rounded hover:bg-white/5" title="Slower">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
+          </svg>
+        </button>
+        <span id="voice-speed" class="text-white text-sm font-medium min-w-[3rem] text-center">1.0x</span>
+        <button id="voice-faster" class="p-1.5 text-gray-400 hover:text-gold-400 transition rounded hover:bg-white/5" title="Faster">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Playback controls -->
+    <div class="flex items-center justify-center gap-1 mb-3">
+      <button id="voice-skip-back" class="p-2 text-gray-400 hover:text-gold-400 transition rounded hover:bg-white/5" title="Previous paragraph">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0019 16V8a1 1 0 00-1.6-.8l-5.333 4zM4.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0011 16V8a1 1 0 00-1.6-.8l-5.334 4z"></path>
         </svg>
       </button>
-      <button id="voice-skip-forward" class="p-2 text-gray-400 hover:text-gold-400 transition" title="Next paragraph">
+      <button id="voice-stop" class="p-2 text-gray-400 hover:text-red-400 transition rounded hover:bg-white/5" title="Stop">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"></path>
+        </svg>
+      </button>
+      <button id="voice-skip-forward" class="p-2 text-gray-400 hover:text-gold-400 transition rounded hover:bg-white/5" title="Next paragraph">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.933 12.8a1 1 0 000-1.6L6.6 7.2A1 1 0 005 8v8a1 1 0 001.6.8l5.333-4zM19.933 12.8a1 1 0 000-1.6l-5.333-4A1 1 0 0013 8v8a1 1 0 001.6.8l5.333-4z"></path>
         </svg>
       </button>
     </div>
+
     <!-- Progress indicator -->
-    <div class="mt-3 text-xs text-gray-400 text-center">
+    <div class="text-xs text-gray-400 text-center">
       <span id="voice-progress">0</span> / <span id="voice-total">0</span> paragraphs
     </div>
   </div>
@@ -387,11 +408,6 @@
     <!-- Pause icon (hidden by default) -->
     <svg id="voice-pause-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-    </svg>
-    <!-- Stop icon (hidden by default) -->
-    <svg id="voice-stop-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 10h6v4H9z"></path>
     </svg>
   </button>
 </div>
@@ -409,6 +425,21 @@
 
   .dark .voice-reading {
     background: linear-gradient(90deg, rgba(245, 158, 11, 0.05) 0%, rgba(245, 158, 11, 0.15) 50%, rgba(245, 158, 11, 0.05) 100%);
+  }
+
+  #voice-select {
+    cursor: pointer;
+  }
+  #voice-select::-webkit-scrollbar {
+    width: 6px;
+  }
+  #voice-select::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.1);
+    border-radius: 3px;
+  }
+  #voice-select::-webkit-scrollbar-thumb {
+    background: rgba(245, 158, 11, 0.5);
+    border-radius: 3px;
   }
 </style>
 
@@ -430,13 +461,15 @@
   let isPlaying = false;
   let isPaused = false;
   let rate = 1.0;
+  let selectedVoice = null;
+  let voicesLoaded = false;
 
   // DOM elements
   const toggleBtn = document.getElementById('voice-toggle');
   const playIcon = document.getElementById('voice-play-icon');
   const pauseIcon = document.getElementById('voice-pause-icon');
-  const stopIcon = document.getElementById('voice-stop-icon');
   const controls = document.getElementById('voice-controls');
+  const voiceSelect = document.getElementById('voice-select');
   const speedDisplay = document.getElementById('voice-speed');
   const progressDisplay = document.getElementById('voice-progress');
   const totalDisplay = document.getElementById('voice-total');
@@ -444,6 +477,114 @@
   const fasterBtn = document.getElementById('voice-faster');
   const skipBackBtn = document.getElementById('voice-skip-back');
   const skipForwardBtn = document.getElementById('voice-skip-forward');
+  const stopBtn = document.getElementById('voice-stop');
+
+  // Voice quality scoring - prioritize more natural voices
+  function scoreVoice(voice) {
+    let score = 0;
+    const name = voice.name.toLowerCase();
+    const lang = voice.lang.toLowerCase();
+
+    // Must be English
+    if (!lang.startsWith('en')) return -1000;
+
+    // Premium/Neural voices (most natural)
+    if (name.includes('neural') || name.includes('natural') || name.includes('premium')) score += 100;
+
+    // Google voices (Chrome) - very natural
+    if (name.includes('google')) score += 80;
+
+    // Microsoft voices (Edge) - also quite good
+    if (name.includes('microsoft') && (name.includes('online') || name.includes('natural'))) score += 75;
+
+    // Apple voices (Safari)
+    if (name.includes('samantha') || name.includes('alex') || name.includes('karen')) score += 70;
+
+    // Specific high-quality voices
+    if (name.includes('zira') || name.includes('david') || name.includes('mark')) score += 60;
+
+    // Enhanced/HD voices
+    if (name.includes('enhanced') || name.includes('hd') || name.includes('compact') === false) score += 30;
+
+    // Prefer US English for consistency
+    if (lang === 'en-us' || lang === 'en_us') score += 20;
+
+    // Prefer female voices (often clearer for narration)
+    if (name.includes('female') || name.includes('zira') || name.includes('samantha') || name.includes('karen') || name.includes('victoria')) score += 10;
+
+    // Local voices are usually lower quality
+    if (voice.localService && !name.includes('google') && !name.includes('microsoft')) score -= 20;
+
+    return score;
+  }
+
+  // Get and sort voices by quality
+  function loadVoices() {
+    const voices = synth.getVoices();
+    if (voices.length === 0) return;
+
+    // Filter English voices and sort by quality score
+    const englishVoices = voices
+      .filter(v => v.lang.toLowerCase().startsWith('en'))
+      .map(v => ({ voice: v, score: scoreVoice(v) }))
+      .sort((a, b) => b.score - a.score)
+      .map(v => v.voice);
+
+    if (englishVoices.length === 0) return;
+
+    // Populate dropdown
+    voiceSelect.innerHTML = '';
+    englishVoices.forEach((voice, index) => {
+      const option = document.createElement('option');
+      option.value = index;
+      // Clean up voice name for display
+      let displayName = voice.name
+        .replace('Microsoft ', '')
+        .replace('Google ', '')
+        .replace(' Online (Natural)', ' (Natural)')
+        .replace(' - English (United States)', '')
+        .replace(' (United States)', ' (US)')
+        .replace(' (United Kingdom)', ' (UK)')
+        .replace(' (Australia)', ' (AU)');
+      option.textContent = displayName;
+      option.dataset.voiceName = voice.name;
+      voiceSelect.appendChild(option);
+    });
+
+    // Select best voice by default
+    selectedVoice = englishVoices[0];
+    voiceSelect.value = '0';
+
+    // Try to restore saved preference
+    const savedVoice = localStorage.getItem('preferredVoice');
+    if (savedVoice) {
+      const savedIndex = englishVoices.findIndex(v => v.name === savedVoice);
+      if (savedIndex !== -1) {
+        selectedVoice = englishVoices[savedIndex];
+        voiceSelect.value = savedIndex.toString();
+      }
+    }
+
+    voicesLoaded = true;
+
+    // Store voices for later reference
+    voiceSelect._voices = englishVoices;
+  }
+
+  // Voice selection change
+  voiceSelect.addEventListener('change', function() {
+    const voices = this._voices;
+    if (voices && voices[this.value]) {
+      selectedVoice = voices[this.value];
+      localStorage.setItem('preferredVoice', selectedVoice.name);
+
+      // If currently playing, restart with new voice
+      if (isPlaying && !isPaused) {
+        synth.cancel();
+        speakParagraph(currentIndex);
+      }
+    }
+  });
 
   // Get article content
   function getArticleParagraphs() {
@@ -462,17 +603,14 @@
     if (isPlaying && !isPaused) {
       playIcon.classList.add('hidden');
       pauseIcon.classList.remove('hidden');
-      stopIcon.classList.add('hidden');
       controls.classList.remove('hidden');
     } else if (isPaused) {
       playIcon.classList.remove('hidden');
       pauseIcon.classList.add('hidden');
-      stopIcon.classList.add('hidden');
       controls.classList.remove('hidden');
     } else {
       playIcon.classList.remove('hidden');
       pauseIcon.classList.add('hidden');
-      stopIcon.classList.add('hidden');
       controls.classList.add('hidden');
     }
 
@@ -516,29 +654,40 @@
     highlightParagraph(index);
     updateUI();
 
-    const text = paragraphs[index].innerText.trim();
+    let text = paragraphs[index].innerText.trim();
+
+    // Add natural pauses for better flow
+    text = text
+      .replace(/\. /g, '... ')  // Longer pause after sentences
+      .replace(/\? /g, '?... ')
+      .replace(/! /g, '!... ')
+      .replace(/: /g, ':.. ')   // Medium pause after colons
+      .replace(/; /g, ';.. ')
+      .replace(/, /g, ', ');    // Keep commas natural
+
     utterance = new SpeechSynthesisUtterance(text);
     utterance.rate = rate;
-    utterance.pitch = 1;
+    utterance.pitch = 1.0;  // Keep pitch natural
+    utterance.volume = 1.0;
 
-    // Try to get a good voice
-    const voices = synth.getVoices();
-    const preferredVoice = voices.find(v =>
-      v.lang.startsWith('en') && (v.name.includes('Google') || v.name.includes('Natural') || v.name.includes('Premium'))
-    ) || voices.find(v => v.lang.startsWith('en'));
-
-    if (preferredVoice) {
-      utterance.voice = preferredVoice;
+    // Use selected voice
+    if (selectedVoice) {
+      utterance.voice = selectedVoice;
     }
 
     utterance.onend = function() {
       if (isPlaying && !isPaused) {
-        speakParagraph(currentIndex + 1);
+        // Small pause between paragraphs for natural flow
+        setTimeout(() => {
+          if (isPlaying && !isPaused) {
+            speakParagraph(currentIndex + 1);
+          }
+        }, 300);
       }
     };
 
     utterance.onerror = function(e) {
-      if (e.error !== 'interrupted') {
+      if (e.error !== 'interrupted' && e.error !== 'canceled') {
         console.error('Speech error:', e.error);
         speakParagraph(currentIndex + 1);
       }
@@ -604,23 +753,12 @@
     }
   });
 
-  // Long press to stop
-  let pressTimer;
-  toggleBtn.addEventListener('mousedown', function() {
-    pressTimer = setTimeout(function() {
-      stopReading();
-    }, 800);
-  });
-  toggleBtn.addEventListener('mouseup', function() {
-    clearTimeout(pressTimer);
-  });
-  toggleBtn.addEventListener('mouseleave', function() {
-    clearTimeout(pressTimer);
-  });
+  // Stop button
+  stopBtn.addEventListener('click', stopReading);
 
   // Speed controls
   slowerBtn.addEventListener('click', function() {
-    rate = Math.max(0.5, rate - 0.25);
+    rate = Math.max(0.5, rate - 0.1);
     speedDisplay.textContent = rate.toFixed(1) + 'x';
     if (isPlaying && !isPaused) {
       synth.cancel();
@@ -629,7 +767,7 @@
   });
 
   fasterBtn.addEventListener('click', function() {
-    rate = Math.min(2.0, rate + 0.25);
+    rate = Math.min(2.0, rate + 0.1);
     speedDisplay.textContent = rate.toFixed(1) + 'x';
     if (isPlaying && !isPaused) {
       synth.cancel();
@@ -652,18 +790,39 @@
     }
   });
 
-  // Initialize paragraphs count
+  // Initialize
   paragraphs = getArticleParagraphs();
   totalDisplay.textContent = paragraphs.length;
 
-  // Load voices (some browsers load them asynchronously)
+  // Load voices (async in some browsers)
+  loadVoices();
   if (synth.onvoiceschanged !== undefined) {
-    synth.onvoiceschanged = function() {};
+    synth.onvoiceschanged = loadVoices;
   }
+
+  // Restore saved speed preference
+  const savedRate = localStorage.getItem('preferredRate');
+  if (savedRate) {
+    rate = parseFloat(savedRate);
+    speedDisplay.textContent = rate.toFixed(1) + 'x';
+  }
+
+  // Save speed on change
+  const originalSlower = slowerBtn.onclick;
+  const originalFaster = fasterBtn.onclick;
+  slowerBtn.addEventListener('click', () => localStorage.setItem('preferredRate', rate.toFixed(1)));
+  fasterBtn.addEventListener('click', () => localStorage.setItem('preferredRate', rate.toFixed(1)));
 
   // Stop when leaving page
   window.addEventListener('beforeunload', function() {
     synth.cancel();
+  });
+
+  // Handle visibility change (pause when tab hidden)
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden && isPlaying && !isPaused) {
+      pauseReading();
+    }
   });
 
 })();
