@@ -1885,11 +1885,29 @@
 
   function bindEvents() {
     if (toggleBtn && panel) {
-      toggleBtn.addEventListener('click', () => {
+      toggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
         panel.classList.toggle('hidden');
         hideWelcome(true);
       });
     }
+
+    // Click outside to close panel
+    document.addEventListener('click', (e) => {
+      if (panel && !panel.classList.contains('hidden')) {
+        if (!panel.contains(e.target) && !toggleBtn.contains(e.target)) {
+          panel.classList.add('hidden');
+        }
+      }
+    });
+
+    // Prevent clicks inside panel from closing it
+    if (panel) {
+      panel.addEventListener('click', (e) => {
+        e.stopPropagation();
+      });
+    }
+
     if (welcomePlayBtn) {
       welcomePlayBtn.addEventListener('click', () => {
         hideWelcome(true);
