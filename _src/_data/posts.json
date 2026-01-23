@@ -1,5 +1,20 @@
 [
   {
+    "slug": "ram-ssd-prices-backup-your-data",
+    "title": "RAM and SSD Prices Are Rising: Why You Should Buy Storage Now and Own Your Data",
+    "description": "Memory and storage prices are climbing fast. Learn why you should stock up now, the difference between SSDs and hard drives, and why the cloud isn't a backup plan.",
+    "category": "tech",
+    "categoryLabel": "Technology",
+    "date": "2026-01-23",
+    "dateFormatted": "Jan 23, 2026",
+    "readTime": "8 min read",
+    "image": "https://images.unsplash.com/photo-1597852074816-d933c7d2b988?w=400&h=250&fit=crop",
+    "imageAlt": "Computer RAM memory modules",
+    "featured": false,
+    "excerpt": "Memory and storage prices are climbing fast. Learn why you should stock up now and why the cloud isn't a backup plan.",
+    "shareHook": "RAM prices are up 20% this year. SSDs are next. Here's why I just stocked up on storage and why you should too before prices climb higher:"
+  },
+  {
     "slug": "building-your-first-ai-agent",
     "title": "Building Your First AI Agent: A Practical Guide for Everyday Professionals",
     "description": "Learn how to identify repetitive tasks perfect for AI agents and build your first one with free tools. The future of work is here, and you're in the driver's seat.",
