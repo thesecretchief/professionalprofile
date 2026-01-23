@@ -631,6 +631,45 @@
   function setUserTrack(trackId) { localStorage.setItem('userSelectedTrack', trackId); }
   function getUserTrack() { return localStorage.getItem('userSelectedTrack'); }
 
+  // Cross-page playback persistence
+  function savePlaybackState() {
+    if (audio && isPlaying && currentTrackId) {
+      const state = {
+        trackId: currentTrackId,
+        position: audio.currentTime,
+        timestamp: Date.now()
+      };
+      localStorage.setItem('musicPlaybackState', JSON.stringify(state));
+    }
+  }
+
+  function getPlaybackState() {
+    try {
+      const stateStr = localStorage.getItem('musicPlaybackState');
+      if (!stateStr) return null;
+      const state = JSON.parse(stateStr);
+      // Only use state if it's less than 5 seconds old (fresh navigation)
+      if (Date.now() - state.timestamp < 5000) {
+        return state;
+      }
+      localStorage.removeItem('musicPlaybackState');
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function clearPlaybackState() {
+    localStorage.removeItem('musicPlaybackState');
+  }
+
+  // Save state before leaving page
+  window.addEventListener('beforeunload', savePlaybackState);
+  // Also save periodically while playing (every 2 seconds)
+  setInterval(() => {
+    if (isPlaying) savePlaybackState();
+  }, 2000);
+
   function showWelcome() {
     if (localStorage.getItem('musicWelcomeSeen')) return;
     if (musicBadge) musicBadge.classList.remove('hidden');
@@ -704,7 +743,7 @@
     }
   }
 
-  function loadTrack(trackId) {
+  function loadTrack(trackId, startPosition = 0) {
     if (!TRACKS[trackId]) return;
 
     initAudio();
@@ -719,6 +758,15 @@
 
     // Load the audio file
     audio.src = track.file;
+
+    // Set start position once audio is ready
+    if (startPosition > 0) {
+      audio.addEventListener('loadedmetadata', function onLoaded() {
+        audio.currentTime = Math.min(startPosition, audio.duration - 1);
+        audio.removeEventListener('loadedmetadata', onLoaded);
+      }, { once: true });
+    }
+
     audio.load();
   }
 
@@ -914,10 +962,16 @@
   }
 
   function init() {
+    // Check for saved playback state from previous page
+    const savedState = getPlaybackState();
+
     // Get the appropriate track for this page
     const pageTrack = getPageTrack();
     const userTrack = getUserTrack();
-    const displayTrack = userTrack || pageTrack;
+
+    // If we have a saved state from navigation, use that track
+    // Otherwise use user preference or page default
+    const displayTrack = savedState ? savedState.trackId : (userTrack || pageTrack);
 
     // Restore saved volume
     const savedVolume = localStorage.getItem('musicVolume');
@@ -936,21 +990,31 @@
     }
 
     createVisualizerBars();
+    bindEvents();
 
     const musicWasEnabled = isMusicEnabled();
 
-    setTimeout(() => {
+    // If we have a fresh saved state, resume immediately
+    if (savedState && musicWasEnabled) {
       player.classList.add('visible');
-      if (musicWasEnabled) {
-        // Auto-play if user had music enabled
-        loadTrack(displayTrack);
+      loadTrack(savedState.trackId, savedState.position);
+      // Small delay to ensure audio is ready
+      setTimeout(() => {
         play();
-      } else {
-        showWelcome();
-      }
-    }, 1000);
-
-    bindEvents();
+        clearPlaybackState();
+      }, 100);
+    } else {
+      // Normal startup with slight delay
+      setTimeout(() => {
+        player.classList.add('visible');
+        if (musicWasEnabled) {
+          loadTrack(displayTrack);
+          play();
+        } else {
+          showWelcome();
+        }
+      }, 500);
+    }
   }
 
   if (document.readyState === 'loading') {
