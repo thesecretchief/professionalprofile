@@ -579,29 +579,13 @@
   let animationId = null;
 
   // ===== CROSS-PAGE PERSISTENCE =====
-  function savePlaybackState() {
-    const state = {
-      trackId: currentTrackId,
-      isPlaying: isPlaying,
-      currentTime: audio ? audio.currentTime : 0,
-      timestamp: Date.now()
-    };
-    localStorage.setItem('musicPlaybackState', JSON.stringify(state));
+  // Simple flag: is music enabled by user?
+  function setMusicEnabled(enabled) {
+    localStorage.setItem('musicEnabled', enabled ? 'true' : 'false');
   }
 
-  function getPlaybackState() {
-    try {
-      const state = JSON.parse(localStorage.getItem('musicPlaybackState'));
-      // Only restore if saved within last 30 seconds (page navigation)
-      if (state && (Date.now() - state.timestamp) < 30000) {
-        return state;
-      }
-    } catch (e) {}
-    return null;
-  }
-
-  function clearPlaybackState() {
-    localStorage.removeItem('musicPlaybackState');
+  function isMusicEnabled() {
+    return localStorage.getItem('musicEnabled') === 'true';
   }
 
   // ===== DOM ELEMENTS =====
@@ -673,11 +657,10 @@
   function init() {
     // Check for page-specific music setting
     const pageMusicMeta = document.querySelector('meta[name="ambient:music"]');
-    const pageMusicTrack = pageMusicMeta ? pageMusicMeta.content : null;
+    const pageMusicTrack = pageMusicMeta ? pageMusicMeta.content : 'electronic-ambient';
 
     // Restore preferences
     const savedVolume = localStorage.getItem('musicVolume');
-    const savedTrack = localStorage.getItem('musicTrack');
     const savedLoop = localStorage.getItem('musicLoop');
 
     if (savedVolume) {
@@ -687,64 +670,36 @@
 
     if (savedLoop === 'true') {
       isLooping = true;
-      loopBtn.classList.add('active');
+      if (loopBtn) loopBtn.classList.add('active');
     }
 
-    // Set initial track (page preference > saved > none)
-    if (pageMusicTrack && TRACKS[pageMusicTrack]) {
+    // Set track to page's configured track
+    if (pageMusicTrack && TRACKS[pageMusicTrack] && trackSelect) {
       trackSelect.value = pageMusicTrack;
-    } else if (savedTrack && TRACKS[savedTrack]) {
-      trackSelect.value = savedTrack;
     }
 
     // Create visualizer bars
     createVisualizerBars();
 
-    // Check for cross-page playback restoration
-    const playbackState = getPlaybackState();
-    if (playbackState && playbackState.isPlaying && playbackState.trackId && TRACKS[playbackState.trackId]) {
-      // Restore playback from previous page
-      trackSelect.value = playbackState.trackId;
-      loadTrack(playbackState.trackId);
-
-      // Wait for audio to load, then seek and play
-      if (audio) {
-        audio.addEventListener('loadedmetadata', function onLoad() {
-          audio.removeEventListener('loadedmetadata', onLoad);
-          if (playbackState.currentTime > 0 && playbackState.currentTime < audio.duration) {
-            audio.currentTime = playbackState.currentTime;
-          }
-          play();
-          clearPlaybackState();
-        }, { once: true });
-      }
-    }
+    // Check if user has enabled music (persists across pages)
+    const musicWasEnabled = isMusicEnabled();
 
     // Show player with animation
     setTimeout(() => {
       player.classList.add('visible');
-      // Show welcome notification for new visitors (only if not auto-resuming)
-      if (!playbackState || !playbackState.isPlaying) {
+
+      // If music was enabled, auto-play this page's track
+      if (musicWasEnabled && pageMusicTrack && TRACKS[pageMusicTrack]) {
+        loadTrack(pageMusicTrack);
+        play();
+      } else if (!musicWasEnabled) {
+        // Show welcome notification for new visitors
         showWelcome();
       }
     }, 1000);
 
     // Bind events
     bindEvents();
-
-    // Save state before leaving page
-    window.addEventListener('beforeunload', () => {
-      if (isPlaying && currentTrackId) {
-        savePlaybackState();
-      }
-    });
-
-    // Also save on visibility change (for mobile)
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden && isPlaying && currentTrackId) {
-        savePlaybackState();
-      }
-    });
   }
 
   // ===== VISUALIZER =====
@@ -830,7 +785,7 @@
   }
 
   function play() {
-    if (!audio && trackSelect.value) {
+    if (!audio && trackSelect && trackSelect.value) {
       loadTrack(trackSelect.value);
     }
 
@@ -843,6 +798,7 @@
 
     audio.play().then(() => {
       isPlaying = true;
+      setMusicEnabled(true); // Remember that user wants music
       updatePlayButton();
       animateVisualizer();
     }).catch(e => {
@@ -980,6 +936,7 @@
     if (welcomeDismissBtn) {
       welcomeDismissBtn.addEventListener('click', () => {
         hideWelcome(true);
+        setMusicEnabled(false); // User chose not to have music
       });
     }
 
