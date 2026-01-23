@@ -215,12 +215,25 @@ function updateHtmlFile(filePath, data, includes, pageConfig) {
     }
   }
 
-  // Insert/update music player using marker system
+  // Insert/update music player using marker system (auto-inject to all pages)
   const musicMarker = '<!-- MUSIC_PLAYER -->';
   const musicEndMarker = '<!-- /MUSIC_PLAYER -->';
-  if (content.includes(musicMarker) && processedMusicPlayer) {
-    const musicRegex = /<!-- MUSIC_PLAYER -->[\s\S]*?<!-- \/MUSIC_PLAYER -->/;
-    content = content.replace(musicRegex, `${musicMarker}\n${processedMusicPlayer}\n${musicEndMarker}`);
+  if (processedMusicPlayer) {
+    if (content.includes(musicMarker)) {
+      // Update existing marker
+      const musicRegex = /<!-- MUSIC_PLAYER -->[\s\S]*?<!-- \/MUSIC_PLAYER -->/;
+      content = content.replace(musicRegex, `${musicMarker}\n${processedMusicPlayer}\n${musicEndMarker}`);
+    } else if (!content.includes('id="music-player"')) {
+      // Auto-inject before COOKIE_CONSENT or before </body>
+      if (content.includes('<!-- COOKIE_CONSENT -->')) {
+        content = content.replace(
+          '<!-- COOKIE_CONSENT -->',
+          `${musicMarker}\n${processedMusicPlayer}\n${musicEndMarker}\n\n<!-- COOKIE_CONSENT -->`
+        );
+      } else {
+        content = content.replace('</body>', `${musicMarker}\n${processedMusicPlayer}\n${musicEndMarker}\n</body>`);
+      }
+    }
   }
 
   // Insert/update navigation using marker system

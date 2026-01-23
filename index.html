@@ -1773,7 +1773,43 @@
       <span class="w-1 bg-gold-400 rounded-full animate-eq-3"></span>
       <span class="w-1 bg-gold-400 rounded-full animate-eq-4"></span>
     </div>
+
+    <!-- New visitor notification badge -->
+    <span id="music-badge" class="absolute -top-1 -right-1 w-3 h-3 bg-gold-500 rounded-full animate-pulse hidden"></span>
   </button>
+
+  <!-- Welcome tooltip for new visitors -->
+  <div id="music-welcome" class="absolute left-16 bottom-2 hidden opacity-0 transition-all duration-500">
+    <div class="relative bg-gradient-to-r from-navy-800 to-navy-900 backdrop-blur-xl rounded-xl shadow-2xl border border-gold-500/30 p-4 min-w-[220px]">
+      <!-- Glowing accent -->
+      <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-gold-500/10 to-purple-500/10 animate-pulse"></div>
+
+      <!-- Arrow pointing to button -->
+      <div class="absolute -left-2 bottom-4 w-0 h-0 border-t-8 border-b-8 border-r-8 border-transparent border-r-navy-800"></div>
+
+      <div class="relative">
+        <div class="flex items-center gap-2 mb-2">
+          <div class="w-8 h-8 rounded-full bg-gold-500/20 flex items-center justify-center">
+            <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path>
+            </svg>
+          </div>
+          <span class="text-gold-400 font-semibold text-sm">Enhance Your Experience</span>
+        </div>
+        <p class="text-gray-300 text-xs leading-relaxed mb-3">
+          Enable ambient music for an immersive browsing experience. Curated tracks to match the mood.
+        </p>
+        <div class="flex gap-2">
+          <button id="music-welcome-play" class="flex-1 bg-gold-500 hover:bg-gold-400 text-navy-900 text-xs font-semibold py-2 px-3 rounded-lg transition transform hover:scale-105">
+            Play Music
+          </button>
+          <button id="music-welcome-dismiss" class="px-3 py-2 text-gray-400 hover:text-white text-xs rounded-lg border border-white/10 hover:border-white/30 transition">
+            Later
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <style>
@@ -1853,6 +1889,51 @@
       width: calc(100vw - 32px);
       max-width: 320px;
     }
+    #music-welcome {
+      left: 0;
+      bottom: 72px;
+      right: 4px;
+    }
+    #music-welcome > div {
+      min-width: auto;
+    }
+    #music-welcome .absolute.-left-2 {
+      display: none;
+    }
+  }
+
+  /* Welcome notification animations */
+  #music-welcome.show {
+    opacity: 1;
+  }
+
+  @keyframes welcome-glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(245, 158, 11, 0.2); }
+    50% { box-shadow: 0 0 40px rgba(245, 158, 11, 0.4); }
+  }
+
+  #music-welcome.show > div {
+    animation: welcome-glow 2s ease-in-out infinite;
+  }
+
+  /* Scanning line effect for high-tech feel */
+  @keyframes scan {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+  }
+
+  #music-welcome::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background: linear-gradient(transparent 0%, rgba(245, 158, 11, 0.1) 50%, transparent 100%);
+    animation: scan 2s linear infinite;
+    pointer-events: none;
+    border-radius: 0.75rem;
+    overflow: hidden;
   }
 </style>
 
@@ -1956,6 +2037,38 @@
   const pulse = document.getElementById('music-pulse');
   const noteIcon = document.getElementById('music-note-icon');
   const eqMini = document.getElementById('music-eq-mini');
+  const welcomeEl = document.getElementById('music-welcome');
+  const welcomePlayBtn = document.getElementById('music-welcome-play');
+  const welcomeDismissBtn = document.getElementById('music-welcome-dismiss');
+  const musicBadge = document.getElementById('music-badge');
+
+  // ===== WELCOME NOTIFICATION =====
+  function showWelcome() {
+    const hasSeenWelcome = localStorage.getItem('musicWelcomeSeen');
+    if (hasSeenWelcome) return;
+
+    // Show badge on button
+    if (musicBadge) musicBadge.classList.remove('hidden');
+
+    // Show welcome tooltip after a delay
+    setTimeout(() => {
+      if (welcomeEl && !isPlaying) {
+        welcomeEl.classList.remove('hidden');
+        setTimeout(() => welcomeEl.classList.add('show'), 50);
+      }
+    }, 3000);
+  }
+
+  function hideWelcome(permanent = false) {
+    if (welcomeEl) {
+      welcomeEl.classList.remove('show');
+      setTimeout(() => welcomeEl.classList.add('hidden'), 500);
+    }
+    if (musicBadge) musicBadge.classList.add('hidden');
+    if (permanent) {
+      localStorage.setItem('musicWelcomeSeen', 'true');
+    }
+  }
 
   // ===== INITIALIZATION =====
   function init() {
@@ -1991,6 +2104,8 @@
     // Show player with animation
     setTimeout(() => {
       player.classList.add('visible');
+      // Show welcome notification for new visitors
+      showWelcome();
     }, 1000);
 
     // Bind events
@@ -2206,7 +2321,30 @@
     // Toggle panel
     toggleBtn.addEventListener('click', () => {
       panel.classList.toggle('hidden');
+      hideWelcome(true); // Hide welcome when user interacts
     });
+
+    // Welcome notification buttons
+    if (welcomePlayBtn) {
+      welcomePlayBtn.addEventListener('click', () => {
+        hideWelcome(true);
+        panel.classList.remove('hidden');
+        // Auto-play the page's recommended track or first available
+        const pageMusicMeta = document.querySelector('meta[name="ambient:music"]');
+        const trackId = pageMusicMeta ? pageMusicMeta.content : trackSelect.value || 'electronic-ambient';
+        if (trackId && TRACKS[trackId]) {
+          trackSelect.value = trackId;
+          loadTrack(trackId);
+          play();
+        }
+      });
+    }
+
+    if (welcomeDismissBtn) {
+      welcomeDismissBtn.addEventListener('click', () => {
+        hideWelcome(true);
+      });
+    }
 
     // Play/Pause
     playBtn.addEventListener('click', togglePlay);
