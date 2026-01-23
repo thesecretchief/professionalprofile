@@ -190,6 +190,7 @@ function updateHtmlFile(filePath, data, includes, pageConfig) {
   const processedScripts = processTemplate(includes.scripts || '', context);
   const processedCookieConsent = processTemplate(includes['cookie-consent'] || '', context);
   const processedVoiceReader = processTemplate(includes['voice-reader'] || '', context);
+  const processedMusicPlayer = processTemplate(includes['music-player'] || '', context);
 
   // Insert voice reader for blog posts (before back-to-top button or end of body)
   if (pageConfig.isBlogPost && processedVoiceReader) {
@@ -210,6 +211,27 @@ function updateHtmlFile(filePath, data, includes, pageConfig) {
           '<!-- COOKIE_CONSENT -->',
           `${voiceMarker}\n${processedVoiceReader}\n${voiceEndMarker}\n\n<!-- COOKIE_CONSENT -->`
         );
+      }
+    }
+  }
+
+  // Insert/update music player using marker system (auto-inject to all pages)
+  const musicMarker = '<!-- MUSIC_PLAYER -->';
+  const musicEndMarker = '<!-- /MUSIC_PLAYER -->';
+  if (processedMusicPlayer) {
+    if (content.includes(musicMarker)) {
+      // Update existing marker
+      const musicRegex = /<!-- MUSIC_PLAYER -->[\s\S]*?<!-- \/MUSIC_PLAYER -->/;
+      content = content.replace(musicRegex, `${musicMarker}\n${processedMusicPlayer}\n${musicEndMarker}`);
+    } else if (!content.includes('id="music-player"')) {
+      // Auto-inject before COOKIE_CONSENT or before </body>
+      if (content.includes('<!-- COOKIE_CONSENT -->')) {
+        content = content.replace(
+          '<!-- COOKIE_CONSENT -->',
+          `${musicMarker}\n${processedMusicPlayer}\n${musicEndMarker}\n\n<!-- COOKIE_CONSENT -->`
+        );
+      } else {
+        content = content.replace('</body>', `${musicMarker}\n${processedMusicPlayer}\n${musicEndMarker}\n</body>`);
       }
     }
   }
