@@ -190,6 +190,7 @@ function updateHtmlFile(filePath, data, includes, pageConfig) {
   const processedScripts = processTemplate(includes.scripts || '', context);
   const processedCookieConsent = processTemplate(includes['cookie-consent'] || '', context);
   const processedVoiceReader = processTemplate(includes['voice-reader'] || '', context);
+  const processedMusicPlayer = processTemplate(includes['music-player'] || '', context);
 
   // Insert voice reader for blog posts (before back-to-top button or end of body)
   if (pageConfig.isBlogPost && processedVoiceReader) {
@@ -212,6 +213,14 @@ function updateHtmlFile(filePath, data, includes, pageConfig) {
         );
       }
     }
+  }
+
+  // Insert/update music player using marker system
+  const musicMarker = '<!-- MUSIC_PLAYER -->';
+  const musicEndMarker = '<!-- /MUSIC_PLAYER -->';
+  if (content.includes(musicMarker) && processedMusicPlayer) {
+    const musicRegex = /<!-- MUSIC_PLAYER -->[\s\S]*?<!-- \/MUSIC_PLAYER -->/;
+    content = content.replace(musicRegex, `${musicMarker}\n${processedMusicPlayer}\n${musicEndMarker}`);
   }
 
   // Insert/update navigation using marker system
