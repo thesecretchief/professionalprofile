@@ -535,157 +535,129 @@
       </div>
       <div class="absolute inset-0 bg-gradient-to-t from-navy-900/90 to-transparent"></div>
       <div class="absolute bottom-2 left-4 right-4">
-        <p id="music-track-name" class="text-white font-semibold text-sm truncate">Select a track</p>
-        <p id="music-track-artist" class="text-gray-400 text-xs truncate">Ambient Music</p>
+        <p id="music-track-name" class="text-white font-semibold text-sm truncate">Select an atmosphere</p>
+        <p id="music-track-artist" class="text-gray-400 text-xs truncate">Ambient Soundscape</p>
       </div>
     </div>
 
-    <!-- Track Selector -->
+    <!-- Mood Selector -->
     <div class="p-4 border-b border-white/10">
       <label class="text-gray-400 text-xs block mb-2">Atmosphere</label>
       <select id="music-track-select" class="w-full bg-navy-800 text-white text-sm rounded-lg px-3 py-2.5 border border-white/10 focus:border-gold-500 focus:outline-none cursor-pointer">
         <option value="">Choose your vibe...</option>
-        <optgroup label="Classical">
-          <option value="classical-peaceful" data-name="Peaceful Desolation" data-artist="Kevin MacLeod">Peaceful Desolation</option>
-          <option value="classical-dramatic" data-name="Impact Moderato" data-artist="Kevin MacLeod">Impact Moderato</option>
-          <option value="classical-baroque" data-name="Brandenburg Concerto" data-artist="Kevin MacLeod">Brandenburg Concerto</option>
+        <optgroup label="Calm">
+          <option value="peaceful">Peaceful Dreams</option>
+          <option value="meditation">Deep Meditation</option>
+          <option value="ocean">Ocean Waves</option>
         </optgroup>
-        <optgroup label="Electronic">
-          <option value="electronic-ambient" data-name="Floating Cities" data-artist="Kevin MacLeod">Floating Cities</option>
-          <option value="electronic-chill" data-name="Chill Wave" data-artist="Kevin MacLeod">Chill Wave</option>
-          <option value="electronic-dark" data-name="Dark Fog" data-artist="Kevin MacLeod">Dark Fog</option>
+        <optgroup label="Focus">
+          <option value="focus">Deep Focus</option>
+          <option value="ambient">Floating Ambient</option>
+          <option value="minimal">Minimal Pulse</option>
         </optgroup>
-        <optgroup label="Acoustic">
-          <option value="acoustic-guitar" data-name="Acoustic Breeze" data-artist="Kevin MacLeod">Acoustic Breeze</option>
-          <option value="acoustic-jazz" data-name="Jazz Brunch" data-artist="Kevin MacLeod">Jazz Brunch</option>
-        </optgroup>
-        <optgroup label="Cinematic">
-          <option value="cinematic-tension" data-name="Industrial Cinematic" data-artist="Kevin MacLeod">Industrial Cinematic</option>
-          <option value="cinematic-inspiring" data-name="Inspiring Trailer" data-artist="Kevin MacLeod">Inspiring Trailer</option>
+        <optgroup label="Energy">
+          <option value="cinematic">Cinematic Rise</option>
+          <option value="dark">Dark Atmosphere</option>
+          <option value="pulse">Energy Pulse</option>
         </optgroup>
       </select>
     </div>
 
-    <!-- Progress Bar -->
-    <div class="px-4 pt-3">
-      <div id="music-progress-container" class="relative h-1.5 bg-white/10 rounded-full cursor-pointer group">
-        <div id="music-progress-bar" class="absolute left-0 top-0 h-full bg-gradient-to-r from-gold-500 to-gold-400 rounded-full transition-all duration-150" style="width: 0%"></div>
-        <div id="music-progress-handle" class="absolute top-1/2 -translate-y-1/2 w-3 h-3 bg-gold-400 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity" style="left: 0%"></div>
-      </div>
-      <div class="flex justify-between mt-1 text-xs text-gray-500">
-        <span id="music-current-time">0:00</span>
-        <span id="music-duration">0:00</span>
-      </div>
-    </div>
-
     <!-- Playback Controls -->
-    <div class="flex items-center justify-center gap-2 p-4">
-      <button id="music-shuffle" class="p-2 text-gray-500 hover:text-gold-400 transition rounded-lg hover:bg-white/5" title="Shuffle">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-        </svg>
-      </button>
-      <button id="music-prev" class="p-2 text-gray-400 hover:text-white transition rounded-lg hover:bg-white/5" title="Previous">
-        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"></path>
-        </svg>
-      </button>
-      <button id="music-play-btn" class="p-3 bg-gold-500 hover:bg-gold-400 text-navy-900 rounded-full transition transform hover:scale-105 shadow-lg" title="Play">
-        <svg id="music-play-icon" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+    <div class="p-4 flex items-center justify-center gap-4">
+      <button id="music-play-btn" class="w-14 h-14 rounded-full bg-gold-500 hover:bg-gold-400 text-navy-900 flex items-center justify-center transition transform hover:scale-105 shadow-lg">
+        <svg id="music-play-icon" class="w-6 h-6 ml-1" fill="currentColor" viewBox="0 0 24 24">
           <path d="M8 5v14l11-7z"></path>
         </svg>
         <svg id="music-pause-icon" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 24 24">
           <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path>
         </svg>
       </button>
-      <button id="music-next" class="p-2 text-gray-400 hover:text-white transition rounded-lg hover:bg-white/5" title="Next">
-        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"></path>
-        </svg>
-      </button>
-      <button id="music-loop" class="p-2 text-gray-500 hover:text-gold-400 transition rounded-lg hover:bg-white/5" title="Loop">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-        </svg>
-      </button>
     </div>
 
     <!-- Volume Control -->
-    <div class="px-4 pb-4 flex items-center gap-3">
-      <button id="music-mute" class="text-gray-400 hover:text-white transition" title="Mute">
-        <svg id="music-volume-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path>
-        </svg>
-        <svg id="music-mute-icon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path>
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"></path>
-        </svg>
-      </button>
-      <div id="music-volume-container" class="flex-1 relative h-1.5 bg-white/10 rounded-full cursor-pointer group">
-        <div id="music-volume-bar" class="absolute left-0 top-0 h-full bg-gold-500 rounded-full" style="width: 70%"></div>
-        <div id="music-volume-handle" class="absolute top-1/2 -translate-y-1/2 w-3 h-3 bg-gold-400 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity" style="left: 70%"></div>
+    <div class="px-4 pb-4">
+      <div class="flex items-center gap-3">
+        <button id="music-mute" class="text-gray-400 hover:text-white transition">
+          <svg id="music-volume-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072M18.364 5.636a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path>
+          </svg>
+          <svg id="music-mute-icon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"></path>
+          </svg>
+        </button>
+        <div id="music-volume-container" class="flex-1 h-2 bg-navy-700 rounded-full cursor-pointer relative">
+          <div id="music-volume-bar" class="h-full bg-gradient-to-r from-gold-500 to-gold-400 rounded-full transition-all" style="width: 70%"></div>
+          <div id="music-volume-handle" class="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full shadow-lg cursor-grab" style="left: 70%"></div>
+        </div>
+        <span id="music-volume-value" class="text-gray-400 text-xs w-8">70%</span>
       </div>
-      <span id="music-volume-value" class="text-gray-500 text-xs w-8 text-right">70%</span>
+    </div>
+
+    <!-- Attribution -->
+    <div class="px-4 pb-3 text-center">
+      <p class="text-gray-500 text-xs">Generative ambient soundscapes</p>
     </div>
   </div>
 
   <!-- Floating Toggle Button -->
   <button id="music-toggle" class="relative bg-navy-900/90 hover:bg-navy-800 backdrop-blur-xl text-white p-4 rounded-full shadow-2xl border border-white/10 transition-all duration-300 hover:scale-110 hover:border-gold-500/50 group" style="pointer-events: auto !important; z-index: 9999 !important;">
-    <!-- Pulsing ring when playing -->
-    <div id="music-pulse" class="absolute inset-0 rounded-full bg-gold-500/20 animate-ping hidden"></div>
+    <!-- Pulse ring animation when playing -->
+    <div id="music-pulse" class="absolute inset-0 rounded-full border-2 border-gold-500/50 animate-ping hidden"></div>
 
     <!-- Music note icon -->
-    <svg id="music-note-icon" class="w-6 h-6 relative z-10 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <svg id="music-note-icon" class="w-6 h-6 text-gold-400 group-hover:text-gold-300 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path>
     </svg>
 
-    <!-- Equalizer animation (shown when playing) -->
-    <div id="music-eq-mini" class="hidden absolute inset-0 flex items-center justify-center gap-0.5">
-      <span class="w-1 bg-gold-400 rounded-full animate-eq-1"></span>
-      <span class="w-1 bg-gold-400 rounded-full animate-eq-2"></span>
-      <span class="w-1 bg-gold-400 rounded-full animate-eq-3"></span>
-      <span class="w-1 bg-gold-400 rounded-full animate-eq-4"></span>
+    <!-- Mini equalizer when playing -->
+    <div id="music-eq-mini" class="absolute inset-0 flex items-center justify-center gap-0.5 hidden">
+      <span class="w-1 h-3 bg-gold-400 rounded-full animate-eq-1"></span>
+      <span class="w-1 h-4 bg-gold-400 rounded-full animate-eq-2"></span>
+      <span class="w-1 h-2 bg-gold-400 rounded-full animate-eq-3"></span>
+      <span class="w-1 h-3 bg-gold-400 rounded-full animate-eq-4"></span>
     </div>
 
-    <!-- New visitor notification badge -->
-    <span id="music-badge" class="absolute -top-1 -right-1 w-3 h-3 bg-gold-500 rounded-full animate-pulse hidden"></span>
+    <!-- New badge for first-time visitors -->
+    <span id="music-badge" class="absolute -top-1 -right-1 w-3 h-3 bg-gold-500 rounded-full hidden">
+      <span class="absolute inset-0 rounded-full bg-gold-500 animate-ping"></span>
+    </span>
   </button>
 
-  <!-- Welcome tooltip for new visitors -->
-  <div id="music-welcome" class="absolute left-16 bottom-2 hidden opacity-0 transition-all duration-500">
-    <div class="relative bg-gradient-to-r from-navy-800 to-navy-900 backdrop-blur-xl rounded-xl shadow-2xl border border-gold-500/30 p-4 min-w-[220px]">
-      <!-- Glowing accent -->
-      <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-gold-500/10 to-purple-500/10 animate-pulse"></div>
-
-      <!-- Arrow pointing to button -->
-      <div class="absolute -left-2 bottom-4 w-0 h-0 border-t-8 border-b-8 border-r-8 border-transparent border-r-navy-800"></div>
-
-      <div class="relative">
-        <div class="flex items-center gap-2 mb-2">
-          <div class="w-8 h-8 rounded-full bg-gold-500/20 flex items-center justify-center">
-            <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path>
-            </svg>
-          </div>
-          <span class="text-gold-400 font-semibold text-sm">Enhance Your Experience</span>
+  <!-- Welcome notification -->
+  <div id="music-welcome" class="absolute bottom-full left-0 mb-3 hidden opacity-0 transition-opacity duration-500 w-64">
+    <div class="bg-navy-800/95 backdrop-blur-xl rounded-xl p-4 shadow-2xl border border-gold-500/20 relative">
+      <div class="absolute -bottom-2 left-6 w-4 h-4 bg-navy-800/95 border-r border-b border-gold-500/20 transform rotate-45"></div>
+      <div class="flex items-center gap-2 mb-2">
+        <div class="w-8 h-8 rounded-full bg-gold-500/20 flex items-center justify-center">
+          <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path>
+          </svg>
         </div>
-        <p class="text-gray-300 text-xs leading-relaxed mb-3">
-          Enable ambient music for an immersive browsing experience. Curated tracks to match the mood.
-        </p>
-        <div class="flex gap-2">
-          <button id="music-welcome-play" class="flex-1 bg-gold-500 hover:bg-gold-400 text-navy-900 text-xs font-semibold py-2 px-3 rounded-lg transition transform hover:scale-105">
-            Play Music
-          </button>
-          <button id="music-welcome-dismiss" class="px-3 py-2 text-gray-400 hover:text-white text-xs rounded-lg border border-white/10 hover:border-white/30 transition">
-            Later
-          </button>
-        </div>
+        <span class="text-gold-400 font-semibold text-sm">Enhance Your Experience</span>
+      </div>
+      <p class="text-gray-300 text-xs leading-relaxed mb-3">
+        Enable ambient soundscapes for an immersive browsing experience.
+      </p>
+      <div class="flex gap-2">
+        <button id="music-welcome-play" class="flex-1 bg-gold-500 hover:bg-gold-400 text-navy-900 text-xs font-semibold py-2 px-3 rounded-lg transition transform hover:scale-105">
+          Play Music
+        </button>
+        <button id="music-welcome-dismiss" class="px-3 py-2 text-gray-400 hover:text-white text-xs rounded-lg border border-white/10 hover:border-white/30 transition">
+          Later
+        </button>
       </div>
     </div>
   </div>
 </div>
 
 <style>
+  /* Player visibility */
+  #music-player.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
   /* Equalizer animations */
   @keyframes eq-1 {
     0%, 100% { height: 4px; }
@@ -724,55 +696,6 @@
     background-repeat: no-repeat;
     background-position: right 0.75rem center;
     background-size: 1rem;
-    padding-right: 2.5rem;
-  }
-
-  #music-track-select optgroup {
-    background: #1e293b;
-    color: #f59e0b;
-    font-weight: 600;
-  }
-
-  #music-track-select option {
-    background: #0f172a;
-    color: white;
-    padding: 0.5rem;
-  }
-
-  /* Active states */
-  #music-loop.active,
-  #music-shuffle.active {
-    color: #f59e0b;
-    background: rgba(245, 158, 11, 0.1);
-  }
-
-  /* Player reveal animation */
-  #music-player.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* Responsive positioning */
-  @media (max-width: 640px) {
-    #music-player {
-      left: 4px;
-      bottom: 4px;
-    }
-    #music-panel {
-      width: calc(100vw - 32px);
-      max-width: 320px;
-    }
-    #music-welcome {
-      left: 0;
-      bottom: 72px;
-      right: 4px;
-    }
-    #music-welcome > div {
-      min-width: auto;
-    }
-    #music-welcome .absolute.-left-2 {
-      display: none;
-    }
   }
 
   /* Welcome notification animations */
@@ -788,26 +711,6 @@
   #music-welcome.show > div {
     animation: welcome-glow 2s ease-in-out infinite;
   }
-
-  /* Scanning line effect for high-tech feel */
-  @keyframes scan {
-    0% { transform: translateY(-100%); }
-    100% { transform: translateY(100%); }
-  }
-
-  #music-welcome::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 100%;
-    background: linear-gradient(transparent 0%, rgba(245, 158, 11, 0.1) 50%, transparent 100%);
-    animation: scan 2s linear infinite;
-    pointer-events: none;
-    border-radius: 0.75rem;
-    overflow: hidden;
-  }
 </style>
 
 <script>
@@ -815,95 +718,54 @@
   'use strict';
 
   // ===== CLEAR OLD CACHE =====
-  // Version 2: Reset if user has old Pixabay URLs cached
-  const MUSIC_VERSION = '2';
+  const MUSIC_VERSION = '3';
   if (localStorage.getItem('musicVersion') !== MUSIC_VERSION) {
     localStorage.removeItem('musicTrack');
     localStorage.removeItem('musicEnabled');
     localStorage.removeItem('musicWelcomeSeen');
-    localStorage.removeItem('ambientHeaderDismissed');
     localStorage.setItem('musicVersion', MUSIC_VERSION);
   }
 
-  // ===== TRACK LIBRARY =====
-  // Using royalty-free music from Kevin MacLeod (CC BY) - incompetech.com
-  const TRACKS = {
-    'classical-peaceful': {
-      url: 'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Peaceful%20Desolation.mp3',
-      name: 'Peaceful Desolation',
-      artist: 'Kevin MacLeod'
-    },
-    'classical-dramatic': {
-      url: 'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Impact%20Moderato.mp3',
-      name: 'Impact Moderato',
-      artist: 'Kevin MacLeod'
-    },
-    'classical-baroque': {
-      url: 'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Brandenburg%20Concerto%20No4-1%20BWV1049%20-%20Allegro.mp3',
-      name: 'Brandenburg Concerto',
-      artist: 'Kevin MacLeod'
-    },
-    'electronic-ambient': {
-      url: 'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Floating%20Cities.mp3',
-      name: 'Floating Cities',
-      artist: 'Kevin MacLeod'
-    },
-    'electronic-chill': {
-      url: 'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Chill%20Wave.mp3',
-      name: 'Chill Wave',
-      artist: 'Kevin MacLeod'
-    },
-    'electronic-dark': {
-      url: 'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Dark%20Fog.mp3',
-      name: 'Dark Fog',
-      artist: 'Kevin MacLeod'
-    },
-    'acoustic-guitar': {
-      url: 'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Acoustic%20Breeze.mp3',
-      name: 'Acoustic Breeze',
-      artist: 'Kevin MacLeod'
-    },
-    'acoustic-jazz': {
-      url: 'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Jazz%20Brunch.mp3',
-      name: 'Jazz Brunch',
-      artist: 'Kevin MacLeod'
-    },
-    'cinematic-tension': {
-      url: 'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Industrial%20Cinematic.mp3',
-      name: 'Industrial Cinematic',
-      artist: 'Kevin MacLeod'
-    },
-    'cinematic-inspiring': {
-      url: 'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Inspiring%20Cinematic%20Trailer.mp3',
-      name: 'Inspiring Trailer',
-      artist: 'Kevin MacLeod'
-    }
+  // ===== MOOD PRESETS =====
+  const MOODS = {
+    'peaceful': { name: 'Peaceful Dreams', type: 'pad', baseFreq: 220, color: 'warm' },
+    'meditation': { name: 'Deep Meditation', type: 'drone', baseFreq: 110, color: 'deep' },
+    'ocean': { name: 'Ocean Waves', type: 'noise', baseFreq: 0, color: 'cool' },
+    'focus': { name: 'Deep Focus', type: 'binaural', baseFreq: 200, color: 'neutral' },
+    'ambient': { name: 'Floating Ambient', type: 'pad', baseFreq: 330, color: 'ethereal' },
+    'minimal': { name: 'Minimal Pulse', type: 'pulse', baseFreq: 55, color: 'minimal' },
+    'cinematic': { name: 'Cinematic Rise', type: 'swell', baseFreq: 165, color: 'epic' },
+    'dark': { name: 'Dark Atmosphere', type: 'dark', baseFreq: 82, color: 'dark' },
+    'pulse': { name: 'Energy Pulse', type: 'pulse', baseFreq: 110, color: 'energy' }
+  };
+
+  // Map page ambient:music meta tags to our moods
+  const PAGE_MOOD_MAP = {
+    'classical-peaceful': 'peaceful',
+    'classical-dramatic': 'cinematic',
+    'classical-baroque': 'ambient',
+    'electronic-ambient': 'ambient',
+    'electronic-chill': 'focus',
+    'electronic-dark': 'dark',
+    'acoustic-guitar': 'peaceful',
+    'acoustic-jazz': 'minimal',
+    'cinematic-tension': 'dark',
+    'cinematic-inspiring': 'cinematic'
   };
 
   // ===== STATE =====
-  let audio = null;
-  let isPlaying = false;
-  let isLooping = false;
-  let isShuffling = false;
-  let currentTrackId = null;
-  let volume = 0.7;
-  let analyser = null;
   let audioContext = null;
+  let masterGain = null;
+  let nodes = [];
+  let isPlaying = false;
+  let currentMoodId = null;
+  let volume = 0.7;
   let animationId = null;
-
-  // ===== CROSS-PAGE PERSISTENCE =====
-  // Simple flag: is music enabled by user?
-  function setMusicEnabled(enabled) {
-    localStorage.setItem('musicEnabled', enabled ? 'true' : 'false');
-  }
-
-  function isMusicEnabled() {
-    return localStorage.getItem('musicEnabled') === 'true';
-  }
+  let analyser = null;
 
   // ===== DOM ELEMENTS =====
   const player = document.getElementById('music-player');
-  if (!player) return; // Exit if player element not found
+  if (!player) return;
 
   const panel = document.getElementById('music-panel');
   const toggleBtn = document.getElementById('music-toggle');
@@ -913,11 +775,6 @@
   const trackSelect = document.getElementById('music-track-select');
   const trackName = document.getElementById('music-track-name');
   const trackArtist = document.getElementById('music-track-artist');
-  const progressBar = document.getElementById('music-progress-bar');
-  const progressHandle = document.getElementById('music-progress-handle');
-  const progressContainer = document.getElementById('music-progress-container');
-  const currentTimeEl = document.getElementById('music-current-time');
-  const durationEl = document.getElementById('music-duration');
   const volumeBar = document.getElementById('music-volume-bar');
   const volumeHandle = document.getElementById('music-volume-handle');
   const volumeContainer = document.getElementById('music-volume-container');
@@ -925,10 +782,6 @@
   const muteBtn = document.getElementById('music-mute');
   const volumeIcon = document.getElementById('music-volume-icon');
   const muteIcon = document.getElementById('music-mute-icon');
-  const loopBtn = document.getElementById('music-loop');
-  const shuffleBtn = document.getElementById('music-shuffle');
-  const prevBtn = document.getElementById('music-prev');
-  const nextBtn = document.getElementById('music-next');
   const visualizer = document.getElementById('music-visualizer');
   const pulse = document.getElementById('music-pulse');
   const noteIcon = document.getElementById('music-note-icon');
@@ -938,15 +791,20 @@
   const welcomeDismissBtn = document.getElementById('music-welcome-dismiss');
   const musicBadge = document.getElementById('music-badge');
 
+  // ===== PERSISTENCE =====
+  function setMusicEnabled(enabled) {
+    localStorage.setItem('musicEnabled', enabled ? 'true' : 'false');
+  }
+
+  function isMusicEnabled() {
+    return localStorage.getItem('musicEnabled') === 'true';
+  }
+
   // ===== WELCOME NOTIFICATION =====
   function showWelcome() {
     const hasSeenWelcome = localStorage.getItem('musicWelcomeSeen');
     if (hasSeenWelcome) return;
-
-    // Show badge on button
     if (musicBadge) musicBadge.classList.remove('hidden');
-
-    // Show welcome tooltip after a delay
     setTimeout(() => {
       if (welcomeEl && !isPlaying) {
         welcomeEl.classList.remove('hidden');
@@ -966,57 +824,382 @@
     }
   }
 
-  // ===== INITIALIZATION =====
-  function init() {
-    // Check for page-specific music setting
-    const pageMusicMeta = document.querySelector('meta[name="ambient:music"]');
-    const pageMusicTrack = pageMusicMeta ? pageMusicMeta.content : 'electronic-ambient';
+  // ===== AUDIO SYNTHESIS =====
+  function initAudio() {
+    if (audioContext) return;
+    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    masterGain = audioContext.createGain();
+    masterGain.gain.value = volume;
+    masterGain.connect(audioContext.destination);
 
-    // Restore preferences
-    const savedVolume = localStorage.getItem('musicVolume');
-    const savedLoop = localStorage.getItem('musicLoop');
+    // Create analyser for visualizer
+    analyser = audioContext.createAnalyser();
+    analyser.fftSize = 64;
+    masterGain.connect(analyser);
+  }
 
-    if (savedVolume) {
-      volume = parseFloat(savedVolume);
-      updateVolumeUI();
+  function stopAllNodes() {
+    nodes.forEach(node => {
+      try {
+        if (node.stop) node.stop();
+        if (node.disconnect) node.disconnect();
+      } catch (e) {}
+    });
+    nodes = [];
+  }
+
+  function createPadSound(baseFreq, color) {
+    const osc1 = audioContext.createOscillator();
+    const osc2 = audioContext.createOscillator();
+    const osc3 = audioContext.createOscillator();
+    const gain1 = audioContext.createGain();
+    const gain2 = audioContext.createGain();
+    const gain3 = audioContext.createGain();
+    const filter = audioContext.createBiquadFilter();
+
+    // Frequencies for chord
+    const freqs = color === 'warm' ? [baseFreq, baseFreq * 1.25, baseFreq * 1.5] :
+                  color === 'ethereal' ? [baseFreq, baseFreq * 1.2, baseFreq * 1.498] :
+                  [baseFreq, baseFreq * 1.189, baseFreq * 1.498];
+
+    osc1.frequency.value = freqs[0];
+    osc2.frequency.value = freqs[1];
+    osc3.frequency.value = freqs[2];
+
+    osc1.type = 'sine';
+    osc2.type = 'sine';
+    osc3.type = 'triangle';
+
+    gain1.gain.value = 0.3;
+    gain2.gain.value = 0.2;
+    gain3.gain.value = 0.1;
+
+    filter.type = 'lowpass';
+    filter.frequency.value = 800;
+    filter.Q.value = 1;
+
+    osc1.connect(gain1);
+    osc2.connect(gain2);
+    osc3.connect(gain3);
+    gain1.connect(filter);
+    gain2.connect(filter);
+    gain3.connect(filter);
+    filter.connect(masterGain);
+
+    // Slow LFO for movement
+    const lfo = audioContext.createOscillator();
+    const lfoGain = audioContext.createGain();
+    lfo.frequency.value = 0.1;
+    lfoGain.gain.value = 30;
+    lfo.connect(lfoGain);
+    lfoGain.connect(filter.frequency);
+
+    osc1.start();
+    osc2.start();
+    osc3.start();
+    lfo.start();
+
+    nodes.push(osc1, osc2, osc3, lfo);
+  }
+
+  function createDroneSound(baseFreq) {
+    const osc = audioContext.createOscillator();
+    const gain = audioContext.createGain();
+    const filter = audioContext.createBiquadFilter();
+
+    osc.frequency.value = baseFreq;
+    osc.type = 'sawtooth';
+    gain.gain.value = 0.15;
+    filter.type = 'lowpass';
+    filter.frequency.value = 400;
+
+    osc.connect(gain);
+    gain.connect(filter);
+    filter.connect(masterGain);
+
+    // Add subtle beating
+    const osc2 = audioContext.createOscillator();
+    const gain2 = audioContext.createGain();
+    osc2.frequency.value = baseFreq + 1;
+    osc2.type = 'sawtooth';
+    gain2.gain.value = 0.15;
+    osc2.connect(gain2);
+    gain2.connect(filter);
+
+    osc.start();
+    osc2.start();
+    nodes.push(osc, osc2);
+  }
+
+  function createNoiseSound() {
+    const bufferSize = 2 * audioContext.sampleRate;
+    const noiseBuffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+    const output = noiseBuffer.getChannelData(0);
+
+    for (let i = 0; i < bufferSize; i++) {
+      output[i] = Math.random() * 2 - 1;
     }
 
-    if (savedLoop === 'true') {
-      isLooping = true;
-      if (loopBtn) loopBtn.classList.add('active');
+    const noise = audioContext.createBufferSource();
+    noise.buffer = noiseBuffer;
+    noise.loop = true;
+
+    const filter = audioContext.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.value = 400;
+
+    const gain = audioContext.createGain();
+    gain.gain.value = 0.3;
+
+    // LFO for wave-like movement
+    const lfo = audioContext.createOscillator();
+    const lfoGain = audioContext.createGain();
+    lfo.frequency.value = 0.08;
+    lfoGain.gain.value = 200;
+    lfo.connect(lfoGain);
+    lfoGain.connect(filter.frequency);
+
+    noise.connect(filter);
+    filter.connect(gain);
+    gain.connect(masterGain);
+
+    noise.start();
+    lfo.start();
+    nodes.push(noise, lfo);
+  }
+
+  function createBinauralSound(baseFreq) {
+    // Left ear
+    const oscL = audioContext.createOscillator();
+    const gainL = audioContext.createGain();
+    const panL = audioContext.createStereoPanner();
+    oscL.frequency.value = baseFreq;
+    oscL.type = 'sine';
+    gainL.gain.value = 0.2;
+    panL.pan.value = -1;
+
+    // Right ear (slightly different frequency for binaural effect)
+    const oscR = audioContext.createOscillator();
+    const gainR = audioContext.createGain();
+    const panR = audioContext.createStereoPanner();
+    oscR.frequency.value = baseFreq + 10; // 10Hz binaural beat (alpha waves)
+    oscR.type = 'sine';
+    gainR.gain.value = 0.2;
+    panR.pan.value = 1;
+
+    oscL.connect(gainL);
+    gainL.connect(panL);
+    panL.connect(masterGain);
+
+    oscR.connect(gainR);
+    gainR.connect(panR);
+    panR.connect(masterGain);
+
+    oscL.start();
+    oscR.start();
+    nodes.push(oscL, oscR);
+  }
+
+  function createPulseSound(baseFreq, color) {
+    const osc = audioContext.createOscillator();
+    const gain = audioContext.createGain();
+
+    osc.frequency.value = baseFreq;
+    osc.type = 'sine';
+
+    // Pulsing gain
+    const lfo = audioContext.createOscillator();
+    const lfoGain = audioContext.createGain();
+    lfo.frequency.value = color === 'energy' ? 2 : 0.5;
+    lfoGain.gain.value = 0.15;
+
+    gain.gain.value = 0.2;
+    lfo.connect(lfoGain);
+    lfoGain.connect(gain.gain);
+
+    osc.connect(gain);
+    gain.connect(masterGain);
+
+    osc.start();
+    lfo.start();
+    nodes.push(osc, lfo);
+
+    // Add harmonics
+    const osc2 = audioContext.createOscillator();
+    const gain2 = audioContext.createGain();
+    osc2.frequency.value = baseFreq * 2;
+    osc2.type = 'sine';
+    gain2.gain.value = 0.08;
+    osc2.connect(gain2);
+    gain2.connect(masterGain);
+    osc2.start();
+    nodes.push(osc2);
+  }
+
+  function createDarkSound(baseFreq) {
+    const osc = audioContext.createOscillator();
+    const gain = audioContext.createGain();
+    const filter = audioContext.createBiquadFilter();
+
+    osc.frequency.value = baseFreq;
+    osc.type = 'sawtooth';
+    gain.gain.value = 0.12;
+    filter.type = 'lowpass';
+    filter.frequency.value = 300;
+    filter.Q.value = 5;
+
+    osc.connect(gain);
+    gain.connect(filter);
+    filter.connect(masterGain);
+
+    // Slow filter sweep
+    const lfo = audioContext.createOscillator();
+    const lfoGain = audioContext.createGain();
+    lfo.frequency.value = 0.05;
+    lfoGain.gain.value = 150;
+    lfo.connect(lfoGain);
+    lfoGain.connect(filter.frequency);
+
+    osc.start();
+    lfo.start();
+    nodes.push(osc, lfo);
+  }
+
+  function createSwellSound(baseFreq) {
+    createPadSound(baseFreq, 'epic');
+
+    // Add rising element
+    const osc = audioContext.createOscillator();
+    const gain = audioContext.createGain();
+    osc.frequency.value = baseFreq / 2;
+    osc.type = 'triangle';
+    gain.gain.value = 0.1;
+
+    osc.connect(gain);
+    gain.connect(masterGain);
+
+    // Slow pitch rise
+    osc.frequency.setValueAtTime(baseFreq / 2, audioContext.currentTime);
+    osc.frequency.linearRampToValueAtTime(baseFreq, audioContext.currentTime + 30);
+
+    osc.start();
+    nodes.push(osc);
+  }
+
+  function loadMood(moodId) {
+    if (!MOODS[moodId]) return;
+
+    initAudio();
+    stopAllNodes();
+
+    if (audioContext.state === 'suspended') {
+      audioContext.resume();
     }
 
-    // Set track to page's configured track
-    if (pageMusicTrack && TRACKS[pageMusicTrack] && trackSelect) {
-      trackSelect.value = pageMusicTrack;
+    const mood = MOODS[moodId];
+    currentMoodId = moodId;
+
+    switch (mood.type) {
+      case 'pad':
+        createPadSound(mood.baseFreq, mood.color);
+        break;
+      case 'drone':
+        createDroneSound(mood.baseFreq);
+        break;
+      case 'noise':
+        createNoiseSound();
+        break;
+      case 'binaural':
+        createBinauralSound(mood.baseFreq);
+        break;
+      case 'pulse':
+        createPulseSound(mood.baseFreq, mood.color);
+        break;
+      case 'dark':
+        createDarkSound(mood.baseFreq);
+        break;
+      case 'swell':
+        createSwellSound(mood.baseFreq);
+        break;
     }
 
-    // Create visualizer bars
-    createVisualizerBars();
+    if (trackName) trackName.textContent = mood.name;
+    if (trackArtist) trackArtist.textContent = 'Generative Ambient';
+    if (trackSelect) trackSelect.value = moodId;
+  }
 
-    // Check if user has enabled music (persists across pages)
-    const musicWasEnabled = isMusicEnabled();
+  function play() {
+    if (!currentMoodId && trackSelect && trackSelect.value) {
+      loadMood(trackSelect.value);
+    } else if (!currentMoodId) {
+      // Default to ambient
+      loadMood('ambient');
+    }
 
-    // Show player with animation
-    setTimeout(() => {
-      player.classList.add('visible');
+    if (audioContext && audioContext.state === 'suspended') {
+      audioContext.resume();
+    }
 
-      // If music was enabled, auto-play this page's track
-      if (musicWasEnabled && pageMusicTrack && TRACKS[pageMusicTrack]) {
-        loadTrack(pageMusicTrack);
-        play();
-      } else if (!musicWasEnabled) {
-        // Show welcome notification for new visitors
-        showWelcome();
-      }
-    }, 1000);
+    isPlaying = true;
+    setMusicEnabled(true);
+    updatePlayButton();
+    animateVisualizer();
+    hideWelcome(true);
+  }
 
-    // Bind events
-    bindEvents();
+  function pause() {
+    stopAllNodes();
+    isPlaying = false;
+    updatePlayButton();
+    if (animationId) {
+      cancelAnimationFrame(animationId);
+      animationId = null;
+    }
+  }
+
+  function togglePlay() {
+    if (isPlaying) {
+      pause();
+    } else {
+      play();
+    }
+  }
+
+  // ===== UI UPDATES =====
+  function updatePlayButton() {
+    if (isPlaying) {
+      if (playIcon) playIcon.classList.add('hidden');
+      if (pauseIcon) pauseIcon.classList.remove('hidden');
+      if (pulse) pulse.classList.remove('hidden');
+      if (noteIcon) noteIcon.classList.add('hidden');
+      if (eqMini) eqMini.classList.remove('hidden');
+    } else {
+      if (playIcon) playIcon.classList.remove('hidden');
+      if (pauseIcon) pauseIcon.classList.add('hidden');
+      if (pulse) pulse.classList.add('hidden');
+      if (noteIcon) noteIcon.classList.remove('hidden');
+      if (eqMini) eqMini.classList.add('hidden');
+    }
+  }
+
+  function updateVolumeUI() {
+    const percent = volume * 100;
+    if (volumeBar) volumeBar.style.width = `${percent}%`;
+    if (volumeHandle) volumeHandle.style.left = `${percent}%`;
+    if (volumeValue) volumeValue.textContent = `${Math.round(percent)}%`;
+
+    if (volume === 0) {
+      if (volumeIcon) volumeIcon.classList.add('hidden');
+      if (muteIcon) muteIcon.classList.remove('hidden');
+    } else {
+      if (volumeIcon) volumeIcon.classList.remove('hidden');
+      if (muteIcon) muteIcon.classList.add('hidden');
+    }
   }
 
   // ===== VISUALIZER =====
   function createVisualizerBars() {
+    if (!visualizer) return;
     visualizer.innerHTML = '';
     for (let i = 0; i < 32; i++) {
       const bar = document.createElement('div');
@@ -1026,24 +1209,9 @@
     }
   }
 
-  function setupAudioAnalyser() {
-    if (!audio || audioContext) return;
-
-    try {
-      audioContext = new (window.AudioContext || window.webkitAudioContext)();
-      analyser = audioContext.createAnalyser();
-      const source = audioContext.createMediaElementSource(audio);
-      source.connect(analyser);
-      analyser.connect(audioContext.destination);
-      analyser.fftSize = 64;
-    } catch (e) {
-      console.log('Audio analyser not supported');
-    }
-  }
-
   function animateVisualizer() {
-    if (!analyser || !isPlaying) {
-      cancelAnimationFrame(animationId);
+    if (!isPlaying || !visualizer || !analyser) {
+      if (animationId) cancelAnimationFrame(animationId);
       return;
     }
 
@@ -1060,242 +1228,42 @@
     animationId = requestAnimationFrame(animateVisualizer);
   }
 
-  // ===== AUDIO CONTROLS =====
-  function loadTrack(trackId) {
-    if (!trackId || !TRACKS[trackId]) return;
-
-    const track = TRACKS[trackId];
-    currentTrackId = trackId;
-
-    if (audio) {
-      audio.pause();
-      audio.src = '';
-    }
-
-    audio = new Audio(track.url);
-    audio.volume = volume;
-    audio.loop = isLooping;
-    audio.crossOrigin = 'anonymous';
-
-    // Update UI
-    trackName.textContent = track.name;
-    trackArtist.textContent = track.artist;
-
-    // Audio events
-    audio.addEventListener('loadedmetadata', () => {
-      durationEl.textContent = formatTime(audio.duration);
-    });
-
-    audio.addEventListener('timeupdate', updateProgress);
-    audio.addEventListener('ended', handleTrackEnd);
-    audio.addEventListener('play', () => {
-      setupAudioAnalyser();
-      animateVisualizer();
-    });
-
-    // Save preference
-    localStorage.setItem('musicTrack', trackId);
-  }
-
-  function play() {
-    if (!audio && trackSelect && trackSelect.value) {
-      loadTrack(trackSelect.value);
-    }
-
-    if (!audio) return;
-
-    // Resume audio context if suspended
-    if (audioContext && audioContext.state === 'suspended') {
-      audioContext.resume();
-    }
-
-    audio.play().then(() => {
-      isPlaying = true;
-      setMusicEnabled(true); // Remember that user wants music
-      updatePlayButton();
-      animateVisualizer();
-      hideWelcome(true); // Hide welcome when music starts
-    }).catch(e => {
-      console.log('Playback prevented:', e.message);
-    });
-  }
-
-  function pause() {
-    if (!audio) return;
-    audio.pause();
-    isPlaying = false;
-    updatePlayButton();
-  }
-
-  function togglePlay() {
-    if (isPlaying) {
-      pause();
-    } else {
-      play();
-    }
-  }
-
-  function handleTrackEnd() {
-    if (isShuffling) {
-      playRandomTrack();
-    } else if (!isLooping) {
-      playNextTrack();
-    }
-  }
-
-  function playNextTrack() {
-    const options = Array.from(trackSelect.options).filter(o => o.value);
-    const currentIndex = options.findIndex(o => o.value === currentTrackId);
-    const nextIndex = (currentIndex + 1) % options.length;
-
-    trackSelect.value = options[nextIndex].value;
-    loadTrack(options[nextIndex].value);
-    play();
-  }
-
-  function playPrevTrack() {
-    const options = Array.from(trackSelect.options).filter(o => o.value);
-    const currentIndex = options.findIndex(o => o.value === currentTrackId);
-    const prevIndex = (currentIndex - 1 + options.length) % options.length;
-
-    trackSelect.value = options[prevIndex].value;
-    loadTrack(options[prevIndex].value);
-    play();
-  }
-
-  function playRandomTrack() {
-    const options = Array.from(trackSelect.options).filter(o => o.value && o.value !== currentTrackId);
-    if (options.length === 0) return;
-
-    const randomOption = options[Math.floor(Math.random() * options.length)];
-    trackSelect.value = randomOption.value;
-    loadTrack(randomOption.value);
-    play();
-  }
-
-  // ===== UI UPDATES =====
-  function updatePlayButton() {
-    if (isPlaying) {
-      playIcon.classList.add('hidden');
-      pauseIcon.classList.remove('hidden');
-      pulse.classList.remove('hidden');
-      noteIcon.classList.add('hidden');
-      eqMini.classList.remove('hidden');
-    } else {
-      playIcon.classList.remove('hidden');
-      pauseIcon.classList.add('hidden');
-      pulse.classList.add('hidden');
-      noteIcon.classList.remove('hidden');
-      eqMini.classList.add('hidden');
-    }
-  }
-
-  function updateProgress() {
-    if (!audio) return;
-
-    const percent = (audio.currentTime / audio.duration) * 100 || 0;
-    progressBar.style.width = `${percent}%`;
-    progressHandle.style.left = `${percent}%`;
-    currentTimeEl.textContent = formatTime(audio.currentTime);
-  }
-
-  function updateVolumeUI() {
-    const percent = volume * 100;
-    volumeBar.style.width = `${percent}%`;
-    volumeHandle.style.left = `${percent}%`;
-    volumeValue.textContent = `${Math.round(percent)}%`;
-
-    if (volume === 0) {
-      volumeIcon.classList.add('hidden');
-      muteIcon.classList.remove('hidden');
-    } else {
-      volumeIcon.classList.remove('hidden');
-      muteIcon.classList.add('hidden');
-    }
-  }
-
-  function formatTime(seconds) {
-    if (isNaN(seconds)) return '0:00';
-    const mins = Math.floor(seconds / 60);
-    const secs = Math.floor(seconds % 60);
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
-  }
-
   // ===== EVENT HANDLERS =====
   function bindEvents() {
-    // Toggle panel
     if (toggleBtn && panel) {
       toggleBtn.addEventListener('click', () => {
         panel.classList.toggle('hidden');
-        hideWelcome(true); // Hide welcome when user interacts
+        hideWelcome(true);
       });
     }
 
-    // Welcome notification buttons
     if (welcomePlayBtn) {
       welcomePlayBtn.addEventListener('click', () => {
         hideWelcome(true);
         if (panel) panel.classList.remove('hidden');
-        // Auto-play the page's recommended track or first available
         const pageMusicMeta = document.querySelector('meta[name="ambient:music"]');
-        const trackId = pageMusicMeta ? pageMusicMeta.content : (trackSelect ? trackSelect.value : null) || 'electronic-ambient';
-        if (trackId && TRACKS[trackId]) {
-          if (trackSelect) trackSelect.value = trackId;
-          loadTrack(trackId);
-          play();
-        }
+        const pageTrack = pageMusicMeta ? pageMusicMeta.content : null;
+        const moodId = PAGE_MOOD_MAP[pageTrack] || 'ambient';
+        loadMood(moodId);
+        play();
       });
     }
 
     if (welcomeDismissBtn) {
       welcomeDismissBtn.addEventListener('click', () => {
         hideWelcome(true);
-        setMusicEnabled(false); // User chose not to have music
+        setMusicEnabled(false);
       });
     }
 
-    // Play/Pause
     if (playBtn) playBtn.addEventListener('click', togglePlay);
 
-    // Track selection
     if (trackSelect) {
       trackSelect.addEventListener('change', (e) => {
         if (e.target.value) {
-          loadTrack(e.target.value);
+          loadMood(e.target.value);
           play();
         }
-      });
-    }
-
-    // Previous/Next
-    if (prevBtn) prevBtn.addEventListener('click', playPrevTrack);
-    if (nextBtn) nextBtn.addEventListener('click', playNextTrack);
-
-    // Loop toggle
-    if (loopBtn) {
-      loopBtn.addEventListener('click', () => {
-        isLooping = !isLooping;
-        loopBtn.classList.toggle('active', isLooping);
-        if (audio) audio.loop = isLooping;
-        localStorage.setItem('musicLoop', isLooping);
-      });
-    }
-
-    // Shuffle toggle
-    if (shuffleBtn) {
-      shuffleBtn.addEventListener('click', () => {
-        isShuffling = !isShuffling;
-        shuffleBtn.classList.toggle('active', isShuffling);
-      });
-    }
-
-    // Progress seeking
-    if (progressContainer) {
-      progressContainer.addEventListener('click', (e) => {
-        if (!audio) return;
-        const rect = progressContainer.getBoundingClientRect();
-        const percent = (e.clientX - rect.left) / rect.width;
-        audio.currentTime = percent * audio.duration;
       });
     }
 
@@ -1304,54 +1272,64 @@
       volumeContainer.addEventListener('click', (e) => {
         const rect = volumeContainer.getBoundingClientRect();
         volume = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-        if (audio) audio.volume = volume;
-        updateVolumeUI();
+        if (masterGain) masterGain.gain.value = volume;
         localStorage.setItem('musicVolume', volume);
+        updateVolumeUI();
       });
     }
 
-    // Mute toggle
-    let savedVolume = volume;
     if (muteBtn) {
       muteBtn.addEventListener('click', () => {
-        if (volume > 0) {
-          savedVolume = volume;
-          volume = 0;
-        } else {
-          volume = savedVolume || 0.7;
-        }
-        if (audio) audio.volume = volume;
+        volume = volume === 0 ? 0.7 : 0;
+        if (masterGain) masterGain.gain.value = volume;
         updateVolumeUI();
       });
     }
-
-    // Keyboard shortcuts
-    document.addEventListener('keydown', (e) => {
-      // Only handle if panel is open and no input is focused
-      if (!panel || panel.classList.contains('hidden')) return;
-      if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') return;
-
-      if (e.code === 'Space' && e.target === document.body) {
-        e.preventDefault();
-        togglePlay();
-      }
-    });
-
-    // Close panel when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!player.contains(e.target) && !panel.classList.contains('hidden')) {
-        panel.classList.add('hidden');
-      }
-    });
   }
 
-  // ===== INIT =====
+  // ===== INITIALIZATION =====
+  function init() {
+    const pageMusicMeta = document.querySelector('meta[name="ambient:music"]');
+    const pageTrack = pageMusicMeta ? pageMusicMeta.content : null;
+    const pageMood = PAGE_MOOD_MAP[pageTrack] || 'ambient';
+
+    // Restore volume
+    const savedVolume = localStorage.getItem('musicVolume');
+    if (savedVolume) {
+      volume = parseFloat(savedVolume);
+      updateVolumeUI();
+    }
+
+    // Set default mood in selector
+    if (trackSelect) trackSelect.value = pageMood;
+
+    // Create visualizer
+    createVisualizerBars();
+
+    // Check if music was enabled
+    const musicWasEnabled = isMusicEnabled();
+
+    // Show player
+    setTimeout(() => {
+      player.classList.add('visible');
+
+      if (musicWasEnabled) {
+        loadMood(pageMood);
+        play();
+      } else {
+        showWelcome();
+      }
+    }, 1000);
+
+    bindEvents();
+  }
+
+  // Start when DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
     init();
   }
-
 })();
 </script>
 
