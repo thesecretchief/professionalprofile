@@ -491,7 +491,7 @@
 
 <!-- MUSIC_PLAYER -->
 <!-- Ambient Music Player -->
-<div id="music-player" class="fixed bottom-8 left-8 z-40 opacity-0 translate-y-4 transition-all duration-500">
+<div id="music-player" class="fixed bottom-8 left-8 z-[60] opacity-0 translate-y-4 transition-all duration-500">
   <!-- Expanded Player Panel -->
   <div id="music-panel" class="hidden mb-3 bg-navy-900/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/10 overflow-hidden w-72">
     <!-- Track Visualizer Header -->
@@ -846,8 +846,36 @@
   let audioContext = null;
   let animationId = null;
 
+  // ===== CROSS-PAGE PERSISTENCE =====
+  function savePlaybackState() {
+    const state = {
+      trackId: currentTrackId,
+      isPlaying: isPlaying,
+      currentTime: audio ? audio.currentTime : 0,
+      timestamp: Date.now()
+    };
+    localStorage.setItem('musicPlaybackState', JSON.stringify(state));
+  }
+
+  function getPlaybackState() {
+    try {
+      const state = JSON.parse(localStorage.getItem('musicPlaybackState'));
+      // Only restore if saved within last 30 seconds (page navigation)
+      if (state && (Date.now() - state.timestamp) < 30000) {
+        return state;
+      }
+    } catch (e) {}
+    return null;
+  }
+
+  function clearPlaybackState() {
+    localStorage.removeItem('musicPlaybackState');
+  }
+
   // ===== DOM ELEMENTS =====
   const player = document.getElementById('music-player');
+  if (!player) return; // Exit if player element not found
+
   const panel = document.getElementById('music-panel');
   const toggleBtn = document.getElementById('music-toggle');
   const playBtn = document.getElementById('music-play-btn');
@@ -940,15 +968,51 @@
     // Create visualizer bars
     createVisualizerBars();
 
+    // Check for cross-page playback restoration
+    const playbackState = getPlaybackState();
+    if (playbackState && playbackState.isPlaying && playbackState.trackId && TRACKS[playbackState.trackId]) {
+      // Restore playback from previous page
+      trackSelect.value = playbackState.trackId;
+      loadTrack(playbackState.trackId);
+
+      // Wait for audio to load, then seek and play
+      if (audio) {
+        audio.addEventListener('loadedmetadata', function onLoad() {
+          audio.removeEventListener('loadedmetadata', onLoad);
+          if (playbackState.currentTime > 0 && playbackState.currentTime < audio.duration) {
+            audio.currentTime = playbackState.currentTime;
+          }
+          play();
+          clearPlaybackState();
+        }, { once: true });
+      }
+    }
+
     // Show player with animation
     setTimeout(() => {
       player.classList.add('visible');
-      // Show welcome notification for new visitors
-      showWelcome();
+      // Show welcome notification for new visitors (only if not auto-resuming)
+      if (!playbackState || !playbackState.isPlaying) {
+        showWelcome();
+      }
     }, 1000);
 
     // Bind events
     bindEvents();
+
+    // Save state before leaving page
+    window.addEventListener('beforeunload', () => {
+      if (isPlaying && currentTrackId) {
+        savePlaybackState();
+      }
+    });
+
+    // Also save on visibility change (for mobile)
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden && isPlaying && currentTrackId) {
+        savePlaybackState();
+      }
+    });
   }
 
   // ===== VISUALIZER =====
@@ -1158,21 +1222,23 @@
   // ===== EVENT HANDLERS =====
   function bindEvents() {
     // Toggle panel
-    toggleBtn.addEventListener('click', () => {
-      panel.classList.toggle('hidden');
-      hideWelcome(true); // Hide welcome when user interacts
-    });
+    if (toggleBtn && panel) {
+      toggleBtn.addEventListener('click', () => {
+        panel.classList.toggle('hidden');
+        hideWelcome(true); // Hide welcome when user interacts
+      });
+    }
 
     // Welcome notification buttons
     if (welcomePlayBtn) {
       welcomePlayBtn.addEventListener('click', () => {
         hideWelcome(true);
-        panel.classList.remove('hidden');
+        if (panel) panel.classList.remove('hidden');
         // Auto-play the page's recommended track or first available
         const pageMusicMeta = document.querySelector('meta[name="ambient:music"]');
-        const trackId = pageMusicMeta ? pageMusicMeta.content : trackSelect.value || 'electronic-ambient';
+        const trackId = pageMusicMeta ? pageMusicMeta.content : (trackSelect ? trackSelect.value : null) || 'electronic-ambient';
         if (trackId && TRACKS[trackId]) {
-          trackSelect.value = trackId;
+          if (trackSelect) trackSelect.value = trackId;
           loadTrack(trackId);
           play();
         }
@@ -1186,68 +1252,80 @@
     }
 
     // Play/Pause
-    playBtn.addEventListener('click', togglePlay);
+    if (playBtn) playBtn.addEventListener('click', togglePlay);
 
     // Track selection
-    trackSelect.addEventListener('change', (e) => {
-      if (e.target.value) {
-        loadTrack(e.target.value);
-        play();
-      }
-    });
+    if (trackSelect) {
+      trackSelect.addEventListener('change', (e) => {
+        if (e.target.value) {
+          loadTrack(e.target.value);
+          play();
+        }
+      });
+    }
 
     // Previous/Next
-    prevBtn.addEventListener('click', playPrevTrack);
-    nextBtn.addEventListener('click', playNextTrack);
+    if (prevBtn) prevBtn.addEventListener('click', playPrevTrack);
+    if (nextBtn) nextBtn.addEventListener('click', playNextTrack);
 
     // Loop toggle
-    loopBtn.addEventListener('click', () => {
-      isLooping = !isLooping;
-      loopBtn.classList.toggle('active', isLooping);
-      if (audio) audio.loop = isLooping;
-      localStorage.setItem('musicLoop', isLooping);
-    });
+    if (loopBtn) {
+      loopBtn.addEventListener('click', () => {
+        isLooping = !isLooping;
+        loopBtn.classList.toggle('active', isLooping);
+        if (audio) audio.loop = isLooping;
+        localStorage.setItem('musicLoop', isLooping);
+      });
+    }
 
     // Shuffle toggle
-    shuffleBtn.addEventListener('click', () => {
-      isShuffling = !isShuffling;
-      shuffleBtn.classList.toggle('active', isShuffling);
-    });
+    if (shuffleBtn) {
+      shuffleBtn.addEventListener('click', () => {
+        isShuffling = !isShuffling;
+        shuffleBtn.classList.toggle('active', isShuffling);
+      });
+    }
 
     // Progress seeking
-    progressContainer.addEventListener('click', (e) => {
-      if (!audio) return;
-      const rect = progressContainer.getBoundingClientRect();
-      const percent = (e.clientX - rect.left) / rect.width;
-      audio.currentTime = percent * audio.duration;
-    });
+    if (progressContainer) {
+      progressContainer.addEventListener('click', (e) => {
+        if (!audio) return;
+        const rect = progressContainer.getBoundingClientRect();
+        const percent = (e.clientX - rect.left) / rect.width;
+        audio.currentTime = percent * audio.duration;
+      });
+    }
 
     // Volume control
-    volumeContainer.addEventListener('click', (e) => {
-      const rect = volumeContainer.getBoundingClientRect();
-      volume = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-      if (audio) audio.volume = volume;
-      updateVolumeUI();
-      localStorage.setItem('musicVolume', volume);
-    });
+    if (volumeContainer) {
+      volumeContainer.addEventListener('click', (e) => {
+        const rect = volumeContainer.getBoundingClientRect();
+        volume = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+        if (audio) audio.volume = volume;
+        updateVolumeUI();
+        localStorage.setItem('musicVolume', volume);
+      });
+    }
 
     // Mute toggle
     let savedVolume = volume;
-    muteBtn.addEventListener('click', () => {
-      if (volume > 0) {
-        savedVolume = volume;
-        volume = 0;
-      } else {
-        volume = savedVolume || 0.7;
-      }
-      if (audio) audio.volume = volume;
-      updateVolumeUI();
-    });
+    if (muteBtn) {
+      muteBtn.addEventListener('click', () => {
+        if (volume > 0) {
+          savedVolume = volume;
+          volume = 0;
+        } else {
+          volume = savedVolume || 0.7;
+        }
+        if (audio) audio.volume = volume;
+        updateVolumeUI();
+      });
+    }
 
     // Keyboard shortcuts
     document.addEventListener('keydown', (e) => {
       // Only handle if panel is open and no input is focused
-      if (panel.classList.contains('hidden')) return;
+      if (!panel || panel.classList.contains('hidden')) return;
       if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') return;
 
       if (e.code === 'Space' && e.target === document.body) {
