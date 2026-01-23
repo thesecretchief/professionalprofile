@@ -176,7 +176,7 @@
 
 <!-- MUSIC_PLAYER -->
 <!-- Ambient Music Header Banner -->
-<div id="ambient-header" class="fixed top-16 left-0 right-0 z-[55] transform -translate-y-full transition-transform duration-500" style="pointer-events: none;">
+<div id="ambient-header" class="fixed top-16 left-0 right-0 z-[45] transform -translate-y-full transition-transform duration-500" style="pointer-events: none;">
   <div class="bg-gradient-to-r from-navy-900/95 via-navy-800/95 to-navy-900/95 backdrop-blur-lg border-b border-gold-500/30 py-2 px-4" style="pointer-events: auto;">
     <div class="max-w-7xl mx-auto flex items-center justify-between">
       <!-- Enable Mode (shown when music is not playing) -->
@@ -254,22 +254,22 @@
       <select id="music-track-select" class="w-full bg-navy-800 text-white text-sm rounded-lg px-3 py-2.5 border border-white/10 focus:border-gold-500 focus:outline-none cursor-pointer">
         <option value="">Choose your vibe...</option>
         <optgroup label="Classical">
-          <option value="classical-peaceful" data-name="Peaceful Piano" data-artist="Royalty Free">Peaceful Piano</option>
-          <option value="classical-dramatic" data-name="Epic Orchestra" data-artist="Royalty Free">Epic Orchestra</option>
-          <option value="classical-baroque" data-name="Baroque Elegance" data-artist="Royalty Free">Baroque Elegance</option>
+          <option value="classical-peaceful" data-name="Peaceful Desolation" data-artist="Kevin MacLeod">Peaceful Desolation</option>
+          <option value="classical-dramatic" data-name="Impact Moderato" data-artist="Kevin MacLeod">Impact Moderato</option>
+          <option value="classical-baroque" data-name="Brandenburg Concerto" data-artist="Kevin MacLeod">Brandenburg Concerto</option>
         </optgroup>
         <optgroup label="Electronic">
-          <option value="electronic-ambient" data-name="Deep Focus" data-artist="Royalty Free">Deep Focus</option>
-          <option value="electronic-chill" data-name="Chill Waves" data-artist="Royalty Free">Chill Waves</option>
-          <option value="electronic-dark" data-name="Dark Synthwave" data-artist="Royalty Free">Dark Synthwave</option>
+          <option value="electronic-ambient" data-name="Floating Cities" data-artist="Kevin MacLeod">Floating Cities</option>
+          <option value="electronic-chill" data-name="Chill Wave" data-artist="Kevin MacLeod">Chill Wave</option>
+          <option value="electronic-dark" data-name="Dark Fog" data-artist="Kevin MacLeod">Dark Fog</option>
         </optgroup>
         <optgroup label="Acoustic">
-          <option value="acoustic-guitar" data-name="Acoustic Dreams" data-artist="Royalty Free">Acoustic Dreams</option>
-          <option value="acoustic-jazz" data-name="Smooth Jazz" data-artist="Royalty Free">Smooth Jazz</option>
+          <option value="acoustic-guitar" data-name="Acoustic Breeze" data-artist="Kevin MacLeod">Acoustic Breeze</option>
+          <option value="acoustic-jazz" data-name="Jazz Brunch" data-artist="Kevin MacLeod">Jazz Brunch</option>
         </optgroup>
         <optgroup label="Cinematic">
-          <option value="cinematic-tension" data-name="Building Tension" data-artist="Royalty Free">Building Tension</option>
-          <option value="cinematic-inspiring" data-name="Inspiring Journey" data-artist="Royalty Free">Inspiring Journey</option>
+          <option value="cinematic-tension" data-name="Industrial Cinematic" data-artist="Kevin MacLeod">Industrial Cinematic</option>
+          <option value="cinematic-inspiring" data-name="Inspiring Trailer" data-artist="Kevin MacLeod">Inspiring Trailer</option>
         </optgroup>
       </select>
     </div>
@@ -545,57 +545,57 @@
   'use strict';
 
   // ===== TRACK LIBRARY =====
-  // Using Pixabay royalty-free music (no attribution required)
+  // Using royalty-free music from Internet Archive (Kevin MacLeod - CC BY)
   const TRACKS = {
     'classical-peaceful': {
-      url: 'https://cdn.pixabay.com/audio/2024/11/29/audio_5e3b57e542.mp3',
-      name: 'Peaceful Piano',
-      artist: 'Ambient'
+      url: 'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Peaceful%20Desolation.mp3',
+      name: 'Peaceful Desolation',
+      artist: 'Kevin MacLeod'
     },
     'classical-dramatic': {
-      url: 'https://cdn.pixabay.com/audio/2024/02/14/audio_66b07c6067.mp3',
-      name: 'Epic Orchestra',
-      artist: 'Cinematic'
+      url: 'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Impact%20Moderato.mp3',
+      name: 'Impact Moderato',
+      artist: 'Kevin MacLeod'
     },
     'classical-baroque': {
-      url: 'https://cdn.pixabay.com/audio/2023/10/30/audio_67e7878301.mp3',
-      name: 'Baroque Elegance',
-      artist: 'Classical'
+      url: 'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Brandenburg%20Concerto%20No4-1%20BWV1049%20-%20Allegro.mp3',
+      name: 'Brandenburg Concerto',
+      artist: 'Kevin MacLeod'
     },
     'electronic-ambient': {
-      url: 'https://cdn.pixabay.com/audio/2024/09/10/audio_6e5d7d1912.mp3',
-      name: 'Deep Focus',
-      artist: 'Electronic'
+      url: 'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Floating%20Cities.mp3',
+      name: 'Floating Cities',
+      artist: 'Kevin MacLeod'
     },
     'electronic-chill': {
-      url: 'https://cdn.pixabay.com/audio/2023/07/30/audio_e7aa9b04bc.mp3',
-      name: 'Chill Waves',
-      artist: 'Lo-Fi'
+      url: 'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Chill%20Wave.mp3',
+      name: 'Chill Wave',
+      artist: 'Kevin MacLeod'
     },
     'electronic-dark': {
-      url: 'https://cdn.pixabay.com/audio/2023/03/19/audio_c0f61e5d55.mp3',
-      name: 'Dark Synthwave',
-      artist: 'Synthwave'
+      url: 'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Dark%20Fog.mp3',
+      name: 'Dark Fog',
+      artist: 'Kevin MacLeod'
     },
     'acoustic-guitar': {
-      url: 'https://cdn.pixabay.com/audio/2024/04/02/audio_4285a9eb0a.mp3',
-      name: 'Acoustic Dreams',
-      artist: 'Acoustic'
+      url: 'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Acoustic%20Breeze.mp3',
+      name: 'Acoustic Breeze',
+      artist: 'Kevin MacLeod'
     },
     'acoustic-jazz': {
-      url: 'https://cdn.pixabay.com/audio/2024/09/03/audio_7389f45632.mp3',
-      name: 'Smooth Jazz',
-      artist: 'Jazz'
+      url: 'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Jazz%20Brunch.mp3',
+      name: 'Jazz Brunch',
+      artist: 'Kevin MacLeod'
     },
     'cinematic-tension': {
-      url: 'https://cdn.pixabay.com/audio/2023/09/21/audio_8e19b90d3c.mp3',
-      name: 'Building Tension',
-      artist: 'Cinematic'
+      url: 'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Industrial%20Cinematic.mp3',
+      name: 'Industrial Cinematic',
+      artist: 'Kevin MacLeod'
     },
     'cinematic-inspiring': {
-      url: 'https://cdn.pixabay.com/audio/2023/10/11/audio_7f65edc3a0.mp3',
-      name: 'Inspiring Journey',
-      artist: 'Cinematic'
+      url: 'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Inspiring%20Cinematic%20Trailer.mp3',
+      name: 'Inspiring Trailer',
+      artist: 'Kevin MacLeod'
     }
   };
 
