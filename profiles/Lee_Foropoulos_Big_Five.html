@@ -247,32 +247,42 @@
       <div id="music-visualizer" class="absolute inset-0 flex items-end justify-center gap-1 px-4 pb-2"></div>
       <div class="absolute inset-0 bg-gradient-to-t from-navy-900/90 to-transparent"></div>
       <div class="absolute bottom-2 left-4 right-4">
-        <p id="music-track-name" class="text-white font-semibold text-sm truncate">Select an atmosphere</p>
-        <p id="music-track-artist" class="text-gray-400 text-xs truncate">Ambient Soundscape</p>
+        <p id="music-track-name" class="text-white font-semibold text-sm truncate">Select a track</p>
+        <p id="music-track-artist" class="text-gray-400 text-xs truncate">Ambient Soundscapes</p>
       </div>
     </div>
 
-    <!-- Mood Selector -->
+    <!-- Track Selector -->
     <div class="p-4 border-b border-white/10">
       <label class="text-gray-400 text-xs block mb-2">Atmosphere</label>
       <select id="music-track-select" class="w-full bg-navy-800 text-white text-sm rounded-lg px-3 py-2.5 border border-white/10 focus:border-gold-500 focus:outline-none cursor-pointer">
         <option value="">Choose your vibe...</option>
         <optgroup label="Relaxing">
-          <option value="dreamscape">Dreamscape</option>
-          <option value="stardust">Stardust</option>
-          <option value="rainfall">Gentle Rain</option>
+          <option value="acoustic-guitar">Acoustic Bossa Nova</option>
+          <option value="stardust">Stardust Meditation</option>
         </optgroup>
         <optgroup label="Focus">
-          <option value="deepwork">Deep Work</option>
-          <option value="clarity">Mental Clarity</option>
-          <option value="flow">Flow State</option>
+          <option value="flow-state">Flow State</option>
+          <option value="morning-clarity">Morning Clarity</option>
         </optgroup>
         <optgroup label="Atmospheric">
-          <option value="cosmos">Cosmic Journey</option>
+          <option value="cosmic">Cosmic Journey</option>
           <option value="noir">Noir Atmosphere</option>
           <option value="sunrise">Golden Sunrise</option>
         </optgroup>
       </select>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="px-4 pt-4">
+      <div id="music-progress-container" class="h-1.5 bg-navy-700 rounded-full cursor-pointer relative group">
+        <div id="music-progress-bar" class="h-full bg-gradient-to-r from-gold-500 to-gold-400 rounded-full transition-all duration-100" style="width: 0%"></div>
+        <div id="music-progress-handle" class="absolute top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity cursor-grab" style="left: 0%"></div>
+      </div>
+      <div class="flex justify-between text-gray-500 text-xs mt-1">
+        <span id="music-time-current">0:00</span>
+        <span id="music-time-duration">0:00</span>
+      </div>
     </div>
 
     <!-- Playback Controls -->
@@ -298,7 +308,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"></path>
           </svg>
         </button>
-        <div id="music-volume-container" class="flex-1 h-2 bg-navy-700 rounded-full cursor-pointer relative">
+        <div id="music-volume-container" class="flex-1 h-2 bg-navy-700 rounded-full cursor-pointer relative group">
           <div id="music-volume-bar" class="h-full bg-gradient-to-r from-gold-500 to-gold-400 rounded-full transition-all" style="width: 70%"></div>
           <div id="music-volume-handle" class="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full shadow-lg cursor-grab" style="left: 70%"></div>
         </div>
@@ -307,7 +317,7 @@
     </div>
 
     <div class="px-4 pb-3 text-center">
-      <p class="text-gray-500 text-xs">Generative ambient soundscapes</p>
+      <p class="text-gray-500 text-xs">Premium ambient soundscapes</p>
     </div>
   </div>
 
@@ -341,7 +351,7 @@
         <span class="text-gold-400 font-semibold text-sm">Enhance Your Experience</span>
       </div>
       <p class="text-gray-300 text-xs leading-relaxed mb-3">
-        Enable ambient soundscapes for an immersive browsing experience.
+        Enable ambient music for an immersive browsing experience.
       </p>
       <div class="flex gap-2">
         <button id="music-welcome-play" class="flex-1 bg-gold-500 hover:bg-gold-400 text-navy-900 text-xs font-semibold py-2 px-3 rounded-lg transition transform hover:scale-105">
@@ -376,138 +386,131 @@
 (function() {
   'use strict';
 
-  const MUSIC_VERSION = '4';
+  // Version for cache clearing on updates
+  const MUSIC_VERSION = '5';
   if (localStorage.getItem('musicVersion') !== MUSIC_VERSION) {
     localStorage.removeItem('musicTrack');
     localStorage.removeItem('musicEnabled');
     localStorage.removeItem('musicWelcomeSeen');
+    localStorage.removeItem('userSelectedTrack');
     localStorage.setItem('musicVersion', MUSIC_VERSION);
   }
 
-  // Musical scales and chord progressions
-  const SCALES = {
-    major: [0, 2, 4, 5, 7, 9, 11],
-    minor: [0, 2, 3, 5, 7, 8, 10],
-    pentatonic: [0, 2, 4, 7, 9],
-    dorian: [0, 2, 3, 5, 7, 9, 10]
-  };
-
-  // Rich ambient presets with musical parameters
-  const MOODS = {
-    'dreamscape': {
-      name: 'Dreamscape',
-      root: 220, // A3
-      scale: 'pentatonic',
-      chordType: 'seventh',
-      tempo: 0.03,
-      reverbMix: 0.7,
-      filterFreq: 1200,
-      layers: ['pad', 'shimmer', 'sub']
+  // Track definitions with MP3 file paths
+  const TRACKS = {
+    'acoustic-guitar': {
+      name: 'Acoustic Bossa Nova',
+      artist: 'Relaxing Vibes',
+      file: '/audio/acoustic-guitar-bossa-nova-295307.mp3',
+      mood: 'relaxing'
     },
     'stardust': {
-      name: 'Stardust',
-      root: 174.61, // F3
-      scale: 'major',
-      chordType: 'add9',
-      tempo: 0.02,
-      reverbMix: 0.8,
-      filterFreq: 2000,
-      layers: ['pad', 'bells', 'texture']
+      name: 'Stardust Meditation',
+      artist: 'Deep Relaxation',
+      file: '/audio/stardust-meditation-12702.mp3',
+      mood: 'meditative'
     },
-    'rainfall': {
-      name: 'Gentle Rain',
-      root: 146.83, // D3
-      scale: 'minor',
-      chordType: 'sus4',
-      tempo: 0.025,
-      reverbMix: 0.6,
-      filterFreq: 800,
-      layers: ['rain', 'pad', 'sub']
-    },
-    'deepwork': {
-      name: 'Deep Work',
-      root: 110, // A2
-      scale: 'dorian',
-      chordType: 'power',
-      tempo: 0.015,
-      reverbMix: 0.5,
-      filterFreq: 600,
-      layers: ['drone', 'pulse', 'sub']
-    },
-    'clarity': {
-      name: 'Mental Clarity',
-      root: 196, // G3
-      scale: 'pentatonic',
-      chordType: 'triad',
-      tempo: 0.04,
-      reverbMix: 0.6,
-      filterFreq: 1500,
-      layers: ['binaural', 'pad', 'shimmer']
-    },
-    'flow': {
+    'flow-state': {
       name: 'Flow State',
-      root: 164.81, // E3
-      scale: 'major',
-      chordType: 'seventh',
-      tempo: 0.035,
-      reverbMix: 0.55,
-      filterFreq: 1000,
-      layers: ['pad', 'arp', 'sub']
+      artist: 'Focus & Productivity',
+      file: '/audio/flow-state-ambient-music-374741.mp3',
+      mood: 'focus'
     },
-    'cosmos': {
+    'morning-clarity': {
+      name: 'Morning Clarity',
+      artist: 'Fresh Start',
+      file: '/audio/morning-clarity-443232.mp3',
+      mood: 'uplifting'
+    },
+    'cosmic': {
       name: 'Cosmic Journey',
-      root: 82.41, // E2
-      scale: 'minor',
-      chordType: 'add9',
-      tempo: 0.01,
-      reverbMix: 0.85,
-      filterFreq: 500,
-      layers: ['drone', 'texture', 'sweep']
+      artist: 'Stellar Motivation',
+      file: '/audio/cosmic-stellar-journey-motivation-322778.mp3',
+      mood: 'epic'
     },
     'noir': {
       name: 'Noir Atmosphere',
-      root: 98, // G2
-      scale: 'dorian',
-      chordType: 'minor7',
-      tempo: 0.02,
-      reverbMix: 0.7,
-      filterFreq: 400,
-      layers: ['drone', 'dark', 'pulse']
+      artist: 'Dark Ambiance',
+      file: '/audio/noir-alley-415342.mp3',
+      mood: 'dark'
     },
     'sunrise': {
       name: 'Golden Sunrise',
-      root: 261.63, // C4
-      scale: 'major',
-      chordType: 'add9',
-      tempo: 0.025,
-      reverbMix: 0.65,
-      filterFreq: 1800,
-      layers: ['pad', 'shimmer', 'bells']
+      artist: 'New Beginnings',
+      file: '/audio/sunrise-337749.mp3',
+      mood: 'bright'
     }
   };
 
-  const PAGE_MOOD_MAP = {
-    'classical-peaceful': 'dreamscape',
-    'classical-dramatic': 'cosmos',
-    'classical-baroque': 'sunrise',
-    'electronic-ambient': 'flow',
-    'electronic-chill': 'stardust',
-    'electronic-dark': 'noir',
-    'acoustic-guitar': 'dreamscape',
-    'acoustic-jazz': 'clarity',
-    'cinematic-tension': 'noir',
-    'cinematic-inspiring': 'cosmos'
-  };
+  // Intelligent page-to-track mapping based on content type and path
+  function getPageTrack() {
+    const path = window.location.pathname.toLowerCase();
+    const meta = document.querySelector('meta[name="ambient:music"]');
 
+    // If page has explicit meta tag, use that
+    if (meta && meta.content && TRACKS[meta.content]) {
+      return meta.content;
+    }
+
+    // Main pages
+    if (path === '/' || path === '/index.html') return 'sunrise';
+    if (path.includes('/blog/index') || path === '/blog/' || path === '/blog') return 'sunrise';
+    if (path.includes('/privacy')) return 'noir';
+
+    // Blog post categories
+    if (path.includes('/blog/posts/')) {
+      // AI & Tech articles - focus music
+      if (path.includes('ai-') || path.includes('claude') || path.includes('chatgpt') ||
+          path.includes('agent') || path.includes('automation') || path.includes('ram-ssd')) {
+        return 'flow-state';
+      }
+      // Health & Fitness - morning clarity
+      if (path.includes('bmr') || path.includes('protein') || path.includes('supplement') ||
+          path.includes('workout') || path.includes('habit')) {
+        return 'morning-clarity';
+      }
+      // Book reviews - acoustic relaxation
+      if (path.includes('book-review')) {
+        if (path.includes('dungeon-crawler')) return 'noir';
+        if (path.includes('ceo-excellence')) return 'cosmic';
+        if (path.includes('brain-rules')) return 'flow-state';
+        return 'acoustic-guitar';
+      }
+      // Productivity & Business
+      if (path.includes('morning-routine') || path.includes('ceo')) return 'morning-clarity';
+      if (path.includes('fractional') || path.includes('breaking-big-tasks')) return 'flow-state';
+      if (path.includes('slop')) return 'noir';
+
+      // Default blog post
+      return 'flow-state';
+    }
+
+    // Experience pages - cosmic/motivational
+    if (path.includes('/experience/')) {
+      return 'cosmic';
+    }
+
+    // Profile pages - meditative
+    if (path.includes('/profiles/')) {
+      return 'stardust';
+    }
+
+    // Ventures - cosmic/entrepreneurial
+    if (path.includes('/ventures/')) {
+      return 'cosmic';
+    }
+
+    // Default fallback
+    return 'sunrise';
+  }
+
+  let audio = null;
   let audioContext = null;
-  let masterGain = null;
-  let reverbNode = null;
-  let nodes = [];
+  let analyser = null;
   let isPlaying = false;
-  let currentMoodId = null;
+  let currentTrackId = null;
   let volume = 0.7;
   let animationId = null;
-  let analyser = null;
 
   const player = document.getElementById('music-player');
   if (!player) return;
@@ -535,9 +538,17 @@
   const welcomePlayBtn = document.getElementById('music-welcome-play');
   const welcomeDismissBtn = document.getElementById('music-welcome-dismiss');
   const musicBadge = document.getElementById('music-badge');
+  const progressContainer = document.getElementById('music-progress-container');
+  const progressBar = document.getElementById('music-progress-bar');
+  const progressHandle = document.getElementById('music-progress-handle');
+  const timeCurrent = document.getElementById('music-time-current');
+  const timeDuration = document.getElementById('music-time-duration');
 
+  // Persistence helpers
   function setMusicEnabled(enabled) { localStorage.setItem('musicEnabled', enabled ? 'true' : 'false'); }
   function isMusicEnabled() { return localStorage.getItem('musicEnabled') === 'true'; }
+  function setUserTrack(trackId) { localStorage.setItem('userSelectedTrack', trackId); }
+  function getUserTrack() { return localStorage.getItem('userSelectedTrack'); }
 
   function showWelcome() {
     if (localStorage.getItem('musicWelcomeSeen')) return;
@@ -559,526 +570,107 @@
     if (permanent) localStorage.setItem('musicWelcomeSeen', 'true');
   }
 
-  // Create convolution reverb
-  function createReverb(duration = 3, decay = 2) {
-    const sampleRate = audioContext.sampleRate;
-    const length = sampleRate * duration;
-    const impulse = audioContext.createBuffer(2, length, sampleRate);
-
-    for (let channel = 0; channel < 2; channel++) {
-      const channelData = impulse.getChannelData(channel);
-      for (let i = 0; i < length; i++) {
-        channelData[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / length, decay);
-      }
-    }
-
-    const convolver = audioContext.createConvolver();
-    convolver.buffer = impulse;
-    return convolver;
+  function formatTime(seconds) {
+    if (isNaN(seconds)) return '0:00';
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
   }
 
   function initAudio() {
-    if (audioContext) return;
-    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    if (!audio) {
+      audio = new Audio();
+      audio.loop = true;
+      audio.volume = volume;
+      audio.crossOrigin = 'anonymous';
 
-    masterGain = audioContext.createGain();
-    masterGain.gain.value = volume;
+      audio.addEventListener('loadedmetadata', () => {
+        if (timeDuration) timeDuration.textContent = formatTime(audio.duration);
+      });
 
-    // Create reverb
-    reverbNode = createReverb(4, 2.5);
-    const reverbGain = audioContext.createGain();
-    reverbGain.gain.value = 0.6;
+      audio.addEventListener('timeupdate', () => {
+        if (audio.duration) {
+          const percent = (audio.currentTime / audio.duration) * 100;
+          if (progressBar) progressBar.style.width = `${percent}%`;
+          if (progressHandle) progressHandle.style.left = `${percent}%`;
+          if (timeCurrent) timeCurrent.textContent = formatTime(audio.currentTime);
+        }
+      });
 
-    // Dry/wet mix
-    const dryGain = audioContext.createGain();
-    dryGain.gain.value = 0.4;
+      audio.addEventListener('ended', () => {
+        // Loop is enabled, but just in case
+        audio.currentTime = 0;
+        audio.play().catch(() => {});
+      });
 
-    masterGain.connect(dryGain);
-    masterGain.connect(reverbNode);
-    reverbNode.connect(reverbGain);
-    dryGain.connect(audioContext.destination);
-    reverbGain.connect(audioContext.destination);
+      audio.addEventListener('error', (e) => {
+        console.warn('Audio load error:', e);
+      });
+    }
 
-    analyser = audioContext.createAnalyser();
-    analyser.fftSize = 64;
-    masterGain.connect(analyser);
-  }
-
-  function stopAllNodes() {
-    nodes.forEach(node => {
+    // Set up Web Audio API for visualizer
+    if (!audioContext) {
       try {
-        if (node.stop) node.stop();
-        if (node.disconnect) node.disconnect();
-      } catch (e) {}
-    });
-    nodes = [];
-  }
-
-  function noteToFreq(root, semitones) {
-    return root * Math.pow(2, semitones / 12);
-  }
-
-  function getChordFreqs(root, scale, chordType) {
-    const s = SCALES[scale];
-    const freqs = [];
-
-    switch(chordType) {
-      case 'triad':
-        freqs.push(root, noteToFreq(root, s[2]), noteToFreq(root, s[4]));
-        break;
-      case 'seventh':
-        freqs.push(root, noteToFreq(root, s[2]), noteToFreq(root, s[4]), noteToFreq(root, s[6]));
-        break;
-      case 'add9':
-        freqs.push(root, noteToFreq(root, s[2]), noteToFreq(root, s[4]), noteToFreq(root, s[1] + 12));
-        break;
-      case 'sus4':
-        freqs.push(root, noteToFreq(root, s[3]), noteToFreq(root, s[4]));
-        break;
-      case 'power':
-        freqs.push(root, noteToFreq(root, 7), root * 2);
-        break;
-      case 'minor7':
-        freqs.push(root, noteToFreq(root, 3), noteToFreq(root, 7), noteToFreq(root, 10));
-        break;
-      default:
-        freqs.push(root, noteToFreq(root, s[2]), noteToFreq(root, s[4]));
-    }
-    return freqs;
-  }
-
-  // Rich pad with multiple detuned oscillators
-  function createPadLayer(mood) {
-    const freqs = getChordFreqs(mood.root, mood.scale, mood.chordType);
-    const filter = audioContext.createBiquadFilter();
-    filter.type = 'lowpass';
-    filter.frequency.value = mood.filterFreq;
-    filter.Q.value = 0.7;
-
-    freqs.forEach((freq, i) => {
-      // Main oscillator
-      const osc1 = audioContext.createOscillator();
-      const osc2 = audioContext.createOscillator();
-      const gain = audioContext.createGain();
-
-      osc1.type = 'sine';
-      osc2.type = 'triangle';
-      osc1.frequency.value = freq;
-      osc2.frequency.value = freq * 1.002; // Slight detune for richness
-
-      gain.gain.value = 0.12 / freqs.length;
-
-      osc1.connect(gain);
-      osc2.connect(gain);
-      gain.connect(filter);
-
-      osc1.start();
-      osc2.start();
-      nodes.push(osc1, osc2);
-    });
-
-    // Slow filter modulation
-    const lfo = audioContext.createOscillator();
-    const lfoGain = audioContext.createGain();
-    lfo.frequency.value = mood.tempo;
-    lfoGain.gain.value = mood.filterFreq * 0.3;
-    lfo.connect(lfoGain);
-    lfoGain.connect(filter.frequency);
-    lfo.start();
-    nodes.push(lfo);
-
-    filter.connect(masterGain);
-  }
-
-  // Shimmering high harmonics
-  function createShimmerLayer(mood) {
-    const freqs = getChordFreqs(mood.root * 2, mood.scale, 'triad');
-    const filter = audioContext.createBiquadFilter();
-    filter.type = 'bandpass';
-    filter.frequency.value = 3000;
-    filter.Q.value = 1;
-
-    freqs.forEach(freq => {
-      const osc = audioContext.createOscillator();
-      const gain = audioContext.createGain();
-      const tremolo = audioContext.createGain();
-      const lfo = audioContext.createOscillator();
-
-      osc.type = 'sine';
-      osc.frequency.value = freq * 2;
-      gain.gain.value = 0.03;
-
-      lfo.frequency.value = 0.5 + Math.random() * 0.5;
-      lfo.connect(tremolo.gain);
-      tremolo.gain.value = 0.5;
-
-      osc.connect(gain);
-      gain.connect(tremolo);
-      tremolo.connect(filter);
-
-      osc.start();
-      lfo.start();
-      nodes.push(osc, lfo);
-    });
-
-    filter.connect(masterGain);
-  }
-
-  // Sub bass
-  function createSubLayer(mood) {
-    const osc = audioContext.createOscillator();
-    const gain = audioContext.createGain();
-    const filter = audioContext.createBiquadFilter();
-
-    osc.type = 'sine';
-    osc.frequency.value = mood.root / 2;
-    gain.gain.value = 0.15;
-    filter.type = 'lowpass';
-    filter.frequency.value = 100;
-
-    osc.connect(gain);
-    gain.connect(filter);
-    filter.connect(masterGain);
-
-    osc.start();
-    nodes.push(osc);
-  }
-
-  // Drone layer
-  function createDroneLayer(mood) {
-    const osc1 = audioContext.createOscillator();
-    const osc2 = audioContext.createOscillator();
-    const gain = audioContext.createGain();
-    const filter = audioContext.createBiquadFilter();
-
-    osc1.type = 'sawtooth';
-    osc2.type = 'sawtooth';
-    osc1.frequency.value = mood.root;
-    osc2.frequency.value = mood.root * 1.005;
-
-    gain.gain.value = 0.06;
-    filter.type = 'lowpass';
-    filter.frequency.value = mood.filterFreq * 0.5;
-    filter.Q.value = 2;
-
-    osc1.connect(gain);
-    osc2.connect(gain);
-    gain.connect(filter);
-    filter.connect(masterGain);
-
-    // Slow sweep
-    const lfo = audioContext.createOscillator();
-    const lfoGain = audioContext.createGain();
-    lfo.frequency.value = 0.02;
-    lfoGain.gain.value = mood.filterFreq * 0.3;
-    lfo.connect(lfoGain);
-    lfoGain.connect(filter.frequency);
-
-    osc1.start();
-    osc2.start();
-    lfo.start();
-    nodes.push(osc1, osc2, lfo);
-  }
-
-  // Rain/texture layer
-  function createRainLayer() {
-    const bufferSize = 2 * audioContext.sampleRate;
-    const noiseBuffer = audioContext.createBuffer(2, bufferSize, audioContext.sampleRate);
-
-    for (let channel = 0; channel < 2; channel++) {
-      const data = noiseBuffer.getChannelData(channel);
-      let lastOut = 0;
-      for (let i = 0; i < bufferSize; i++) {
-        const white = Math.random() * 2 - 1;
-        data[i] = (lastOut + (0.02 * white)) / 1.02;
-        lastOut = data[i];
-        data[i] *= 3.5;
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        analyser = audioContext.createAnalyser();
+        analyser.fftSize = 64;
+        const source = audioContext.createMediaElementSource(audio);
+        source.connect(analyser);
+        analyser.connect(audioContext.destination);
+      } catch (e) {
+        console.warn('Web Audio API not available for visualizer');
       }
     }
-
-    const noise = audioContext.createBufferSource();
-    noise.buffer = noiseBuffer;
-    noise.loop = true;
-
-    const filter = audioContext.createBiquadFilter();
-    filter.type = 'bandpass';
-    filter.frequency.value = 2000;
-    filter.Q.value = 0.5;
-
-    const gain = audioContext.createGain();
-    gain.gain.value = 0.15;
-
-    // Modulate for rain variation
-    const lfo = audioContext.createOscillator();
-    const lfoGain = audioContext.createGain();
-    lfo.frequency.value = 0.1;
-    lfoGain.gain.value = 0.05;
-    lfo.connect(lfoGain);
-    lfoGain.connect(gain.gain);
-
-    noise.connect(filter);
-    filter.connect(gain);
-    gain.connect(masterGain);
-
-    noise.start();
-    lfo.start();
-    nodes.push(noise, lfo);
   }
 
-  // Texture layer
-  function createTextureLayer() {
-    const bufferSize = 4 * audioContext.sampleRate;
-    const noiseBuffer = audioContext.createBuffer(2, bufferSize, audioContext.sampleRate);
-
-    for (let channel = 0; channel < 2; channel++) {
-      const data = noiseBuffer.getChannelData(channel);
-      for (let i = 0; i < bufferSize; i++) {
-        data[i] = Math.random() * 2 - 1;
-      }
-    }
-
-    const noise = audioContext.createBufferSource();
-    noise.buffer = noiseBuffer;
-    noise.loop = true;
-
-    const filter = audioContext.createBiquadFilter();
-    filter.type = 'lowpass';
-    filter.frequency.value = 300;
-
-    const gain = audioContext.createGain();
-    gain.gain.value = 0.04;
-
-    noise.connect(filter);
-    filter.connect(gain);
-    gain.connect(masterGain);
-
-    noise.start();
-    nodes.push(noise);
-  }
-
-  // Binaural beats for focus
-  function createBinauralLayer(mood) {
-    const oscL = audioContext.createOscillator();
-    const oscR = audioContext.createOscillator();
-    const gainL = audioContext.createGain();
-    const gainR = audioContext.createGain();
-    const merger = audioContext.createChannelMerger(2);
-
-    oscL.frequency.value = mood.root;
-    oscR.frequency.value = mood.root + 10; // 10Hz alpha waves
-    oscL.type = 'sine';
-    oscR.type = 'sine';
-    gainL.gain.value = 0.08;
-    gainR.gain.value = 0.08;
-
-    oscL.connect(gainL);
-    oscR.connect(gainR);
-    gainL.connect(merger, 0, 0);
-    gainR.connect(merger, 0, 1);
-    merger.connect(masterGain);
-
-    oscL.start();
-    oscR.start();
-    nodes.push(oscL, oscR);
-  }
-
-  // Bells/chimes
-  function createBellsLayer(mood) {
-    const freqs = getChordFreqs(mood.root * 4, mood.scale, 'triad');
-
-    function playBell() {
-      if (!isPlaying) return;
-
-      const freq = freqs[Math.floor(Math.random() * freqs.length)];
-      const osc = audioContext.createOscillator();
-      const gain = audioContext.createGain();
-
-      osc.type = 'sine';
-      osc.frequency.value = freq * (0.98 + Math.random() * 0.04);
-      gain.gain.setValueAtTime(0.04, audioContext.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 4);
-
-      osc.connect(gain);
-      gain.connect(masterGain);
-
-      osc.start();
-      osc.stop(audioContext.currentTime + 4);
-
-      setTimeout(playBell, 3000 + Math.random() * 5000);
-    }
-
-    setTimeout(playBell, 1000);
-  }
-
-  // Simple arpeggio
-  function createArpLayer(mood) {
-    const scale = SCALES[mood.scale];
-    let noteIndex = 0;
-
-    function playNote() {
-      if (!isPlaying) return;
-
-      const semitone = scale[noteIndex % scale.length];
-      const octave = Math.floor(noteIndex / scale.length);
-      const freq = noteToFreq(mood.root * 2, semitone + octave * 12);
-
-      const osc = audioContext.createOscillator();
-      const gain = audioContext.createGain();
-
-      osc.type = 'triangle';
-      osc.frequency.value = freq;
-      gain.gain.setValueAtTime(0.05, audioContext.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 2);
-
-      osc.connect(gain);
-      gain.connect(masterGain);
-
-      osc.start();
-      osc.stop(audioContext.currentTime + 2);
-
-      noteIndex = (noteIndex + 1) % (scale.length * 2);
-      setTimeout(playNote, 2000 + Math.random() * 1000);
-    }
-
-    setTimeout(playNote, 2000);
-  }
-
-  // Pulse layer
-  function createPulseLayer(mood) {
-    const osc = audioContext.createOscillator();
-    const gain = audioContext.createGain();
-    const lfo = audioContext.createOscillator();
-    const lfoGain = audioContext.createGain();
-
-    osc.type = 'sine';
-    osc.frequency.value = mood.root;
-    gain.gain.value = 0.08;
-
-    lfo.frequency.value = mood.tempo * 20;
-    lfoGain.gain.value = 0.04;
-    lfo.connect(lfoGain);
-    lfoGain.connect(gain.gain);
-
-    osc.connect(gain);
-    gain.connect(masterGain);
-
-    osc.start();
-    lfo.start();
-    nodes.push(osc, lfo);
-  }
-
-  // Dark atmosphere
-  function createDarkLayer(mood) {
-    const osc = audioContext.createOscillator();
-    const gain = audioContext.createGain();
-    const filter = audioContext.createBiquadFilter();
-
-    osc.type = 'sawtooth';
-    osc.frequency.value = mood.root / 2;
-    gain.gain.value = 0.1;
-    filter.type = 'lowpass';
-    filter.frequency.value = 200;
-    filter.Q.value = 8;
-
-    const lfo = audioContext.createOscillator();
-    const lfoGain = audioContext.createGain();
-    lfo.frequency.value = 0.03;
-    lfoGain.gain.value = 100;
-    lfo.connect(lfoGain);
-    lfoGain.connect(filter.frequency);
-
-    osc.connect(gain);
-    gain.connect(filter);
-    filter.connect(masterGain);
-
-    osc.start();
-    lfo.start();
-    nodes.push(osc, lfo);
-  }
-
-  // Filter sweep
-  function createSweepLayer(mood) {
-    const osc = audioContext.createOscillator();
-    const gain = audioContext.createGain();
-    const filter = audioContext.createBiquadFilter();
-
-    osc.type = 'sawtooth';
-    osc.frequency.value = mood.root;
-    gain.gain.value = 0.04;
-    filter.type = 'lowpass';
-    filter.frequency.value = 100;
-    filter.Q.value = 5;
-
-    // Long sweep
-    filter.frequency.setValueAtTime(100, audioContext.currentTime);
-    filter.frequency.linearRampToValueAtTime(2000, audioContext.currentTime + 30);
-
-    osc.connect(gain);
-    gain.connect(filter);
-    filter.connect(masterGain);
-
-    osc.start();
-    nodes.push(osc);
-  }
-
-  function loadMood(moodId) {
-    if (!MOODS[moodId]) return;
+  function loadTrack(trackId) {
+    if (!TRACKS[trackId]) return;
 
     initAudio();
-    stopAllNodes();
 
-    if (audioContext.state === 'suspended') {
-      audioContext.resume();
-    }
+    const track = TRACKS[trackId];
+    currentTrackId = trackId;
 
-    const mood = MOODS[moodId];
-    currentMoodId = moodId;
+    // Update UI
+    if (trackName) trackName.textContent = track.name;
+    if (trackArtist) trackArtist.textContent = track.artist;
+    if (trackSelect) trackSelect.value = trackId;
 
-    // Create layers based on mood config
-    mood.layers.forEach(layer => {
-      switch(layer) {
-        case 'pad': createPadLayer(mood); break;
-        case 'shimmer': createShimmerLayer(mood); break;
-        case 'sub': createSubLayer(mood); break;
-        case 'drone': createDroneLayer(mood); break;
-        case 'rain': createRainLayer(); break;
-        case 'texture': createTextureLayer(); break;
-        case 'binaural': createBinauralLayer(mood); break;
-        case 'bells': createBellsLayer(mood); break;
-        case 'arp': createArpLayer(mood); break;
-        case 'pulse': createPulseLayer(mood); break;
-        case 'dark': createDarkLayer(mood); break;
-        case 'sweep': createSweepLayer(mood); break;
-      }
-    });
-
-    if (trackName) trackName.textContent = mood.name;
-    if (trackArtist) trackArtist.textContent = 'Generative Ambient';
-    if (trackSelect) trackSelect.value = moodId;
+    // Load the audio file
+    audio.src = track.file;
+    audio.load();
   }
 
   function play() {
-    if (!currentMoodId && trackSelect && trackSelect.value) {
-      loadMood(trackSelect.value);
-    } else if (!currentMoodId) {
-      loadMood('dreamscape');
+    if (!currentTrackId) {
+      // Determine which track to play
+      // Priority: 1. User preference, 2. Page-specific track
+      const userTrack = getUserTrack();
+      const pageTrack = getPageTrack();
+      const trackToPlay = userTrack || pageTrack;
+      loadTrack(trackToPlay);
     }
 
     if (audioContext && audioContext.state === 'suspended') {
       audioContext.resume();
     }
 
-    isPlaying = true;
-    setMusicEnabled(true);
-    updatePlayButton();
-    animateVisualizer();
-    hideWelcome(true);
+    audio.play().then(() => {
+      isPlaying = true;
+      setMusicEnabled(true);
+      updatePlayButton();
+      animateVisualizer();
+      hideWelcome(true);
+    }).catch((e) => {
+      console.warn('Playback failed:', e);
+    });
   }
 
   function pause() {
-    stopAllNodes();
+    if (audio) {
+      audio.pause();
+    }
     isPlaying = false;
-    currentMoodId = null;
     updatePlayButton();
     if (animationId) {
       cancelAnimationFrame(animationId);
@@ -1132,83 +724,136 @@
   }
 
   function animateVisualizer() {
-    if (!isPlaying || !visualizer || !analyser) {
+    if (!isPlaying || !visualizer) {
       if (animationId) cancelAnimationFrame(animationId);
       return;
     }
+
     const bars = visualizer.querySelectorAll('.visualizer-bar');
-    const dataArray = new Uint8Array(analyser.frequencyBinCount);
-    analyser.getByteFrequencyData(dataArray);
-    bars.forEach((bar, i) => {
-      const value = dataArray[i] || 0;
-      bar.style.height = `${Math.max(4, (value / 255) * 60)}px`;
-    });
+
+    if (analyser) {
+      const dataArray = new Uint8Array(analyser.frequencyBinCount);
+      analyser.getByteFrequencyData(dataArray);
+      bars.forEach((bar, i) => {
+        const value = dataArray[i] || 0;
+        bar.style.height = `${Math.max(4, (value / 255) * 60)}px`;
+      });
+    } else {
+      // Fallback animation when Web Audio API isn't available
+      bars.forEach((bar, i) => {
+        const value = Math.random() * 0.5 + 0.3;
+        bar.style.height = `${Math.max(4, value * 40)}px`;
+      });
+    }
+
     animationId = requestAnimationFrame(animateVisualizer);
   }
 
   function bindEvents() {
     if (toggleBtn && panel) {
-      toggleBtn.addEventListener('click', () => {
+      toggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
         panel.classList.toggle('hidden');
         hideWelcome(true);
       });
     }
+
+    // Click outside to close panel
+    document.addEventListener('click', (e) => {
+      if (panel && !panel.classList.contains('hidden')) {
+        if (!panel.contains(e.target) && !toggleBtn.contains(e.target)) {
+          panel.classList.add('hidden');
+        }
+      }
+    });
+
+    // Prevent clicks inside panel from closing it
+    if (panel) {
+      panel.addEventListener('click', (e) => {
+        e.stopPropagation();
+      });
+    }
+
     if (welcomePlayBtn) {
       welcomePlayBtn.addEventListener('click', () => {
         hideWelcome(true);
         if (panel) panel.classList.remove('hidden');
-        const pageMusicMeta = document.querySelector('meta[name="ambient:music"]');
-        const pageTrack = pageMusicMeta ? pageMusicMeta.content : null;
-        const moodId = PAGE_MOOD_MAP[pageTrack] || 'dreamscape';
-        loadMood(moodId);
         play();
       });
     }
+
     if (welcomeDismissBtn) {
       welcomeDismissBtn.addEventListener('click', () => {
         hideWelcome(true);
         setMusicEnabled(false);
       });
     }
+
     if (playBtn) playBtn.addEventListener('click', togglePlay);
+
     if (trackSelect) {
       trackSelect.addEventListener('change', (e) => {
         if (e.target.value) {
-          loadMood(e.target.value);
+          // User explicitly selected a track - save preference
+          setUserTrack(e.target.value);
+          loadTrack(e.target.value);
           play();
         }
       });
     }
+
+    // Progress bar seek
+    if (progressContainer) {
+      progressContainer.addEventListener('click', (e) => {
+        if (!audio || !audio.duration) return;
+        const rect = progressContainer.getBoundingClientRect();
+        const percent = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+        audio.currentTime = percent * audio.duration;
+      });
+    }
+
+    // Volume control
     if (volumeContainer) {
       volumeContainer.addEventListener('click', (e) => {
         const rect = volumeContainer.getBoundingClientRect();
         volume = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-        if (masterGain) masterGain.gain.value = volume;
+        if (audio) audio.volume = volume;
         localStorage.setItem('musicVolume', volume);
         updateVolumeUI();
       });
     }
+
     if (muteBtn) {
       muteBtn.addEventListener('click', () => {
         volume = volume === 0 ? 0.7 : 0;
-        if (masterGain) masterGain.gain.value = volume;
+        if (audio) audio.volume = volume;
         updateVolumeUI();
       });
     }
   }
 
   function init() {
-    const pageMusicMeta = document.querySelector('meta[name="ambient:music"]');
-    const pageTrack = pageMusicMeta ? pageMusicMeta.content : null;
-    const pageMood = PAGE_MOOD_MAP[pageTrack] || 'dreamscape';
+    // Get the appropriate track for this page
+    const pageTrack = getPageTrack();
+    const userTrack = getUserTrack();
+    const displayTrack = userTrack || pageTrack;
 
+    // Restore saved volume
     const savedVolume = localStorage.getItem('musicVolume');
     if (savedVolume) {
       volume = parseFloat(savedVolume);
       updateVolumeUI();
     }
 
-    if (trackSelect) trackSelect.value = pageMood;
+    // Set the track selector to show appropriate track
+    if (trackSelect) trackSelect.value = displayTrack;
+
+    // Update track display
+    if (TRACKS[displayTrack]) {
+      if (trackName) trackName.textContent = TRACKS[displayTrack].name;
+      if (trackArtist) trackArtist.textContent = TRACKS[displayTrack].artist;
+    }
+
     createVisualizerBars();
 
     const musicWasEnabled = isMusicEnabled();
@@ -1216,7 +861,8 @@
     setTimeout(() => {
       player.classList.add('visible');
       if (musicWasEnabled) {
-        loadMood(pageMood);
+        // Auto-play if user had music enabled
+        loadTrack(displayTrack);
         play();
       } else {
         showWelcome();
