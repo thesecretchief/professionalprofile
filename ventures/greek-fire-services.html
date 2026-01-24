@@ -924,15 +924,15 @@
   <script>
     // Mobile menu toggle
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-    const closeMenuBtn = document.getElementById('close-menu-btn');
+    const closeMenuBtn = document.getElementById('close-menu');
     const mobileMenu = document.getElementById('mobile-menu');
 
-    mobileMenuBtn.addEventListener('click', () => {
-      mobileMenu.classList.add('open');
+    if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', () => {
+      if (mobileMenu) mobileMenu.classList.add('open');
     });
 
-    closeMenuBtn.addEventListener('click', () => {
-      mobileMenu.classList.remove('open');
+    if (closeMenuBtn) closeMenuBtn.addEventListener('click', () => {
+      if (mobileMenu) mobileMenu.classList.remove('open');
     });
 
     // Dark mode toggle
