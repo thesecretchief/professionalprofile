@@ -720,7 +720,7 @@
         submitBtn.textContent = 'Subscribing...';
 
         try {
-          const response = await fetch('https://api.beehiiv.com/v2/publications/pub_a28995d8-9be7-4acc-967f-1c038d87f203/subscriptions', {
+          const response = await fetch('https://api.beehiiv.com/v2/publications/pub_6c38cfda-6ba1-4885-9e14-085107f279b4/subscriptions', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email: email, reactivate_existing: true, send_welcome_email: true })
