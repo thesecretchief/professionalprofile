@@ -477,6 +477,40 @@
 
           <a href="blog/" class="nav-link text-gray-300 hover:text-gold-400 transition">Blog</a>
 
+          <!-- More Dropdown -->
+          <div class="relative group">
+            <button class="nav-link text-gray-300 hover:text-gold-400 transition flex items-center gap-1">
+              More
+              <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            <div class="absolute top-full right-0 mt-2 w-56 bg-navy-800/95 backdrop-blur-lg rounded-xl shadow-2xl border border-white/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 p-2">
+              <a href="#profiles" class="flex items-center gap-3 px-3 py-3 text-gray-300 hover:text-white hover:bg-gold-500/10 rounded-lg transition">
+                <div class="w-8 h-8 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-lg flex items-center justify-center">
+                  <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <p class="font-semibold text-sm">Personality Profiles</p>
+                  <p class="text-xs text-gray-500">DISC, MBTI, Big Five</p>
+                </div>
+              </a>
+              <a href="#certifications" class="flex items-center gap-3 px-3 py-3 text-gray-300 hover:text-white hover:bg-gold-500/10 rounded-lg transition">
+                <div class="w-8 h-8 bg-gradient-to-br from-gold-500 to-amber-600 rounded-lg flex items-center justify-center">
+                  <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                  </svg>
+                </div>
+                <div>
+                  <p class="font-semibold text-sm">Certifications</p>
+                  <p class="text-xs text-gray-500">Training & Development</p>
+                </div>
+              </a>
+            </div>
+          </div>
+
           <!-- Dark Mode Toggle -->
           <button id="dark-mode-toggle" class="dark-mode-toggle text-gray-300 hover:text-gold-400 p-2 rounded-lg hover:bg-white/10 transition" aria-label="Toggle dark mode">
             <!-- Sun icon (shown in dark mode) -->
@@ -571,6 +605,28 @@
           <a href="blog/" class="text-white text-lg hover:text-gold-400 transition flex items-center gap-2">
             <span class="w-1 h-1 bg-gold-400 rounded-full"></span> Blog
           </a>
+
+          <!-- More Section -->
+          <div class="pt-2">
+            <p class="text-gray-500 text-sm uppercase tracking-wider mb-3">More</p>
+            <a href="#profiles" class="flex items-center gap-3 py-2 text-white hover:text-purple-400 transition">
+              <div class="w-8 h-8 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-lg flex items-center justify-center">
+                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                </svg>
+              </div>
+              Personality Profiles
+            </a>
+            <a href="#certifications" class="flex items-center gap-3 py-2 text-white hover:text-gold-400 transition">
+              <div class="w-8 h-8 bg-gradient-to-br from-gold-500 to-amber-600 rounded-lg flex items-center justify-center">
+                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                </svg>
+              </div>
+              Certifications
+            </a>
+          </div>
+
           <a href="#contact" class="text-white text-lg hover:text-gold-400 transition flex items-center gap-2">
             <span class="w-1 h-1 bg-gold-400 rounded-full"></span> Contact
           </a>
@@ -1240,59 +1296,191 @@
   </section>
 
   <!-- Personality Profiles Section -->
-  <section id="profiles" class="py-24 bg-navy-900">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <section id="profiles" class="py-24 bg-gradient-to-br from-purple-900/30 via-navy-900 to-indigo-900/30 relative overflow-hidden">
+    <!-- Decorative elements -->
+    <div class="absolute top-0 right-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2"></div>
+    <div class="absolute bottom-0 left-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2"></div>
+
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div class="text-center mb-16">
+        <span class="inline-block bg-purple-500/20 text-purple-300 text-sm font-semibold px-4 py-1 rounded-full mb-4">Self-Awareness</span>
         <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Understand How I Work</h2>
-        <p class="text-xl text-gray-400 max-w-2xl mx-auto">Dive deeper into my personality assessments to see how I think, lead, and collaborate</p>
+        <p class="text-xl text-gray-400 max-w-2xl mx-auto">Personality assessments that reveal how I think, lead, and collaborate</p>
       </div>
 
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <a href="profiles/Lee_Foropoulos_DISC_Profile" class="card-hover metric-card rounded-2xl p-8 text-center group">
-          <div class="w-16 h-16 bg-gold-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-gold-500/30 transition">
-            <span class="text-3xl">&#127919;</span>
+      <div class="space-y-4">
+        <!-- DISC Profile -->
+        <div class="accordion-item bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 overflow-hidden">
+          <button class="accordion-header w-full px-6 py-5 flex items-center justify-between text-left hover:bg-white/5 transition" onclick="toggleAccordion(this)">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 bg-gradient-to-br from-red-500 via-yellow-500 to-green-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                <span class="text-2xl">&#127919;</span>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-white">DISC Profile</h3>
+                <p class="text-sm text-gray-400">Balanced, versatile leadership style</p>
+              </div>
+            </div>
+            <svg class="accordion-icon w-5 h-5 text-gray-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div class="accordion-content hidden">
+            <div class="px-6 pb-6">
+              <div class="grid grid-cols-4 gap-3 mb-4">
+                <div class="text-center p-3 bg-red-500/20 rounded-lg">
+                  <p class="text-2xl font-bold text-red-400">D</p>
+                  <p class="text-xs text-gray-400">Dominance</p>
+                </div>
+                <div class="text-center p-3 bg-yellow-500/20 rounded-lg">
+                  <p class="text-2xl font-bold text-yellow-400">I</p>
+                  <p class="text-xs text-gray-400">Influence</p>
+                </div>
+                <div class="text-center p-3 bg-green-500/20 rounded-lg">
+                  <p class="text-2xl font-bold text-green-400">S</p>
+                  <p class="text-xs text-gray-400">Steadiness</p>
+                </div>
+                <div class="text-center p-3 bg-blue-500/20 rounded-lg">
+                  <p class="text-2xl font-bold text-blue-400">C</p>
+                  <p class="text-xs text-gray-400">Conscientiousness</p>
+                </div>
+              </div>
+              <p class="text-gray-300 text-sm mb-4">A well-rounded profile showing adaptability across all four behavioral dimensions, enabling effective communication with diverse teams and stakeholders.</p>
+              <a href="profiles/Lee_Foropoulos_DISC_Profile" class="inline-flex items-center text-gold-400 hover:text-gold-300 text-sm font-medium transition">
+                View Full Profile
+                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+              </a>
+            </div>
           </div>
-          <h3 class="text-xl font-bold text-white mb-2">DISC Profile</h3>
-          <p class="text-gray-400 text-sm">Balanced, versatile leadership style</p>
-          <span class="inline-block mt-4 text-gold-400 group-hover:translate-x-2 transition-transform">View Profile &rarr;</span>
-        </a>
+        </div>
 
-        <a href="profiles/Lee_Foropoulos_MBTI" class="card-hover metric-card rounded-2xl p-8 text-center group">
-          <div class="w-16 h-16 bg-gold-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-gold-500/30 transition">
-            <span class="text-3xl">&#129504;</span>
+        <!-- MBTI -->
+        <div class="accordion-item bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 overflow-hidden">
+          <button class="accordion-header w-full px-6 py-5 flex items-center justify-between text-left hover:bg-white/5 transition" onclick="toggleAccordion(this)">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                <span class="text-2xl">&#129504;</span>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-white">MBTI (ENTJ)</h3>
+                <p class="text-sm text-gray-400">The Commander - Natural leader</p>
+              </div>
+            </div>
+            <svg class="accordion-icon w-5 h-5 text-gray-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div class="accordion-content hidden">
+            <div class="px-6 pb-6">
+              <div class="flex flex-wrap gap-2 mb-4">
+                <span class="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-sm font-medium">Extraverted</span>
+                <span class="px-3 py-1 bg-indigo-500/20 text-indigo-300 rounded-full text-sm font-medium">Intuitive</span>
+                <span class="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm font-medium">Thinking</span>
+                <span class="px-3 py-1 bg-cyan-500/20 text-cyan-300 rounded-full text-sm font-medium">Judging</span>
+              </div>
+              <p class="text-gray-300 text-sm mb-4">ENTJs are strategic leaders who enjoy organizing and leading others toward achieving goals. Decisive, efficient, and confident in taking charge of complex projects.</p>
+              <a href="profiles/Lee_Foropoulos_MBTI" class="inline-flex items-center text-gold-400 hover:text-gold-300 text-sm font-medium transition">
+                View Full Profile
+                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+              </a>
+            </div>
           </div>
-          <h3 class="text-xl font-bold text-white mb-2">MBTI (ENTJ)</h3>
-          <p class="text-gray-400 text-sm">The Commander - Natural leader</p>
-          <span class="inline-block mt-4 text-gold-400 group-hover:translate-x-2 transition-transform">View Profile &rarr;</span>
-        </a>
+        </div>
 
-        <a href="profiles/Lee_Foropoulos_Big_Five" class="card-hover metric-card rounded-2xl p-8 text-center group">
-          <div class="w-16 h-16 bg-gold-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-gold-500/30 transition">
-            <span class="text-3xl">&#11088;</span>
+        <!-- Big Five -->
+        <div class="accordion-item bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 overflow-hidden">
+          <button class="accordion-header w-full px-6 py-5 flex items-center justify-between text-left hover:bg-white/5 transition" onclick="toggleAccordion(this)">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                <span class="text-2xl">&#11088;</span>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-white">Big Five Traits</h3>
+                <p class="text-sm text-gray-400">Core personality dimensions</p>
+              </div>
+            </div>
+            <svg class="accordion-icon w-5 h-5 text-gray-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div class="accordion-content hidden">
+            <div class="px-6 pb-6">
+              <div class="space-y-2 mb-4">
+                <div class="flex items-center gap-3">
+                  <span class="text-sm text-gray-400 w-32">Openness</span>
+                  <div class="flex-1 h-2 bg-white/10 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-amber-500 to-orange-500 rounded-full" style="width: 85%"></div></div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-sm text-gray-400 w-32">Conscientiousness</span>
+                  <div class="flex-1 h-2 bg-white/10 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-amber-500 to-orange-500 rounded-full" style="width: 90%"></div></div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-sm text-gray-400 w-32">Extraversion</span>
+                  <div class="flex-1 h-2 bg-white/10 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-amber-500 to-orange-500 rounded-full" style="width: 75%"></div></div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-sm text-gray-400 w-32">Agreeableness</span>
+                  <div class="flex-1 h-2 bg-white/10 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-amber-500 to-orange-500 rounded-full" style="width: 70%"></div></div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-sm text-gray-400 w-32">Neuroticism</span>
+                  <div class="flex-1 h-2 bg-white/10 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-amber-500 to-orange-500 rounded-full" style="width: 25%"></div></div>
+                </div>
+              </div>
+              <a href="profiles/Lee_Foropoulos_Big_Five" class="inline-flex items-center text-gold-400 hover:text-gold-300 text-sm font-medium transition">
+                View Full Profile
+                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+              </a>
+            </div>
           </div>
-          <h3 class="text-xl font-bold text-white mb-2">Big Five Traits</h3>
-          <p class="text-gray-400 text-sm">Core personality dimensions</p>
-          <span class="inline-block mt-4 text-gold-400 group-hover:translate-x-2 transition-transform">View Profile &rarr;</span>
-        </a>
+        </div>
 
-        <a href="profiles/Lee_Foropoulos_Human_Design_Profile" class="card-hover metric-card rounded-2xl p-8 text-center group">
-          <div class="w-16 h-16 bg-gold-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-gold-500/30 transition">
-            <span class="text-3xl">&#128302;</span>
+        <!-- Human Design -->
+        <div class="accordion-item bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 overflow-hidden">
+          <button class="accordion-header w-full px-6 py-5 flex items-center justify-between text-left hover:bg-white/5 transition" onclick="toggleAccordion(this)">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 bg-gradient-to-br from-teal-500 to-emerald-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                <span class="text-2xl">&#128302;</span>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-white">Human Design</h3>
+                <p class="text-sm text-gray-400">Manifesting Generator 6/2</p>
+              </div>
+            </div>
+            <svg class="accordion-icon w-5 h-5 text-gray-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div class="accordion-content hidden">
+            <div class="px-6 pb-6">
+              <div class="flex flex-wrap gap-2 mb-4">
+                <span class="px-3 py-1 bg-teal-500/20 text-teal-300 rounded-full text-sm font-medium">Manifesting Generator</span>
+                <span class="px-3 py-1 bg-emerald-500/20 text-emerald-300 rounded-full text-sm font-medium">Profile 6/2</span>
+                <span class="px-3 py-1 bg-cyan-500/20 text-cyan-300 rounded-full text-sm font-medium">Sacral Authority</span>
+              </div>
+              <p class="text-gray-300 text-sm mb-4">A multi-passionate energy type designed to respond to life, capable of doing multiple things at once while maintaining sustainable energy. The 6/2 profile combines the role model with the hermit—learning through experience and natural talents.</p>
+              <a href="profiles/Lee_Foropoulos_Human_Design_Profile" class="inline-flex items-center text-gold-400 hover:text-gold-300 text-sm font-medium transition">
+                View Full Profile
+                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+              </a>
+            </div>
           </div>
-          <h3 class="text-xl font-bold text-white mb-2">Human Design</h3>
-          <p class="text-gray-400 text-sm">Manifesting Generator 6/2</p>
-          <span class="inline-block mt-4 text-gold-400 group-hover:translate-x-2 transition-transform">View Profile &rarr;</span>
-        </a>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Professional Development Section -->
-  <section id="certifications" class="py-24 bg-gray-50 dark:bg-navy-800">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+  <section id="certifications" class="py-24 bg-gradient-to-br from-amber-50 via-gold-50 to-orange-50 dark:from-amber-900/20 dark:via-gold-900/20 dark:to-orange-900/20 relative overflow-hidden">
+    <!-- Decorative elements -->
+    <div class="absolute top-0 left-0 w-64 h-64 bg-gold-400/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+    <div class="absolute bottom-0 right-0 w-96 h-96 bg-amber-400/10 rounded-full blur-3xl translate-x-1/3 translate-y-1/3"></div>
+
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div class="text-center mb-16">
+        <span class="inline-block bg-gold-500/20 text-gold-700 dark:text-gold-400 text-sm font-semibold px-4 py-1 rounded-full mb-4">Continuous Growth</span>
         <h2 class="text-3xl sm:text-4xl font-bold text-navy-900 dark:text-white mb-4">Professional Development</h2>
-        <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Continuous learning and certification in leadership, management, and sales enablement</p>
+        <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Training and certifications in leadership, management, and sales enablement</p>
       </div>
 
       <div class="space-y-4">
