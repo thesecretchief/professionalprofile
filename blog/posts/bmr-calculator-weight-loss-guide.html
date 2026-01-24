@@ -1163,10 +1163,10 @@
           </svg>
         </button>
         <div id="music-volume-container" class="flex-1 h-2 bg-navy-700 rounded-full cursor-pointer relative group">
-          <div id="music-volume-bar" class="h-full bg-gradient-to-r from-gold-500 to-gold-400 rounded-full transition-all" style="width: 70%"></div>
-          <div id="music-volume-handle" class="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full shadow-lg cursor-grab" style="left: 70%"></div>
+          <div id="music-volume-bar" class="h-full bg-gradient-to-r from-gold-500 to-gold-400 rounded-full transition-all" style="width: 25%"></div>
+          <div id="music-volume-handle" class="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full shadow-lg cursor-grab" style="left: 25%"></div>
         </div>
-        <span id="music-volume-value" class="text-gray-400 text-xs w-8">70%</span>
+        <span id="music-volume-value" class="text-gray-400 text-xs w-8">25%</span>
       </div>
     </div>
 
@@ -1363,7 +1363,7 @@
   let analyser = null;
   let isPlaying = false;
   let currentTrackId = null;
-  let volume = 0.7;
+  let volume = 0.25;
   let animationId = null;
 
   const player = document.getElementById('music-player');
@@ -1720,14 +1720,14 @@
         const rect = volumeContainer.getBoundingClientRect();
         volume = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
         if (audio) audio.volume = volume;
-        localStorage.setItem('musicVolume', volume);
+        setCookie('musicVolume', volume, 365);
         updateVolumeUI();
       });
     }
 
     if (muteBtn) {
       muteBtn.addEventListener('click', () => {
-        volume = volume === 0 ? 0.7 : 0;
+        volume = volume === 0 ? 0.25 : 0;
         if (audio) audio.volume = volume;
         updateVolumeUI();
       });
@@ -1746,10 +1746,10 @@
     // Otherwise use user preference or page default
     const displayTrack = savedState ? savedState.trackId : (userTrack || pageTrack);
 
-    // Restore saved volume
-    const savedVolume = localStorage.getItem('musicVolume');
+    // Restore saved volume from cookie
+    const savedVolume = getCookie('musicVolume');
     if (savedVolume) {
-      volume = parseFloat(savedVolume);
+      volume = parseFloat(decodeURIComponent(savedVolume));
       updateVolumeUI();
     }
 
