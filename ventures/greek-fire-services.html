@@ -1079,10 +1079,10 @@
           </svg>
         </button>
         <div id="music-volume-container" class="flex-1 h-2 bg-navy-700 rounded-full cursor-pointer relative group">
-          <div id="music-volume-bar" class="h-full bg-gradient-to-r from-gold-500 to-gold-400 rounded-full transition-all" style="width: 70%"></div>
-          <div id="music-volume-handle" class="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full shadow-lg cursor-grab" style="left: 70%"></div>
+          <div id="music-volume-bar" class="h-full bg-gradient-to-r from-gold-500 to-gold-400 rounded-full transition-all" style="width: 25%"></div>
+          <div id="music-volume-handle" class="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full shadow-lg cursor-grab" style="left: 25%"></div>
         </div>
-        <span id="music-volume-value" class="text-gray-400 text-xs w-8">70%</span>
+        <span id="music-volume-value" class="text-gray-400 text-xs w-8">25%</span>
       </div>
     </div>
 
@@ -1133,6 +1133,27 @@
       </div>
     </div>
   </div>
+
+  <!-- Reminder popup for users who stopped music -->
+  <div id="music-reminder" class="absolute bottom-full left-0 mb-3 hidden opacity-0 transition-opacity duration-500 w-56">
+    <div class="bg-navy-800/95 backdrop-blur-xl rounded-xl p-3 shadow-2xl border border-gold-500/20 relative">
+      <div class="absolute -bottom-2 left-6 w-4 h-4 bg-navy-800/95 border-r border-b border-gold-500/20 transform rotate-45"></div>
+      <div class="flex items-center gap-2 mb-2">
+        <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15.536a5 5 0 001.414 1.414m2.828-9.9a9 9 0 012.828-2.828"></path>
+        </svg>
+        <span class="text-gray-300 text-xs">Music is paused</span>
+      </div>
+      <div class="flex gap-2">
+        <button id="music-reminder-resume" class="flex-1 bg-gold-500/20 hover:bg-gold-500/30 text-gold-400 text-xs font-semibold py-1.5 px-2 rounded-lg transition">
+          Resume
+        </button>
+        <button id="music-reminder-dismiss" class="px-2 py-1.5 text-gray-500 hover:text-gray-300 text-xs transition">
+          Dismiss
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <style>
@@ -1150,6 +1171,7 @@
   #music-welcome.show { opacity: 1; }
   @keyframes welcome-glow { 0%, 100% { box-shadow: 0 0 20px rgba(245, 158, 11, 0.2); } 50% { box-shadow: 0 0 40px rgba(245, 158, 11, 0.4); } }
   #music-welcome.show > div { animation: welcome-glow 2s ease-in-out infinite; }
+  #music-reminder.show { opacity: 1; }
 </style>
 
 <script>
@@ -1279,7 +1301,7 @@
   let analyser = null;
   let isPlaying = false;
   let currentTrackId = null;
-  let volume = 0.7;
+  let volume = 0.25;
   let animationId = null;
 
   const player = document.getElementById('music-player');
@@ -1307,6 +1329,9 @@
   const welcomeEl = document.getElementById('music-welcome');
   const welcomePlayBtn = document.getElementById('music-welcome-play');
   const welcomeDismissBtn = document.getElementById('music-welcome-dismiss');
+  const reminderEl = document.getElementById('music-reminder');
+  const reminderResumeBtn = document.getElementById('music-reminder-resume');
+  const reminderDismissBtn = document.getElementById('music-reminder-dismiss');
   const musicBadge = document.getElementById('music-badge');
   const progressContainer = document.getElementById('music-progress-container');
   const progressBar = document.getElementById('music-progress-bar');
@@ -1377,6 +1402,30 @@
     }
     if (musicBadge) musicBadge.classList.add('hidden');
     if (permanent) localStorage.setItem('musicWelcomeSeen', 'true');
+  }
+
+  function showReminder() {
+    // Only show if user explicitly stopped music in this session
+    if (!sessionStorage.getItem('musicStoppedByUser')) return;
+    // Only show once per page load
+    if (sessionStorage.getItem('musicReminderShown')) return;
+    sessionStorage.setItem('musicReminderShown', 'true');
+
+    setTimeout(() => {
+      if (reminderEl && !isPlaying) {
+        reminderEl.classList.remove('hidden');
+        setTimeout(() => reminderEl.classList.add('show'), 50);
+      }
+    }, 2000);
+  }
+
+  function hideReminder() {
+    if (reminderEl) {
+      reminderEl.classList.remove('show');
+      setTimeout(() => reminderEl.classList.add('hidden'), 500);
+    }
+    // Clear the stopped flag so reminder doesn't keep showing
+    sessionStorage.removeItem('musicStoppedByUser');
   }
 
   function formatTime(seconds) {
@@ -1494,6 +1543,11 @@
       cancelAnimationFrame(animationId);
       animationId = null;
     }
+    // Mark music as stopped so it doesn't auto-resume on next page
+    setMusicEnabled(false);
+    clearPlaybackState();
+    // Track that user explicitly stopped music (for reminder on next page)
+    sessionStorage.setItem('musicStoppedByUser', 'true');
   }
 
   function togglePlay() {
@@ -1607,6 +1661,21 @@
       });
     }
 
+    // Reminder popup events
+    if (reminderResumeBtn) {
+      reminderResumeBtn.addEventListener('click', () => {
+        hideReminder();
+        if (panel) panel.classList.remove('hidden');
+        play();
+      });
+    }
+
+    if (reminderDismissBtn) {
+      reminderDismissBtn.addEventListener('click', () => {
+        hideReminder();
+      });
+    }
+
     if (playBtn) playBtn.addEventListener('click', togglePlay);
 
     if (trackSelect) {
@@ -1636,14 +1705,22 @@
         const rect = volumeContainer.getBoundingClientRect();
         volume = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
         if (audio) audio.volume = volume;
-        localStorage.setItem('musicVolume', volume);
+        setCookie('musicVolume', volume, 365);
         updateVolumeUI();
       });
     }
 
     if (muteBtn) {
       muteBtn.addEventListener('click', () => {
-        volume = volume === 0 ? 0.7 : 0;
+        if (volume === 0) {
+          // Restore saved volume preference, or default to 25%
+          const savedVolume = getCookie('musicVolume');
+          volume = savedVolume ? parseFloat(decodeURIComponent(savedVolume)) : 0.25;
+          // If saved was 0, use default
+          if (volume === 0) volume = 0.25;
+        } else {
+          volume = 0;
+        }
         if (audio) audio.volume = volume;
         updateVolumeUI();
       });
@@ -1662,10 +1739,10 @@
     // Otherwise use user preference or page default
     const displayTrack = savedState ? savedState.trackId : (userTrack || pageTrack);
 
-    // Restore saved volume
-    const savedVolume = localStorage.getItem('musicVolume');
+    // Restore saved volume from cookie
+    const savedVolume = getCookie('musicVolume');
     if (savedVolume) {
-      volume = parseFloat(savedVolume);
+      volume = parseFloat(decodeURIComponent(savedVolume));
       updateVolumeUI();
     }
 
@@ -1682,8 +1759,9 @@
     bindEvents();
 
     const musicWasEnabled = isMusicEnabled();
+    const userStoppedMusic = sessionStorage.getItem('musicStoppedByUser');
 
-    // If we have a fresh saved state, resume immediately
+    // If we have a fresh saved state AND music is enabled, resume immediately
     if (savedState && musicWasEnabled) {
       player.classList.add('visible');
       loadTrack(savedState.trackId, savedState.position);
@@ -1699,6 +1777,9 @@
         if (musicWasEnabled) {
           loadTrack(displayTrack);
           play();
+        } else if (userStoppedMusic) {
+          // User explicitly stopped music - show reminder instead of welcome
+          showReminder();
         } else {
           showWelcome();
         }
