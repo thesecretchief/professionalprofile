@@ -938,14 +938,6 @@
   <div id="copy-toast" class="copy-toast">Link copied to clipboard!</div>
 
   <script>
-    // Dark mode toggle
-    const toggle = document.getElementById('dark-mode-toggle');
-    toggle.addEventListener('click', () => {
-      document.documentElement.classList.toggle('dark');
-      const isDark = document.documentElement.classList.contains('dark');
-      document.cookie = `darkMode=${isDark}; path=/; max-age=31536000`;
-    });
-
     // Back to top button
     const backToTop = document.getElementById('back-to-top');
     window.addEventListener('scroll', () => {
