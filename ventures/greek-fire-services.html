@@ -930,13 +930,21 @@
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
     const closeMenuBtn = document.getElementById('close-menu');
     const mobileMenu = document.getElementById('mobile-menu');
+    const menuOverlay = document.getElementById('menu-overlay');
 
     if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', () => {
       if (mobileMenu) mobileMenu.classList.add('open');
+      if (menuOverlay) menuOverlay.classList.add('open');
     });
 
     if (closeMenuBtn) closeMenuBtn.addEventListener('click', () => {
       if (mobileMenu) mobileMenu.classList.remove('open');
+      if (menuOverlay) menuOverlay.classList.remove('open');
+    });
+
+    if (menuOverlay) menuOverlay.addEventListener('click', () => {
+      if (mobileMenu) mobileMenu.classList.remove('open');
+      menuOverlay.classList.remove('open');
     });
 
     // Dark mode toggle
@@ -1803,8 +1811,8 @@
 
 <!-- COOKIE_CONSENT -->
 <!-- Cookie Consent Banner -->
-<div id="cookie-consent" class="fixed bottom-0 left-0 right-0 z-[100] transform translate-y-full transition-transform duration-500" role="dialog" aria-labelledby="cookie-consent-title" aria-describedby="cookie-consent-description">
-  <div class="bg-navy-900/98 backdrop-blur-lg border-t border-white/10 shadow-2xl">
+<div id="cookie-consent" class="fixed bottom-0 left-0 right-0 z-[100] transform translate-y-full transition-all duration-500 pointer-events-none" role="dialog" aria-labelledby="cookie-consent-title" aria-describedby="cookie-consent-description">
+  <div class="bg-navy-900/98 backdrop-blur-lg border-t border-white/10 shadow-2xl pointer-events-auto">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
         <div class="flex-1">
