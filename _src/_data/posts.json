@@ -70,7 +70,7 @@
     "readTime": "8 min read",
     "image": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop",
     "imageAlt": "AI Automation",
-    "featured": true,
+    "featured": false,
     "excerpt": "Discover practical AI automation strategies that can save your business 20+ hours per week. From email management to customer support, these tools are changing the game for lean teams.",
     "shareHook": "I used to spend 3+ hours on email daily. Now it's 45 minutes. Here are 5 AI automation strategies that saved my business 20+ hours per week:"
   },
