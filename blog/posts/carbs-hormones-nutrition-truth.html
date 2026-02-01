@@ -422,6 +422,493 @@
   </footer>
 
   <!-- VOICE_READER -->
+<!-- Voice Reader for Blog Posts -->
+<div id="voice-reader" class="fixed bottom-24 right-8 z-40 flex flex-col items-end gap-2">
+  <!-- Controls (hidden by default, shown when reading) -->
+  <div id="voice-controls" class="hidden bg-navy-800 rounded-xl shadow-xl border border-white/10 p-4 mb-2 min-w-[200px]">
+    <!-- Voice selector -->
+    <div class="mb-3">
+      <label class="text-gray-400 text-xs block mb-1">Voice</label>
+      <select id="voice-select" class="w-full bg-navy-700 text-white text-sm rounded-lg px-3 py-2 border border-white/10 focus:border-gold-500 focus:outline-none">
+        <option value="">Loading voices...</option>
+      </select>
+    </div>
+
+    <!-- Speed controls -->
+    <div class="flex items-center justify-between mb-3">
+      <label class="text-gray-400 text-xs">Speed</label>
+      <div class="flex items-center gap-2">
+        <button id="voice-slower" class="p-1.5 text-gray-400 hover:text-gold-400 transition rounded hover:bg-white/5" title="Slower">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
+          </svg>
+        </button>
+        <span id="voice-speed" class="text-white text-sm font-medium min-w-[3rem] text-center">1.0x</span>
+        <button id="voice-faster" class="p-1.5 text-gray-400 hover:text-gold-400 transition rounded hover:bg-white/5" title="Faster">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Playback controls -->
+    <div class="flex items-center justify-center gap-1 mb-3">
+      <button id="voice-skip-back" class="p-2 text-gray-400 hover:text-gold-400 transition rounded hover:bg-white/5" title="Previous paragraph">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0019 16V8a1 1 0 00-1.6-.8l-5.333 4zM4.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0011 16V8a1 1 0 00-1.6-.8l-5.334 4z"></path>
+        </svg>
+      </button>
+      <button id="voice-stop" class="p-2 text-gray-400 hover:text-red-400 transition rounded hover:bg-white/5" title="Stop">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"></path>
+        </svg>
+      </button>
+      <button id="voice-skip-forward" class="p-2 text-gray-400 hover:text-gold-400 transition rounded hover:bg-white/5" title="Next paragraph">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.933 12.8a1 1 0 000-1.6L6.6 7.2A1 1 0 005 8v8a1 1 0 001.6.8l5.333-4zM19.933 12.8a1 1 0 000-1.6l-5.333-4A1 1 0 0013 8v8a1 1 0 001.6.8l5.333-4z"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Progress indicator -->
+    <div class="text-xs text-gray-400 text-center">
+      <span id="voice-progress">0</span> / <span id="voice-total">0</span> paragraphs
+    </div>
+  </div>
+
+  <!-- Main Play/Pause Button -->
+  <button id="voice-toggle" class="bg-gold-500 hover:bg-gold-400 text-navy-900 p-4 rounded-full shadow-lg transition transform hover:scale-110 group" title="Listen to article">
+    <!-- Play icon -->
+    <svg id="voice-play-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+    </svg>
+    <!-- Pause icon (hidden by default) -->
+    <svg id="voice-pause-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+    </svg>
+  </button>
+</div>
+
+<style>
+  /* Highlight currently reading element */
+  .voice-reading {
+    background: linear-gradient(90deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.2) 50%, rgba(245, 158, 11, 0.1) 100%);
+    border-left: 3px solid #f59e0b;
+    padding-left: 1rem;
+    margin-left: -1rem;
+    border-radius: 0 0.5rem 0.5rem 0;
+    transition: all 0.3s ease;
+  }
+
+  .dark .voice-reading {
+    background: linear-gradient(90deg, rgba(245, 158, 11, 0.05) 0%, rgba(245, 158, 11, 0.15) 50%, rgba(245, 158, 11, 0.05) 100%);
+  }
+
+  #voice-select {
+    cursor: pointer;
+  }
+  #voice-select::-webkit-scrollbar {
+    width: 6px;
+  }
+  #voice-select::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.1);
+    border-radius: 3px;
+  }
+  #voice-select::-webkit-scrollbar-thumb {
+    background: rgba(245, 158, 11, 0.5);
+    border-radius: 3px;
+  }
+</style>
+
+<script>
+(function() {
+  'use strict';
+
+  // Check if Speech Synthesis is supported
+  if (!('speechSynthesis' in window)) {
+    const voiceReader = document.getElementById('voice-reader');
+    if (voiceReader) voiceReader.style.display = 'none';
+    return;
+  }
+
+  const synth = window.speechSynthesis;
+  let utterance = null;
+  let paragraphs = [];
+  let currentIndex = 0;
+  let isPlaying = false;
+  let isPaused = false;
+  let rate = 1.0;
+  let selectedVoice = null;
+  let voicesLoaded = false;
+
+  // DOM elements
+  const toggleBtn = document.getElementById('voice-toggle');
+  const playIcon = document.getElementById('voice-play-icon');
+  const pauseIcon = document.getElementById('voice-pause-icon');
+  const controls = document.getElementById('voice-controls');
+  const voiceSelect = document.getElementById('voice-select');
+  const speedDisplay = document.getElementById('voice-speed');
+  const progressDisplay = document.getElementById('voice-progress');
+  const totalDisplay = document.getElementById('voice-total');
+  const slowerBtn = document.getElementById('voice-slower');
+  const fasterBtn = document.getElementById('voice-faster');
+  const skipBackBtn = document.getElementById('voice-skip-back');
+  const skipForwardBtn = document.getElementById('voice-skip-forward');
+  const stopBtn = document.getElementById('voice-stop');
+
+  // Voice quality scoring - prioritize more natural voices
+  function scoreVoice(voice) {
+    let score = 0;
+    const name = voice.name.toLowerCase();
+    const lang = voice.lang.toLowerCase();
+
+    // Must be English
+    if (!lang.startsWith('en')) return -1000;
+
+    // Premium/Neural voices (most natural)
+    if (name.includes('neural') || name.includes('natural') || name.includes('premium')) score += 100;
+
+    // Google voices (Chrome) - very natural
+    if (name.includes('google')) score += 80;
+
+    // Microsoft voices (Edge) - also quite good
+    if (name.includes('microsoft') && (name.includes('online') || name.includes('natural'))) score += 75;
+
+    // Apple voices (Safari)
+    if (name.includes('samantha') || name.includes('alex') || name.includes('karen')) score += 70;
+
+    // Specific high-quality voices
+    if (name.includes('zira') || name.includes('david') || name.includes('mark')) score += 60;
+
+    // Enhanced/HD voices
+    if (name.includes('enhanced') || name.includes('hd') || name.includes('compact') === false) score += 30;
+
+    // Prefer US English for consistency
+    if (lang === 'en-us' || lang === 'en_us') score += 20;
+
+    // Prefer female voices (often clearer for narration)
+    if (name.includes('female') || name.includes('zira') || name.includes('samantha') || name.includes('karen') || name.includes('victoria')) score += 10;
+
+    // Local voices are usually lower quality
+    if (voice.localService && !name.includes('google') && !name.includes('microsoft')) score -= 20;
+
+    return score;
+  }
+
+  // Get and sort voices by quality
+  function loadVoices() {
+    const voices = synth.getVoices();
+    if (voices.length === 0) return;
+
+    // Filter English voices and sort by quality score
+    const englishVoices = voices
+      .filter(v => v.lang.toLowerCase().startsWith('en'))
+      .map(v => ({ voice: v, score: scoreVoice(v) }))
+      .sort((a, b) => b.score - a.score)
+      .map(v => v.voice);
+
+    if (englishVoices.length === 0) return;
+
+    // Populate dropdown
+    voiceSelect.innerHTML = '';
+    englishVoices.forEach((voice, index) => {
+      const option = document.createElement('option');
+      option.value = index;
+      // Clean up voice name for display
+      let displayName = voice.name
+        .replace('Microsoft ', '')
+        .replace('Google ', '')
+        .replace(' Online (Natural)', ' (Natural)')
+        .replace(' - English (United States)', '')
+        .replace(' (United States)', ' (US)')
+        .replace(' (United Kingdom)', ' (UK)')
+        .replace(' (Australia)', ' (AU)');
+      option.textContent = displayName;
+      option.dataset.voiceName = voice.name;
+      voiceSelect.appendChild(option);
+    });
+
+    // Select best voice by default
+    selectedVoice = englishVoices[0];
+    voiceSelect.value = '0';
+
+    // Try to restore saved preference
+    const savedVoice = localStorage.getItem('preferredVoice');
+    if (savedVoice) {
+      const savedIndex = englishVoices.findIndex(v => v.name === savedVoice);
+      if (savedIndex !== -1) {
+        selectedVoice = englishVoices[savedIndex];
+        voiceSelect.value = savedIndex.toString();
+      }
+    }
+
+    voicesLoaded = true;
+
+    // Store voices for later reference
+    voiceSelect._voices = englishVoices;
+  }
+
+  // Voice selection change
+  voiceSelect.addEventListener('change', function() {
+    const voices = this._voices;
+    if (voices && voices[this.value]) {
+      selectedVoice = voices[this.value];
+      localStorage.setItem('preferredVoice', selectedVoice.name);
+
+      // If currently playing, restart with new voice
+      if (isPlaying && !isPaused) {
+        synth.cancel();
+        speakParagraph(currentIndex);
+      }
+    }
+  });
+
+  // Get article content
+  function getArticleParagraphs() {
+    const article = document.querySelector('article .prose');
+    if (!article) return [];
+
+    const elements = article.querySelectorAll('p, h2, h3, li');
+    return Array.from(elements).filter(el => {
+      const text = el.innerText.trim();
+      return text.length > 0;
+    });
+  }
+
+  // Update UI state
+  function updateUI() {
+    if (isPlaying && !isPaused) {
+      playIcon.classList.add('hidden');
+      pauseIcon.classList.remove('hidden');
+      controls.classList.remove('hidden');
+    } else if (isPaused) {
+      playIcon.classList.remove('hidden');
+      pauseIcon.classList.add('hidden');
+      controls.classList.remove('hidden');
+    } else {
+      playIcon.classList.remove('hidden');
+      pauseIcon.classList.add('hidden');
+      controls.classList.add('hidden');
+    }
+
+    progressDisplay.textContent = currentIndex + 1;
+    totalDisplay.textContent = paragraphs.length;
+    speedDisplay.textContent = rate.toFixed(1) + 'x';
+  }
+
+  // Highlight current paragraph
+  function highlightParagraph(index) {
+    // Remove previous highlight
+    document.querySelectorAll('.voice-reading').forEach(el => {
+      el.classList.remove('voice-reading');
+    });
+
+    // Add highlight to current
+    if (paragraphs[index]) {
+      paragraphs[index].classList.add('voice-reading');
+
+      // Smooth scroll to element
+      const rect = paragraphs[index].getBoundingClientRect();
+      const offset = window.innerHeight / 3;
+
+      if (rect.top < 100 || rect.bottom > window.innerHeight - 100) {
+        window.scrollTo({
+          top: window.scrollY + rect.top - offset,
+          behavior: 'smooth'
+        });
+      }
+    }
+  }
+
+  // Speak a paragraph
+  function speakParagraph(index) {
+    if (index >= paragraphs.length) {
+      stopReading();
+      return;
+    }
+
+    currentIndex = index;
+    highlightParagraph(index);
+    updateUI();
+
+    let text = paragraphs[index].innerText.trim();
+
+    // Add natural pauses for better flow
+    text = text
+      .replace(/\. /g, '... ')  // Longer pause after sentences
+      .replace(/\? /g, '?... ')
+      .replace(/! /g, '!... ')
+      .replace(/: /g, ':.. ')   // Medium pause after colons
+      .replace(/; /g, ';.. ')
+      .replace(/, /g, ', ');    // Keep commas natural
+
+    utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = rate;
+    utterance.pitch = 1.0;  // Keep pitch natural
+    utterance.volume = 1.0;
+
+    // Use selected voice
+    if (selectedVoice) {
+      utterance.voice = selectedVoice;
+    }
+
+    utterance.onend = function() {
+      if (isPlaying && !isPaused) {
+        // Small pause between paragraphs for natural flow
+        setTimeout(() => {
+          if (isPlaying && !isPaused) {
+            speakParagraph(currentIndex + 1);
+          }
+        }, 300);
+      }
+    };
+
+    utterance.onerror = function(e) {
+      if (e.error !== 'interrupted' && e.error !== 'canceled') {
+        console.error('Speech error:', e.error);
+        speakParagraph(currentIndex + 1);
+      }
+    };
+
+    synth.speak(utterance);
+  }
+
+  // Start reading
+  function startReading() {
+    paragraphs = getArticleParagraphs();
+    if (paragraphs.length === 0) return;
+
+    isPlaying = true;
+    isPaused = false;
+
+    if (synth.paused) {
+      synth.resume();
+    } else {
+      speakParagraph(currentIndex);
+    }
+
+    updateUI();
+  }
+
+  // Pause reading
+  function pauseReading() {
+    isPaused = true;
+    synth.pause();
+    updateUI();
+  }
+
+  // Resume reading
+  function resumeReading() {
+    isPaused = false;
+    synth.resume();
+    updateUI();
+  }
+
+  // Stop reading
+  function stopReading() {
+    isPlaying = false;
+    isPaused = false;
+    currentIndex = 0;
+    synth.cancel();
+
+    // Remove highlights
+    document.querySelectorAll('.voice-reading').forEach(el => {
+      el.classList.remove('voice-reading');
+    });
+
+    updateUI();
+  }
+
+  // Toggle button click
+  toggleBtn.addEventListener('click', function() {
+    if (!isPlaying) {
+      startReading();
+    } else if (isPaused) {
+      resumeReading();
+    } else {
+      pauseReading();
+    }
+  });
+
+  // Stop button
+  stopBtn.addEventListener('click', stopReading);
+
+  // Speed controls
+  slowerBtn.addEventListener('click', function() {
+    rate = Math.max(0.5, rate - 0.1);
+    speedDisplay.textContent = rate.toFixed(1) + 'x';
+    if (isPlaying && !isPaused) {
+      synth.cancel();
+      speakParagraph(currentIndex);
+    }
+  });
+
+  fasterBtn.addEventListener('click', function() {
+    rate = Math.min(2.0, rate + 0.1);
+    speedDisplay.textContent = rate.toFixed(1) + 'x';
+    if (isPlaying && !isPaused) {
+      synth.cancel();
+      speakParagraph(currentIndex);
+    }
+  });
+
+  // Skip controls
+  skipBackBtn.addEventListener('click', function() {
+    if (currentIndex > 0) {
+      synth.cancel();
+      speakParagraph(currentIndex - 1);
+    }
+  });
+
+  skipForwardBtn.addEventListener('click', function() {
+    if (currentIndex < paragraphs.length - 1) {
+      synth.cancel();
+      speakParagraph(currentIndex + 1);
+    }
+  });
+
+  // Initialize
+  paragraphs = getArticleParagraphs();
+  totalDisplay.textContent = paragraphs.length;
+
+  // Load voices (async in some browsers)
+  loadVoices();
+  if (synth.onvoiceschanged !== undefined) {
+    synth.onvoiceschanged = loadVoices;
+  }
+
+  // Restore saved speed preference
+  const savedRate = localStorage.getItem('preferredRate');
+  if (savedRate) {
+    rate = parseFloat(savedRate);
+    speedDisplay.textContent = rate.toFixed(1) + 'x';
+  }
+
+  // Save speed on change
+  const originalSlower = slowerBtn.onclick;
+  const originalFaster = fasterBtn.onclick;
+  slowerBtn.addEventListener('click', () => localStorage.setItem('preferredRate', rate.toFixed(1)));
+  fasterBtn.addEventListener('click', () => localStorage.setItem('preferredRate', rate.toFixed(1)));
+
+  // Stop when leaving page
+  window.addEventListener('beforeunload', function() {
+    synth.cancel();
+  });
+
+  // Handle visibility change (pause when tab hidden)
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden && isPlaying && !isPaused) {
+      pauseReading();
+    }
+  });
+
+})();
+</script>
+
+<!-- /VOICE_READER -->
 
   <!-- MUSIC_PLAYER -->
 <!-- Ambient Music Player -->
@@ -1216,6 +1703,319 @@
 <!-- COOKIE_CONSENT -->
 
   <!-- SHARED_SCRIPTS -->
+<script>
+// ===== COOKIE UTILITIES =====
+function getCookie(name) {
+  const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+  return match ? match[2] : null;
+}
+
+function setCookie(name, value, days) {
+  const expires = new Date(Date.now() + days * 864e5).toUTCString();
+  document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/; SameSite=Lax';
+}
+
+function deleteCookie(name) {
+  document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+}
+
+// ===== COOKIE CONSENT MANAGEMENT =====
+const CookieConsent = {
+  CONSENT_COOKIE: 'cookieConsent',
+  CONSENT_VERSION: '1.0',
+
+  getConsent() {
+    const consent = getCookie(this.CONSENT_COOKIE);
+    if (!consent) return null;
+    try {
+      return JSON.parse(decodeURIComponent(consent));
+    } catch (e) {
+      return null;
+    }
+  },
+
+  setConsent(preferences) {
+    const consent = {
+      version: this.CONSENT_VERSION,
+      timestamp: new Date().toISOString(),
+      essential: true, // Always true
+      analytics: preferences.analytics || false,
+      marketing: preferences.marketing || false
+    };
+    setCookie(this.CONSENT_COOKIE, JSON.stringify(consent), 365);
+    return consent;
+  },
+
+  hasConsent() {
+    return this.getConsent() !== null;
+  },
+
+  hasAnalyticsConsent() {
+    const consent = this.getConsent();
+    return consent && consent.analytics === true;
+  },
+
+  hasMarketingConsent() {
+    const consent = this.getConsent();
+    return consent && consent.marketing === true;
+  },
+
+  showBanner() {
+    const banner = document.getElementById('cookie-consent');
+    if (banner) {
+      banner.classList.remove('translate-y-full');
+    }
+  },
+
+  hideBanner() {
+    const banner = document.getElementById('cookie-consent');
+    if (banner) {
+      banner.classList.add('translate-y-full');
+    }
+  },
+
+  showModal() {
+    const modal = document.getElementById('cookie-modal');
+    if (modal) {
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      // Set checkboxes to current preferences
+      const consent = this.getConsent() || { analytics: false, marketing: false };
+      const analyticsCheckbox = document.getElementById('cookie-analytics');
+      const marketingCheckbox = document.getElementById('cookie-marketing');
+      if (analyticsCheckbox) analyticsCheckbox.checked = consent.analytics;
+      if (marketingCheckbox) marketingCheckbox.checked = consent.marketing;
+    }
+  },
+
+  hideModal() {
+    const modal = document.getElementById('cookie-modal');
+    if (modal) {
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+  },
+
+  acceptAll() {
+    const consent = this.setConsent({ analytics: true, marketing: true });
+    this.hideBanner();
+    this.hideModal();
+    this.applyConsent(consent);
+    if (typeof siteAnalytics !== 'undefined') {
+      siteAnalytics.trackEvent('cookie_consent', { consent_type: 'accept_all' });
+    }
+  },
+
+  rejectAll() {
+    const consent = this.setConsent({ analytics: false, marketing: false });
+    this.hideBanner();
+    this.hideModal();
+    this.applyConsent(consent);
+  },
+
+  savePreferences() {
+    const analyticsCheckbox = document.getElementById('cookie-analytics');
+    const marketingCheckbox = document.getElementById('cookie-marketing');
+    const consent = this.setConsent({
+      analytics: analyticsCheckbox ? analyticsCheckbox.checked : false,
+      marketing: marketingCheckbox ? marketingCheckbox.checked : false
+    });
+    this.hideBanner();
+    this.hideModal();
+    this.applyConsent(consent);
+    if (consent.analytics && typeof siteAnalytics !== 'undefined') {
+      siteAnalytics.trackEvent('cookie_consent', { consent_type: 'custom', analytics: consent.analytics, marketing: consent.marketing });
+    }
+  },
+
+  applyConsent(consent) {
+    // Dispatch event for analytics.js to listen to
+    window.dispatchEvent(new CustomEvent('cookieConsentUpdated', { detail: consent }));
+  },
+
+  init() {
+    if (!this.hasConsent()) {
+      // Show banner after a short delay for better UX
+      setTimeout(() => this.showBanner(), 1000);
+    } else {
+      // Apply existing consent
+      this.applyConsent(this.getConsent());
+    }
+  }
+};
+
+// ===== MOBILE MENU =====
+function initMobileMenu() {
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const closeMenuBtn = document.getElementById('close-menu');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const menuOverlay = document.getElementById('menu-overlay');
+
+  if (!mobileMenuBtn || !mobileMenu) return;
+
+  function openMobileMenu() {
+    mobileMenu.classList.add('open');
+    if (menuOverlay) menuOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMobileMenu() {
+    mobileMenu.classList.remove('open');
+    if (menuOverlay) menuOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  mobileMenuBtn.addEventListener('click', openMobileMenu);
+  if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeMobileMenu);
+  if (menuOverlay) menuOverlay.addEventListener('click', closeMobileMenu);
+
+  // Close menu when clicking a link
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', closeMobileMenu);
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
+      closeMobileMenu();
+    }
+  });
+}
+
+// ===== DARK MODE TOGGLE =====
+function initDarkMode() {
+  const darkModeToggle = document.getElementById('dark-mode-toggle');
+  const darkModeToggleMobile = document.getElementById('dark-mode-toggle-mobile');
+
+  // Prevent duplicate initialization
+  if (window._darkModeInitialized) return;
+  window._darkModeInitialized = true;
+
+  function toggleDarkMode() {
+    document.documentElement.classList.toggle('dark');
+    const isDark = document.documentElement.classList.contains('dark');
+    setCookie('darkMode', isDark, 365);
+  }
+
+  if (darkModeToggle) darkModeToggle.addEventListener('click', toggleDarkMode);
+  if (darkModeToggleMobile) darkModeToggleMobile.addEventListener('click', toggleDarkMode);
+}
+
+// ===== BACK TO TOP =====
+function initBackToTop() {
+  const backToTop = document.getElementById('back-to-top');
+  if (!backToTop) return;
+
+  function updateBackToTop() {
+    if (window.scrollY > 500) {
+      backToTop.classList.add('visible');
+    } else {
+      backToTop.classList.remove('visible');
+    }
+  }
+
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  window.addEventListener('scroll', updateBackToTop);
+}
+
+// ===== SCROLL REVEAL =====
+function initScrollReveal() {
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.reveal, .card-hover, .stagger-children').forEach(el => {
+    revealObserver.observe(el);
+  });
+}
+
+// ===== SMOOTH SCROLL =====
+function initSmoothScroll() {
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if (href !== '#') {
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) {
+          const headerOffset = 80;
+          const elementPosition = target.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }
+      }
+    });
+  });
+}
+
+// ===== COOKIE CONSENT EVENT LISTENERS =====
+function initCookieConsentListeners() {
+  // Banner buttons
+  const acceptBtn = document.getElementById('cookie-accept');
+  const rejectBtn = document.getElementById('cookie-reject');
+  const customizeBtn = document.getElementById('cookie-customize');
+
+  if (acceptBtn) acceptBtn.addEventListener('click', () => CookieConsent.acceptAll());
+  if (rejectBtn) rejectBtn.addEventListener('click', () => CookieConsent.rejectAll());
+  if (customizeBtn) customizeBtn.addEventListener('click', () => {
+    CookieConsent.hideBanner();
+    CookieConsent.showModal();
+  });
+
+  // Modal buttons
+  const modalClose = document.getElementById('cookie-modal-close');
+  const modalBackdrop = document.getElementById('cookie-modal-backdrop');
+  const modalReject = document.getElementById('cookie-modal-reject');
+  const modalSave = document.getElementById('cookie-modal-save');
+
+  if (modalClose) modalClose.addEventListener('click', () => CookieConsent.hideModal());
+  if (modalBackdrop) modalBackdrop.addEventListener('click', () => CookieConsent.hideModal());
+  if (modalReject) modalReject.addEventListener('click', () => CookieConsent.rejectAll());
+  if (modalSave) modalSave.addEventListener('click', () => CookieConsent.savePreferences());
+
+  // Footer cookie settings button
+  const cookieSettingsBtn = document.getElementById('cookie-settings-btn');
+  if (cookieSettingsBtn) cookieSettingsBtn.addEventListener('click', () => CookieConsent.showModal());
+
+  // Note: Cookie toggles are now wrapped in <label> elements, so native browser behavior handles the toggle.
+  // No additional JavaScript handlers needed for the toggle switches.
+}
+
+// ===== INITIALIZE ALL =====
+function initAll() {
+  initMobileMenu();
+  initDarkMode();
+  initBackToTop();
+  initScrollReveal();
+  initSmoothScroll();
+  initCookieConsentListeners();
+  CookieConsent.init();
+}
+
+// Handle both fresh page load and cases where DOM is already ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initAll);
+} else {
+  // DOM is already ready, initialize immediately
+  initAll();
+}
+
+// Expose CookieConsent for external use
+window.CookieConsent = CookieConsent;
+</script>
+
+<!-- /SHARED_SCRIPTS -->
 
   <!-- Share Functions -->
   <script>
