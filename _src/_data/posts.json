@@ -1,5 +1,20 @@
 [
   {
+    "slug": "book-review-buy-back-your-time",
+    "title": "Buy Back Your Time: The Entrepreneur's Blueprint for Freedom",
+    "description": "Dan Martell's Wall Street Journal bestseller is essential reading for entrepreneurs who want to systematize, scale, and reclaim their freedom.",
+    "category": "business",
+    "categoryLabel": "Book Review",
+    "date": "2026-02-01",
+    "dateFormatted": "Feb 1, 2026",
+    "readTime": "10 min read",
+    "image": "https://images.unsplash.com/photo-1508385082359-f38ae991e8f2?w=400&h=250&fit=crop",
+    "imageAlt": "Time management and business freedom",
+    "featured": true,
+    "excerpt": "My highest recommendation. Dan Martell's framework for buying back your time connects directly to automation and franchise model thinking.",
+    "shareHook": "Most entrepreneurs are trapped by their own success. Dan Martell's Buy Back Your Time shows you how to escape. My highest recommendation:"
+  },
+  {
     "slug": "must-be-nice-to-have-time-to-workout",
     "title": "\"It Must Be Nice to Have Time to Work Out\" — The Worst Excuse in Productivity",
     "description": "The 'I don't have time to exercise' excuse is backwards. Exercise IS your most productive time. Here's why movement unlocks mental performance.",
