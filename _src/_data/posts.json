@@ -1,5 +1,20 @@
 [
   {
+    "slug": "basic-choices-sabotaging-gains",
+    "title": "Your Basic Choices Are Sabotaging Your Gains",
+    "description": "The grocery store is a minefield of fake health foods. Learn why steel-cut oats beat instant, plain yogurt destroys flavored cups, and how to spot the imposters.",
+    "category": "fitness",
+    "categoryLabel": "Nutrition",
+    "date": "2026-02-03",
+    "dateFormatted": "Feb 3, 2026",
+    "readTime": "10 min read",
+    "image": "https://images.unsplash.com/photo-1556909114-44e3e70034e2?w=400&h=250&fit=crop",
+    "imageAlt": "Grocery store aisle with healthy food options",
+    "featured": true,
+    "excerpt": "I found 4 real options and a whole aisle of lies at the grocery store today. Here's how your 'healthy' oatmeal, yogurt, and bread choices are probably working against you.",
+    "shareHook": "I found 4 real options and a whole aisle of lies at the grocery store today. Here's how your 'healthy' oatmeal, yogurt, and bread choices are probably working against you:"
+  },
+  {
     "slug": "book-review-buy-back-your-time",
     "title": "Buy Back Your Time: The Entrepreneur's Blueprint for Freedom",
     "description": "Dan Martell's Wall Street Journal bestseller is essential reading for entrepreneurs who want to systematize, scale, and reclaim their freedom.",
@@ -10,7 +25,7 @@
     "readTime": "10 min read",
     "image": "https://images.unsplash.com/photo-1508385082359-f38ae991e8f2?w=400&h=250&fit=crop",
     "imageAlt": "Time management and business freedom",
-    "featured": true,
+    "featured": false,
     "excerpt": "My highest recommendation. Dan Martell's framework for buying back your time connects directly to automation and franchise model thinking.",
     "shareHook": "Most entrepreneurs are trapped by their own success. Dan Martell's Buy Back Your Time shows you how to escape. My highest recommendation:"
   },
